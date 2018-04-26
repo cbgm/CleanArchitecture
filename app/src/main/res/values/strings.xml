@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Clean Test</string>
+    <string name="title_overview">Overview</string>
+    <string name="title_details">Details</string>
+</resources>
