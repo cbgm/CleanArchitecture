@@ -2,13 +2,13 @@ package com.example.christian.cleantest.presentation.overview
 
 import android.util.Log
 import com.example.christian.cleantest.domain.model.UserOverview
-import com.example.christian.cleantest.domain.usecases.GetUsersUseCase
+import com.example.christian.cleantest.domain.usecases.GetUsersInPool
 import com.example.christian.cleantest.presentation.overview.mapper.UserDomainMapper
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
 class OverviewPresenter @Inject constructor(
-        private val getUsersUseCase: GetUsersUseCase
+        private val getUsersInPool: GetUsersInPool
 ): OverviewContract.Presenter{
 
     lateinit var overviewView: OverviewContract.View
@@ -30,7 +30,7 @@ class OverviewPresenter @Inject constructor(
 
 
     override fun loadUsers() {
-        getUsersUseCase.execute(GetUsersObserver())
+        getUsersInPool.execute(GetUsersObserver(), Unit)
     }
 
     override fun setVIew(v: OverviewContract.View) {
@@ -45,7 +45,7 @@ class OverviewPresenter @Inject constructor(
     }
 
     override fun onUnbind() {
-        getUsersUseCase.dispose()
+        getUsersInPool.dispose()
     }
 
 }

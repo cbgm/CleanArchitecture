@@ -7,9 +7,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetUsersUseCase @Inject constructor(private val userRepository: UserRepository): SingleUseCase<UserOverview>() {
+class GetUsersInPool @Inject constructor(private val userRepository: UserRepository): SingleUseCase<UserOverview, Unit>() {
 
-    override fun buildUseCaseObservable(params: SingleUseCase.Params?): Single<UserOverview> {
+    override fun buildUseCaseObservable(param: Unit): Single<UserOverview> {
         return this.userRepository.getAllUsers()
     }
 

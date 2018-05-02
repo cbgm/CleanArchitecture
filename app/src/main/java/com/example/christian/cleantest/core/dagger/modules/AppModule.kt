@@ -2,7 +2,8 @@ package com.example.christian.cleantest.core.dagger.modules
 
 import android.content.Context
 import com.example.christian.cleantest.core.mock.FakeInterceptor
-import com.example.christian.cleantest.data.repository.remote.UserApi
+import com.example.christian.cleantest.data.repository.remote.cart.CartApi
+import com.example.christian.cleantest.data.repository.remote.user.UserApi
 import com.example.christian.cleantest.presentation.UserApplication
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,12 @@ class AppModule(val app: UserApplication) {
     @Provides
     fun provideUserApi(retrofit: Retrofit): UserApi {
         return retrofit.create(UserApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideItemApi(retrofit: Retrofit): CartApi {
+        return retrofit.create(CartApi::class.java)
     }
 
     @Singleton

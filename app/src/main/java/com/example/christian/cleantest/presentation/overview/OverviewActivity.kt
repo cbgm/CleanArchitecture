@@ -1,14 +1,15 @@
 package com.example.christian.cleantest.presentation.overview
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
 import com.example.christian.cleantest.device.ToolbarLoader
+import com.example.christian.cleantest.presentation.cartview.CartActivity
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.overview.*
@@ -27,7 +28,7 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         Injector.initActivityComponent(this).inject(this)
         presenter.setVIew(this)
         initViews()
-        ToolbarLoader(this, R.string.title_overview, true)
+        ToolbarLoader(this, R.string.title_overview, false)
     }
 
     override fun onResume() {
@@ -79,7 +80,9 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         user_list.adapter = userAdapter
     }
 
-    override fun onItemClick(position: Int) {
-        Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(userId: String) {
+        val intent = Intent(this, CartActivity::class.java)
+        intent.putExtra("User", userId)
+        startActivityForResult(intent, 10)
     }
 }

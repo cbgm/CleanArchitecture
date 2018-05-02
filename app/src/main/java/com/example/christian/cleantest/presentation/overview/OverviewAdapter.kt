@@ -16,7 +16,7 @@ class OverviewAdapter(
     override fun onBindViewHolder(holder: UserViewHolder, position: Int)  {
         holder.lastnameTxt.text = data[position].lastname
         holder.nameTxt.text = data[position].name
-        holder.itemView.setOnClickListener{listener.onItemClick(position)}
+        holder.itemView.setOnClickListener{listener.onItemClick(data[position].name)}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -39,7 +39,7 @@ class OverviewAdapter(
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(userId: String)
     }
 
 }

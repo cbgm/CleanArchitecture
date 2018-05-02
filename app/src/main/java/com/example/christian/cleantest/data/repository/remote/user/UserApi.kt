@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.data.repository.remote
+package com.example.christian.cleantest.data.repository.remote.user
 
 import com.example.christian.cleantest.data.model.UserDto
 import io.reactivex.Single

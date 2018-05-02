@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.core.mock
 
+import com.example.christian.cleantest.data.model.CartDto
 import com.example.christian.cleantest.data.model.UserDto
 import okhttp3.*
 import java.io.IOException
@@ -7,11 +8,28 @@ import com.google.gson.GsonBuilder
 
 class FakeInterceptor : Interceptor {
 
+    private var users = ArrayList<UserDto>()
+    private var userCart = HashMap<String, CartDto>()
+
+    init{
+        users.add(UserDto("bla", "blub"))
+        users.add(UserDto("bl", "blo"))
+
+        for(user in users)
+            userCart[user.name] = CartDto(50 + user.name.length, listOf("item1", "item2"))
+
+    }
+
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response? {
         val response: Response?
-        val responseString: String = getMockedJson()
+
+        val url:String = chain.request().url().url().toString()
+        val responseString: String = if(url.contains("users"))
+            getMockedUserJson()
+        else
+            getMockedCartJson(chain.request().url().queryParameter("userId")!!)
         response = Response.Builder()
                 .code(200)
                 .message(responseString)
@@ -25,12 +43,15 @@ class FakeInterceptor : Interceptor {
         return response
     }
 
-    private fun getMockedJson(): String{
-        val list = ArrayList<UserDto>()
-        list.add(UserDto("bla", "blub"))
-        list.add(UserDto("bl", "blo"))
 
-        return GsonBuilder().create().toJson(list)
+    private fun getMockedCartJson(id: String): String {
+
+        return GsonBuilder().create().toJson(userCart[id])
+    }
+
+    private fun getMockedUserJson(): String{
+
+        return GsonBuilder().create().toJson(users)
     }
 
 }

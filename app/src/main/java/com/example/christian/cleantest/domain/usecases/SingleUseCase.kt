@@ -7,30 +7,20 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-abstract class SingleUseCase<T> {
+abstract class SingleUseCase<T, in Params> {
 
     private var compositeDisposable: CompositeDisposable? = null
 
-    abstract fun buildUseCaseObservable(params: Params? = null): Single<T>
+    abstract fun buildUseCaseObservable(param: Params): Single<T>
 
-    fun execute(observer: DisposableSingleObserver<T>? = null): Single<T> {
+    fun execute(observer: DisposableSingleObserver<T>? = null, param: Params): Single<T> {
         dispose()
-        val observable = buildUseCaseObservable()
+        val observable = buildUseCaseObservable(param)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
         if (observer != null)
             addDisposable(observable.subscribeWith(observer))
         return observable
-    }
-
-
-    class Params private constructor(private val userId: Int) {
-        companion object {
-
-            fun forUser(userId: Int): Params {
-                return Params(userId)
-            }
-        }
     }
 
     fun dispose() = compositeDisposable?.takeIf { !it.isDisposed }?.dispose()

@@ -5,7 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class LocalRepo @Inject constructor() {
+class UsersFromLocal @Inject constructor() {
     private val userDao = DaoFactory.getDaoFactory(DaoFactory.SQL).getUserDao()
 
     fun getUsers(): Single<UserOverview> = userDao.getUsers()
