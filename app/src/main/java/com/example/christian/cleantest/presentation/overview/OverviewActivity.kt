@@ -12,7 +12,7 @@ import com.example.christian.cleantest.device.ToolbarLoader
 import com.example.christian.cleantest.presentation.cartview.CartActivity
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.overview.*
+import kotlinx.android.synthetic.main.activity_overview.*
 import javax.inject.Inject
 
 
@@ -42,7 +42,7 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
     }
 
     override fun getLayoutResId(): Int {
-        return R.layout.overview
+        return R.layout.activity_overview
     }
 
     override fun toolbarBuilder(): FragmentToolbar {
