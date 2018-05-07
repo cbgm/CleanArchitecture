@@ -4,7 +4,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 
-object RxEventBus {
+object RxPhotoBus {
     private val subscriberSubjects = PublishSubject.create<Any>()
 
     //get observable and subscribe anywhere

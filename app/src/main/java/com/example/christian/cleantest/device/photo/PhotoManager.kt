@@ -16,15 +16,13 @@ import com.example.christian.cleantest.R
 import android.content.Intent
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
-import org.reactivestreams.Subscription
-
-
 
 class PhotoManager @Inject constructor(val context: Context) {
 
-    private val cameraSubscription: Subscription? = null
-    private val gallerySubscription: Subscription? = null
+    private val compositeSubscription = CompositeDisposable()
     private lateinit var callback: PhotoManagerCallback
     private val pickerItems =  ArrayList<PickerItem>()
 
@@ -44,12 +42,12 @@ class PhotoManager @Inject constructor(val context: Context) {
         val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = pickerItems[which].value
+
                     when(selected){
                         1 -> forwardToGallery()
                         2 -> forwardToCamera()
                         3 -> ""
                     }
-
                     dialog.dismiss()
                 })
         val dialog = pickerBuilder.create()
@@ -60,6 +58,72 @@ class PhotoManager @Inject constructor(val context: Context) {
 
     data class PickerItem(val desc: String, val drawable: Drawable?, val value: Int)
 
+    private fun subscribe(){
+        compositeSubscription.add( RxPhotoBus.observables
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { cropImage(it)})
+    }
+
+    private fun unsubscribe(){
+        compositeSubscription.takeIf { it.isDisposed }?.apply{ dispose() }
+    }
+
+    private fun subscribeCamera(){
+
+    }
+
+    private fun unsubscribeCamera(){
+
+    }
+
+    private fun cropImage(o: Any?){
+        unsubscribe()
+        o?.let {
+            val tempData = o as PhotoCallbackObject
+
+            when(tempData.resultCode){
+                CAMERA_RESULT_CODE -> {
+
+                }
+                GALLERY_RELUT_CODE -> {
+
+                }
+            }
+
+            //val cropIntent = Intent("com.android.camera.action.CROP");
+
+            //cropIntent.setDataAndType(uri, "image/*")
+
+            //cropIntent.putExtra("crop", "true")
+            //cropIntent.putExtra("outputX", 180)
+            //cropIntent.putExtra("outputY", 180)
+            //cropIntent.putExtra("aspectX", 3)
+            //cropIntent.putExtra("aspectY", 4)
+            //cropIntent.putExtra("scaleUpIfNeeded", true)
+            //cropIntent.putExtra("return-data", true)
+
+            //(context as AppCompatActivity).startActivityForResult(cropIntent, 1);
+        }
+    }
+
+    private fun forwardToGallery() {
+        val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
+        takeGalleryPictureIntent.type = "image/*"
+        (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RELUT_CODE)
+    }
+
+    private fun forwardToCamera() {
+        subscribe()
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
+            (context as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
+        }
+    }
+
+    fun setPhotoCallback(callback: PhotoManagerCallback){
+        this.callback = callback
+    }
 
     inner class PickerAdapter(val data: ArrayList<PickerItem>): BaseAdapter() {
 
@@ -85,7 +149,6 @@ class PhotoManager @Inject constructor(val context: Context) {
                 view = convertView
                 holder = convertView.tag as ItemHolder
             }
-
             holder.bind(data[position])
 
             return view
@@ -101,23 +164,6 @@ class PhotoManager @Inject constructor(val context: Context) {
                 desc?.text = pickerItem.desc
             }
         }
-    }
-
-    private fun forwardToGallery() {
-        val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
-        takeGalleryPictureIntent.type = "image/*"
-        (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RELUT_CODE)
-    }
-
-    private fun forwardToCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
-            (context as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
-        }
-    }
-
-    fun setPhotoCallback(callback: PhotoManagerCallback){
-        this.callback = callback
     }
 
     interface PhotoManagerCallback{

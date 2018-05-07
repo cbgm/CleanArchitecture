@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.presentation.overview
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -9,6 +10,8 @@ import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
 import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.ToolbarLoader
+import com.example.christian.cleantest.device.photo.PhotoCallbackObject
+import com.example.christian.cleantest.device.photo.RxPhotoBus
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_overview.*
@@ -84,5 +87,9 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         intent.putExtra("User", userId)
         startActivityForResult(intent, 10)*/
         PhotoManager(this).initPicking()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        RxPhotoBus.sendToBus(PhotoCallbackObject(resultCode, data))
     }
 }
