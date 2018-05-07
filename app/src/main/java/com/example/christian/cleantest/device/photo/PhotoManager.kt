@@ -27,14 +27,15 @@ class PhotoManager @Inject constructor(val context: Context) {
     private val pickerItems =  ArrayList<PickerItem>()
 
     companion object {
-        val CAMERA_RESULT_CODE: Int = 1
-        val GALLERY_RELUT_CODE: Int = 2
+        const val CAMERA_RESULT_CODE: Int = 1
+        const val GALLERY_RESULT_CODE: Int = 2
+        const val DELETE_RESULT_CODE: Int = 3
     }
 
     init {
-        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), 1))
-        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), 2))
-        pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), 3))
+        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
+        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), GALLERY_RESULT_CODE))
+        pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
     }
 
     fun initPicking(){
