@@ -90,6 +90,6 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        RxPhotoBus.sendToBus(PhotoCallbackObject(resultCode, data))
+        RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 }

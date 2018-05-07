@@ -24,12 +24,13 @@ class PhotoManager @Inject constructor(val context: Context) {
 
     private val compositeSubscription = CompositeDisposable()
     private lateinit var callback: PhotoManagerCallback
-    private val pickerItems =  ArrayList<PickerItem>()
+    private val pickerItems = ArrayList<PickerItem>()
 
     companion object {
         const val CAMERA_RESULT_CODE: Int = 1
         const val GALLERY_RESULT_CODE: Int = 2
         const val DELETE_RESULT_CODE: Int = 3
+        const val CROP_RESULT_CODE: Int = 4
     }
 
     init {
@@ -38,15 +39,15 @@ class PhotoManager @Inject constructor(val context: Context) {
         pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
     }
 
-    fun initPicking(){
+    fun initPicking() {
         val adapter = PickerAdapter(pickerItems)
         val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = pickerItems[which].value
 
-                    when(selected){
-                        1 -> forwardToGallery()
-                        2 -> forwardToCamera()
+                    when (selected) {
+                        1 -> forwardToCamera()
+                        2 -> forwardToGallery()
                         3 -> ""
                     }
                     dialog.dismiss()
@@ -59,58 +60,59 @@ class PhotoManager @Inject constructor(val context: Context) {
 
     data class PickerItem(val desc: String, val drawable: Drawable?, val value: Int)
 
-    private fun subscribe(){
-        compositeSubscription.add( RxPhotoBus.observables
+    private fun subscribe() {
+        compositeSubscription.add(RxPhotoBus.observables
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { cropImage(it)})
+                .subscribe { cropImage(it) })
     }
 
-    private fun unsubscribe(){
-        compositeSubscription.takeIf { it.isDisposed }?.apply{ dispose() }
+    private fun unsubscribe() {
+        compositeSubscription.takeIf { !it.isDisposed }?.apply { dispose() }
     }
 
-    private fun subscribeCamera(){
-
-    }
-
-    private fun unsubscribeCamera(){
+    private fun subscribeCamera() {
 
     }
 
-    private fun cropImage(o: Any?){
+    private fun unsubscribeCamera() {
+
+    }
+
+    private fun cropImage(o: Any?) {
         unsubscribe()
         o?.let {
             val tempData = o as PhotoCallbackObject
 
-            when(tempData.resultCode){
+            when (tempData.resultCode) {
                 CAMERA_RESULT_CODE -> {
 
                 }
-                GALLERY_RELUT_CODE -> {
+                GALLERY_RESULT_CODE -> {
 
                 }
             }
 
-            //val cropIntent = Intent("com.android.camera.action.CROP");
+            val cropIntent = Intent("com.android.camera.action.CROP")
 
-            //cropIntent.setDataAndType(uri, "image/*")
+            cropIntent.setDataAndType(o.data?.data, "image/*")
 
-            //cropIntent.putExtra("crop", "true")
-            //cropIntent.putExtra("outputX", 180)
-            //cropIntent.putExtra("outputY", 180)
-            //cropIntent.putExtra("aspectX", 3)
-            //cropIntent.putExtra("aspectY", 4)
-            //cropIntent.putExtra("scaleUpIfNeeded", true)
-            //cropIntent.putExtra("return-data", true)
+            cropIntent.putExtra("crop", "true")
+            cropIntent.putExtra("outputX", 180)
+            cropIntent.putExtra("outputY", 180)
+            cropIntent.putExtra("aspectX", 3)
+            cropIntent.putExtra("aspectY", 4)
+            cropIntent.putExtra("scaleUpIfNeeded", true)
+            cropIntent.putExtra("return-data", true)
 
-            //(context as AppCompatActivity).startActivityForResult(cropIntent, 1);
+            (context as AppCompatActivity).startActivityForResult(cropIntent, CROP_RESULT_CODE)
         }
     }
 
     private fun forwardToGallery() {
+        subscribe()
         val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
         takeGalleryPictureIntent.type = "image/*"
-        (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RELUT_CODE)
+        (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
     }
 
     private fun forwardToCamera() {
@@ -122,11 +124,11 @@ class PhotoManager @Inject constructor(val context: Context) {
         }
     }
 
-    fun setPhotoCallback(callback: PhotoManagerCallback){
+    fun setPhotoCallback(callback: PhotoManagerCallback) {
         this.callback = callback
     }
 
-    inner class PickerAdapter(val data: ArrayList<PickerItem>): BaseAdapter() {
+    inner class PickerAdapter(val data: ArrayList<PickerItem>) : BaseAdapter() {
 
         private val inflater: LayoutInflater by lazy {
             LayoutInflater.from(context)
@@ -142,7 +144,7 @@ class PhotoManager @Inject constructor(val context: Context) {
             val holder: ItemHolder
             val view: View?
 
-            if(convertView == null){
+            if (convertView == null) {
                 view = inflater.inflate(R.layout.photopicker_item, parent, false)
                 holder = ItemHolder(view)
                 view.tag = holder
@@ -155,19 +157,19 @@ class PhotoManager @Inject constructor(val context: Context) {
             return view
         }
 
-        private inner class ItemHolder(view: View?){
+        private inner class ItemHolder(view: View?) {
 
             val icon: ImageView? = view?.findViewById(R.id.icon)
             val desc: TextView? = view?.findViewById(R.id.desc)
 
-            fun bind(pickerItem: PickerItem){
+            fun bind(pickerItem: PickerItem) {
                 icon?.setImageDrawable(pickerItem.drawable)
                 desc?.text = pickerItem.desc
             }
         }
     }
 
-    interface PhotoManagerCallback{
+    interface PhotoManagerCallback {
 
         fun croppedResult(image: Bitmap)
     }
