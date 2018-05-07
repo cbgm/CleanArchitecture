@@ -28,20 +28,15 @@ class PhotoManager @Inject constructor(val context: Context) {
     private lateinit var callback: PhotoManagerCallback
     private val pickerItems =  ArrayList<PickerItem>()
 
-    init {
-        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null),1))
-        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null),2))
-        pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null),3))
-
-    }
-
     companion object {
         val CAMERA_RESULT_CODE: Int = 1
         val GALLERY_RELUT_CODE: Int = 2
     }
 
-    fun setPhotoCallback(callback: PhotoManagerCallback){
-        this.callback = callback
+    init {
+        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), 1))
+        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), 2))
+        pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), 3))
     }
 
     fun initPicking(){
@@ -50,8 +45,8 @@ class PhotoManager @Inject constructor(val context: Context) {
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = pickerItems[which].value
                     when(selected){
-                        1 -> ""
-                        2 -> ""
+                        1 -> forwardToGallery()
+                        2 -> forwardToCamera()
                         3 -> ""
                     }
 
@@ -74,16 +69,12 @@ class PhotoManager @Inject constructor(val context: Context) {
 
         override fun getItem(position: Int) = data[position]
 
-
         override fun getItemId(position: Int) = position.toLong()
-
-    //adapter
 
         override fun getCount() = data.size
 
-
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-            val holder:ItemHolder
+            val holder: ItemHolder
             val view: View?
 
             if(convertView == null){
@@ -123,6 +114,10 @@ class PhotoManager @Inject constructor(val context: Context) {
         if (takePictureIntent.resolveActivity(context.packageManager) != null) {
             (context as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
         }
+    }
+
+    fun setPhotoCallback(callback: PhotoManagerCallback){
+        this.callback = callback
     }
 
     interface PhotoManagerCallback{

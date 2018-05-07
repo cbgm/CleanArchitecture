@@ -1,6 +1,5 @@
 package com.example.christian.cleantest.presentation.overview
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -10,7 +9,6 @@ import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
 import com.example.christian.cleantest.device.PhotoManager
 import com.example.christian.cleantest.device.ToolbarLoader
-import com.example.christian.cleantest.presentation.cartview.CartActivity
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_overview.*
