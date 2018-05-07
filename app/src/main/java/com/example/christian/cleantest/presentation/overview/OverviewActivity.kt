@@ -8,6 +8,7 @@ import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
+import com.example.christian.cleantest.device.PhotoManager
 import com.example.christian.cleantest.device.ToolbarLoader
 import com.example.christian.cleantest.presentation.cartview.CartActivity
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
@@ -81,8 +82,9 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
     }
 
     override fun onItemClick(userId: String) {
-        val intent = Intent(this, CartActivity::class.java)
+        /*val intent = Intent(this, CartActivity::class.java)
         intent.putExtra("User", userId)
-        startActivityForResult(intent, 10)
+        startActivityForResult(intent, 10)*/
+        PhotoManager(this).initPicking()
     }
 }
