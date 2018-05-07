@@ -2,10 +2,10 @@ package com.example.christian.cleantest.device.photo
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.christian.cleantest.R
 
 class SharedPreferencesUtil {
     companion object {
-        private const val SHAREDPREFERENCE = "Files"
 
         fun get(id: String, context: Context): String {
             return getSharedPreferences(context).getString(id, null)
@@ -20,7 +20,7 @@ class SharedPreferencesUtil {
         }
 
         private fun getSharedPreferences(context: Context): SharedPreferences {
-            return context.getSharedPreferences(SHAREDPREFERENCE, Context.MODE_PRIVATE)
+            return context.getSharedPreferences(context.resources.getString(R.string.photo_folder), Context.MODE_PRIVATE)
         }
     }
 }
