@@ -7,7 +7,7 @@ import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
-import com.example.christian.cleantest.device.PhotoManager
+import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.ToolbarLoader
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import kotlinx.android.synthetic.main.activity_main.*
