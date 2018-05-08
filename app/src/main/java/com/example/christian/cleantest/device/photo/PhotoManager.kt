@@ -26,6 +26,7 @@ class PhotoManager @Inject constructor(val context: Context) {
     private val compositeSubscription = CompositeDisposable()
     private lateinit var callback: PhotoManagerCallback
     private val pickerItems = ArrayList<PickerItem>()
+    lateinit var fileName: String
 
     companion object {
         const val CAMERA_RESULT_CODE: Int = 1
@@ -34,13 +35,9 @@ class PhotoManager @Inject constructor(val context: Context) {
         const val CROP_RESULT_CODE: Int = 4
     }
 
-    init {
-        pickerItems.add(PickerItem("Kamera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
-        pickerItems.add(PickerItem("Gallerie", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_gallery, null), GALLERY_RESULT_CODE))
-        pickerItems.add(PickerItem("Löschen", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
-    }
-
-    fun initPicking() {
+    fun initPicking(fileName: String) {
+        this.fileName = fileName
+        initItems()
         val adapter = PickerAdapter(pickerItems)
         val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
@@ -49,14 +46,35 @@ class PhotoManager @Inject constructor(val context: Context) {
                     when (selected) {
                         1 -> forwardToCamera()
                         2 -> forwardToGallery()
-                        3 -> ""
+                        3 -> deletePicture()
                     }
                     dialog.dismiss()
                 })
+        createImageOptionDialog(pickerBuilder).show()
+    }
+
+    private fun initItems() {
+        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
+        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), GALLERY_RESULT_CODE))
+        if (hasPictureDefined()) {
+            pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
+        }
+    }
+
+    private fun hasPictureDefined(): Boolean {
+        return SharedPreferencesUtil.get(fileName, context) != null
+    }
+
+    private fun createImageOptionDialog(pickerBuilder: AlertDialog.Builder): AlertDialog {
         val dialog = pickerBuilder.create()
         dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         dialog.window.setGravity(Gravity.BOTTOM)
-        dialog.show()
+        return dialog
+    }
+
+    private fun deletePicture() {
+        ImageUtil.deleteImageFromInternalStorage(context, fileName)
+        SharedPreferencesUtil.delete(fileName, context)
     }
 
     data class PickerItem(val desc: String, val drawable: Drawable?, val value: Int)
