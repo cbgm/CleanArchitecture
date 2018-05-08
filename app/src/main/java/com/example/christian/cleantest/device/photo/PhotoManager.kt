@@ -16,6 +16,7 @@ import com.example.christian.cleantest.R
 import android.content.Intent
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
+import com.example.christian.cleantest.presentation.cropview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -34,9 +35,9 @@ class PhotoManager @Inject constructor(val context: Context) {
     }
 
     init {
-        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
-        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), GALLERY_RESULT_CODE))
-        pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
+        pickerItems.add(PickerItem("Kamera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
+        pickerItems.add(PickerItem("Gallerie", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_gallery, null), GALLERY_RESULT_CODE))
+        pickerItems.add(PickerItem("Löschen", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
     }
 
     fun initPicking() {
@@ -78,11 +79,11 @@ class PhotoManager @Inject constructor(val context: Context) {
 
     }
 
-    private fun cropImage(o: Any?) {
+    private fun cropImage(o: Any) {
         unsubscribe()
-        o?.let {
-            val tempData = o as PhotoCallbackObject
+        val tempData = o as PhotoCallbackObject
 
+        o.data?.let {
             when (tempData.resultCode) {
                 CAMERA_RESULT_CODE -> {
 
@@ -92,19 +93,9 @@ class PhotoManager @Inject constructor(val context: Context) {
                 }
             }
 
-            val cropIntent = Intent("com.android.camera.action.CROP")
-
-            cropIntent.setDataAndType(o.data?.data, "image/*")
-
-            cropIntent.putExtra("crop", "true")
-            cropIntent.putExtra("outputX", 180)
-            cropIntent.putExtra("outputY", 180)
-            cropIntent.putExtra("aspectX", 3)
-            cropIntent.putExtra("aspectY", 4)
-            cropIntent.putExtra("scaleUpIfNeeded", true)
-            cropIntent.putExtra("return-data", true)
-
-            (context as AppCompatActivity).startActivityForResult(cropIntent, CROP_RESULT_CODE)
+            val cropPictureIntent = Intent(context, CropActivity::class.java)
+            cropPictureIntent.putExtra("Uri", o.data.data.toString())
+            (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
         }
     }
 

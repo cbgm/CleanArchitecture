@@ -26,7 +26,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     
-    <style name="PhotopickerTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="PhotopickerTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">true</item>

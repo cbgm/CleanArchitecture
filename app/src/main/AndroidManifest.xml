@@ -22,7 +22,8 @@
         <activity
             android:name=".presentation.cartview.CartActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".presentation.cropview.CropActivity"/>
     </application>
 
 </manifest>
