@@ -7,7 +7,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import java.io.File
 
-class ImageUtil() {
+class ImageUtil {
     companion object {
         fun saveBitmapAsImage(context: Context, bitmap: Bitmap?, name: String) {
             val outputStream = context.openFileOutput(name, Context.MODE_PRIVATE)
@@ -28,8 +28,7 @@ class ImageUtil() {
         }
 
         fun getImagePathByName(name: String, context: Context): Uri? {
-            val test = Uri.fromFile(File("${context.filesDir.absolutePath}${File.separator}$name"))
-            return test
+            return Uri.fromFile(File("${context.filesDir.absolutePath}${File.separator}$name"))
         }
     }
 }

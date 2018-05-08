@@ -18,9 +18,10 @@ import kotlinx.android.synthetic.main.activity_overview.*
 import javax.inject.Inject
 
 
-class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
+class OverviewActivity : BaseActivity(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
 
-    @Inject lateinit var presenter: OverviewPresenter
+    @Inject
+    lateinit var presenter: OverviewPresenter
 
     private var userAdapter: OverviewAdapter = OverviewAdapter(arrayListOf(), this)
 
@@ -91,5 +92,10 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //TODO implement method for Permission granted?
     }
 }
