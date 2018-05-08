@@ -8,9 +8,9 @@ import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
-import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.ToolbarLoader
 import com.example.christian.cleantest.device.photo.PhotoCallbackObject
+import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.photo.RxPhotoBus
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -86,7 +86,7 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         /*val intent = Intent(this, CartActivity::class.java)
         intent.putExtra("User", userId)
         startActivityForResult(intent, 10)*/
-        PhotoManager(this).initPicking()
+        PhotoManager(this).initPicking(userId)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -21,5 +21,9 @@ class ImageUtil() {
         fun loadImageFromGallery(context: Context, path: String): Bitmap? {
             return MediaStore.Images.Media.getBitmap(context.contentResolver, Uri.Builder().appendPath(path).build())
         }
+
+        fun deleteImageFromInternalStorage(context: Context, name: String) {
+            context.deleteFile(name)
+        }
     }
 }
