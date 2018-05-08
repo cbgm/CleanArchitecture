@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import java.io.File
 
 class ImageUtil() {
     companion object {
@@ -24,6 +25,10 @@ class ImageUtil() {
 
         fun deleteImageFromInternalStorage(context: Context, name: String) {
             context.deleteFile(name)
+        }
+
+        fun getImagePathByName(name: String, context: Context): Uri? {
+            return Uri.Builder().appendPath("${context.filesDir.absolutePath}${File.pathSeparator}$name").build()
         }
     }
 }
