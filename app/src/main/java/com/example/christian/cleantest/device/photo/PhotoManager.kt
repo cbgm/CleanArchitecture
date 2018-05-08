@@ -55,7 +55,7 @@ class PhotoManager @Inject constructor(val context: Context) {
 
     private fun initItems() {
         pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
-        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), GALLERY_RESULT_CODE))
+        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_gallery, null), GALLERY_RESULT_CODE))
         if (hasPictureDefined()) {
             pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
         }

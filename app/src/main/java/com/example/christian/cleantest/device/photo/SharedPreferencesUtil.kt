@@ -7,7 +7,7 @@ import com.example.christian.cleantest.R
 class SharedPreferencesUtil {
     companion object {
 
-        fun get(id: String, context: Context): String {
+        fun get(id: String, context: Context): String? {
             return getSharedPreferences(context).getString(id, null)
         }
 

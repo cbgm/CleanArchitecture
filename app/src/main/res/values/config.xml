@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="photo_folder">"/files"</string>
+    <string name="photo_folder">"files"</string>
 </resources>
