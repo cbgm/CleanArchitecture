@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
 import android.content.Intent
+import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import com.example.christian.cleantest.presentation.cropview.CropActivity
@@ -26,7 +27,7 @@ class PhotoManager @Inject constructor(val context: Context) {
     private val compositeSubscription = CompositeDisposable()
     private lateinit var callback: PhotoManagerCallback
     private val pickerItems = ArrayList<PickerItem>()
-    lateinit var fileName: String
+    private lateinit var fileName: String
 
     companion object {
         const val CAMERA_RESULT_CODE: Int = 1
@@ -36,7 +37,7 @@ class PhotoManager @Inject constructor(val context: Context) {
     }
 
     fun initPicking(fileName: String) {
-        this.fileName = fileName
+        this.fileName = "$fileName.png"
         initItems()
         val adapter = PickerAdapter(pickerItems)
         val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
@@ -44,9 +45,9 @@ class PhotoManager @Inject constructor(val context: Context) {
                     val selected = pickerItems[which].value
 
                     when (selected) {
-                        1 -> forwardToCamera()
-                        2 -> forwardToGallery()
-                        3 -> deletePicture()
+                        CAMERA_RESULT_CODE -> forwardToCamera()
+                        GALLERY_RESULT_CODE -> forwardToGallery()
+                        DELETE_RESULT_CODE -> deletePicture()
                     }
                     dialog.dismiss()
                 })
@@ -89,32 +90,26 @@ class PhotoManager @Inject constructor(val context: Context) {
         compositeSubscription.takeIf { !it.isDisposed }?.apply { dispose() }
     }
 
-    private fun subscribeCamera() {
-
-    }
-
-    private fun unsubscribeCamera() {
-
-    }
-
     private fun cropImage(o: Any) {
         unsubscribe()
         val tempData = o as PhotoCallbackObject
 
-        o.data?.let {
-            when (tempData.resultCode) {
-                CAMERA_RESULT_CODE -> {
-
-                }
-                GALLERY_RESULT_CODE -> {
-
+        val uri:Uri? = when(tempData.resultCode) {
+            CAMERA_RESULT_CODE -> {
+                val bitmap = tempData.data?.getParcelableExtra<Bitmap>("data")
+                bitmap?.let {
+                    ImageUtil.saveBitmapAsImage(context, it, fileName)
+                    ImageUtil.getImagePathByName(fileName, context)
                 }
             }
-
-            val cropPictureIntent = Intent(context, CropActivity::class.java)
-            cropPictureIntent.putExtra("Uri", o.data.data.toString())
-            (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
+            GALLERY_RESULT_CODE -> tempData.data?.data
+            else -> null
         }
+
+        val cropPictureIntent = Intent(context, CropActivity::class.java)
+        cropPictureIntent.putExtra("Uri", uri.toString())
+        (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
+
     }
 
     private fun forwardToGallery() {

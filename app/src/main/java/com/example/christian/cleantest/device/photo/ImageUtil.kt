@@ -9,9 +9,9 @@ import java.io.File
 
 class ImageUtil() {
     companion object {
-        fun saveBitmapAsImage(context: Context, bitmap: Bitmap, name: String) {
+        fun saveBitmapAsImage(context: Context, bitmap: Bitmap?, name: String) {
             val outputStream = context.openFileOutput(name, Context.MODE_PRIVATE)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
         }
 
         fun loadImage(context: Context, name: String): Bitmap? {
@@ -28,7 +28,8 @@ class ImageUtil() {
         }
 
         fun getImagePathByName(name: String, context: Context): Uri? {
-            return Uri.Builder().appendPath("${context.filesDir.absolutePath}${File.pathSeparator}$name").build()
+            val test = Uri.fromFile(File("${context.filesDir.absolutePath}${File.separator}$name"))
+            return test
         }
     }
 }

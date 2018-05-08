@@ -21,8 +21,6 @@ class CropActivity : AppCompatActivity() {
         } catch (ex: Exception) {
             finish()
         }
-
-
     }
 
     private fun prepareView(uri: Uri) {
