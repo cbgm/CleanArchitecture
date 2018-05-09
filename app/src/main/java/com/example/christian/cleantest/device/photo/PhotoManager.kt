@@ -17,7 +17,7 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import com.example.christian.cleantest.presentation.cropview.CropActivity
+import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -55,10 +55,10 @@ class PhotoManager @Inject constructor(val context: Context) {
     }
 
     private fun initItems() {
-        pickerItems.add(PickerItem("Camera", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_camera, null), CAMERA_RESULT_CODE))
-        pickerItems.add(PickerItem("Gallery", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_menu_gallery, null), GALLERY_RESULT_CODE))
+        pickerItems.add(PickerItem("Foto aufnehmen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
+        pickerItems.add(PickerItem("Foto hochladen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
         if (hasPictureDefined()) {
-            pickerItems.add(PickerItem("Delete", ResourcesCompat.getDrawable(context.resources, android.R.drawable.ic_delete, null), DELETE_RESULT_CODE))
+            pickerItems.add(PickerItem("Foto löschen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
         }
     }
 

@@ -13,6 +13,7 @@ import com.example.christian.cleantest.device.photo.PhotoCallbackObject
 import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.photo.RxPhotoBus
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
+import com.example.christian.cleantest.presentation.personalview.PersonalActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_overview.*
 import javax.inject.Inject
@@ -86,10 +87,8 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         /*val intent = Intent(this, CartActivity::class.java)
         intent.putExtra("User", userId)
         startActivityForResult(intent, 10)*/
-        PhotoManager(this).initPicking(userId)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
+        val intent = Intent(this, PersonalActivity::class.java)
+       intent.putExtra("User", userId)
+       startActivityForResult(intent, 11)
     }
 }

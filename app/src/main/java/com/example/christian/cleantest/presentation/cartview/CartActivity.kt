@@ -14,7 +14,7 @@ class CartActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ToolbarLoader(this, R.string.details_title, true)
+        ToolbarLoader(this, R.string.title_details, true)
         intent.getStringExtra("User")?.let { inlflateFragment(it) }
         loading.visibility = View.GONE
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".presentation.cropview.CropActivity">
+    tools:context=".presentation.personalview.CropActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -30,6 +30,7 @@
         android:layout_weight="1"
         app:cropAspectRatioX="16"
         app:cropAspectRatioY="9"
+        app:cropGuidelinesColor="@android:color/transparent"
         app:cropBorderCornerColor="@color/golden_yellow"
         app:cropBorderLineColor="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
