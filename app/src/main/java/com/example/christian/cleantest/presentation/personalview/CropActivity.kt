@@ -34,7 +34,8 @@ class CropActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }
-        cancel_btn.setOnClickListener { onBackPressed() }
+        cancel_btn.setOnClickListener {finish()
+        }
         rotate_btn.setOnClickListener {
             cropImageView.rotateImage(90)
         }

@@ -94,13 +94,4 @@ class OverviewActivity : BaseActivity(), OverviewContract.View, OverviewAdapter.
        intent.putExtra("User", userId)
        startActivityForResult(intent, 11)
     }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if (takePictureIntent.resolveActivity(this.packageManager) != null) {
-                this.startActivityForResult(takePictureIntent, PhotoManager.CAMERA_RESULT_CODE)
-            }
-        }
-    }
 }

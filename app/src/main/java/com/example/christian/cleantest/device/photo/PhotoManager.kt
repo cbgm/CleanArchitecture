@@ -22,18 +22,15 @@ import com.example.christian.cleantest.R
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
-class PhotoManager @Inject constructor(val context: Context) {
+class PhotoManager (private val context: Context) {
 
     private val compositeSubscription = CompositeDisposable()
-    private lateinit var callback: PhotoManagerCallback
     private val pickerItems = ArrayList<PickerItem>()
     private lateinit var fileName: String
 
     companion object {
         const val WRITE_EXTERNAL_STORAGE_REQUEST_CODE: Int = 0
-
         const val CAMERA_RESULT_CODE: Int = 1
         const val GALLERY_RESULT_CODE: Int = 2
         const val DELETE_RESULT_CODE: Int = 3
@@ -59,8 +56,10 @@ class PhotoManager @Inject constructor(val context: Context) {
     }
 
     private fun initItems() {
+        pickerItems.clear()
         pickerItems.add(PickerItem("Foto aufnehmen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
         pickerItems.add(PickerItem("Foto hochladen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
+
         if (hasPictureDefined()) {
             pickerItems.add(PickerItem("Foto löschen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
         }
@@ -87,33 +86,42 @@ class PhotoManager @Inject constructor(val context: Context) {
     private fun subscribe() {
         compositeSubscription.add(RxPhotoBus.observables
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { cropImage(it) })
+                .subscribe {
+                    val callbackObj = it as PhotoCallbackObject
+                    when(callbackObj.resultCode) {
+                        CROP_RESULT_CODE -> savePhoto(it)
+                        else -> cropImage(it)
+                    }
+                })
     }
 
     private fun unsubscribe() {
         compositeSubscription.takeIf { !it.isDisposed }?.apply { dispose() }
     }
 
-    private fun cropImage(o: Any) {
-        unsubscribe()
-        val tempData = o as PhotoCallbackObject
+    private fun cropImage(callbackObj: PhotoCallbackObject) {
 
-        val uri: Uri? = when (tempData.resultCode) {
+        val uri: Uri? = when (callbackObj.resultCode) {
             CAMERA_RESULT_CODE -> {
-                val bitmap = tempData.data?.getParcelableExtra<Bitmap>("data")
+                val bitmap = callbackObj.data?.getParcelableExtra<Bitmap>("data")
                 bitmap?.let {
                     ImageUtil.saveBitmapAsImage(context, it, fileName)
                     ImageUtil.getImagePathByName(fileName, context)
                 }
             }
-            GALLERY_RESULT_CODE -> tempData.data?.data
+            GALLERY_RESULT_CODE -> callbackObj.data?.data
             else -> null
         }
 
-        val cropPictureIntent = Intent(context, CropActivity::class.java)
-        cropPictureIntent.putExtra("Uri", uri.toString())
-        (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
+        uri?.let {
+            forwardToCropping(it.toString())
+        }
+    }
 
+    private fun forwardToCropping(uriAsString: String) {
+        val cropPictureIntent = Intent(context, CropActivity::class.java)
+        cropPictureIntent.putExtra("Uri", uriAsString)
+        (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
     }
 
     private fun forwardToGallery() {
@@ -129,17 +137,24 @@ class PhotoManager @Inject constructor(val context: Context) {
         getWriteExternalStoragePermission()
     }
 
+    fun loadPhoto(): Bitmap?{
+        return null
+    }
+
+    private fun savePhoto(callbackObj: PhotoCallbackObject){
+        val bitmap = callbackObj.data?.getParcelableExtra<Bitmap>("Image")
+        ImageUtil.saveBitmapAsImage(context, bitmap, fileName)
+        SharedPreferencesUtil.set(fileName, context)
+    }
+
     private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
             context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
     private fun getWriteExternalStoragePermission() {
+
         if (Build.VERSION.SDK_INT > 22) {
             (context as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
         }
-    }
-
-    fun setPhotoCallback(callback: PhotoManagerCallback) {
-        this.callback = callback
     }
 
     inner class PickerAdapter(val data: ArrayList<PickerItem>) : BaseAdapter() {
@@ -181,11 +196,6 @@ class PhotoManager @Inject constructor(val context: Context) {
                 desc?.text = pickerItem.desc
             }
         }
-    }
-
-    interface PhotoManagerCallback {
-
-        fun croppedResult(image: Bitmap)
     }
 
 }
