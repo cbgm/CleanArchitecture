@@ -25,7 +25,6 @@ class CropActivity : AppCompatActivity() {
 
     private fun prepareView(uri: Uri) {
         cropImageView.setImageUriAsync(uri)
-        cropImageView
 
         crop_btn.setOnClickListener {
             val croppedImage = cropImageView.croppedImage
