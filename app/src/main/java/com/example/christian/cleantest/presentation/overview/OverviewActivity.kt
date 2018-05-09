@@ -1,7 +1,9 @@
 package com.example.christian.cleantest.presentation.overview
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.christian.cleantest.R
@@ -95,7 +97,11 @@ class OverviewActivity : BaseActivity(), OverviewContract.View, OverviewAdapter.
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        //TODO implement method for Permission granted?
+        if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (takePictureIntent.resolveActivity(this.packageManager) != null) {
+                this.startActivityForResult(takePictureIntent, PhotoManager.CAMERA_RESULT_CODE)
+            }
+        }
     }
 }

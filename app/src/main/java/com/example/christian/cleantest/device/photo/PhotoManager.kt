@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
-import android.provider.MediaStore
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -127,14 +126,8 @@ class PhotoManager @Inject constructor(val context: Context) {
 
     private fun forwardToCamera() {
         subscribe()
+        //TODO Refactore method
         getWriteExternalStoragePermission()
-        if (hasWriteExternalStoragePermission()) {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-            if (takePictureIntent.resolveActivity(context.packageManager) != null) {
-                (context as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
-            }
-        }
     }
 
     private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
