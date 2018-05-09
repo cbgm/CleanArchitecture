@@ -23,7 +23,7 @@
             android:name=".presentation.cartview.CartActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme" />
-        <activity android:name=".presentation.personalview.CropActivity" android:launchMode="singleTask"/>
+        <activity android:name=".presentation.personalview.CropActivity"/>
         <activity android:name=".presentation.personalview.PersonalActivity"/>
     </application>
 

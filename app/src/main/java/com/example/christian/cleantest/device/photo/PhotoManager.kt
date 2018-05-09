@@ -21,11 +21,14 @@ import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 class PhotoManager (private val context: Context) {
 
-    private val compositeSubscription = CompositeDisposable()
+
+    private lateinit var galleryDisposable: Disposable
+    private lateinit var cameraDisposable: Disposable
+    private lateinit var croppingDisposable: Disposable
     private val pickerItems = ArrayList<PickerItem>()
     private lateinit var fileName: String
 
@@ -83,20 +86,38 @@ class PhotoManager (private val context: Context) {
 
     data class PickerItem(val desc: String, val drawable: Drawable?, val value: Int)
 
-    private fun subscribe() {
-        compositeSubscription.add(RxPhotoBus.observables
+    private fun subscribeGallery() {
+        galleryDisposable = RxPhotoBus.observables
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    val callbackObj = it as PhotoCallbackObject
-                    when(callbackObj.resultCode) {
-                        CROP_RESULT_CODE -> savePhoto(it)
-                        else -> cropImage(it)
-                    }
-                })
+                    it as PhotoCallbackObject
+                    cropImage(it)
+                    unsubscribe(galleryDisposable)
+                }
     }
 
-    private fun unsubscribe() {
-        compositeSubscription.takeIf { !it.isDisposed }?.apply { dispose() }
+    private fun subscribeCamera() {
+        cameraDisposable = RxPhotoBus.observables
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    it as PhotoCallbackObject
+                    cropImage(it)
+                    unsubscribe(cameraDisposable)
+                }
+    }
+
+    private fun subscribeCropping() {
+        croppingDisposable = RxPhotoBus.observables
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    it as PhotoCallbackObject
+                    savePhoto(it)
+                    unsubscribe(croppingDisposable)
+                }
+    }
+
+    private fun unsubscribe(disposable: Disposable) {
+        disposable.takeIf { !it.isDisposed }?.apply { dispose() }
     }
 
     private fun cropImage(callbackObj: PhotoCallbackObject) {
@@ -119,20 +140,21 @@ class PhotoManager (private val context: Context) {
     }
 
     private fun forwardToCropping(uriAsString: String) {
+        subscribeCropping()
         val cropPictureIntent = Intent(context, CropActivity::class.java)
         cropPictureIntent.putExtra("Uri", uriAsString)
         (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
     }
 
     private fun forwardToGallery() {
-        subscribe()
+        subscribeGallery()
         val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
         takeGalleryPictureIntent.type = "image/*"
         (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
     }
 
     private fun forwardToCamera() {
-        subscribe()
+        subscribeCamera()
         //TODO Refactore method
         getWriteExternalStoragePermission()
     }
