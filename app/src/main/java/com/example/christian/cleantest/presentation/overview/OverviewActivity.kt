@@ -1,7 +1,9 @@
 package com.example.christian.cleantest.presentation.overview
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.christian.cleantest.R
@@ -19,9 +21,10 @@ import kotlinx.android.synthetic.main.activity_overview.*
 import javax.inject.Inject
 
 
-class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
+class OverviewActivity : BaseActivity(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
 
-    @Inject lateinit var presenter: OverviewPresenter
+    @Inject
+    lateinit var presenter: OverviewPresenter
 
     private var userAdapter: OverviewAdapter = OverviewAdapter(arrayListOf(), this)
 
@@ -90,5 +93,14 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         val intent = Intent(this, PersonalActivity::class.java)
        intent.putExtra("User", userId)
        startActivityForResult(intent, 11)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (takePictureIntent.resolveActivity(this.packageManager) != null) {
+                this.startActivityForResult(takePictureIntent, PhotoManager.CAMERA_RESULT_CODE)
+            }
+        }
     }
 }
