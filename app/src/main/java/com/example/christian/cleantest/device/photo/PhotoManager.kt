@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -22,12 +23,14 @@ import com.example.christian.cleantest.R
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import java.io.File
 
-class PhotoManager (private val context: Context) {
+class PhotoManager(private val context: Context) {
 
     private val compositeSubscription = CompositeDisposable()
     private val pickerItems = ArrayList<PickerItem>()
     private lateinit var fileName: String
+    private lateinit var tempFileName: String
 
     companion object {
         const val WRITE_EXTERNAL_STORAGE_REQUEST_CODE: Int = 0
@@ -88,7 +91,7 @@ class PhotoManager (private val context: Context) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     val callbackObj = it as PhotoCallbackObject
-                    when(callbackObj.resultCode) {
+                    when (callbackObj.resultCode) {
                         CROP_RESULT_CODE -> savePhoto(it)
                         else -> cropImage(it)
                     }
@@ -103,9 +106,11 @@ class PhotoManager (private val context: Context) {
 
         val uri: Uri? = when (callbackObj.resultCode) {
             CAMERA_RESULT_CODE -> {
+                callbackObj.data?.data
+                val externalFilesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + tempFileName
                 val bitmap = callbackObj.data?.getParcelableExtra<Bitmap>("data")
-                bitmap?.let {
-                    ImageUtil.saveBitmapAsImage(context, it, fileName)
+                externalFilesDir?.let {
+                    ImageUtil.saveBitmapAsImage(context, ImageUtil.getBitmapFromFile(File(externalFilesDir)), fileName)
                     ImageUtil.getImagePathByName(fileName, context)
                 }
             }
@@ -137,11 +142,11 @@ class PhotoManager (private val context: Context) {
         getWriteExternalStoragePermission()
     }
 
-    fun loadPhoto(): Bitmap?{
+    fun loadPhoto(): Bitmap? {
         return null
     }
 
-    private fun savePhoto(callbackObj: PhotoCallbackObject){
+    private fun savePhoto(callbackObj: PhotoCallbackObject) {
         val bitmap = callbackObj.data?.getParcelableExtra<Bitmap>("Image")
         ImageUtil.saveBitmapAsImage(context, bitmap, fileName)
         SharedPreferencesUtil.set(fileName, context)
@@ -198,4 +203,7 @@ class PhotoManager (private val context: Context) {
         }
     }
 
+    fun setTempFileName(name: String) {
+        tempFileName = name
+    }
 }
