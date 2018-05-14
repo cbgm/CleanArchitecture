@@ -49,7 +49,7 @@ class PhotoManager(private val context: Context) {
     }
 
     fun initPicking(fileName: String) {
-        this.fileName = "$fileName.jpg"
+//        this.fileName = "$fileName.jpg"
         initItems()
         val adapter = PickerAdapter(pickerItems)
         val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
@@ -170,7 +170,6 @@ class PhotoManager(private val context: Context) {
     }
 
     fun loadPhoto(fileName: String): Bitmap?{
-        this.fileName = "$fileName.jpg"
         val path = SharedPreferencesUtil.get(this.fileName, context)
         path?.let {
             return ImageUtil.loadImage(context, it)
@@ -241,5 +240,9 @@ class PhotoManager(private val context: Context) {
 
     fun setTempFileName(name: String) {
         tempFileName = name
+    }
+
+    fun setFileName(name: String) {
+        fileName = name
     }
 }
