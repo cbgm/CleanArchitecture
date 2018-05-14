@@ -88,8 +88,9 @@ class PhotoManager(private val context: Context) {
     }
 
     private fun deletePicture() {
-        ImageUtil.deleteImageFromInternalStorage(context, fileName)
-        SharedPreferencesUtil.delete(fileName, context)
+        SharedPreferencesUtil.delete("bla.jpg", context)
+        ImageUtil.deleteImageFromInternalStorage(context, "bla.jpg")
+        photoManagerCallback.imageReady()
     }
 
     data class PickerItem(val desc: String, val drawable: Drawable?, val value: Int)
@@ -169,7 +170,7 @@ class PhotoManager(private val context: Context) {
         getWriteExternalStoragePermission()
     }
 
-    fun loadPhoto(fileName: String): Bitmap?{
+    fun loadPhoto(fileName: String): Bitmap? {
         this.fileName = "$fileName.jpg"
         val path = SharedPreferencesUtil.get(this.fileName, context)
         path?.let {
