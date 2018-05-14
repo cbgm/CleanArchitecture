@@ -105,8 +105,10 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
             personal_image.setImageBitmap(it)
             personal_image.visibility = View.VISIBLE
             personal_container.visibility = View.GONE
+            personalisation_btn.visibility = View.VISIBLE
         }?: run{
             personal_image.visibility = View.GONE
+            personalisation_btn.visibility = View.GONE
             personal_container.visibility = View.VISIBLE
         }
     }

@@ -49,7 +49,7 @@ class PhotoManager(private val context: Context) {
     }
 
     fun initPicking(fileName: String) {
-        this.fileName = "$fileName.png"
+        this.fileName = "$fileName.jpg"
         initItems()
         val adapter = PickerAdapter(pickerItems)
         val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
@@ -119,7 +119,7 @@ class PhotoManager(private val context: Context) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     it as PhotoCallbackObject
-                    savePhoto(it)
+                    //savePhoto(it)
                     unsubscribe(croppingDisposable)
                     photoManagerCallback.imageReady()
                 }
@@ -170,9 +170,11 @@ class PhotoManager(private val context: Context) {
     }
 
     fun loadPhoto(fileName: String): Bitmap?{
-        this.fileName = "$fileName.png"
-        val path = SharedPreferencesUtil.get(fileName, context)
-        path?.let { return ImageUtil.loadImage(context, it)}
+        this.fileName = "$fileName.jpg"
+        val path = SharedPreferencesUtil.get(this.fileName, context)
+        path?.let {
+            return ImageUtil.loadImage(context, it)
+        }
         return null
     }
 

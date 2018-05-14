@@ -29,7 +29,7 @@ class CropActivity : AppCompatActivity() {
 
         crop_btn.setOnClickListener {
             val croppedImage = cropImageView.croppedImage
-            ImageUtil.saveBitmapAsImage(applicationContext, croppedImage, "bla")
+            ImageUtil.saveBitmapAsImage(applicationContext, croppedImage, "bla.jpg")
             val resultIntent = Intent()
             resultIntent.putExtra("Uri", uri)
             setResult(Activity.RESULT_OK, resultIntent)
