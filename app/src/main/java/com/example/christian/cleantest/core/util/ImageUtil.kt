@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.device.photo
+package com.example.christian.cleantest.core.util
 
 import android.content.Context
 import android.graphics.Bitmap

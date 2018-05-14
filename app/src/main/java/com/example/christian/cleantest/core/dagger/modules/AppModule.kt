@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.christian.cleantest.core.mock.FakeInterceptor
 import com.example.christian.cleantest.data.repository.remote.cart.CartApi
 import com.example.christian.cleantest.data.repository.remote.user.UserApi
+import com.example.christian.cleantest.device.photo.PhotoResolver
 import com.example.christian.cleantest.presentation.UserApplication
 import dagger.Module
 import dagger.Provides

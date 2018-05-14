@@ -5,16 +5,18 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.christian.cleantest.R
 import kotlinx.android.synthetic.main.activity_crop.*
-import android.app.Activity
-import android.content.Intent
-import com.example.christian.cleantest.device.photo.ImageUtil
-import com.example.christian.cleantest.device.photo.SharedPreferencesUtil
+import com.example.christian.cleantest.core.dagger.Injector
+import com.example.christian.cleantest.device.photo.PhotoManager
+import javax.inject.Inject
 
 class CropActivity : AppCompatActivity() {
+
+    @Inject lateinit var photoManager: PhotoManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crop)
+        Injector.initActivityComponent(this).inject(this)
 
         try {
             val uri = Uri.parse(intent.getStringExtra("Uri"))
@@ -29,12 +31,7 @@ class CropActivity : AppCompatActivity() {
         cropImageView.setImageUriAsync(uri)
 
         crop_btn.setOnClickListener {
-            val croppedImage = cropImageView.croppedImage
-            ImageUtil.saveBitmapAsImage(applicationContext, croppedImage, "bla.jpg")
-            SharedPreferencesUtil.set("bla.jpg",applicationContext)
-            val resultIntent = Intent()
-            resultIntent.putExtra("Uri", uri)
-            setResult(Activity.RESULT_OK, resultIntent)
+            photoManager.savePhoto(cropImageView.croppedImage)
             finish()
         }
         cancel_btn.setOnClickListener {finish()

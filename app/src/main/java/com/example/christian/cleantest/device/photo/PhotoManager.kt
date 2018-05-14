@@ -20,20 +20,20 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
+import com.example.christian.cleantest.core.util.ImageUtil
+import com.example.christian.cleantest.core.util.SharedPreferencesUtil
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.io.File
 
-class PhotoManager(private val context: Context) {
-
+class PhotoManager(private val applicationContext: Context) {
 
     private lateinit var galleryDisposable: Disposable
     private lateinit var cameraDisposable: Disposable
     private lateinit var croppingDisposable: Disposable
-    private val pickerItems = ArrayList<PickerItem>()
-    private lateinit var fileName: String
-    private lateinit var photoManagerCallback: PhotoManagerCallback
+    private val pickerItems = ArrayList<PhotoOptionItem>()
+    internal lateinit var photoManagerCallback: PhotoManagerCallback
     private lateinit var tempFileName: String
 
     companion object {
@@ -44,56 +44,55 @@ class PhotoManager(private val context: Context) {
         const val CROP_RESULT_CODE: Int = 4
     }
 
-    fun setPhotoManagerCallback(photoManagerCallback: PhotoManagerCallback) {
-        this.photoManagerCallback = photoManagerCallback
+    fun showPhotoOptions() {
+        initPhotoOptions()
+        val adapter = PickerAdapter(pickerItems)
+        val pickerBuilder: AlertDialog.Builder = createPhotoOptionBuilder(adapter)
+        createPhotoOptionDialog(pickerBuilder).show()
     }
 
-    fun initPicking(fileName: String) {
-//        this.fileName = "$fileName.jpg"
-        initItems()
-        val adapter = PickerAdapter(pickerItems)
-        val pickerBuilder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.PhotopickerTheme)
+    private fun createPhotoOptionBuilder(adapter: PickerAdapter): AlertDialog.Builder {
+        return AlertDialog.Builder(applicationContext, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = pickerItems[which].value
 
                     when (selected) {
                         CAMERA_RESULT_CODE -> forwardToCamera()
                         GALLERY_RESULT_CODE -> forwardToGallery()
-                        DELETE_RESULT_CODE -> deletePicture()
+                        DELETE_RESULT_CODE -> deletePhoto()
                     }
                     dialog.dismiss()
                 })
-        createImageOptionDialog(pickerBuilder).show()
     }
 
-    private fun initItems() {
+    private fun initPhotoOptions() {
         pickerItems.clear()
-        pickerItems.add(PickerItem("Foto aufnehmen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
-        pickerItems.add(PickerItem("Foto hochladen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
+        pickerItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
+        pickerItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
 
-        if (hasPictureDefined()) {
-            pickerItems.add(PickerItem("Foto löschen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
+        if (hasPhoto()) {
+            pickerItems.add(PhotoOptionItem("Foto löschen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
         }
     }
 
-    private fun hasPictureDefined(): Boolean {
-        return SharedPreferencesUtil.get(fileName, context) != null
+    private fun hasPhoto(): Boolean {
+        return SharedPreferencesUtil.get(photoResolver.fileName, applicationContext) != null
     }
 
-    private fun createImageOptionDialog(pickerBuilder: AlertDialog.Builder): AlertDialog {
-        val dialog = pickerBuilder.create()
-        dialog.window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog.window.setGravity(Gravity.BOTTOM)
-        return dialog
+    private fun createPhotoOptionDialog(pickerBuilder: AlertDialog.Builder): AlertDialog {
+        return pickerBuilder.create().apply {
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            window.setGravity(Gravity.BOTTOM)
+        }
     }
 
-    private fun deletePicture() {
-        SharedPreferencesUtil.delete("bla.jpg", context)
-        ImageUtil.deleteImageFromInternalStorage(context, "bla.jpg")
+    private fun deletePhoto() {
+        SharedPreferencesUtil.delete(photoResolver.fileName, applicationContext)
+        ImageUtil.deleteImageFromInternalStorage(applicationContext, photoResolver.fileName)
         photoManagerCallback.imageReady()
     }
 
-    data class PickerItem(val desc: String, val drawable: Drawable?, val value: Int)
+    data class PhotoOptionItem(val desc: String, val drawable: Drawable?, val value: Int)
 
     private fun subscribeGallery() {
         galleryDisposable = RxPhotoBus.observables
@@ -119,7 +118,7 @@ class PhotoManager(private val context: Context) {
         croppingDisposable = RxPhotoBus.observables
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    it as PhotoCallbackObject
+                    //it as PhotoCallbackObject
                     //savePhoto(it)
                     unsubscribe(croppingDisposable)
                     photoManagerCallback.imageReady()
@@ -135,10 +134,10 @@ class PhotoManager(private val context: Context) {
         val uri: Uri? = when (callbackObj.resultCode) {
             CAMERA_RESULT_CODE -> {
                 callbackObj.data?.data
-                val externalFilesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + tempFileName
+                val externalFilesDir: String? = getExternalPhotoPath()
                 externalFilesDir?.let {
-                    ImageUtil.saveBitmapAsImage(context, ImageUtil.getBitmapFromFile(File(externalFilesDir)), fileName)
-                    ImageUtil.getImagePathByName(fileName, context)
+                    ImageUtil.saveBitmapAsImage(applicationContext, ImageUtil.getBitmapFromFile(File(externalFilesDir)), photoResolver.fileName)
+                    ImageUtil.getImagePathByName(photoResolver.fileName, applicationContext)
                 }
             }
             GALLERY_RESULT_CODE -> callbackObj.data?.data
@@ -150,18 +149,22 @@ class PhotoManager(private val context: Context) {
         }
     }
 
+    private fun getExternalPhotoPath() =
+            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + tempFileName
+
     private fun forwardToCropping(uriAsString: String) {
+        //TODO
         subscribeCropping()
-        val cropPictureIntent = Intent(context, CropActivity::class.java)
+        val cropPictureIntent = Intent(applicationContext, CropActivity::class.java)
         cropPictureIntent.putExtra("Uri", uriAsString)
-        (context as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
+        (applicationContext as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
     }
 
     private fun forwardToGallery() {
         subscribeGallery()
         val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
         takeGalleryPictureIntent.type = "image/*"
-        (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
+        (applicationContext as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
     }
 
     private fun forwardToCamera() {
@@ -170,34 +173,24 @@ class PhotoManager(private val context: Context) {
         getWriteExternalStoragePermission()
     }
 
-    fun loadPhoto(): Bitmap?{
-        val path = SharedPreferencesUtil.get(this.fileName, context)
-        path?.let {
-            return ImageUtil.loadImage(context, it)
-        }
-        return null
-    }
+    fun loadPhoto() = photoResolver.loadPhoto()
 
-    private fun savePhoto(callbackObj: PhotoCallbackObject) {
-        val bitmap = callbackObj.data?.getParcelableExtra<Bitmap>("Image")
-        ImageUtil.saveBitmapAsImage(context, bitmap, fileName)
-        SharedPreferencesUtil.set(fileName, context)
-    }
+    fun savePhoto(bitmap: Bitmap) = photoResolver.savePhoto(bitmap)
 
     private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
-            context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+            applicationContext.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
     private fun getWriteExternalStoragePermission() {
 
         if (Build.VERSION.SDK_INT > 22) {
-            (context as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
+            (applicationContext as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
         }
     }
 
-    inner class PickerAdapter(val data: ArrayList<PickerItem>) : BaseAdapter() {
+    inner class PickerAdapter(val data: ArrayList<PhotoOptionItem>) : BaseAdapter() {
 
         private val inflater: LayoutInflater by lazy {
-            LayoutInflater.from(context)
+            LayoutInflater.from(applicationContext)
         }
 
         override fun getItem(position: Int) = data[position]
@@ -228,9 +221,9 @@ class PhotoManager(private val context: Context) {
             val icon: ImageView? = view?.findViewById(R.id.icon)
             val desc: TextView? = view?.findViewById(R.id.desc)
 
-            fun bind(pickerItem: PickerItem) {
-                icon?.setImageDrawable(pickerItem.drawable)
-                desc?.text = pickerItem.desc
+            fun bind(photoOptionItem: PhotoOptionItem) {
+                icon?.setImageDrawable(photoOptionItem.drawable)
+                desc?.text = photoOptionItem.desc
             }
         }
     }
@@ -244,6 +237,6 @@ class PhotoManager(private val context: Context) {
     }
 
     fun setFileName(name: String) {
-        fileName = name
+        photoResolver.fileName = name
     }
 }

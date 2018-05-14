@@ -34,7 +34,6 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
         Injector.initActivityComponent(this).inject(this)
         photoManager.setFileName("bla.jpg")
         presenter.setVIew(this)
-        photoManager.setPhotoManagerCallback(this)
         initViews()
         ToolbarLoader(this, R.string.title_personal, false)
     }
@@ -91,16 +90,16 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
 
     private fun initViews() {
         personalisation_btn.setOnClickListener {
-            photoManager.initPicking("bla")
+            photoManager.showPhotoOptions()
         }
         personal_container.setOnClickListener {
-            photoManager.initPicking("bla")
+            photoManager.showPhotoOptions()
         }
         setCarimage()
     }
 
     private fun setCarimage() {
-        val image = photoManager.loadPhoto("bla")
+        val image = photoManager.loadPhoto()
 
         image?.let {
             personal_image.setImageBitmap(it)
@@ -124,7 +123,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
             val externalFile = getExternalUri()
             if (externalFile != null) {
                 photoManager.setTempFileName(externalFile.name)
-                val uriForFile = FileProvider.getUriForFile(this, "com.example.christian.cleantest", externalFile!!)
+                val uriForFile = FileProvider.getUriForFile(this, "com.example.christian.cleantest", externalFile)
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
                 if (takePictureIntent.resolveActivity(this.packageManager) != null) {

@@ -12,6 +12,9 @@ class ActivityModule(private var activity: Activity) {
     @ForActivity
     @Provides
     fun providePhotoManager() : PhotoManager {
-        return PhotoManager(activity)
+        return PhotoManager(activity).apply {
+            if (activity is PhotoManager.PhotoManagerCallback)
+                this.photoManagerCallback = activity as PhotoManager.PhotoManagerCallback
+        }
     }
 }
