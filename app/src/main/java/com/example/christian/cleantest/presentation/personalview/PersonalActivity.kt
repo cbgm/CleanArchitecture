@@ -4,9 +4,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import android.view.View
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
@@ -18,7 +15,6 @@ import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.photo.RxPhotoBus
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_personal.*
-import java.io.File
 import javax.inject.Inject
 
 class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.PhotoManagerCallback {
@@ -34,6 +30,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
         Injector.initActivityComponent(this).inject(this)
         photoManager.setFileName("bla.jpg")
         presenter.setVIew(this)
+        photoManager.setPhotoManagerCallback(this)
         initViews()
         ToolbarLoader(this, R.string.title_personal, false)
     }
@@ -117,26 +114,10 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
         RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            val externalFile = getExternalUri()
-            if (externalFile != null) {
-                photoManager.setTempFileName(externalFile.name)
-                val uriForFile = FileProvider.getUriForFile(this, "com.example.christian.cleantest", externalFile)
-                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
-                if (takePictureIntent.resolveActivity(this.packageManager) != null) {
-                    this.startActivityForResult(takePictureIntent, PhotoManager.CAMERA_RESULT_CODE)
-                }
-            }
+            photoManager.forwardToCamera()
         }
-    }
-
-    private fun getExternalUri(): File? {
-        val imageFileName = "bla"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
 
     override fun imageReady() {
