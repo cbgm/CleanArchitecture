@@ -165,7 +165,7 @@ class PhotoManager(private val context: Context) {
         (context as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
     }
 
-    private fun forwardToCamera() {
+    internal fun forwardToCamera() {
         subscribeCamera()
         if (hasWriteExternalStoragePermission()) {
             val externalFile = getExternalUri()

@@ -4,9 +4,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import android.view.View
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
@@ -18,7 +15,6 @@ import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.photo.RxPhotoBus
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_personal.*
-import java.io.File
 import javax.inject.Inject
 
 class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.PhotoManagerCallback {
@@ -116,6 +112,12 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            photoManager.forwardToCamera()
+        }
     }
 
     override fun imageReady() {
