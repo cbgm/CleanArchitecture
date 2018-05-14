@@ -118,28 +118,6 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
         RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            val externalFile = getExternalUri()
-            if (externalFile != null) {
-                photoManager.setTempFileName(externalFile.name)
-                val uriForFile = FileProvider.getUriForFile(this, "com.example.christian.cleantest", externalFile!!)
-                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
-                if (takePictureIntent.resolveActivity(this.packageManager) != null) {
-                    this.startActivityForResult(takePictureIntent, PhotoManager.CAMERA_RESULT_CODE)
-                }
-            }
-        }
-    }
-
-    private fun getExternalUri(): File? {
-        val imageFileName = "bla"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(imageFileName, ".jpg", storageDir)
-    }
-
     override fun imageReady() {
         setCarimage()
     }

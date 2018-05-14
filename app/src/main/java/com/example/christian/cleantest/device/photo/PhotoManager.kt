@@ -10,6 +10,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
@@ -165,11 +167,43 @@ class PhotoManager(private val context: Context) {
 
     private fun forwardToCamera() {
         subscribeCamera()
-        //TODO Refactore method
-        getWriteExternalStoragePermission()
+        if (hasWriteExternalStoragePermission()) {
+            val externalFile = getExternalUri()
+            externalFile?.let {
+                setTempFileName(it.name)
+                val uriForFile = FileProvider.getUriForFile(context, "com.example.christian.cleantest", externalFile!!)
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
+                startCameraActivity(takePictureIntent)
+            }
+        } else {
+            getWriteExternalStoragePermission()
+        }
     }
 
-    fun loadPhoto(fileName: String): Bitmap?{
+    private fun startCameraActivity(takePictureIntent: Intent) {
+        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
+            (context as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
+        }
+    }
+
+    private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
+            context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+
+    private fun getWriteExternalStoragePermission() {
+
+        if (Build.VERSION.SDK_INT > 22) {
+            (context as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
+        }
+    }
+
+    private fun getExternalUri(): File? {
+        val imageFileName = "bla"
+        val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(imageFileName, ".jpg", storageDir)
+    }
+
+    fun loadPhoto(fileName: String): Bitmap? {
         val path = SharedPreferencesUtil.get(this.fileName, context)
         path?.let {
             return ImageUtil.loadImage(context, it)
@@ -181,16 +215,6 @@ class PhotoManager(private val context: Context) {
         val bitmap = callbackObj.data?.getParcelableExtra<Bitmap>("Image")
         ImageUtil.saveBitmapAsImage(context, bitmap, fileName)
         SharedPreferencesUtil.set(fileName, context)
-    }
-
-    private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
-            context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-    private fun getWriteExternalStoragePermission() {
-
-        if (Build.VERSION.SDK_INT > 22) {
-            (context as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
-        }
     }
 
     inner class PickerAdapter(val data: ArrayList<PickerItem>) : BaseAdapter() {
@@ -238,7 +262,7 @@ class PhotoManager(private val context: Context) {
         fun imageReady()
     }
 
-    fun setTempFileName(name: String) {
+    private fun setTempFileName(name: String) {
         tempFileName = name
     }
 
