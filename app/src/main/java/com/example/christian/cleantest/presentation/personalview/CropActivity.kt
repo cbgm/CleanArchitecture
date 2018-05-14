@@ -7,6 +7,7 @@ import com.example.christian.cleantest.R
 import kotlinx.android.synthetic.main.activity_crop.*
 import android.app.Activity
 import android.content.Intent
+import com.example.christian.cleantest.device.photo.ImageUtil
 
 class CropActivity : AppCompatActivity() {
 
@@ -28,8 +29,9 @@ class CropActivity : AppCompatActivity() {
 
         crop_btn.setOnClickListener {
             val croppedImage = cropImageView.croppedImage
+            ImageUtil.saveBitmapAsImage(applicationContext, croppedImage, "bla")
             val resultIntent = Intent()
-            resultIntent.putExtra("Image", croppedImage)
+            resultIntent.putExtra("Uri", uri)
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }

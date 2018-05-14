@@ -31,6 +31,7 @@ class PhotoManager (private val context: Context) {
     private lateinit var croppingDisposable: Disposable
     private val pickerItems = ArrayList<PickerItem>()
     private lateinit var fileName: String
+    private lateinit var photoManagerCallback: PhotoManagerCallback
 
     companion object {
         const val WRITE_EXTERNAL_STORAGE_REQUEST_CODE: Int = 0
@@ -38,6 +39,10 @@ class PhotoManager (private val context: Context) {
         const val GALLERY_RESULT_CODE: Int = 2
         const val DELETE_RESULT_CODE: Int = 3
         const val CROP_RESULT_CODE: Int = 4
+    }
+
+    fun setPhotoManagerCallback(photoManagerCallback: PhotoManagerCallback) {
+        this.photoManagerCallback = photoManagerCallback
     }
 
     fun initPicking(fileName: String) {
@@ -113,6 +118,7 @@ class PhotoManager (private val context: Context) {
                     it as PhotoCallbackObject
                     savePhoto(it)
                     unsubscribe(croppingDisposable)
+                    photoManagerCallback.imageReady()
                 }
     }
 
@@ -159,7 +165,10 @@ class PhotoManager (private val context: Context) {
         getWriteExternalStoragePermission()
     }
 
-    fun loadPhoto(): Bitmap?{
+    fun loadPhoto(fileName: String): Bitmap?{
+        this.fileName = "$fileName.png"
+        val path = SharedPreferencesUtil.get(fileName, context)
+        path?.let { return ImageUtil.loadImage(context, it)}
         return null
     }
 
@@ -218,6 +227,10 @@ class PhotoManager (private val context: Context) {
                 desc?.text = pickerItem.desc
             }
         }
+    }
+
+    interface PhotoManagerCallback {
+        fun imageReady()
     }
 
 }

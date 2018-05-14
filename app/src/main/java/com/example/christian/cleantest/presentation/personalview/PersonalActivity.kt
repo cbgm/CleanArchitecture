@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_personal.*
 import javax.inject.Inject
 
-class PersonalActivity : BaseActivity(), PersonalContract.View {
+class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.PhotoManagerCallback {
 
     @Inject
     lateinit var presenter: PersonalPresenter
@@ -28,6 +28,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View {
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
         presenter.setVIew(this)
+        photoManager.setPhotoManagerCallback(this)
         initViews()
         ToolbarLoader(this, R.string.title_personal, false)
     }
@@ -93,14 +94,16 @@ class PersonalActivity : BaseActivity(), PersonalContract.View {
     }
 
     private fun setCarimage() {
-        /*()?.let {
+        val image = photoManager.loadPhoto("bla")
+
+        image?.let {
             personal_image.setImageBitmap(it)
             personal_image.visibility = View.VISIBLE
             personal_container.visibility = View.GONE
         }?: run{
             personal_image.visibility = View.GONE
             personal_container.visibility = View.VISIBLE
-        }*/
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -116,4 +119,9 @@ class PersonalActivity : BaseActivity(), PersonalContract.View {
             }
         }
     }
+
+    override fun imageReady() {
+        setCarimage()
+    }
+
 }
