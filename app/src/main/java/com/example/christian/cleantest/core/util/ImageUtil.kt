@@ -20,10 +20,6 @@ class ImageUtil {
             return BitmapFactory.decodeStream(openFileInput)
         }
 
-        fun loadImageFromGallery(context: Context, path: String): Bitmap? {
-            return MediaStore.Images.Media.getBitmap(context.contentResolver, Uri.Builder().appendPath(path).build())
-        }
-
         fun getBitmapFromFile(file: File): Bitmap? {
             return BitmapFactory.decodeStream(FileInputStream(file))
         }

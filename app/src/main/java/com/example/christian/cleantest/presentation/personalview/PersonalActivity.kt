@@ -32,6 +32,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
+        photoManager.setFileName("bla.jpg")
         presenter.setVIew(this)
         photoManager.setPhotoManagerCallback(this)
         initViews()

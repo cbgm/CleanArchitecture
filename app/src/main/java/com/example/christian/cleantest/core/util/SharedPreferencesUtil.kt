@@ -11,6 +11,7 @@ class SharedPreferencesUtil {
             return getSharedPreferences(context).getString(id, null)
         }
 
+        //TODO
         fun set(id: String, context: Context) {
             getSharedPreferences(context).edit().putString(id, id).apply()
         }
