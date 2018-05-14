@@ -13,7 +13,8 @@ class ImageUtil {
     var contextRef: WeakReference<Context>? = null
 
     companion object {
-        @Volatile private var INSTANCE: ImageUtil? = null
+        @Volatile
+        private var INSTANCE: ImageUtil? = null
 
         fun getInstance(filename: String, context: Context): ImageUtil {
             INSTANCE?.let {
@@ -45,6 +46,13 @@ class ImageUtil {
     }
 
     fun getImagePathByName(name: String): Uri? {
-        return Uri.fromFile(File("${contextRef?.get()?.filesDir?.absolutePath}${File.separator}$name"))
+        return Uri.fromFile(getFileByImagePath())
     }
+
+    fun isImagePresent(): Boolean {
+        return getFileByImagePath().exists()
+    }
+
+    private fun getFileByImagePath() =
+            File("${contextRef?.get()?.filesDir?.absolutePath}${File.separator}$fileName")
 }
