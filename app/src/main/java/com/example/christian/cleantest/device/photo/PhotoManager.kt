@@ -23,7 +23,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
-import com.example.christian.cleantest.core.util.SharedPreferencesUtil
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -31,12 +30,16 @@ import java.io.File
 
 class PhotoManager(private val applicationContext: Context) {
 
+    private val imageUtil by lazy {
+        ImageUtil.getInstance(filename, applicationContext)
+    }
     private lateinit var galleryDisposable: Disposable
     private lateinit var cameraDisposable: Disposable
     private lateinit var croppingDisposable: Disposable
     private val pickerItems = ArrayList<PhotoOptionItem>()
     internal lateinit var photoManagerCallback: PhotoManagerCallback
     private lateinit var tempFileName: String
+    private lateinit var filename: String
 
     companion object {
         const val WRITE_EXTERNAL_STORAGE_REQUEST_CODE: Int = 0
@@ -48,12 +51,12 @@ class PhotoManager(private val applicationContext: Context) {
 
     fun showPhotoOptions() {
         initPhotoOptions()
-        val adapter = PickerAdapter(pickerItems)
+        val adapter = PhotoOptionAdapter(pickerItems)
         val pickerBuilder: AlertDialog.Builder = createPhotoOptionBuilder(adapter)
         createPhotoOptionDialog(pickerBuilder).show()
     }
 
-    private fun createPhotoOptionBuilder(adapter: PickerAdapter): AlertDialog.Builder {
+    private fun createPhotoOptionBuilder(adapter: PhotoOptionAdapter): AlertDialog.Builder {
         return AlertDialog.Builder(applicationContext, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = pickerItems[which].value
@@ -72,13 +75,9 @@ class PhotoManager(private val applicationContext: Context) {
         pickerItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
         pickerItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
 
-        if (hasPhoto()) {
+        if (ImageUtil.imageExists()) {
             pickerItems.add(PhotoOptionItem("Foto löschen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
         }
-    }
-
-    private fun hasPhoto(): Boolean {
-        return SharedPreferencesUtil.get(photoResolver.fileName, applicationContext) != null
     }
 
     private fun createPhotoOptionDialog(pickerBuilder: AlertDialog.Builder): AlertDialog {
@@ -89,8 +88,7 @@ class PhotoManager(private val applicationContext: Context) {
     }
 
     private fun deletePhoto() {
-        SharedPreferencesUtil.delete(photoResolver.fileName, applicationContext)
-        ImageUtil.deleteImageFromInternalStorage(applicationContext, photoResolver.fileName)
+        ImageUtil.deleteImageFromInternalStorage(applicationContext)
         photoManagerCallback.imageReady()
     }
 
@@ -138,8 +136,8 @@ class PhotoManager(private val applicationContext: Context) {
                 callbackObj.data?.data
                 val externalFilesDir: String? = getExternalPhotoPath()
                 externalFilesDir?.let {
-                    ImageUtil.saveBitmapAsImage(applicationContext, ImageUtil.getBitmapFromFile(File(externalFilesDir)), photoResolver.fileName)
-                    ImageUtil.getImagePathByName(photoResolver.fileName, applicationContext)
+                    ImageUtil.saveBitmapAsImage(applicationContext, ImageUtil.getBitmapFromFile(File(externalFilesDir)))
+                    ImageUtil.getImagePathByName(applicationContext)
                 }
             }
             GALLERY_RESULT_CODE -> callbackObj.data?.data
@@ -175,7 +173,7 @@ class PhotoManager(private val applicationContext: Context) {
             val externalFile = getExternalUri()
             externalFile?.let {
                 setTempFileName(it.name)
-                val uriForFile = FileProvider.getUriForFile(context, "com.example.christian.cleantest", externalFile!!)
+                val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", externalFile)
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
                 startCameraActivity(takePictureIntent)
@@ -207,11 +205,11 @@ class PhotoManager(private val applicationContext: Context) {
         return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
 
-    fun loadPhoto() = photoResolver.loadPhoto()
+    fun loadPhoto() = imageUtil.loadImage()
 
-    fun savePhoto(bitmap: Bitmap) = photoResolver.savePhoto(bitmap)
+    fun savePhoto(bitmap: Bitmap) = imageUtil.saveBitmapAsImage(bitmap)
 
-    inner class PickerAdapter(val data: ArrayList<PhotoOptionItem>) : BaseAdapter() {
+    inner class PhotoOptionAdapter(val data: ArrayList<PhotoOptionItem>) : BaseAdapter() {
 
         private val inflater: LayoutInflater by lazy {
             LayoutInflater.from(applicationContext)
@@ -261,6 +259,6 @@ class PhotoManager(private val applicationContext: Context) {
     }
 
     fun setFileName(name: String) {
-        photoResolver.fileName = name
+        filename = name
     }
 }

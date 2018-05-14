@@ -4,32 +4,47 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.provider.MediaStore
 import java.io.File
 import java.io.FileInputStream
+import java.lang.ref.WeakReference
 
 class ImageUtil {
+    lateinit var fileName: String
+    var contextRef: WeakReference<Context>? = null
+
     companion object {
-        fun saveBitmapAsImage(context: Context, bitmap: Bitmap?, name: String) {
-            val outputStream = context.openFileOutput(name, Context.MODE_PRIVATE)
-            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        }
+        @Volatile private var INSTANCE: ImageUtil? = null
 
-        fun loadImage(context: Context, name: String): Bitmap? {
-            val openFileInput = context.openFileInput(name)
-            return BitmapFactory.decodeStream(openFileInput)
+        fun getInstance(filename: String, context: Context): ImageUtil {
+            INSTANCE?.let {
+                INSTANCE = ImageUtil()
+                INSTANCE?.fileName = filename
+                INSTANCE?.contextRef = WeakReference(context)
+                return INSTANCE as ImageUtil
+            }
+            return this.INSTANCE!!
         }
+    }
 
-        fun getBitmapFromFile(file: File): Bitmap? {
-            return BitmapFactory.decodeStream(FileInputStream(file))
-        }
+    fun saveBitmapAsImage(bitmap: Bitmap?, name: String) {
+        val outputStream = contextRef?.get()?.openFileOutput(name, Context.MODE_PRIVATE)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+    }
 
-        fun deleteImageFromInternalStorage(context: Context, name: String) {
-            context.deleteFile(name)
-        }
+    fun loadImage(name: String): Bitmap? {
+        val openFileInput = contextRef?.get()?.openFileInput(name)
+        return BitmapFactory.decodeStream(openFileInput)
+    }
 
-        fun getImagePathByName(name: String, context: Context): Uri? {
-            return Uri.fromFile(File("${context.filesDir.absolutePath}${File.separator}$name"))
-        }
+    fun getBitmapFromFile(file: File): Bitmap? {
+        return BitmapFactory.decodeStream(FileInputStream(file))
+    }
+
+    fun deleteImageFromInternalStorage(name: String) {
+        contextRef?.get()?.deleteFile(name)
+    }
+
+    fun getImagePathByName(name: String): Uri? {
+        return Uri.fromFile(File("${contextRef?.get()?.filesDir?.absolutePath}${File.separator}$name"))
     }
 }
