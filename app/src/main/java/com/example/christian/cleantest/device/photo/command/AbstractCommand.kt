@@ -16,7 +16,7 @@ abstract class AbstractCommand(
         val applicationContext: Context,
         val imageUtil: ImageUtil,
         val photoManagerCallback: PhotoManager.PhotoManagerCallback
-): PhotoCommandResolver.ForwardCommand {
+) : PhotoCommandResolver.ForwardCommand {
 
     lateinit var exFunc: (Int, String) -> Unit
 
@@ -57,11 +57,9 @@ abstract class AbstractCommand(
         val uri: Uri? = when (callbackObj.resultCode) {
             PhotoManager.CAMERA_RESULT_CODE -> {
                 callbackObj.data?.let {
-                    val externalFilesDir: String? = getExternalPhotoPath()
-                    externalFilesDir?.let {
-                        imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
-                        imageUtil.getImagePathByName()
-                    }
+                    val externalFilesDir: String = getExternalPhotoPath()
+                    imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
+                    imageUtil.getImagePathByName()
                 }
             }
             PhotoManager.GALLERY_RESULT_CODE -> callbackObj.data?.data
