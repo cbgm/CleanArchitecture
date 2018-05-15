@@ -116,7 +116,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            photoManager.forwardToCamera()
+            photoManager.permissonGranted()
         }
     }
 

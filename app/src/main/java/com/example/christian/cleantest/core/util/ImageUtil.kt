@@ -10,11 +10,8 @@ import javax.inject.Singleton
 
 @Singleton
 class ImageUtil(private val applicationContext: Context) {
-    private lateinit var fileName: String
-
-    fun setFileName(name: String) {
-        fileName = name
-    }
+    lateinit var fileName: String
+    lateinit var tempFileName: String
 
     fun saveBitmapAsImage(bitmap: Bitmap?) {
         val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
