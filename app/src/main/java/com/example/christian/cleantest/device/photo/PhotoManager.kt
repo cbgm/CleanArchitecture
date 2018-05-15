@@ -30,8 +30,7 @@ import java.io.File
 
 class PhotoManager(private val applicationContext: Context, private val imageUtil: ImageUtil) {
 
-    private lateinit var galleryDisposable: Disposable
-    private lateinit var cameraDisposable: Disposable
+    private lateinit var chooserDisposable: Disposable
     private lateinit var croppingDisposable: Disposable
     private val photoOptionItems = ArrayList<PhotoOptionItem>()
     internal lateinit var photoManagerCallback: PhotoManagerCallback
@@ -95,23 +94,13 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
 
     data class PhotoOptionItem(val desc: String, val drawable: Drawable?, val value: Int)
 
-    private fun subscribeGallery() {
-        galleryDisposable = RxPhotoBus.observables
+    private fun subscribeChooser() {
+        chooserDisposable = RxPhotoBus.observables
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     it as PhotoCallbackObject
                     cropImage(it)
-                    unsubscribe(galleryDisposable)
-                }
-    }
-
-    private fun subscribeCamera() {
-        cameraDisposable = RxPhotoBus.observables
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    it as PhotoCallbackObject
-                    cropImage(it)
-                    unsubscribe(cameraDisposable)
+                    unsubscribe(chooserDisposable)
                 }
     }
 
@@ -160,14 +149,14 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
     }
 
     private fun forwardToGallery() {
-        subscribeGallery()
+        subscribeChooser()
         val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
         takeGalleryPictureIntent.type = "image/*"
         (applicationContext as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
     }
 
     internal fun forwardToCamera() {
-        subscribeCamera()
+        subscribeChooser()
         if (hasWriteExternalStoragePermission()) {
             val externalFile = getExternalUri()
             externalFile?.let {
