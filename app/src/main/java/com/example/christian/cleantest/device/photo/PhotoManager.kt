@@ -198,9 +198,8 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
     }
 
     private fun getExternalUri(): File? {
-        val imageFileName = "bla"
         val storageDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(imageFileName, ".jpg", storageDir)
+        return File.createTempFile(filename, ".jpg", storageDir)
     }
 
     fun loadPhoto() = imageUtil.loadImage()
