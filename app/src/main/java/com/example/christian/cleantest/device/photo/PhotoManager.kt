@@ -23,12 +23,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
+import com.example.christian.cleantest.core.util.PermissionHelper
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.io.File
 
-class PhotoManager(private val applicationContext: Context, private val imageUtil: ImageUtil) {
+class PhotoManager(
+        private val applicationContext: Context,
+        private val imageUtil: ImageUtil,
+        private val permissionHelper: PermissionHelper
+) {
 
     private lateinit var chooserDisposable: Disposable
     private lateinit var croppingDisposable: Disposable
