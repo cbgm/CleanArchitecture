@@ -4,11 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
@@ -23,12 +21,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
+import com.example.christian.cleantest.core.util.PermissionHelper
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.io.File
 
-class PhotoManager(private val applicationContext: Context, private val imageUtil: ImageUtil) {
+class PhotoManager(
+        private val applicationContext: Context,
+        private val imageUtil: ImageUtil) {
 
     private lateinit var chooserDisposable: Disposable
     private lateinit var croppingDisposable: Disposable
@@ -157,17 +158,17 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
 
     internal fun forwardToCamera() {
         subscribeChooser()
-        if (hasWriteExternalStoragePermission()) {
-            val externalFile = getExternalUri()
-            externalFile?.let {
+        if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, applicationContext)) {
+            createExternalTempFile()?.let {
                 setTempFileName(it.name)
-                val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", externalFile)
+                val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", it)
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
                 startCameraActivity(takePictureIntent)
             }
         } else {
-            getWriteExternalStoragePermission()
+            PermissionHelper.getPermissionFromUser(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE, applicationContext)
         }
     }
 
@@ -177,17 +178,7 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
         }
     }
 
-    private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
-            applicationContext.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-    private fun getWriteExternalStoragePermission() {
-
-        if (Build.VERSION.SDK_INT > 22) {
-            (applicationContext as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
-        }
-    }
-
-    private fun getExternalUri(): File? {
+    private fun createExternalTempFile(): File? {
         val storageDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(filename, ".jpg", storageDir)
     }
