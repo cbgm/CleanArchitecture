@@ -1,17 +1,10 @@
 package com.example.christian.cleantest.device.photo
 
-import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,22 +14,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
-import com.example.christian.cleantest.core.util.PermissionHelper
-import com.example.christian.cleantest.presentation.personalview.CropActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import java.io.File
 
-class PhotoManager(
-        private val applicationContext: Context,
-        private val imageUtil: ImageUtil) {
+class PhotoManager(private val applicationContext: Context, private val imageUtil: ImageUtil) {
 
-    private lateinit var chooserDisposable: Disposable
-    private lateinit var croppingDisposable: Disposable
     private val photoOptionItems = ArrayList<PhotoOptionItem>()
     internal lateinit var photoManagerCallback: PhotoManagerCallback
-    private lateinit var tempFileName: String
-    private var filename: String? = null
+    private val photoCommandResolver = PhotoCommandResolver(applicationContext, imageUtil)
+
 
     companion object {
         const val WRITE_EXTERNAL_STORAGE_REQUEST_CODE: Int = 0
@@ -55,18 +39,14 @@ class PhotoManager(
 
     fun setPhotoManagerCallback(photoManagerCallback: PhotoManagerCallback) {
         this.photoManagerCallback = photoManagerCallback
+        this.photoCommandResolver.photoManagerCallback = photoManagerCallback
     }
 
     private fun createPhotoOptionBuilder(adapter: PhotoOptionAdapter): AlertDialog.Builder {
         return AlertDialog.Builder(applicationContext, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = photoOptionItems[which].value
-
-                    when (selected) {
-                        CAMERA_RESULT_CODE -> forwardToCamera()
-                        GALLERY_RESULT_CODE -> forwardToGallery()
-                        DELETE_RESULT_CODE -> deletePhoto()
-                    }
+                    photoCommandResolver.executeCommand(selected)
                     dialog.dismiss()
                 })
     }
@@ -88,100 +68,8 @@ class PhotoManager(
         }
     }
 
-    private fun deletePhoto() {
-        imageUtil.deleteImageFromInternalStorage()
-        photoManagerCallback.imageReady()
-    }
-
     data class PhotoOptionItem(val desc: String, val drawable: Drawable?, val value: Int)
 
-    private fun subscribeChooser() {
-        chooserDisposable = RxPhotoBus.observables
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    it as PhotoCallbackObject
-                    cropImage(it)
-                    unsubscribe(chooserDisposable)
-                }
-    }
-
-    private fun subscribeCropping() {
-        croppingDisposable = RxPhotoBus.observables
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    unsubscribe(croppingDisposable)
-                    photoManagerCallback.imageReady()
-                }
-    }
-
-    private fun unsubscribe(disposable: Disposable) {
-        disposable.takeIf { !it.isDisposed }?.apply { dispose() }
-    }
-
-    private fun cropImage(callbackObj: PhotoCallbackObject) {
-
-        val uri: Uri? = when (callbackObj.resultCode) {
-            CAMERA_RESULT_CODE -> {
-                callbackObj.data?.let {
-                    val externalFilesDir: String? = getExternalPhotoPath()
-                    externalFilesDir?.let {
-                        imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
-                        imageUtil.getImagePathByName()
-                    }
-                }
-            }
-            GALLERY_RESULT_CODE -> callbackObj.data?.data
-            else -> null
-        }
-
-        uri?.let {
-            forwardToCropping(it.toString())
-        }
-    }
-
-    private fun getExternalPhotoPath() =
-            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + tempFileName
-
-    private fun forwardToCropping(uriAsString: String) {
-        subscribeCropping()
-        val cropPictureIntent = Intent(applicationContext, CropActivity::class.java)
-        cropPictureIntent.putExtra("Uri", uriAsString)
-        (applicationContext as AppCompatActivity).startActivityForResult(cropPictureIntent, CROP_RESULT_CODE)
-    }
-
-    private fun forwardToGallery() {
-        subscribeChooser()
-        val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
-        takeGalleryPictureIntent.type = "image/*"
-        (applicationContext as AppCompatActivity).startActivityForResult(takeGalleryPictureIntent, GALLERY_RESULT_CODE)
-    }
-
-    internal fun forwardToCamera() {
-        subscribeChooser()
-        if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, applicationContext)) {
-            createExternalTempFile()?.let {
-                setTempFileName(it.name)
-                val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", it)
-                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
-                startCameraActivity(takePictureIntent)
-            }
-        } else {
-            PermissionHelper.getPermissionFromUser(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE, applicationContext)
-        }
-    }
-
-    private fun startCameraActivity(takePictureIntent: Intent) {
-        if (takePictureIntent.resolveActivity(applicationContext.packageManager) != null) {
-            (applicationContext as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
-        }
-    }
-
-    private fun createExternalTempFile(): File? {
-        val storageDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(filename, ".jpg", storageDir)
-    }
 
     fun loadPhoto() = imageUtil.loadImage()
 
@@ -233,11 +121,14 @@ class PhotoManager(
     }
 
     private fun setTempFileName(name: String) {
-        tempFileName = name
+        imageUtil.tempFileName = name
     }
 
     fun setFileName(name: String) {
-        filename = name
-        imageUtil.setFileName(filename!!)
+        imageUtil.fileName = name
+    }
+
+    fun permissonGranted() {
+        photoCommandResolver.executeCommand(CAMERA_RESULT_CODE)
     }
 }

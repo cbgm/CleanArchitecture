@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import com.example.christian.cleantest.core.util.ImageUtil
+import com.example.christian.cleantest.core.util.PermissionHelper
 import com.example.christian.cleantest.presentation.personalview.CropActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -20,12 +21,15 @@ class PhotoCommandResolver(val applicationContext: Context, private val imageUti
     lateinit var disposable: Disposable
     lateinit var photoManagerCallback: PhotoManager.PhotoManagerCallback
 
-    fun executeCommand(command: Int) {
-        when(command) {
-            PhotoManager.CAMERA_RESULT_CODE -> CameraCommand().execute()
-            PhotoManager.GALLERY_RESULT_CODE -> GalleryCommand().execute()
-            PhotoManager.DELETE_RESULT_CODE -> DeleteCommand().execute()
+    fun executeCommand(resultCode: Int, opt: Any? = null) {
+        val command = when (resultCode) {
+            PhotoManager.CAMERA_RESULT_CODE -> CameraCommand()
+            PhotoManager.GALLERY_RESULT_CODE -> GalleryCommand()
+            PhotoManager.DELETE_RESULT_CODE -> DeleteCommand()
+            PhotoManager.CROP_RESULT_CODE -> CroppingCommand(opt.toString())
+            else -> null
         }
+        command?.execute()
     }
 
     private fun subscribe() {
@@ -35,8 +39,8 @@ class PhotoCommandResolver(val applicationContext: Context, private val imageUti
                     it as PhotoCallbackObject
                     unsubscribe(disposable)
 
-                    when (it.resultCode){
-                        PhotoManager.CAMERA_RESULT_CODE, PhotoManager.GALLERY_RESULT_CODE  -> {
+                    when (it.resultCode) {
+                        PhotoManager.CAMERA_RESULT_CODE, PhotoManager.GALLERY_RESULT_CODE -> {
                             cropImage(it)
                         }
                         PhotoManager.CROP_RESULT_CODE -> {
@@ -56,7 +60,7 @@ class PhotoCommandResolver(val applicationContext: Context, private val imageUti
     }
 
     fun setFileName(name: String) {
-        imageUtil.fileName= name
+        imageUtil.fileName = name
     }
 
     fun setManagerCallback(photoManagerCallback: PhotoManager.PhotoManagerCallback) {
@@ -80,21 +84,15 @@ class PhotoCommandResolver(val applicationContext: Context, private val imageUti
         }
 
         uri?.let {
-            forwardToCropping(it.toString())
+            executeCommand(PhotoManager.CROP_RESULT_CODE,it.toString())
         }
     }
 
-    private fun forwardToCropping(uriAsString: String) {
-        subscribe()
-        val cropPictureIntent = Intent(applicationContext, CropActivity::class.java)
-        cropPictureIntent.putExtra("Uri", uriAsString)
-        (applicationContext as AppCompatActivity).startActivityForResult(cropPictureIntent, PhotoManager.CROP_RESULT_CODE)
-    }
 
     private fun getExternalPhotoPath() =
             applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.tempFileName
 
-    inner class GalleryCommand: ForwardCommand {
+    inner class GalleryCommand : ForwardCommand {
         override fun execute() {
             subscribe()
             val takeGalleryPictureIntent = Intent(Intent.ACTION_PICK)
@@ -104,20 +102,20 @@ class PhotoCommandResolver(val applicationContext: Context, private val imageUti
 
     }
 
-    inner class  CameraCommand: ForwardCommand {
+    inner class CameraCommand : ForwardCommand {
         override fun execute() {
             subscribe()
-            if (hasWriteExternalStoragePermission()) {
-                val externalFile = getExternalUri()
-                externalFile?.let {
+            if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, applicationContext)) {
+                createExternalTempFile()?.let {
                     setTempFileName(it.name)
-                    val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", externalFile)
+                    val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", it)
                     val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
                     startCameraActivity(takePictureIntent)
                 }
             } else {
-                getWriteExternalStoragePermission()
+                PermissionHelper.getPermissionFromUser(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE, applicationContext)
             }
         }
 
@@ -142,16 +140,24 @@ class PhotoCommandResolver(val applicationContext: Context, private val imageUti
             }
         }
 
-    }
-
-    inner class CroppingCommand : ForwardCommand {
-        override fun execute() {
-
+        private fun createExternalTempFile(): File? {
+            val storageDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            return File.createTempFile(imageUtil.fileName, ".jpg", storageDir)
         }
 
     }
 
-    inner class DeleteCommand: ForwardCommand {
+    inner class CroppingCommand(private val uriAsString: String) : ForwardCommand {
+        override fun execute() {
+            subscribe()
+            val cropPictureIntent = Intent(applicationContext, CropActivity::class.java)
+            cropPictureIntent.putExtra("Uri", uriAsString)
+            (applicationContext as AppCompatActivity).startActivityForResult(cropPictureIntent, PhotoManager.CROP_RESULT_CODE)
+        }
+
+    }
+
+    inner class DeleteCommand : ForwardCommand {
         override fun execute() {
             imageUtil.deleteImageFromInternalStorage()
             photoManagerCallback.imageReady()
