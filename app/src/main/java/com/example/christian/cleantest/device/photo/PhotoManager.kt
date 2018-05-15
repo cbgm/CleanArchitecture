@@ -132,11 +132,12 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
 
         val uri: Uri? = when (callbackObj.resultCode) {
             CAMERA_RESULT_CODE -> {
-                callbackObj.data?.data
-                val externalFilesDir: String? = getExternalPhotoPath()
-                externalFilesDir?.let {
-                    imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
-                    imageUtil.getImagePathByName()
+                callbackObj.data?.let {
+                    val externalFilesDir: String? = getExternalPhotoPath()
+                    externalFilesDir?.let {
+                        imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
+                        imageUtil.getImagePathByName()
+                    }
                 }
             }
             GALLERY_RESULT_CODE -> callbackObj.data?.data
