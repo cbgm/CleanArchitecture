@@ -158,10 +158,9 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
     internal fun forwardToCamera() {
         subscribeChooser()
         if (hasWriteExternalStoragePermission()) {
-            val externalFile = getExternalUri()
-            externalFile?.let {
+            createExternalTempFile()?.let {
                 setTempFileName(it.name)
-                val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", externalFile)
+                val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", it)
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile)
                 startCameraActivity(takePictureIntent)
@@ -187,7 +186,7 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
         }
     }
 
-    private fun getExternalUri(): File? {
+    private fun createExternalTempFile(): File? {
         val storageDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(filename, ".jpg", storageDir)
     }
