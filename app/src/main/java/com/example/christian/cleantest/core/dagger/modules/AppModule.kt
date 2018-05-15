@@ -2,6 +2,7 @@ package com.example.christian.cleantest.core.dagger.modules
 
 import android.content.Context
 import com.example.christian.cleantest.core.mock.FakeInterceptor
+import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.data.repository.remote.cart.CartApi
 import com.example.christian.cleantest.data.repository.remote.user.UserApi
 import com.example.christian.cleantest.presentation.UserApplication
@@ -48,5 +49,11 @@ class AppModule(val app: UserApplication) {
                 .baseUrl("http://test-test.domainname.com")
                 .client(client)
                 .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideImageUtil(context: Context): ImageUtil {
+        return ImageUtil(context)
     }
 }

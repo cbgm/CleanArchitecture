@@ -6,33 +6,23 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import java.io.File
 import java.io.FileInputStream
-import java.lang.ref.WeakReference
+import javax.inject.Singleton
 
-class ImageUtil {
-    lateinit var fileName: String
-    var contextRef: WeakReference<Context>? = null
+@Singleton
+class ImageUtil (private val applicationContext: Context) {
+    private lateinit var fileName: String
 
-    companion object {
-        @Volatile private var INSTANCE: ImageUtil? = null
-
-        fun getInstance(filename: String, context: Context): ImageUtil {
-            INSTANCE?.let {
-                INSTANCE = ImageUtil()
-                INSTANCE?.fileName = filename
-                INSTANCE?.contextRef = WeakReference(context)
-                return INSTANCE as ImageUtil
-            }
-            return this.INSTANCE!!
-        }
+    fun setFileName(name: String) {
+        fileName = name
     }
 
-    fun saveBitmapAsImage(bitmap: Bitmap?, name: String) {
-        val outputStream = contextRef?.get()?.openFileOutput(name, Context.MODE_PRIVATE)
+    fun saveBitmapAsImage(bitmap: Bitmap?) {
+        val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
     }
 
-    fun loadImage(name: String): Bitmap? {
-        val openFileInput = contextRef?.get()?.openFileInput(name)
+    fun loadImage(): Bitmap? {
+        val openFileInput = applicationContext.openFileInput(fileName)
         return BitmapFactory.decodeStream(openFileInput)
     }
 
@@ -40,11 +30,11 @@ class ImageUtil {
         return BitmapFactory.decodeStream(FileInputStream(file))
     }
 
-    fun deleteImageFromInternalStorage(name: String) {
-        contextRef?.get()?.deleteFile(name)
+    fun deleteImageFromInternalStorage() {
+        applicationContext.deleteFile(fileName)
     }
 
-    fun getImagePathByName(name: String): Uri? {
-        return Uri.fromFile(File("${contextRef?.get()?.filesDir?.absolutePath}${File.separator}$name"))
+    fun getImagePathByName(): Uri? {
+        return Uri.fromFile(File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName"))
     }
 }
