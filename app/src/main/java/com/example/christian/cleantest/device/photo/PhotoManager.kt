@@ -31,9 +31,7 @@ import java.io.File
 
 class PhotoManager(
         private val applicationContext: Context,
-        private val imageUtil: ImageUtil,
-        private val permissionHelper: PermissionHelper
-) {
+        private val imageUtil: ImageUtil) {
 
     private lateinit var chooserDisposable: Disposable
     private lateinit var croppingDisposable: Disposable
@@ -162,7 +160,7 @@ class PhotoManager(
 
     internal fun forwardToCamera() {
         subscribeChooser()
-        if (hasWriteExternalStoragePermission()) {
+        if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, applicationContext)) {
             createExternalTempFile()?.let {
                 setTempFileName(it.name)
                 val uriForFile = FileProvider.getUriForFile(applicationContext, "com.example.christian.cleantest", it)
@@ -171,7 +169,8 @@ class PhotoManager(
                 startCameraActivity(takePictureIntent)
             }
         } else {
-            getWriteExternalStoragePermission()
+            PermissionHelper.getPermissionFromUser(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE, applicationContext)
         }
     }
 
