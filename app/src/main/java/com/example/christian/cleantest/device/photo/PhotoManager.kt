@@ -76,9 +76,9 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
         photoOptionItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
         photoOptionItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
 
-        //if (imageUtil.imageExists()) {
+        if (imageUtil.isImagePresent()) {
             photoOptionItems.add(PhotoOptionItem("Foto löschen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
-       // }
+        }
     }
 
     private fun createPhotoOptionDialog(pickerBuilder: AlertDialog.Builder): AlertDialog {

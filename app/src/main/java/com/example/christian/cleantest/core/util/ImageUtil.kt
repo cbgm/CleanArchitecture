@@ -34,7 +34,7 @@ class ImageUtil(private val applicationContext: Context) {
         applicationContext.deleteFile(fileName)
     }
 
-    fun getImagePathByName(name: String): Uri? {
+    fun getImagePathByName(): Uri? {
         return Uri.fromFile(getFileByImagePath())
     }
 
