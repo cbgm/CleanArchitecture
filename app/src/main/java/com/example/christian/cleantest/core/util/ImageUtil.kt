@@ -22,8 +22,11 @@ class ImageUtil(private val applicationContext: Context) {
     }
 
     fun loadImage(): Bitmap? {
-        val openFileInput = applicationContext.openFileInput(fileName)
-        return BitmapFactory.decodeStream(openFileInput)
+        if (isImagePresent()) {
+            val openFileInput = applicationContext.openFileInput(fileName)
+            return BitmapFactory.decodeStream(openFileInput)
+        }
+        return null
     }
 
     fun getBitmapFromFile(file: File): Bitmap? {
