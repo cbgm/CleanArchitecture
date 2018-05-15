@@ -4,11 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
@@ -177,16 +175,6 @@ class PhotoManager(
     private fun startCameraActivity(takePictureIntent: Intent) {
         if (takePictureIntent.resolveActivity(applicationContext.packageManager) != null) {
             (applicationContext as AppCompatActivity).startActivityForResult(takePictureIntent, CAMERA_RESULT_CODE)
-        }
-    }
-
-    private fun hasWriteExternalStoragePermission() = Build.VERSION.SDK_INT < 23 ||
-            applicationContext.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-
-    private fun getWriteExternalStoragePermission() {
-
-        if (Build.VERSION.SDK_INT > 22) {
-            (applicationContext as AppCompatActivity).requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), WRITE_EXTERNAL_STORAGE_REQUEST_CODE)
         }
     }
 
