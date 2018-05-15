@@ -9,7 +9,7 @@ import java.io.FileInputStream
 import javax.inject.Singleton
 
 @Singleton
-class ImageUtil (private val applicationContext: Context) {
+class ImageUtil(private val applicationContext: Context) {
     private lateinit var fileName: String
 
     fun setFileName(name: String) {
@@ -34,7 +34,14 @@ class ImageUtil (private val applicationContext: Context) {
         applicationContext.deleteFile(fileName)
     }
 
-    fun getImagePathByName(): Uri? {
-        return Uri.fromFile(File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName"))
+    fun getImagePathByName(name: String): Uri? {
+        return Uri.fromFile(getFileByImagePath())
     }
+
+    fun isImagePresent(): Boolean {
+        return getFileByImagePath().exists()
+    }
+
+    private fun getFileByImagePath() =
+            File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName")
 }
