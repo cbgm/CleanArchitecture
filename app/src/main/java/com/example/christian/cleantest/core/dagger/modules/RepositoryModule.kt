@@ -27,7 +27,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideItemRepository(licenseRepositoryImpl: LicenseRepositoryImpl): LicenseRepository {
+    fun provideLicenseRepository(licenseRepositoryImpl: LicenseRepositoryImpl): LicenseRepository {
         return licenseRepositoryImpl
     }
 }
