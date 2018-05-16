@@ -1,7 +1,6 @@
 package com.example.christian.cleantest.device.photo.command
 
 import android.app.Activity
-import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import com.example.christian.cleantest.core.util.ImageUtil
@@ -16,7 +15,7 @@ import java.io.File
 abstract class AbstractCommand(
         val imageUtil: ImageUtil,
         val photoManagerCallback: PhotoManager.PhotoManagerCallback
-): PhotoCommandResolver.ForwardCommand {
+) : PhotoCommandResolver.ForwardCommand {
 
     lateinit var exFunc: (Int, String) -> Unit
     lateinit var context: Activity
@@ -50,6 +49,7 @@ abstract class AbstractCommand(
                         }
                         PhotoManager.CROP_RESULT_CODE -> {
                             photoManagerCallback.imageReady()
+                            imageUtil.deleteTempFileByName()
                         }
                     }
                 }
@@ -65,11 +65,9 @@ abstract class AbstractCommand(
         val uri: Uri? = when (callbackObj.resultCode) {
             PhotoManager.CAMERA_RESULT_CODE -> {
                 callbackObj.data?.let {
-                    val externalFilesDir: String? = getExternalPhotoPath()
-                    externalFilesDir?.let {
-                        imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
-                        imageUtil.getImagePathByName()
-                    }
+                    val externalFilesDir: String = getExternalPhotoPath()
+                    imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
+                    imageUtil.getImagePathByName()
                 }
             }
             PhotoManager.GALLERY_RESULT_CODE -> callbackObj.data?.data
@@ -83,6 +81,6 @@ abstract class AbstractCommand(
 
 
     private fun getExternalPhotoPath() =
-            context.applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.tempFileName
+            context.applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.fileName
 
 }

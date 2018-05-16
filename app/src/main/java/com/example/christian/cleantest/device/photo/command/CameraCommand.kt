@@ -2,7 +2,6 @@ package com.example.christian.cleantest.device.photo.command
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Environment
 import android.provider.MediaStore
@@ -46,6 +45,7 @@ class CameraCommand(
 
     private fun createExternalTempFile(): File? {
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(imageUtil.fileName, ".jpg", storageDir)
+        return File("$storageDir${File.separator}${imageUtil.fileName}")
+//        return File.createTempFile(imageUtil.fileName, ".jpg", storageDir)
     }
 }
