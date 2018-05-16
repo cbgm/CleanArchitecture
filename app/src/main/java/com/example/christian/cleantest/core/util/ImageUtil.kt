@@ -6,10 +6,11 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import java.io.File
 import java.io.FileInputStream
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ImageUtil(private val applicationContext: Context) {
+class ImageUtil @Inject constructor(private val applicationContext: Context) {
     lateinit var fileName: String
     lateinit var tempFileName: String
 

@@ -10,12 +10,9 @@ import dagger.Provides
 @Module
 class ActivityModule(private var activity: Activity) {
 
+
     @ForActivity
     @Provides
-    fun providePhotoManager(imageUtil: ImageUtil): PhotoManager {
-        return PhotoManager(activity, imageUtil).apply {
-            if (activity is PhotoManager.PhotoManagerCallback)
-                this.photoManagerCallback = activity as PhotoManager.PhotoManagerCallback
-        }
-    }
+    fun provideActivityContext(): Activity = activity
+
 }

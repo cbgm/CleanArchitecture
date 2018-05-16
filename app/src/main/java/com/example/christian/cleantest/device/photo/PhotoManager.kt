@@ -1,7 +1,7 @@
 package com.example.christian.cleantest.device.photo
 
+import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.support.v4.content.res.ResourcesCompat
@@ -14,12 +14,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
+import javax.inject.Inject
 
-class PhotoManager(private val applicationContext: Context, private val imageUtil: ImageUtil) {
+class PhotoManager @Inject constructor(
+        private val context: Activity,
+        private val imageUtil: ImageUtil,
+        private val photoCommandResolver: PhotoCommandResolver
+) {
 
     private val photoOptionItems = ArrayList<PhotoOptionItem>()
-    internal lateinit var photoManagerCallback: PhotoManagerCallback
-    private val photoCommandResolver = PhotoCommandResolver(applicationContext, imageUtil)
 
 
     companion object {
@@ -38,12 +41,11 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
     }
 
     fun setPhotoManagerCallback(photoManagerCallback: PhotoManagerCallback) {
-        this.photoManagerCallback = photoManagerCallback
         this.photoCommandResolver.photoManagerCallback = photoManagerCallback
     }
 
     private fun createPhotoOptionBuilder(adapter: PhotoOptionAdapter): AlertDialog.Builder {
-        return AlertDialog.Builder(applicationContext, R.style.PhotopickerTheme)
+        return AlertDialog.Builder(context, R.style.PhotopickerTheme)
                 .setSingleChoiceItems(adapter, -1, { dialog, which ->
                     val selected = photoOptionItems[which].value
                     photoCommandResolver.executeCommand(selected)
@@ -53,11 +55,11 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
 
     private fun initPhotoOptions() {
         photoOptionItems.clear()
-        photoOptionItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
-        photoOptionItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
+        photoOptionItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
+        photoOptionItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
 
         if (imageUtil.isImagePresent()) {
-            photoOptionItems.add(PhotoOptionItem("Foto löschen", ResourcesCompat.getDrawable(applicationContext.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
+            photoOptionItems.add(PhotoOptionItem("Foto löschen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
         }
     }
 
@@ -78,7 +80,7 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
     inner class PhotoOptionAdapter(val data: ArrayList<PhotoOptionItem>) : BaseAdapter() {
 
         private val inflater: LayoutInflater by lazy {
-            LayoutInflater.from(applicationContext)
+            LayoutInflater.from(context)
         }
 
         override fun getItem(position: Int) = data[position]
@@ -120,15 +122,7 @@ class PhotoManager(private val applicationContext: Context, private val imageUti
         fun imageReady()
     }
 
-    private fun setTempFileName(name: String) {
-        imageUtil.tempFileName = name
-    }
-
-    fun setFileName(name: String) {
-        imageUtil.fileName = name
-    }
-
-    fun permissonGranted() {
+    fun cameraPermissionsGranted() {
         photoCommandResolver.executeCommand(CAMERA_RESULT_CODE)
     }
 }

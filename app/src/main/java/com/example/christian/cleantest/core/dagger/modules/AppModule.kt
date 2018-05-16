@@ -50,10 +50,4 @@ class AppModule(val app: UserApplication) {
                 .client(client)
                 .build()
     }
-
-    @Singleton
-    @Provides
-    fun provideImageUtil(context: Context): ImageUtil {
-        return ImageUtil(context)
-    }
 }

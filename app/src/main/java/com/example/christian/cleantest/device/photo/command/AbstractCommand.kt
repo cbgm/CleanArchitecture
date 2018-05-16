@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.device.photo.command
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
@@ -13,17 +14,24 @@ import io.reactivex.disposables.Disposable
 import java.io.File
 
 abstract class AbstractCommand(
-        val applicationContext: Context,
         val imageUtil: ImageUtil,
         val photoManagerCallback: PhotoManager.PhotoManagerCallback
 ): PhotoCommandResolver.ForwardCommand {
 
     lateinit var exFunc: (Int, String) -> Unit
+    lateinit var context: Activity
 
-    constructor(applicationContext: Context,
+    constructor(context: Activity,
                 imageUtil: ImageUtil,
-                photoManagerCallback: PhotoManager.PhotoManagerCallback, func: (Int, String) -> Unit) : this(applicationContext, imageUtil, photoManagerCallback) {
-        exFunc = func
+                photoManagerCallback: PhotoManager.PhotoManagerCallback, func: (Int, String) -> Unit) : this(imageUtil, photoManagerCallback) {
+        this.exFunc = func
+        this.context = context
+    }
+
+    constructor(context: Activity,
+                imageUtil: ImageUtil,
+                photoManagerCallback: PhotoManager.PhotoManagerCallback) : this(imageUtil, photoManagerCallback) {
+        this.context = context
     }
 
 
@@ -75,6 +83,6 @@ abstract class AbstractCommand(
 
 
     private fun getExternalPhotoPath() =
-            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.tempFileName
+            context.applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.tempFileName
 
 }

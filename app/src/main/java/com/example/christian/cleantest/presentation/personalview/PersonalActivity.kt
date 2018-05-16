@@ -8,6 +8,7 @@ import android.view.View
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.core.ui.BaseActivity
+import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.device.FragmentToolbar
 import com.example.christian.cleantest.device.ToolbarLoader
 import com.example.christian.cleantest.device.photo.PhotoCallbackObject
@@ -23,12 +24,15 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     lateinit var presenter: PersonalPresenter
 
     @Inject
+    lateinit var imageUtil: ImageUtil
+
+    @Inject
     lateinit var photoManager: PhotoManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
-        photoManager.setFileName("bla.jpg")
+        imageUtil.fileName = "bla.jpg"
         presenter.setVIew(this)
         photoManager.setPhotoManagerCallback(this)
         initViews()
@@ -103,7 +107,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
             personal_image.visibility = View.VISIBLE
             personal_container.visibility = View.GONE
             personalisation_btn.visibility = View.VISIBLE
-        }?: run{
+        } ?: run {
             personal_image.visibility = View.GONE
             personalisation_btn.visibility = View.GONE
             personal_container.visibility = View.VISIBLE
@@ -116,7 +120,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            photoManager.permissonGranted()
+            photoManager.cameraPermissionsGranted()
         }
     }
 
