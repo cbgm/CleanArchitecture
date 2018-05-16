@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Singleton
 class ImageUtil @Inject constructor(private val applicationContext: Context) {
     lateinit var fileName: String
-    lateinit var tempFileName: String
 
     fun saveBitmapAsImage(bitmap: Bitmap?) {
         val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
@@ -37,17 +36,20 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     }
 
     fun getImagePathByName(): Uri? {
-        return Uri.fromFile(getFileByImagePath(fileName))
+        return Uri.fromFile(getFileByImagePath())
     }
 
     fun isImagePresent(): Boolean {
-        return getFileByImagePath(fileName).exists()
+        return getFileByImagePath().exists()
     }
 
     fun deleteTempFileByName() {
-        File(applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + fileName).delete()
+        getExternalFileByImagePath().delete()
     }
 
-    private fun getFileByImagePath(name: String) =
-            File("${applicationContext.filesDir?.absolutePath}${File.separator}$name")
+    fun getExternalFileByImagePath() =
+            File(applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + fileName)
+
+    private fun getFileByImagePath() =
+            File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName")
 }

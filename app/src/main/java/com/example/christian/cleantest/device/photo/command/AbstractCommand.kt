@@ -2,7 +2,6 @@ package com.example.christian.cleantest.device.photo.command
 
 import android.app.Activity
 import android.net.Uri
-import android.os.Environment
 import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.device.photo.PhotoCallbackObject
 import com.example.christian.cleantest.device.photo.PhotoCommandResolver
@@ -10,7 +9,6 @@ import com.example.christian.cleantest.device.photo.PhotoManager
 import com.example.christian.cleantest.device.photo.RxPhotoBus
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import java.io.File
 
 abstract class AbstractCommand(
         val imageUtil: ImageUtil,
@@ -65,8 +63,7 @@ abstract class AbstractCommand(
         val uri: Uri? = when (callbackObj.resultCode) {
             PhotoManager.CAMERA_RESULT_CODE -> {
                 callbackObj.data?.let {
-                    val externalFilesDir: String = getExternalPhotoPath()
-                    imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(File(externalFilesDir)))
+                    imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(imageUtil.getExternalFileByImagePath()))
                     imageUtil.getImagePathByName()
                 }
             }
@@ -78,9 +75,4 @@ abstract class AbstractCommand(
             exFunc(PhotoManager.CROP_RESULT_CODE, it.toString())
         }
     }
-
-
-    private fun getExternalPhotoPath() =
-            context.applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.fileName
-
 }
