@@ -11,8 +11,6 @@ import android.widget.TextView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.presentation.cartview.model.CartEntity
-import kotlinx.android.synthetic.main.activity_cart.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 import javax.inject.Inject
 
@@ -39,7 +37,7 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        cartPresenter.setVIew(this)
+        cartPresenter.setView(this)
         rootView = inflater.inflate(R.layout.fragment_cart, container, false)
         return rootView
     }

@@ -33,7 +33,7 @@ class OverviewPresenter @Inject constructor(
         getUsersInPool.execute(GetUsersObserver(), Unit)
     }
 
-    override fun setVIew(v: OverviewContract.View) {
+    override fun setView(v: OverviewContract.View) {
         overviewView = v
     }
 

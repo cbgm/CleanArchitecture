@@ -1,9 +1,7 @@
 package com.example.christian.cleantest.presentation.overview
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.christian.cleantest.R
@@ -11,9 +9,6 @@ import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.device.FragmentToolbar
 import com.example.christian.cleantest.device.ToolbarLoader
-import com.example.christian.cleantest.device.photo.PhotoCallbackObject
-import com.example.christian.cleantest.device.photo.PhotoManager
-import com.example.christian.cleantest.device.photo.RxPhotoBus
 import com.example.christian.cleantest.presentation.overview.model.UserOverviewEntity
 import com.example.christian.cleantest.presentation.personalview.PersonalActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,7 +27,7 @@ class OverviewActivity : BaseActivity(), OverviewContract.View, OverviewAdapter.
         super.onCreate(savedInstanceState)
         //component.inject(this)
         Injector.initActivityComponent(this).inject(this)
-        presenter.setVIew(this)
+        presenter.setView(this)
         initViews()
         ToolbarLoader(this, R.string.title_overview, false)
     }

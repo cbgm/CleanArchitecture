@@ -33,7 +33,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
         imageUtil.fileName = "bla.jpg"
-        presenter.setVIew(this)
+        presenter.setView(this)
         photoManager.setPhotoManagerCallback(this)
         initViews()
         ToolbarLoader(this, R.string.title_personal, false)

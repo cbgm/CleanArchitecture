@@ -32,7 +32,7 @@ class CartPresenter @Inject constructor(
         getCartByUser.execute(GetCartObserver(), byUser)
     }
 
-    override fun setVIew(v: CartContract.View) {
+    override fun setView(v: CartContract.View) {
         cartview = v
     }
 

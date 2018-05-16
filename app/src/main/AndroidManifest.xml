@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".presentation.UserApplication"
         android:allowBackup="true"
@@ -23,8 +24,9 @@
             android:name=".presentation.cartview.CartActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme" />
-        <activity android:name=".presentation.personalview.CropActivity"/>
-        <activity android:name=".presentation.personalview.PersonalActivity"/>
+        <activity android:name=".presentation.personalview.CropActivity" />
+        <activity android:name=".presentation.personalview.PersonalActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.christian.cleantest"
@@ -32,8 +34,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".presentation.licenseview.LicenseActivity"></activity>
     </application>
 
 </manifest>

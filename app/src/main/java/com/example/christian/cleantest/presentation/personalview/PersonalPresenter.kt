@@ -11,7 +11,7 @@ class PersonalPresenter @Inject constructor(): PersonalContract.Presenter {
 
     }
 
-    override fun setVIew(v: PersonalContract.View) {
+    override fun setView(v: PersonalContract.View) {
         this.personalView = v
     }
 
