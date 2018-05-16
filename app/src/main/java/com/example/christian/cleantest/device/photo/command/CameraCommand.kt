@@ -45,6 +45,7 @@ class CameraCommand(
 
     private fun createExternalTempFile(): File? {
         val storageDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(imageUtil.fileName, ".jpg", storageDir)
+        return File("$storageDir${File.separator}${imageUtil.fileName}")
+//        return File.createTempFile(imageUtil.fileName, ".jpg", storageDir)
     }
 }

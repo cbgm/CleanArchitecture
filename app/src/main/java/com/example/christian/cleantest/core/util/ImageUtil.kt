@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Environment
 import java.io.File
 import java.io.FileInputStream
 import javax.inject.Singleton
@@ -35,13 +36,17 @@ class ImageUtil(private val applicationContext: Context) {
     }
 
     fun getImagePathByName(): Uri? {
-        return Uri.fromFile(getFileByImagePath())
+        return Uri.fromFile(getFileByImagePath(fileName))
     }
 
     fun isImagePresent(): Boolean {
-        return getFileByImagePath().exists()
+        return getFileByImagePath(fileName).exists()
     }
 
-    private fun getFileByImagePath() =
-            File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName")
+    fun deleteTempFileByName() {
+        File(applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + fileName).delete()
+    }
+
+    private fun getFileByImagePath(name: String) =
+            File("${applicationContext.filesDir?.absolutePath}${File.separator}$name")
 }

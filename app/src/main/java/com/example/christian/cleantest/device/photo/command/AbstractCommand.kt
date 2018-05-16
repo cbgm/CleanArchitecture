@@ -42,6 +42,7 @@ abstract class AbstractCommand(
                         }
                         PhotoManager.CROP_RESULT_CODE -> {
                             photoManagerCallback.imageReady()
+                            imageUtil.deleteTempFileByName()
                         }
                     }
                 }
@@ -73,6 +74,6 @@ abstract class AbstractCommand(
 
 
     private fun getExternalPhotoPath() =
-            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.tempFileName
+            applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + imageUtil.fileName
 
 }
