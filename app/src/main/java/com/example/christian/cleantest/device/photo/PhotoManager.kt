@@ -94,7 +94,7 @@ class PhotoManager @Inject constructor(
             val view: View?
 
             if (convertView == null) {
-                view = inflater.inflate(R.layout.photopicker_item, parent, false)
+                view = inflater.inflate(R.layout.photooption_item, parent, false)
                 holder = ItemHolder(view)
                 view.tag = holder
             } else {
