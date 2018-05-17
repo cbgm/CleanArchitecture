@@ -6,8 +6,8 @@ import com.example.christian.cleantest.presentation.licenseview.model.LicenseEnt
 class LicenseDomainMapper {
 
     companion object {
-        fun transform(license: License) : LicenseEntity {
-            return LicenseEntity(license.name)
+        fun transform(licenses: List<License>) : List<LicenseEntity> {
+            return licenses.map { LicenseEntity(it.name) }.toList()
         }
     }
 }

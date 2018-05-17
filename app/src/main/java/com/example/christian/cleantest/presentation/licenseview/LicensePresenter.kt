@@ -1,9 +1,35 @@
 package com.example.christian.cleantest.presentation.licenseview
 
-class LicensePresenter : LicenseContract.Presenter {
+import com.example.christian.cleantest.domain.model.License
+import com.example.christian.cleantest.domain.usecases.GetLicensesByCar
+import com.example.christian.cleantest.presentation.licenseview.mapper.LicenseDomainMapper
+import io.reactivex.observers.DisposableSingleObserver
+import javax.inject.Inject
+
+class LicensePresenter @Inject constructor(
+        private val getLicensesByCar: GetLicensesByCar
+) : LicenseContract.Presenter {
     lateinit var licenseView: LicenseContract.View
+
+    inner class GetLicensesObserver : DisposableSingleObserver<List<License>>(){
+        override fun onSuccess(t: List<License>) {
+            licenseView.showContent(true)
+            licenseView.showLoading(false)
+            licenseView.showError(false)
+            licenseView.updateLicenses(LicenseDomainMapper.transform(t))
+        }
+
+        override fun onError(e: Throwable) {
+            licenseView.showError(true)
+            licenseView.showLoading(false)
+            licenseView.showContent(false)
+        }
+
+    }
+
+
     override fun loadLicenses() {
-        //TODO
+        getLicensesByCar.execute(GetLicensesObserver(), Unit)
     }
 
     override fun setView(v: LicenseContract.View) {
@@ -11,11 +37,14 @@ class LicensePresenter : LicenseContract.Presenter {
     }
 
     override fun onBind() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        licenseView.showError(false)
+        licenseView.showContent(false)
+        licenseView.showLoading(true)
+        loadLicenses()
     }
 
     override fun onUnbind() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        getLicensesByCar.dispose()
     }
 
 }
