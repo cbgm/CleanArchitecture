@@ -7,8 +7,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetLicensesByCar @Inject constructor(private val licenseRepository: LicenseRepository): SingleUseCase<List<License>, Unit>() {
-    override fun buildUseCaseObservable(param: Unit): Single<List<License>> {
-        return licenseRepository.getLicenses()
+class GetLicensesByCar @Inject constructor(private val licenseRepository: LicenseRepository): SingleUseCase<List<License>, String>() {
+    override fun buildUseCaseObservable(param: String): Single<List<License>> {
+        return licenseRepository.getLicenses(param)
     }
 }

@@ -11,6 +11,6 @@ interface LicenseContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadLicenses()
+        fun loadLicenses(carId: String)
     }
 }

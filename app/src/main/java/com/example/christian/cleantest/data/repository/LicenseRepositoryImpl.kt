@@ -11,12 +11,12 @@ import javax.inject.Singleton
 
 @Singleton
 class LicenseRepositoryImpl @Inject constructor(val context: Context): LicenseRepository {
-    override fun getLicenses(): Single<List<License>> {
-       return Single.just(loadLicenseFiles())
+    override fun getLicenses(carId: String): Single<List<License>> {
+       return Single.just(loadLicenseFiles(carId))
     }
 
-    private fun loadLicenseFiles(): List<License> {
-        val path = "${context.filesDir.absolutePath}${File.separator}licenses"
+    private fun loadLicenseFiles(carId: String): List<License> {
+        val path = "${context.filesDir.absolutePath}${File.separator}$carId${File.separator}licenses"
         return File(path)
                 .walkTopDown()
                 .map { License(it.path) }

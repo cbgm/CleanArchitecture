@@ -5,5 +5,5 @@ import io.reactivex.Single
 
 
 interface LicenseRepository {
-    fun getLicenses(): Single<List<License>>
+    fun getLicenses(carId: String): Single<List<License>>
 }

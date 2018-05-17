@@ -28,8 +28,8 @@ class LicensePresenter @Inject constructor(
     }
 
 
-    override fun loadLicenses() {
-        getLicensesByCar.execute(GetLicensesObserver(), Unit)
+    override fun loadLicenses(carId: String) {
+        getLicensesByCar.execute(GetLicensesObserver(), carId)
     }
 
     override fun setView(v: LicenseContract.View) {
@@ -40,7 +40,6 @@ class LicensePresenter @Inject constructor(
         licenseView.showError(false)
         licenseView.showContent(false)
         licenseView.showLoading(true)
-        loadLicenses()
     }
 
     override fun onUnbind() {
