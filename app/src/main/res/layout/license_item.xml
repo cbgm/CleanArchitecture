@@ -44,7 +44,8 @@
         <EditText
             android:id="@+id/license_desc"
             android:layout_width="0dp"
-            android:inputType="none"
+            android:enabled="false"
+            android:focusable="false"
             android:textCursorDrawable="@null"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -68,9 +69,9 @@
     <ImageView
         android:id="@+id/license_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:ignore="ContentDescription" />
 
 </LinearLayout>
