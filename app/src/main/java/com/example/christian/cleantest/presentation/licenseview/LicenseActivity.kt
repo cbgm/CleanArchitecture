@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.presentation.licenseview.LicenseContract.View
+import com.example.christian.cleantest.presentation.licenseview.model.LicenseEntity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LicenseActivity : AppCompatActivity(), View {
-    override fun updateLicenses(licenseList: List<String>) {
+    override fun updateLicenses(licenseList: List<LicenseEntity>) {
         licenseList.forEach {
 
         }

@@ -14,11 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.overview.OverviewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.cartview.CartActivity"
@@ -37,7 +33,13 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".presentation.licenseview.LicenseActivity"></activity>
+        <activity android:name=".presentation.licenseview.LicenseActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
