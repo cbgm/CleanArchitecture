@@ -12,6 +12,11 @@ import javax.inject.Singleton
 
 @Singleton
 class ImageUtil @Inject constructor(private val applicationContext: Context) {
+
+    companion object {
+        private const val LICENSES_DIR_NAME: String = "licenses"
+    }
+
     lateinit var fileName: String
 
     fun saveBitmapAsImage(bitmap: Bitmap?) {
@@ -52,4 +57,34 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
 
     private fun getFileByImagePath() =
             File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName")
+
+    //TODO(implement) Rename Image method
+    fun createLicensesPath(carId: String) {
+        File(applicationContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES).absolutePath
+                + File.separator
+                + carId
+                + File.separator
+                + LICENSES_DIR_NAME
+        ).mkdirs()
+    }
+
+    fun licensesPathExists(carId: String): Boolean {
+        return File(applicationContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES).absolutePath
+                + File.separator
+                + carId
+                + File.separator
+                + LICENSES_DIR_NAME
+        ).exists()
+    }
+
+    fun getLicensesPath(carId: String): String {
+        return applicationContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES).absolutePath +
+                File.separator +
+                carId +
+                File.separator +
+                LICENSES_DIR_NAME
+    }
 }
