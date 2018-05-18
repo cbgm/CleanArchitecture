@@ -31,7 +31,7 @@ class LicenseAdapter @Inject constructor(
         holder.bind(list[position])
     }
 
-    fun replaceData(data: ArrayList<LicenseEntity>) {
+    fun replaceData(data: List<LicenseEntity>) {
         list = data
         notifyDataSetChanged()
     }

@@ -125,7 +125,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     }
 
     override fun imageReady() {
-        setCarimage()
+        //
     }
 
 }

@@ -33,8 +33,8 @@ class PhotoManager @Inject constructor(
         const val CROP_RESULT_CODE: Int = 4
     }
 
-    fun showPhotoOptions() {
-        initPhotoOptions()
+    fun showPhotoOptions(enableDelete: Boolean = true, enableAdd: Boolean = true) {
+        initPhotoOptions(enableDelete, enableAdd)
         val adapter = PhotoOptionAdapter(photoOptionItems)
         val pickerBuilder: AlertDialog.Builder = createPhotoOptionBuilder(adapter)
         createPhotoOptionDialog(pickerBuilder).show()
@@ -53,12 +53,16 @@ class PhotoManager @Inject constructor(
                 })
     }
 
-    private fun initPhotoOptions() {
+    private fun initPhotoOptions(enableDelete: Boolean, enableAdd: Boolean) {
         photoOptionItems.clear()
-        photoOptionItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
-        photoOptionItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
 
-        if (imageUtil.isImagePresent()) {
+        if (enableAdd) {
+            photoOptionItems.add(PhotoOptionItem("Foto aufnehmen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_camera_black_24dp, null), CAMERA_RESULT_CODE))
+            photoOptionItems.add(PhotoOptionItem("Foto hochladen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_photo_library_black_24dp, null), GALLERY_RESULT_CODE))
+
+        }
+
+        if (imageUtil.isImagePresent() && enableDelete) {
             photoOptionItems.add(PhotoOptionItem("Foto löschen", ResourcesCompat.getDrawable(context.resources, R.drawable.ic_delete_black_24dp, null), DELETE_RESULT_CODE))
         }
     }
