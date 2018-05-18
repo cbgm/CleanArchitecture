@@ -58,7 +58,7 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
             photoManager.showPhotoOptions(false)
         }
         usage_license_btn.setOnClickListener {
-            HintDialog(this,"Fahrzeugschein", "Lorem ipsum dolor sit amet, consetetur sadipscingclita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit am").show()
+            HintDialog(this,getString(R.string.car_license_text), getString(R.string.car_license_usage_text)).show()
         }
     }
 

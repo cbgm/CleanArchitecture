@@ -13,7 +13,9 @@
     <string name="cancel_text">Abbrechen</string>
     <string name="next_text">Weiter</string>
     <string name="add_license">Fahrzeugschein hinzufügen</string>
-    <string name="license_hint">Immer alle wichtigen Daten zur Hand:\nFügen Sie dafür Ihren Fahrzeugschein einfach als\nDatei oder Fotot hinzu.</string>
+    <string name="license_hint">Immer alle wichtigen Daten zur Hand:\nFügen Sie dafür Ihren Fahrzeugschein einfach als\nDatei oder Foto hinzu.</string>
     <string name="license_needed_text">Wozu wird mein Fahrzeugschein benötigt</string>
     <string name="understood_text">Verstanden</string>
+    <string name="car_license_text">Fahrzeugschein</string>
+    <string name="car_license_usage_text">Bei einer Terminanfrage wird Ihr Fahrzeugschein automatisch an die Werkstatt übermittelt. So hat die Werkstatt alle wichtigen Fahrzeugdaten zur Hand, die bei der Termninfindung und während des Termnin selbst benötigt werden. Das spart Ihnen Zeit und damit Geld.</string>
 </resources>
