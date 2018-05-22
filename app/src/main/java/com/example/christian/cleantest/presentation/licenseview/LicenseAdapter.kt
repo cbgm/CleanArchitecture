@@ -1,6 +1,7 @@
 package com.example.christian.cleantest.presentation.licenseview
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.ImageView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.presentation.licenseview.model.LicenseEntity
+import java.io.File
+import java.io.FileInputStream
 import javax.inject.Inject
 
 
@@ -41,9 +44,11 @@ class LicenseAdapter @Inject constructor(
         val licenseCloseIcon: ImageView = itemView.findViewById(R.id.license_close_icon)
         val licenseEditIcon: ImageView = itemView.findViewById(R.id.license_edit_icon)
         val name: ImageView = itemView.findViewById(R.id.license_image)
+        //TODO CAR ID ENTITY
         fun bind(license: LicenseEntity) {
             editText.setText(license.name)
-            name.setImageBitmap(imageUtil.apply { fileName = "bla.jpg" }.loadImage())
+            //TODO Refactor
+            name.setImageBitmap(BitmapFactory.decodeStream(FileInputStream(imageUtil.apply { fileName = license.name }.getLicensesPath(license.carId) + File.separator + imageUtil.fileName)))
         }
 
         init {

@@ -7,7 +7,8 @@ class LicenseDomainMapper {
 
     companion object {
         fun transform(licenses: List<License>) : List<LicenseEntity> {
-            return licenses.map { LicenseEntity(it.name) }.toList()
+            return licenses.map { LicenseEntity(it.carId ,it.name) }.toList()
+            return licenses.map { LicenseEntity(it.carId ,it.name) }.toList()
         }
     }
 }

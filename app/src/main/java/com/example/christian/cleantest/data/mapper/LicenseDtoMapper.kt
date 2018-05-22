@@ -6,7 +6,7 @@ import com.example.christian.cleantest.domain.model.License
 class LicenseDtoMapper {
     companion object {
         fun transform(licenseDto: LicenseDto) : License {
-            return License(licenseDto.name)
+            return License(licenseDto.carId ,licenseDto.name)
         }
     }
 }
