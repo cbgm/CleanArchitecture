@@ -58,7 +58,11 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     private fun getFileByImagePath() =
             File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName")
 
-    //TODO(implement) Rename Image method
+    fun renameLicenseFile(carId: String, newFileName: String): Boolean {
+        return File(getLicensesPath(carId) + File.separator + fileName)
+                .renameTo(File(getLicensesPath(carId) + File.separator + newFileName + ".jpg"))
+    }
+
     fun createLicensesPath(carId: String) {
         File(applicationContext.getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES).absolutePath
@@ -67,6 +71,17 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 + File.separator
                 + LICENSES_DIR_NAME
         ).mkdirs()
+    }
+
+    fun licenseFileExists(carId: String, fileName: String): Boolean {
+        return File(applicationContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES).absolutePath
+                + File.separator
+                + carId
+                + File.separator
+                + LICENSES_DIR_NAME
+                + fileName
+        ).exists()
     }
 
     fun licensesPathExists(carId: String): Boolean {

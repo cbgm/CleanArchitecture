@@ -40,22 +40,31 @@ class LicenseAdapter @Inject constructor(
     }
 
     inner class LicenseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val editText: EditText = itemView.findViewById(R.id.license_desc)!!
-        val licenseCloseIcon: ImageView = itemView.findViewById(R.id.license_close_icon)
-        val licenseEditIcon: ImageView = itemView.findViewById(R.id.license_edit_icon)
+        private val editText: EditText = itemView.findViewById(R.id.license_desc)
+        private val licenseCloseIcon: ImageView = itemView.findViewById(R.id.license_close_icon)
+        private val licenseEditIcon: ImageView = itemView.findViewById(R.id.license_edit_icon)
         val name: ImageView = itemView.findViewById(R.id.license_image)
-        //TODO CAR ID ENTITY
+        private var currentFileName: String = editText.text.toString()
+        private lateinit var license: LicenseEntity
         fun bind(license: LicenseEntity) {
-            editText.setText(license.name)
+            editText.setText(license.name.replace(".jpg", ""))
+            this.license = license
             //TODO Refactor
             name.setImageBitmap(BitmapFactory.decodeStream(FileInputStream(imageUtil.apply { fileName = license.name }.getLicensesPath(license.carId) + File.separator + imageUtil.fileName)))
         }
 
         init {
+
             licenseCloseIcon.setOnClickListener {
                 licenseEditIcon.visibility = View.VISIBLE
                 licenseCloseIcon.visibility = View.INVISIBLE
                 editText.isEnabled = false
+                if (editText.text.toString() != currentFileName && !imageUtil.licenseFileExists(license.carId, editText.text.toString())) {
+                    println(imageUtil.fileName)
+                    takeIf { imageUtil.renameLicenseFile(license.carId, editText.text.toString()) }
+                            .apply { imageUtil.fileName = editText.text.toString() }
+                }
+
             }
             licenseEditIcon.setOnClickListener {
                 licenseEditIcon.visibility = View.INVISIBLE
@@ -67,6 +76,7 @@ class LicenseAdapter @Inject constructor(
                     imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
                 }
                 editText.setSelection(editText.text.length)
+                currentFileName = editText.text.toString()
             }
         }
     }
