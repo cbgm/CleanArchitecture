@@ -60,7 +60,7 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
 
     fun renameLicenseFile(carId: String, newFileName: String): Boolean {
         return File(getLicensesPath(carId) + File.separator + fileName)
-                .renameTo(File(getLicensesPath(carId) + File.separator + newFileName + ".jpg"))
+                .renameTo(File(getLicensesPath(carId) + File.separator + newFileName.trim() + ".jpg"))
     }
 
     fun createLicensesPath(carId: String) {

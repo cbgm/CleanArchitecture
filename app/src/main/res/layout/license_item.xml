@@ -44,8 +44,6 @@
         <EditText
             android:id="@+id/license_desc"
             android:layout_width="0dp"
-            android:enabled="false"
-            android:focusable="false"
             android:textCursorDrawable="@null"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -53,6 +51,9 @@
             android:textColor="@color/metallic_blue"
             android:background="@null"
             android:ems="10"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/license_edit_icon"
             app:layout_constraintHorizontal_bias="0.5"
