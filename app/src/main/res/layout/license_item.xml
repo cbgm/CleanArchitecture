@@ -47,6 +47,8 @@
             android:textCursorDrawable="@null"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:enabled="false"
+            android:focusable="false"
             android:layout_alignParentStart="true"
             android:textColor="@color/metallic_blue"
             android:background="@null"
@@ -61,7 +63,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <requestFocus />
+            <!--<requestFocus />-->
         </EditText>
 
     </android.support.constraint.ConstraintLayout>

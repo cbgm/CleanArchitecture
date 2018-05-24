@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.presentation.licenseview
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -9,7 +10,9 @@ import com.example.christian.cleantest.core.ui.BaseActivity
 import com.example.christian.cleantest.core.ui.HintDialog
 import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.device.FragmentToolbar
+import com.example.christian.cleantest.device.photo.PhotoCallbackObject
 import com.example.christian.cleantest.device.photo.PhotoManager
+import com.example.christian.cleantest.device.photo.RxPhotoBus
 import com.example.christian.cleantest.presentation.licenseview.model.LicenseEntity
 import kotlinx.android.synthetic.main.activity_license.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,9 +68,10 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
-        imageUtil.fileName = "123"
         licensePresenter.setView(this)
         initViews()
+        imageUtil.fileName = "Seite.jpg"
+        imageUtil.setExternalPath("123")
     }
 
     override fun onResume() {
@@ -93,6 +97,11 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
 
     override fun imageReady() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        licenseAdapter.notifyDataSetChanged()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 
 }

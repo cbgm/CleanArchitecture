@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Environment
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,16 +19,31 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     }
 
     lateinit var fileName: String
+    var path: String? = null
 
     fun saveBitmapAsImage(bitmap: Bitmap?) {
-        val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        if (path == null) {
+            val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        } else {
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(File(path + File.separator + getValidFileName())))
+        }
+    }
+
+    private fun getValidFileName(i: Int = 1): String {
+        if (File(path + fileName).exists()) {
+            fileName = fileName.replace(".jpg", "$i.jpg")
+            getValidFileName(i + 1)
+        }
+        return fileName
     }
 
     fun loadImage(): Bitmap? {
-        if (isImagePresent()) {
+        if (isImagePresent() && path == null) {
             val openFileInput = applicationContext.openFileInput(fileName)
             return BitmapFactory.decodeStream(openFileInput)
+        } else if (path != null) {
+            return BitmapFactory.decodeStream(FileInputStream(path + File.separator + fileName))
         }
         return null
     }
@@ -41,7 +57,11 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     }
 
     fun getImagePathByName(): Uri? {
-        return Uri.fromFile(getFileByImagePath())
+        if (path == null) {
+            return Uri.fromFile(getFileByImagePath())
+        } else {
+            return Uri.fromFile(File(path + fileName))
+        }
     }
 
     fun isImagePresent(): Boolean {
@@ -80,6 +100,7 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 + carId
                 + File.separator
                 + LICENSES_DIR_NAME
+                + File.separator
                 + fileName
         ).exists()
     }
@@ -92,6 +113,16 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 + File.separator
                 + LICENSES_DIR_NAME
         ).exists()
+    }
+
+    fun setExternalPath(carId: String) {
+        path = applicationContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES).absolutePath +
+                File.separator +
+                carId +
+                File.separator +
+                LICENSES_DIR_NAME +
+                File.separator
     }
 
     fun getLicensesPath(carId: String): String {

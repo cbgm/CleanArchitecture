@@ -1,17 +1,18 @@
 package com.example.christian.cleantest.presentation.personalview
 
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.example.christian.cleantest.R
-import kotlinx.android.synthetic.main.activity_crop.*
 import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.device.photo.PhotoManager
+import kotlinx.android.synthetic.main.activity_crop.*
 import javax.inject.Inject
 
 class CropActivity : AppCompatActivity() {
 
-    @Inject lateinit var photoManager: PhotoManager
+    @Inject
+    lateinit var photoManager: PhotoManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,8 @@ class CropActivity : AppCompatActivity() {
             photoManager.savePhoto(cropImageView.croppedImage)
             finish()
         }
-        cancel_btn.setOnClickListener {finish()
+        cancel_btn.setOnClickListener {
+            finish()
         }
         rotate_btn.setOnClickListener {
             cropImageView.rotateImage(90)

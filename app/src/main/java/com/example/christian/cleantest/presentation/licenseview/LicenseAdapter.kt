@@ -12,7 +12,6 @@ import android.widget.ImageView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.presentation.licenseview.model.LicenseEntity
-import java.io.File
 import java.io.FileInputStream
 import javax.inject.Inject
 
@@ -49,8 +48,9 @@ class LicenseAdapter @Inject constructor(
         fun bind(license: LicenseEntity) {
             editText.setText(license.name.replace(".jpg", ""))
             this.license = license
+            imageUtil.fileName = license.name
             //TODO Refactor
-            name.setImageBitmap(BitmapFactory.decodeStream(FileInputStream(imageUtil.apply { fileName = license.name }.getLicensesPath(license.carId) + File.separator + imageUtil.fileName)))
+            name.setImageBitmap(BitmapFactory.decodeStream(FileInputStream(imageUtil.path + license.name)))
         }
 
         init {
@@ -62,7 +62,7 @@ class LicenseAdapter @Inject constructor(
                 if (editText.text.toString() != currentFileName && !imageUtil.licenseFileExists(license.carId, editText.text.toString())) {
                     println(imageUtil.fileName)
                     takeIf { imageUtil.renameLicenseFile(license.carId, editText.text.toString()) }
-                            .apply { imageUtil.fileName = editText.text.toString() }
+                            .apply { imageUtil.fileName = editText.text.toString() + ".jpg" }
                 }
 
             }

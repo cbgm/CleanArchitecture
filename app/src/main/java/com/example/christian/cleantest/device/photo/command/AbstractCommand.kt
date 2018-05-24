@@ -63,8 +63,7 @@ abstract class AbstractCommand(
         val uri: Uri? = when (callbackObj.resultCode) {
             PhotoManager.CAMERA_RESULT_CODE -> {
                 callbackObj.data?.let {
-                    imageUtil.saveBitmapAsImage(imageUtil.getBitmapFromFile(imageUtil.getExternalFileByImagePath()))
-                    imageUtil.getImagePathByName()
+                    Uri.fromFile(imageUtil.getExternalFileByImagePath())
                 }
             }
             PhotoManager.GALLERY_RESULT_CODE -> callbackObj.data?.data
