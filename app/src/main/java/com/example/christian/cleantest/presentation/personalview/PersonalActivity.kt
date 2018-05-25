@@ -32,7 +32,8 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
-        imageUtil.fileName = "Seite.jpg"
+        imageUtil.fileName = "CarImage.jpg"
+        imageUtil.setCarPath("123")
         presenter.setView(this)
         photoManager.setPhotoManagerCallback(this)
         initViews()
@@ -125,7 +126,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     }
 
     override fun imageReady() {
-        //
+        setCarimage()
     }
 
 }

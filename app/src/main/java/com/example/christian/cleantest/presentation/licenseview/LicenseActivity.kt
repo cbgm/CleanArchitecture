@@ -24,7 +24,7 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     lateinit var licenseAdapter: LicenseAdapter
 
     @Inject
-    lateinit var  photoManager: PhotoManager
+    lateinit var photoManager: PhotoManager
 
     @Inject
     lateinit var imageUtil: ImageUtil
@@ -46,6 +46,11 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
             license_list.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
             licenseAdapter.replaceData(licenseData)
+            runOnUiThread {
+                licenseAdapter.notifyDataSetChanged()
+            }
+            imageUtil.fileName = imageUtil.getValidFileName()
+            initViews()
         } else {
             license_list.visibility = View.GONE
             linearLayout.visibility = View.VISIBLE
@@ -59,9 +64,10 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
         photoManager.setPhotoManagerCallback(this)
         add_license_btn.setOnClickListener {
             photoManager.showPhotoOptions(false)
+            imageUtil.fileName = imageUtil.getValidFileName()
         }
         usage_license_btn.setOnClickListener {
-            HintDialog(this,getString(R.string.car_license_text), getString(R.string.car_license_usage_text)).show()
+            HintDialog(this, getString(R.string.car_license_text), getString(R.string.car_license_usage_text)).show()
         }
     }
 
@@ -69,9 +75,9 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
         licensePresenter.setView(this)
+        imageUtil.fileName = imageUtil.getValidFileName()
+        imageUtil.setLicensePath("123")
         initViews()
-        imageUtil.fileName = "Seite.jpg"
-        imageUtil.setExternalPath("123")
     }
 
     override fun onResume() {
@@ -96,8 +102,7 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     }
 
     override fun imageReady() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        licenseAdapter.notifyDataSetChanged()
+//        licenseAdapter.replaceData(licenseAdapter.list)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

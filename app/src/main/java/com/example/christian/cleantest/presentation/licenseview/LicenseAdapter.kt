@@ -1,7 +1,6 @@
 package com.example.christian.cleantest.presentation.licenseview
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.ImageView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
 import com.example.christian.cleantest.presentation.licenseview.model.LicenseEntity
-import java.io.FileInputStream
 import javax.inject.Inject
 
 
@@ -49,8 +47,9 @@ class LicenseAdapter @Inject constructor(
             editText.setText(license.name.replace(".jpg", ""))
             this.license = license
             imageUtil.fileName = license.name
-            //TODO Refactor
-            name.setImageBitmap(BitmapFactory.decodeStream(FileInputStream(imageUtil.path + license.name)))
+            //TODO Refactor / Test
+            name.setImageBitmap(imageUtil.loadImage())
+            imageUtil.fileName = imageUtil.getValidFileName()
         }
 
         init {
@@ -61,8 +60,11 @@ class LicenseAdapter @Inject constructor(
                 editText.isEnabled = false
                 if (editText.text.toString() != currentFileName && !imageUtil.licenseFileExists(license.carId, editText.text.toString())) {
                     println(imageUtil.fileName)
-                    takeIf { imageUtil.renameLicenseFile(license.carId, editText.text.toString()) }
-                            .apply { imageUtil.fileName = editText.text.toString() + ".jpg" }
+                    takeIf { imageUtil.renameLicenseFile(license.name, editText.text.toString()) }
+                            .apply {
+                                imageUtil.fileName = editText.text.toString() + ".jpg"
+                                license.name = editText.text.toString() + ".jpg"
+                            }
                 }
 
             }

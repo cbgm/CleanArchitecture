@@ -3,7 +3,6 @@ package com.example.christian.cleantest.core.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Environment
 import java.io.File
 import java.io.FileInputStream
@@ -26,13 +25,14 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
             val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         } else {
-            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(File(path + File.separator + getValidFileName())))
+            //TODO slashes not right
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(File(path + fileName)))
         }
     }
 
-    private fun getValidFileName(i: Int = 1): String {
-        if (File(path + fileName).exists()) {
-            fileName = fileName.replace(".jpg", "$i.jpg")
+    fun getValidFileName(i: Int = 1): String {
+        fileName = "Seite$i.jpg"
+        if (File(path + "Seite$i.jpg").exists()) {
             getValidFileName(i + 1)
         }
         return fileName
@@ -42,47 +42,36 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
         if (isImagePresent() && path == null) {
             val openFileInput = applicationContext.openFileInput(fileName)
             return BitmapFactory.decodeStream(openFileInput)
-        } else if (path != null) {
-            return BitmapFactory.decodeStream(FileInputStream(path + File.separator + fileName))
+        } else if (path != null && File(path + File.separator + fileName).exists()) {
+            return BitmapFactory.decodeStream(FileInputStream(path + fileName))
+                    ?: null
         }
         return null
     }
 
-    fun getBitmapFromFile(file: File): Bitmap? {
-        return BitmapFactory.decodeStream(FileInputStream(file))
-    }
-
     fun deleteImageFromInternalStorage() {
-        applicationContext.deleteFile(fileName)
-    }
-
-    fun getImagePathByName(): Uri? {
-        if (path == null) {
-            return Uri.fromFile(getFileByImagePath())
-        } else {
-            return Uri.fromFile(File(path + fileName))
-        }
+        File(path + fileName).delete()
     }
 
     fun isImagePresent(): Boolean {
-        return getFileByImagePath().exists()
+        return File(path + fileName).exists()
     }
 
-    fun deleteTempFileByName() {
-        getExternalFileByImagePath().delete()
-    }
-
+    //TODO Test
     fun getExternalFileByImagePath() =
-            File(applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + fileName)
+            File(applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + "123" + File.separator + fileName)
 
+    //TODO Test
     private fun getFileByImagePath() =
-            File("${applicationContext.filesDir?.absolutePath}${File.separator}$fileName")
+            File(path + File.separator + fileName)
 
-    fun renameLicenseFile(carId: String, newFileName: String): Boolean {
-        return File(getLicensesPath(carId) + File.separator + fileName)
-                .renameTo(File(getLicensesPath(carId) + File.separator + newFileName.trim() + ".jpg"))
+    //TODO refactor path carId
+    fun renameLicenseFile(currentName: String, newFileName: String): Boolean {
+        return File(path + currentName)
+                .renameTo(File(path + newFileName.trim() + ".jpg"))
     }
 
+    //TODO test and use
     fun createLicensesPath(carId: String) {
         File(applicationContext.getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES).absolutePath
@@ -115,7 +104,7 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
         ).exists()
     }
 
-    fun setExternalPath(carId: String) {
+    fun setLicensePath(carId: String) {
         path = applicationContext.getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES).absolutePath +
                 File.separator +
@@ -125,6 +114,7 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 File.separator
     }
 
+    //TODO Refactor variable exists
     fun getLicensesPath(carId: String): String {
         return applicationContext.getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES).absolutePath +
@@ -132,5 +122,13 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 carId +
                 File.separator +
                 LICENSES_DIR_NAME
+    }
+
+    fun setCarPath(carId: String) {
+        path = applicationContext.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES).absolutePath +
+                File.separator +
+                carId +
+                File.separator
     }
 }

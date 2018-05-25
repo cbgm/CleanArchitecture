@@ -47,7 +47,7 @@ abstract class AbstractCommand(
                         }
                         PhotoManager.CROP_RESULT_CODE -> {
                             photoManagerCallback.imageReady()
-                            imageUtil.deleteTempFileByName()
+//                            imageUtil.deleteTempFileByName()
                         }
                     }
                 }
