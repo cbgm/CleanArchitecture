@@ -49,7 +49,9 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
             runOnUiThread {
                 licenseAdapter.notifyDataSetChanged()
             }
-            imageUtil.fileName = imageUtil.getValidFileName()
+//            imageUtil.fileName = imageUtil.getValidFileName()
+//            license_list.adapter = licenseAdapter
+//            license_list.adapter.notifyDataSetChanged()
             initViews()
         } else {
             license_list.visibility = View.GONE

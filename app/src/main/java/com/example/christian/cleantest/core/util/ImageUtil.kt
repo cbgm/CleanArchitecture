@@ -25,7 +25,6 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
             val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
         } else {
-            //TODO slashes not right
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(File(path + fileName)))
         }
     }
@@ -57,15 +56,9 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
         return File(path + fileName).exists()
     }
 
-    //TODO Test
     fun getExternalFileByImagePath() =
-            File(applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES).absolutePath + File.separator + "123" + File.separator + fileName)
+            File(path + fileName)
 
-    //TODO Test
-    private fun getFileByImagePath() =
-            File(path + File.separator + fileName)
-
-    //TODO refactor path carId
     fun renameLicenseFile(currentName: String, newFileName: String): Boolean {
         return File(path + currentName)
                 .renameTo(File(path + newFileName.trim() + ".jpg"))
@@ -78,8 +71,9 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 + File.separator
                 + carId
                 + File.separator
-                + LICENSES_DIR_NAME
-        ).mkdirs()
+                + LICENSES_DIR_NAME)
+                .takeIf { !it.exists() }
+                ?.apply { mkdirs() }
     }
 
     fun licenseFileExists(carId: String, fileName: String): Boolean {
@@ -94,14 +88,8 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
         ).exists()
     }
 
-    fun licensesPathExists(carId: String): Boolean {
-        return File(applicationContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES).absolutePath
-                + File.separator
-                + carId
-                + File.separator
-                + LICENSES_DIR_NAME
-        ).exists()
+    fun licensesPathExists(): Boolean {
+        return File(path).exists()
     }
 
     fun setLicensePath(carId: String) {
@@ -112,16 +100,6 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 File.separator +
                 LICENSES_DIR_NAME +
                 File.separator
-    }
-
-    //TODO Refactor variable exists
-    fun getLicensesPath(carId: String): String {
-        return applicationContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES).absolutePath +
-                File.separator +
-                carId +
-                File.separator +
-                LICENSES_DIR_NAME
     }
 
     fun setCarPath(carId: String) {

@@ -21,8 +21,8 @@ class LicenseRepositoryImpl @Inject constructor(val context: Context) : LicenseR
 
     private fun loadLicenseFiles(carId: String): List<License> {
         //TODO Request Permission when onClick
-        return if (imageUtil.licensesPathExists(carId)) {
-            return File(imageUtil.getLicensesPath(carId)).list().map { License( carId,it ) }.toList()
+        return if (imageUtil.licensesPathExists()) {
+            return File(imageUtil.path).list().map { License(carId, it) }.toList()
         } else {
             emptyList()
         }

@@ -49,7 +49,7 @@ class LicenseAdapter @Inject constructor(
             imageUtil.fileName = license.name
             //TODO Refactor / Test
             name.setImageBitmap(imageUtil.loadImage())
-            imageUtil.fileName = imageUtil.getValidFileName()
+//            imageUtil.fileName = imageUtil.getValidFileName()
         }
 
         init {

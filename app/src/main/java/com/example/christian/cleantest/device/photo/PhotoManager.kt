@@ -78,7 +78,7 @@ class PhotoManager @Inject constructor(
 
 
     fun loadPhoto() = imageUtil.loadImage()
-
+    //TODO has false filename
     fun savePhoto(bitmap: Bitmap) = imageUtil.saveBitmapAsImage(bitmap)
 
     inner class PhotoOptionAdapter(val data: ArrayList<PhotoOptionItem>) : BaseAdapter() {
