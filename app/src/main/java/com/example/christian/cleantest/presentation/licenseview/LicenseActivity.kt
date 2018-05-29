@@ -46,12 +46,7 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
             license_list.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
             licenseAdapter.replaceData(licenseData)
-            runOnUiThread {
-                licenseAdapter.notifyDataSetChanged()
-            }
-//            imageUtil.fileName = imageUtil.getValidFileName()
-//            license_list.adapter = licenseAdapter
-//            license_list.adapter.notifyDataSetChanged()
+            licenseAdapter.notifyDataSetChanged()
             initViews()
         } else {
             license_list.visibility = View.GONE
@@ -65,8 +60,8 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
         license_list.adapter = licenseAdapter
         photoManager.setPhotoManagerCallback(this)
         add_license_btn.setOnClickListener {
-            photoManager.showPhotoOptions(false)
             imageUtil.fileName = imageUtil.getValidFileName()
+            photoManager.showPhotoOptions(false)
         }
         usage_license_btn.setOnClickListener {
             HintDialog(this, getString(R.string.car_license_text), getString(R.string.car_license_usage_text)).show()
@@ -76,9 +71,9 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Injector.initActivityComponent(this).inject(this)
-        licensePresenter.setView(this)
         imageUtil.fileName = imageUtil.getValidFileName()
         imageUtil.setLicensePath("123")
+        licensePresenter.setView(this)
         initViews()
     }
 

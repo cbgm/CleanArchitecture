@@ -42,14 +42,16 @@ class LicenseAdapter @Inject constructor(
         private val licenseEditIcon: ImageView = itemView.findViewById(R.id.license_edit_icon)
         val name: ImageView = itemView.findViewById(R.id.license_image)
         private var currentFileName: String = editText.text.toString()
+        private lateinit var tempFileName : String
         private lateinit var license: LicenseEntity
         fun bind(license: LicenseEntity) {
             editText.setText(license.name.replace(".jpg", ""))
+            tempFileName = imageUtil.fileName
             this.license = license
             imageUtil.fileName = license.name
             //TODO Refactor / Test
             name.setImageBitmap(imageUtil.loadImage())
-//            imageUtil.fileName = imageUtil.getValidFileName()
+            imageUtil.fileName = tempFileName
         }
 
         init {
@@ -62,7 +64,7 @@ class LicenseAdapter @Inject constructor(
                     println(imageUtil.fileName)
                     takeIf { imageUtil.renameLicenseFile(license.name, editText.text.toString()) }
                             .apply {
-                                imageUtil.fileName = editText.text.toString() + ".jpg"
+                                //imageUtil.fileName = editText.text.toString() + ".jpg"
                                 license.name = editText.text.toString() + ".jpg"
                             }
                 }
