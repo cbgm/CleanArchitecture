@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.presentation.licenseview
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -105,7 +106,8 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!(requestCode == 1 && resultCode == 0))
+        //TODO refactor exact line in PersonalActivity.class
+        if (!(requestCode == 1 && resultCode == Activity.RESULT_CANCELED) && !(requestCode == 4 && resultCode == Activity.RESULT_CANCELED))
             RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 

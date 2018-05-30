@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.presentation.personalview
 
+import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -36,6 +37,7 @@ class CropActivity : AppCompatActivity() {
             finish()
         }
         cancel_btn.setOnClickListener {
+            setResult(Activity.RESULT_CANCELED);
             finish()
         }
         rotate_btn.setOnClickListener {

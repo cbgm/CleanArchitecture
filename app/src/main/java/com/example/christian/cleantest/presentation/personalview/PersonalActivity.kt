@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.presentation.personalview
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -116,7 +117,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (!(requestCode == 1 && resultCode == 0))
+        if (!(requestCode == 1 && resultCode == Activity.RESULT_CANCELED) && !(requestCode == 4 && resultCode == Activity.RESULT_CANCELED))
             RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 
