@@ -116,7 +116,8 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
+        if (!(requestCode == 1 && resultCode == 0))
+            RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

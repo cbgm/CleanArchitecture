@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.presentation.licenseview
 
+import android.Manifest
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.util.ImageUtil
+import com.example.christian.cleantest.core.util.PermissionHelper
 import com.example.christian.cleantest.presentation.licenseview.model.LicenseEntity
 import javax.inject.Inject
 
@@ -32,7 +34,11 @@ class LicenseAdapter @Inject constructor(
     }
 
     fun replaceData(data: List<LicenseEntity>) {
-        list = data
+        if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+            list = data
+        } else {
+            list = emptyList()
+        }
         notifyDataSetChanged()
     }
 
@@ -71,7 +77,6 @@ class LicenseAdapter @Inject constructor(
             licenseEditIcon.setOnClickListener {
                 changeIconVisibility()
                 editText.isEnabled = true
-                //TODO TEST IF NEEDED
                 editText.isFocusableInTouchMode = true
                 openSoftInputIfPossible()
                 positionCursor()

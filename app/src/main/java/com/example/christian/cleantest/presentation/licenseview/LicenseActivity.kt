@@ -1,6 +1,7 @@
 package com.example.christian.cleantest.presentation.licenseview
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -104,7 +105,14 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
+        if (!(requestCode == 1 && resultCode == 0))
+            RxPhotoBus.sendToBus(PhotoCallbackObject(requestCode, data))
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PhotoManager.WRITE_EXTERNAL_STORAGE_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            photoManager.cameraPermissionsGranted()
+        }
     }
 
 }

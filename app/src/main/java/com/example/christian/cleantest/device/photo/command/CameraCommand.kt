@@ -18,9 +18,9 @@ class CameraCommand(
 ) : AbstractCommand(context, imageUtil, photoManagerCallback, func) {
 
     override fun execute() {
-        subscribe()
 
         if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+            subscribe()
             imageUtil.getExternalFileByImagePath().let {
                 val uriForFile = FileProvider.getUriForFile(context, "com.example.christian.cleantest", it)
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
