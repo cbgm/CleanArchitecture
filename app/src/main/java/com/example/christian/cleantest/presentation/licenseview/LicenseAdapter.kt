@@ -42,14 +42,14 @@ class LicenseAdapter @Inject constructor(
         private val licenseEditIcon: ImageView = itemView.findViewById(R.id.license_edit_icon)
         val name: ImageView = itemView.findViewById(R.id.license_image)
         private var currentFileName: String = editText.text.toString()
-        private lateinit var tempFileName : String
+        private lateinit var tempFileName: String
         private lateinit var license: LicenseEntity
+
         fun bind(license: LicenseEntity) {
             editText.setText(license.name.replace(".jpg", ""))
             tempFileName = imageUtil.fileName
             this.license = license
             imageUtil.fileName = license.name
-            //TODO Refactor / Test
             name.setImageBitmap(imageUtil.loadImage())
             imageUtil.fileName = tempFileName
         }
@@ -57,31 +57,44 @@ class LicenseAdapter @Inject constructor(
         init {
 
             licenseCloseIcon.setOnClickListener {
-                licenseEditIcon.visibility = View.VISIBLE
-                licenseCloseIcon.visibility = View.INVISIBLE
+                changeIconVisibility()
                 editText.isEnabled = false
-                if (editText.text.toString() != currentFileName && !imageUtil.licenseFileExists(license.carId, editText.text.toString())) {
+                if (editText.text.toString() != currentFileName && !imageUtil.licenseFileExists(editText.text.toString())) {
                     println(imageUtil.fileName)
                     takeIf { imageUtil.renameLicenseFile(license.name, editText.text.toString()) }
                             .apply {
-                                //imageUtil.fileName = editText.text.toString() + ".jpg"
                                 license.name = editText.text.toString() + ".jpg"
                             }
                 }
 
             }
             licenseEditIcon.setOnClickListener {
-                licenseEditIcon.visibility = View.INVISIBLE
-                licenseCloseIcon.visibility = View.VISIBLE
+                changeIconVisibility()
                 editText.isEnabled = true
+                //TODO TEST IF NEEDED
                 editText.isFocusableInTouchMode = true
-                editText.requestFocus().takeIf { it }.apply {
-                    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
-                }
-                editText.setSelection(editText.text.length)
+                openSoftInputIfPossible()
+                positionCursor()
                 currentFileName = editText.text.toString()
             }
+        }
+
+        private fun positionCursor() {
+            editText.setSelection(editText.text.length)
+        }
+
+        private fun openSoftInputIfPossible() {
+            editText.requestFocus().takeIf { it }.apply {
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+            }
+        }
+
+        private fun changeIconVisibility() {
+            if (licenseEditIcon.visibility == View.VISIBLE) licenseEditIcon.visibility = View.INVISIBLE
+            else licenseEditIcon.visibility = View.VISIBLE
+            if (licenseCloseIcon.visibility == View.VISIBLE) licenseCloseIcon.visibility = View.INVISIBLE
+            else licenseCloseIcon.visibility = View.VISIBLE
         }
     }
 }

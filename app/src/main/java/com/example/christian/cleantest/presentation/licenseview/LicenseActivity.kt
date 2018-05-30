@@ -73,6 +73,7 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
         Injector.initActivityComponent(this).inject(this)
         imageUtil.fileName = imageUtil.getValidFileName()
         imageUtil.setLicensePath("123")
+        imageUtil.createLicensesPath()
         licensePresenter.setView(this)
         initViews()
     }

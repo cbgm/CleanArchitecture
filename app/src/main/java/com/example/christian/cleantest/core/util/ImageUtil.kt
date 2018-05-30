@@ -64,28 +64,12 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
                 .renameTo(File(path + newFileName.trim() + ".jpg"))
     }
 
-    //TODO test and use
-    fun createLicensesPath(carId: String) {
-        File(applicationContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES).absolutePath
-                + File.separator
-                + carId
-                + File.separator
-                + LICENSES_DIR_NAME)
-                .takeIf { !it.exists() }
-                ?.apply { mkdirs() }
+    fun createLicensesPath() {
+        File(path).takeIf { !it.exists() }?.apply { mkdirs() }
     }
 
-    fun licenseFileExists(carId: String, fileName: String): Boolean {
-        return File(applicationContext.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES).absolutePath
-                + File.separator
-                + carId
-                + File.separator
-                + LICENSES_DIR_NAME
-                + File.separator
-                + fileName
-        ).exists()
+    fun licenseFileExists(fileName: String): Boolean {
+        return File(path+ fileName).exists()
     }
 
     fun licensesPathExists(): Boolean {
