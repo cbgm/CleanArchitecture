@@ -1,5 +1,6 @@
 package com.example.christian.cleantest.core.util
 
+import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,10 +22,7 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     var path: String? = null
 
     fun saveBitmapAsImage(bitmap: Bitmap?) {
-        if (path == null) {
-            val outputStream = applicationContext.openFileOutput(fileName, Context.MODE_PRIVATE)
-            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        } else {
+        if (path != null && hasPermissionToWriteInStorage()) {
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(File(path + fileName)))
         }
     }
@@ -38,15 +36,13 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     }
 
     fun loadImage(): Bitmap? {
-        if (isImagePresent() && path == null) {
-            val openFileInput = applicationContext.openFileInput(fileName)
-            return BitmapFactory.decodeStream(openFileInput)
-        } else if (path != null && File(path + File.separator + fileName).exists()) {
-            return BitmapFactory.decodeStream(FileInputStream(path + fileName))
-                    ?: null
-        }
-        return null
+        return if (path != null && hasPermissionToWriteInStorage() && isImagePresent()) {
+            BitmapFactory.decodeStream(FileInputStream(path + fileName))
+        } else null
     }
+
+    private fun hasPermissionToWriteInStorage() =
+            PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, applicationContext.applicationContext)
 
     fun deleteImageFromInternalStorage() {
         File(path + fileName).delete()
@@ -69,7 +65,7 @@ class ImageUtil @Inject constructor(private val applicationContext: Context) {
     }
 
     fun licenseFileExists(fileName: String): Boolean {
-        return File(path+ fileName).exists()
+        return File(path + fileName).exists()
     }
 
     fun licensesPathExists(): Boolean {

@@ -10,7 +10,7 @@ class PermissionHelper {
     companion object {
 
         fun hasWriteExternalStoragePermission(permission: String, context: Context) = Build.VERSION.SDK_INT < 23 ||
-                (context as AppCompatActivity).checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+                context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 
         fun getPermissionFromUser(permission: String, requestCode: Int, context: Context) {
             if (Build.VERSION.SDK_INT > 22) {
