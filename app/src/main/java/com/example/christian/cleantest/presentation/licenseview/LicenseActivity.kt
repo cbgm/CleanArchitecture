@@ -43,13 +43,12 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
     }
 
 
-    override fun updateLicenses(licenseData: List<LicenseEntity>) {
-        if (licenseData.isNotEmpty()) {
+    override fun updateLicenses(licenseList: List<LicenseEntity>) {
+        if (licenseList.isNotEmpty()) {
             license_list.visibility = View.VISIBLE
             linearLayout.visibility = View.GONE
-            licenseAdapter.replaceData(licenseData)
-            licenseAdapter.notifyDataSetChanged()
-            initViews()
+            licenseAdapter.replaceData(licenseList)
+            license_list.adapter = this.licenseAdapter
         } else {
             license_list.visibility = View.GONE
             linearLayout.visibility = View.VISIBLE
@@ -57,7 +56,7 @@ class LicenseActivity : BaseActivity(), LicenseContract.View, PhotoManager.Photo
 
     }
 
-    fun initViews() {
+    private fun initViews() {
         license_list.layoutManager = LinearLayoutManager(this)
         license_list.adapter = licenseAdapter
         photoManager.setPhotoManagerCallback(this)

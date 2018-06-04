@@ -34,10 +34,11 @@ class CropActivity : AppCompatActivity() {
 
         crop_btn.setOnClickListener {
             photoManager.savePhoto(cropImageView.croppedImage)
+            setResult(Activity.RESULT_OK)
             finish()
         }
         cancel_btn.setOnClickListener {
-            setResult(Activity.RESULT_CANCELED);
+            setResult(Activity.RESULT_CANCELED)
             finish()
         }
         rotate_btn.setOnClickListener {

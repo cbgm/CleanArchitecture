@@ -34,10 +34,10 @@ class LicenseAdapter @Inject constructor(
     }
 
     fun replaceData(data: List<LicenseEntity>) {
-        if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
-            list = data
+        list = if (PermissionHelper.hasWriteExternalStoragePermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context)) {
+            data
         } else {
-            list = emptyList()
+            emptyList()
         }
         notifyDataSetChanged()
     }
