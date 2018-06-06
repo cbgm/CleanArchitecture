@@ -35,6 +35,7 @@ class PersonalActivity : BaseActivity(), PersonalContract.View, PhotoManager.Pho
         Injector.initActivityComponent(this).inject(this)
         imageUtil.fileName = "CarImage.jpg"
         imageUtil.setCarPath("123")
+        imageUtil.createLicensesPath()
         presenter.setView(this)
         photoManager.setPhotoManagerCallback(this)
         initViews()
