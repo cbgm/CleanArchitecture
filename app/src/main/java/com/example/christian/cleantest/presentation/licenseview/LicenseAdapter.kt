@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -61,7 +62,27 @@ class LicenseAdapter @Inject constructor(
         }
 
         init {
+            registerOnClickListener()
+        }
 
+        private fun registerOnClickListener() {
+            registerLicenseDescListener()
+            registerLicenseCloseIconListener()
+            registerLicenseEditIconListener()
+        }
+
+        private fun registerLicenseEditIconListener() {
+            licenseEditIcon.setOnClickListener {
+                changeIconVisibility()
+                editText.isEnabled = true
+                editText.isFocusableInTouchMode = true
+                openSoftInputIfPossible()
+                positionCursor()
+                currentFileName = editText.text.toString()
+            }
+        }
+
+        private fun registerLicenseCloseIconListener() {
             licenseCloseIcon.setOnClickListener {
                 changeIconVisibility()
                 editText.isEnabled = false
@@ -72,15 +93,17 @@ class LicenseAdapter @Inject constructor(
                                 license.name = editText.text.toString() + ".jpg"
                             }
                 }
-
             }
-            licenseEditIcon.setOnClickListener {
-                changeIconVisibility()
-                editText.isEnabled = true
-                editText.isFocusableInTouchMode = true
-                openSoftInputIfPossible()
-                positionCursor()
-                currentFileName = editText.text.toString()
+        }
+
+        private fun registerLicenseDescListener() {
+            editText.setOnEditorActionListener { _, actionId, _ ->
+                var handled = false
+                if (actionId === EditorInfo.IME_ACTION_DONE) {
+                    licenseCloseIcon.performClick()
+                    handled = true
+                }
+                handled
             }
         }
 
