@@ -2,6 +2,7 @@ package com.example.christian.cleantest.presentation.cartview
 
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
+import android.view.MenuItem
 import android.view.View
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.ui.BaseActivity
@@ -33,9 +34,13 @@ class CartActivity : BaseActivity() {
         return R.layout.activity_cart
     }
 
-    override fun toolbarBuilder(): FragmentToolbar {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
+   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+      return when(item?.itemId) {
+         android.R.id.home -> {
+            onBackPressed()
+            true
+         }
+         else -> false
+      }
+   }
 }

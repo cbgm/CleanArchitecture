@@ -45,15 +45,6 @@ class OverviewActivity: BaseActivity(), OverviewContract.View, OverviewAdapter.O
         return R.layout.activity_overview
     }
 
-    override fun toolbarBuilder(): FragmentToolbar {
-        return FragmentToolbar.Builder()
-                .withBarReference(supportActionBar!!)
-                .withTitle(R.string.title_overview)
-                .withBackButton(true)
-                .build()
-    }
-
-
     override fun updateUsers(userOverviewEntity: UserOverviewEntity) {
         showLoading(false)
         userAdapter.replaceData(userOverviewEntity.users)

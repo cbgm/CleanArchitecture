@@ -20,12 +20,12 @@ abstract class BaseActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
         layoutInflater.inflate(getLayoutResId(), content)
         setSupportActionBar(toolbar)
-        //ToolbarManager(toolbarBuilder()).prepareToolbar()
     }
 
 
     abstract fun getLayoutResId(): Int
 
-    abstract fun toolbarBuilder() : FragmentToolbar
-
+    override fun onBackPressed() {
+        finish()
+    }
 }
