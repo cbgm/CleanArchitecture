@@ -2,11 +2,8 @@ package com.example.christian.cleantest.device
 
 import android.content.Context
 import android.net.ConnectivityManager
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class NetManager @Inject constructor (private val applicationContext: Context) {
+class NetManager constructor (private val applicationContext: Context) {
 
 
     val isConnected: Boolean

@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.core.ui.BaseActivity
-import com.example.christian.cleantest.device.FragmentToolbar
 import com.example.christian.cleantest.device.ToolbarLoader
 import kotlinx.android.synthetic.main.activity_main.*
 

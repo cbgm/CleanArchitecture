@@ -4,9 +4,8 @@ import com.example.christian.cleantest.domain.model.Cart
 import com.example.christian.cleantest.domain.usecases.GetCartByUser
 import com.example.christian.cleantest.presentation.cartview.mapper.CartDomainMapper
 import io.reactivex.observers.DisposableSingleObserver
-import javax.inject.Inject
 
-class CartPresenter @Inject constructor(
+class CartPresenter constructor(
         private val getCartByUser: GetCartByUser
 ): CartContract.Presenter{
 

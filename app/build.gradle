@@ -39,6 +39,8 @@ dependencies {
    implementation presDep.supportDesign
    kapt presDep.daggerCompiler
    implementation presDep.dagger
+   implementation presDep.koinAndroid
+   implementation presDep.koinCore
 
    def dataDep = rootProject.ext.dataDependencies
    implementation dataDep.rxJava

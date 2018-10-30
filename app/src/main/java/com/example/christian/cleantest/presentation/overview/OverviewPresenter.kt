@@ -5,9 +5,8 @@ import com.example.christian.cleantest.domain.model.UserOverview
 import com.example.christian.cleantest.domain.usecases.GetUsersInPool
 import com.example.christian.cleantest.presentation.overview.mapper.UserDomainMapper
 import io.reactivex.observers.DisposableSingleObserver
-import javax.inject.Inject
 
-class OverviewPresenter @Inject constructor(
+class OverviewPresenter constructor(
         private val getUsersInPool: GetUsersInPool
 ): OverviewContract.Presenter{
 

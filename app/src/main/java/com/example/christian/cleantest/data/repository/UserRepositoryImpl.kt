@@ -8,11 +8,8 @@ import com.example.christian.cleantest.data.repository.remote.user.UsersFromNetw
 import com.example.christian.cleantest.data.repository.local.UsersFromLocal
 import io.reactivex.Completable
 import io.reactivex.Single
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl constructor(
         private val netManager: NetManager,
         private val usersFromNetwork: UsersFromNetwork,
         private val usersFromLocal: UsersFromLocal

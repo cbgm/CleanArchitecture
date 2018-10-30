@@ -4,11 +4,8 @@ import com.example.christian.cleantest.data.repository.remote.cart.CartFromNetwo
 import com.example.christian.cleantest.domain.model.Cart
 import com.example.christian.cleantest.domain.repository.CartRepository
 import io.reactivex.Single
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class CartRepositoryImpl @Inject constructor(
+class CartRepositoryImpl constructor(
         private val cartFromNetwork: CartFromNetwork
 ): CartRepository {
 

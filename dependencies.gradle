@@ -7,32 +7,35 @@ ext {
    rxJavaVersion = "2.2.2"
    junitVersion = "4.12"
    rxAndroidVersion = "2.1.0"
+   koinVersion = "1.0.1"
 
 
    presentationDependencies = [
-      kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-      appcompat: "com.android.support:appcompat-v7:$supportLibVersion",
-      constraint: "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
-      supportLib: "com.android.support:support-v4:$supportLibVersion",
-      lifecycleRuntime: "android.arch.lifecycle:runtime:$lifecycleVersion",
-      lifecycleExtensions: "android.arch.lifecycle:extensions:$lifecycleVersion",
-      cardView: "com.android.support:cardview-v7:$supportLibVersion",
-      recyclerView: "com.android.support:recyclerview-v7:$supportLibVersion",
-      supportDesign: "com.android.support:design:$supportLibVersion",
-      daggerCompiler: "com.google.dagger:dagger-compiler:$daggerVersion",
-      dagger: "com.google.dagger:dagger:$daggerVersion"
+         kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+         appcompat: "com.android.support:appcompat-v7:$supportLibVersion",
+         constraint: "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
+         supportLib: "com.android.support:support-v4:$supportLibVersion",
+         lifecycleRuntime: "android.arch.lifecycle:runtime:$lifecycleVersion",
+         lifecycleExtensions: "android.arch.lifecycle:extensions:$lifecycleVersion",
+         cardView: "com.android.support:cardview-v7:$supportLibVersion",
+         recyclerView: "com.android.support:recyclerview-v7:$supportLibVersion",
+         supportDesign: "com.android.support:design:$supportLibVersion",
+         daggerCompiler: "com.google.dagger:dagger-compiler:$daggerVersion",
+         dagger: "com.google.dagger:dagger:$daggerVersion",
+         koinAndroid: "org.koin:koin-android:$koinVersion",
+         koinCore: "org.koin:koin-core:$koinVersion"
    ]
 
    dataDependencies = [
-      rxJava: "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-      rxAndroid: "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-      retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
-      rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-      gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+         rxJava: "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+         rxAndroid: "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+         retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
+         rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+         gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
    ]
 
    testDependencies = [
-      junit: "junit:junit:$junitVersion"
+         junit: "junit:junit:$junitVersion"
    ]
 }

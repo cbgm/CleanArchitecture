@@ -9,19 +9,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.example.christian.cleantest.R
-import com.example.christian.cleantest.core.dagger.Injector
 import com.example.christian.cleantest.presentation.cartview.model.CartEntity
-import kotlinx.android.synthetic.main.activity_cart.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_cart.*
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class CartFragment : Fragment(), CartContract.View {
 
-    lateinit var paramId: String
-    @Inject lateinit var cartPresenter: CartPresenter
+    private lateinit var paramId: String
+    private val cartPresenter: CartPresenter by inject()
     lateinit var rootView: View
-    val priceTxt: TextView by lazy {
+    private val priceTxt: TextView by lazy {
         rootView.findViewById<TextView>(R.id.price)
     }
 
@@ -31,7 +28,6 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector.initFragmentComponent(this).inject(this)
         arguments?.let {
             paramId = it.getString("User")
         }
