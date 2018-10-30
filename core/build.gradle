@@ -1,0 +1,26 @@
+apply from: "../default-lib.gradle"
+
+dependencies {
+   def presDep = rootProject.ext.presentationDependencies
+   api presDep.kotlinStdLib
+   api presDep.appcompat
+   api presDep.constraint
+   api presDep.supportLib
+   api presDep.lifecycleRuntime
+   api presDep.lifecycleExtensions
+   api presDep.supportDesign
+   kapt presDep.daggerCompiler
+   api presDep.dagger
+   api presDep.koinAndroid
+   api presDep.koinCore
+
+   def dataDep = rootProject.ext.dataDependencies
+   api dataDep.rxJava
+   api dataDep.rxAndroid
+   api dataDep.retrofit
+   api dataDep.rxJavaAdapter
+   api dataDep.gson
+
+   def testDep = rootProject.ext.testDependencies
+   testImplementation testDep.junit
+}

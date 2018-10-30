@@ -1,4 +1,12 @@
 ext {
+   compileSdkVersion = 28
+   applicationId = "com.example.christian.cleantest"
+   minSdkVersion = 15
+   targetSdkVersion = 28
+   versionCode = 1
+   versionName = "1.0"
+
+
    supportLibVersion = "27.1.1"
    constraintLayoutVersion = "1.1.3"
    daggerVersion = "2.14.1"

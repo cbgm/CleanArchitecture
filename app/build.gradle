@@ -1,26 +1,25 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
+apply from: "../default-config.gradle"
 
 android {
-   compileSdkVersion 27
-   defaultConfig {
-      applicationId "com.example.christian.cleantest"
-      minSdkVersion 15
-      targetSdkVersion 27
-      versionCode 1
-      versionName "1.0"
-      testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+   signingConfigs {
+      config {
+
+      }
    }
+   defaultConfig {
+      applicationId rootProject.ext.applicationId
+   }
+
    buildTypes {
       release {
-         minifyEnabled false
-         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+         signingConfig signingConfigs.config
+      }
+      debug {
+         applicationIdSuffix ".debug"
       }
    }
 }
@@ -28,26 +27,11 @@ android {
 dependencies {
    implementation fileTree(dir: 'libs', include: ['*.jar'])
    def presDep = rootProject.ext.presentationDependencies
-   implementation presDep.kotlinStdLib
-   implementation presDep.appcompat
-   implementation presDep.constraint
-   implementation presDep.supportLib
-   implementation presDep.lifecycleRuntime
-   implementation presDep.lifecycleExtensions
-   implementation presDep.cardView
-   implementation presDep.recyclerView
-   implementation presDep.supportDesign
-   kapt presDep.daggerCompiler
-   implementation presDep.dagger
    implementation presDep.koinAndroid
    implementation presDep.koinCore
 
-   def dataDep = rootProject.ext.dataDependencies
-   implementation dataDep.rxJava
-   implementation dataDep.rxAndroid
-   implementation dataDep.retrofit
-   implementation dataDep.rxJavaAdapter
-   implementation dataDep.gson
+   implementation project(":core")
+   implementation project(":cart")
 
    def testDep = rootProject.ext.testDependencies
    implementation testDep.junit

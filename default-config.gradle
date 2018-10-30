@@ -1,0 +1,22 @@
+android {
+   compileSdkVersion rootProject.ext.compileSdkVersion
+   defaultConfig {
+      minSdkVersion rootProject.ext.minSdkVersion
+      targetSdkVersion rootProject.ext.targetSdkVersion
+      versionCode rootProject.ext.versionCode
+      String versionString = rootProject.ext.versionName
+      versionName versionString
+      multiDexEnabled true
+      vectorDrawables.useSupportLibrary true
+      testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+   }
+   buildTypes {
+      release {
+         minifyEnabled true
+         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      }
+      debug {
+         testCoverageEnabled false
+      }
+   }
+}
