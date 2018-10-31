@@ -6,4 +6,9 @@ dependencies {
    implementation presDep.recyclerView
 
    implementation project(":core")
+
+   def testDep = rootProject.ext.testDependencies
+   testImplementation testDep.junit
+   testImplementation testDep.testRunner
+   testImplementation testDep.espresso
 }

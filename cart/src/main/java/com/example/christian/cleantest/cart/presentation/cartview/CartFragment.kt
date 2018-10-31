@@ -15,78 +15,77 @@ import org.koin.android.ext.android.inject
 
 class CartFragment : Fragment(), CartContract.View {
 
-    private lateinit var paramId: String
-    private val cartPresenter: CartPresenter by inject()
-    lateinit var rootView: View
-    private val priceTxt: TextView by lazy {
-        rootView.findViewById<TextView>(R.id.price)
-    }
+   companion object {
 
-    val itemsTxt: TextView by lazy {
-        rootView.findViewById<TextView>(R.id.items)
-    }
+      const val TAG = "CART"
+      fun newInstance(paramId: String) =
+            CartFragment().apply {
+               arguments = Bundle().apply {
+                  putString("User", paramId)
+               }
+            }
+   }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            paramId = it.getString("User")
-        }
-    }
+   private lateinit var paramId: String
+   private val cartPresenter: CartPresenter by inject()
+   private lateinit var rootView: View
+   private val priceTxt: TextView by lazy {
+      rootView.findViewById<TextView>(R.id.price)
+   }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        cartPresenter.setVIew(this)
-        rootView = inflater.inflate(R.layout.fragment_cart, container, false)
-        return rootView
-    }
+   val itemsTxt: TextView by lazy {
+      rootView.findViewById<TextView>(R.id.items)
+   }
 
-    override fun onResume() {
-        super.onResume()
-        cartPresenter.onBind()
-        cartPresenter.loadCart(paramId)
-    }
+   override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+      paramId = arguments?.getString("User") ?: ""
+   }
 
-    override fun onPause() {
-        super.onPause()
-        cartPresenter.onUnbind()
-    }
+   override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+   ): View? {
+      cartPresenter.setVIew(this)
+      rootView = inflater.inflate(R.layout.fragment_cart, container, false)
+      return rootView
+   }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+   override fun onResume() {
+      super.onResume()
+      cartPresenter.onBind()
+      cartPresenter.loadCart(paramId)
+   }
 
+   override fun onPause() {
+      super.onPause()
+      cartPresenter.onUnbind()
+   }
 
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    override fun initCart(cartEntity: CartEntity) {
-        priceTxt.text = cartEntity.price.toString()
-        items.text = cartEntity.items.toString()
-    }
-
-    override fun showError(visible: Boolean) {
-    }
-
-    override fun showLoading(visible: Boolean) {
-
-    }
-
-    override fun showContent(visible: Boolean) {
-        if (visible) price.visibility = View.VISIBLE else price.visibility = View.GONE
-        if (visible) items.visibility = View.VISIBLE else items.visibility = View.GONE
-    }
+   override fun onAttach(context: Context) {
+      super.onAttach(context)
 
 
-    companion object {
+   }
 
-        @JvmStatic
-        fun newInstance(paramId: String) =
-                CartFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("User", paramId)
-                    }
-                }
-    }
+   override fun onDetach() {
+      super.onDetach()
+   }
+
+   override fun initCart(cartEntity: CartEntity) {
+      priceTxt.text = cartEntity.price.toString()
+      items.text = cartEntity.items.toString()
+   }
+
+   override fun showError(visible: Boolean) {
+   }
+
+   override fun showLoading(visible: Boolean) {
+
+   }
+
+   override fun showContent(visible: Boolean) {
+      if (visible) price.visibility = View.VISIBLE else price.visibility = View.GONE
+      if (visible) items.visibility = View.VISIBLE else items.visibility = View.GONE
+   }
 }
