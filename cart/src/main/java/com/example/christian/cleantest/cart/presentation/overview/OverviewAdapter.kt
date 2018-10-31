@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.christian.cleantest.R
+import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.presentation.overview.model.UserEntity
 
 class OverviewAdapter(

@@ -2,7 +2,7 @@ package com.example.christian.cleantest.cart.core.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.christian.cleantest.R
+import com.example.christian.cleantest.cart.R
 import kotlinx.android.synthetic.main.activity_main.content
 import kotlinx.android.synthetic.main.toolbar.toolbar
 

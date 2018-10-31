@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
 import android.view.MenuItem
 import android.view.View
-import com.example.christian.cleantest.R
+import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.core.ui.BaseActivity
 import com.example.christian.cleantest.core.device.ToolbarLoader
 import kotlinx.android.synthetic.main.activity_main.loading

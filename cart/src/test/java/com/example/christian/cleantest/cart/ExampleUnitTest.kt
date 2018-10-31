@@ -1,4 +1,4 @@
-package com.example.christian.cleantest
+package com.example.christian.cleantest.cart
 
 import org.junit.Test
 

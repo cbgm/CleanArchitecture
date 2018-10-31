@@ -1,0 +1,9 @@
+apply from: "../default-lib.gradle"
+
+dependencies {
+   def presDep = rootProject.ext.presentationDependencies
+   implementation presDep.cardView
+   implementation presDep.recyclerView
+
+   implementation project(":core")
+}

@@ -14,8 +14,10 @@ ext {
    retrofitVersion = "2.4.0"
    rxJavaVersion = "2.2.2"
    junitVersion = "4.12"
+   testRunnerVersion = "1.0.1"
    rxAndroidVersion = "2.1.0"
    koinVersion = "1.0.1"
+   espressoVersion = "3.0.1"
 
 
    presentationDependencies = [
@@ -44,6 +46,8 @@ ext {
    ]
 
    testDependencies = [
-         junit: "junit:junit:$junitVersion"
+         junit: "junit:junit:$junitVersion",
+         testRunner: "com.android.support.test:runner:$testRunnerVersion",
+         espresso: "com.android.support.test.espresso:espresso-core:$espressoVersion"
    ]
 }

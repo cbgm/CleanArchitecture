@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import com.example.christian.cleantest.R
+import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.presentation.cartview.model.CartEntity
 import kotlinx.android.synthetic.main.fragment_cart.*
 import org.koin.android.ext.android.inject

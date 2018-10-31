@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.example.christian.cleantest.R
+import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.core.ui.BaseActivity
 import com.example.christian.cleantest.core.device.ToolbarLoader
 import com.example.christian.cleantest.cart.presentation.cartview.CartActivity
