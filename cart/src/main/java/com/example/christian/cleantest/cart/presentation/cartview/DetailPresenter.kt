@@ -5,24 +5,20 @@ import com.example.christian.cleantest.cart.domain.usecases.GetCartByUser
 import com.example.christian.cleantest.cart.presentation.cartview.mapper.CartDomainMapper
 import io.reactivex.observers.DisposableSingleObserver
 
-class CartPresenter constructor(
+class DetailPresenter constructor(
         private val getCartByUser: GetCartByUser
-): CartContract.Presenter {
+): DetailContract.Presenter {
 
-    lateinit var cartview: CartContract.View
+    lateinit var cartview: DetailContract.View
 
     inner class GetCartObserver: DisposableSingleObserver<Cart>() {
         override fun onSuccess(t: Cart) {
-            cartview.showError(false)
-            cartview.showContent(true)
-            cartview.showLoading(false)
+            cartview.showContent()
             cartview.initCart(CartDomainMapper.transform(t))
         }
 
         override fun onError(e: Throwable) {
-            cartview.showError(true)
-            cartview.showLoading(false)
-            cartview.showContent(false)
+            cartview.showError()
         }
 
     }
@@ -31,14 +27,12 @@ class CartPresenter constructor(
         getCartByUser.execute(GetCartObserver(), byUser)
     }
 
-    override fun setVIew(v: CartContract.View) {
+    override fun setVIew(v: DetailContract.View) {
         cartview = v
     }
 
     override fun onBind() {
-        cartview.showLoading(true)
-        cartview.showError(false)
-        cartview.showContent(false)
+        cartview.showLoading()
     }
 
     override fun onUnbind() {

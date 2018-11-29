@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.core.koin
+package com.example.christian.cleantest.core.core.di
 
 import com.example.christian.cleantest.core.core.mock.FakeInterceptor
 import okhttp3.OkHttpClient
@@ -34,7 +34,6 @@ val appModule = module {
             .client(client)
             .build()
    }
-
 }
 
 inline fun <reified T> createWebService(retrofit: Retrofit): T {

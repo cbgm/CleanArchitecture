@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.cart.core.ui
+package com.example.christian.cleantest.core.core.ui
 
 interface BasePresenter<in V: BaseView> {
 

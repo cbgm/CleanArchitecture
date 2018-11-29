@@ -21,6 +21,35 @@ android {
       debug {
          applicationIdSuffix ".debug"
       }
+
+      project.afterEvaluate {
+         project.android.applicationVariants.all { variant ->
+            def addConstant = { constantName, constantValue ->
+               variant.mergedFlavor.manifestPlaceholders += [(constantName): constantValue]
+               buildConfigField "String", "${constantName}", "\"${constantValue}\""
+            }
+
+            def debugFlag = ""
+            if(buildType.name == "debug"){
+               debugFlag = ".debug"
+            }
+            rootProject.ext.NavigationItems.each {
+               action -> addConstant(action, "${rootProject.ext.applicationId}${debugFlag}.${action}")
+            }
+         }
+      }
+   }
+
+   bundle {
+      language {
+         enableSplit = true
+      }
+      density {
+         enableSplit = true
+      }
+      abi {
+         enableSplit = true
+      }
    }
 }
 
@@ -32,6 +61,7 @@ dependencies {
 
    implementation project(":core")
    implementation project(":cart")
+   implementation project(":shop")
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

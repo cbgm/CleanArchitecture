@@ -5,5 +5,20 @@ apply plugin: 'kotlin-kapt'
 apply from: "../default-config.gradle"
 
 android {
+   project.afterEvaluate {
+      project.android.libraryVariants.all { variant ->
+         def addConstant = { constantName, constantValue ->
+            variant.mergedFlavor.manifestPlaceholders += [(constantName): constantValue]
+            buildConfigField "String", "${constantName}", "\"${constantValue}\""
+         }
 
+         def debugFlag = ""
+         if (buildType.name == "debug") {
+            debugFlag = ".debug"
+         }
+         rootProject.ext.NavigationItems.each {
+            action -> addConstant(action, "${rootProject.ext.applicationId}${debugFlag}.${action}")
+         }
+      }
+   }
 }

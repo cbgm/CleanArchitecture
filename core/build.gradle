@@ -13,6 +13,7 @@ dependencies {
    api presDep.dagger
    api presDep.koinAndroid
    api presDep.koinCore
+   api presDep.shimmer
 
    def dataDep = rootProject.ext.dataDependencies
    api dataDep.rxJava

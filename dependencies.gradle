@@ -18,6 +18,7 @@ ext {
    rxAndroidVersion = "2.1.0"
    koinVersion = "1.0.1"
    espressoVersion = "3.0.1"
+   shimmerVersion = "0.3.0"
 
 
    presentationDependencies = [
@@ -33,7 +34,8 @@ ext {
          daggerCompiler: "com.google.dagger:dagger-compiler:$daggerVersion",
          dagger: "com.google.dagger:dagger:$daggerVersion",
          koinAndroid: "org.koin:koin-android:$koinVersion",
-         koinCore: "org.koin:koin-core:$koinVersion"
+         koinCore: "org.koin:koin-core:$koinVersion",
+         shimmer: "com.facebook.shimmer:shimmer:$shimmerVersion"
    ]
 
    dataDependencies = [
@@ -50,4 +52,10 @@ ext {
          testRunner: "com.android.support.test:runner:$testRunnerVersion",
          espresso: "com.android.support.test.espresso:espresso-core:$espressoVersion"
    ]
+
+   NavigationItems =
+         [
+               'ACTION_SHOP',
+               'ACTION_CART',
+         ]
 }

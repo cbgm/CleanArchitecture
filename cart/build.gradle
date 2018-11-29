@@ -4,6 +4,7 @@ dependencies {
    def presDep = rootProject.ext.presentationDependencies
    implementation presDep.cardView
    implementation presDep.recyclerView
+   implementation presDep.shimmer
 
    implementation project(":core")
 

@@ -14,6 +14,11 @@ class FakeInterceptor : Interceptor {
     init{
         users.add(UserDto("bla", "blub"))
         users.add(UserDto("bl", "blo"))
+        users.add(UserDto("bl", "blo"))
+        users.add(UserDto("bl", "blo"))
+        users.add(UserDto("bl", "blo"))
+        users.add(UserDto("bl", "blo"))
+        users.add(UserDto("bl", "blo"))
 
         for(user in users)
             userCart[user.name] = CartDto(

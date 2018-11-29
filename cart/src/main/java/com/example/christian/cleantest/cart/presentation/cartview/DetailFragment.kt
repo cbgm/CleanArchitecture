@@ -1,25 +1,25 @@
 package com.example.christian.cleantest.cart.presentation.cartview
 
-import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 
 import com.example.christian.cleantest.cart.R
+import com.example.christian.cleantest.cart.core.ui.CartBaseFragment
 import com.example.christian.cleantest.cart.presentation.cartview.model.CartEntity
-import kotlinx.android.synthetic.main.fragment_cart.*
+import com.example.christian.cleantest.core.device.ToolbarLoader
+import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.ext.android.inject
 
-class CartFragment : Fragment(), CartContract.View {
+class DetailFragment : CartBaseFragment(), DetailContract.View {
 
    companion object {
 
-      const val TAG = "CART"
+      const val TAG = "Detail"
       fun newInstance(paramId: String) =
-            CartFragment().apply {
+            DetailFragment().apply {
                arguments = Bundle().apply {
                   putString("User", paramId)
                }
@@ -27,49 +27,31 @@ class CartFragment : Fragment(), CartContract.View {
    }
 
    private lateinit var paramId: String
-   private val cartPresenter: CartPresenter by inject()
-   private lateinit var rootView: View
-   private val priceTxt: TextView by lazy {
-      rootView.findViewById<TextView>(R.id.price)
-   }
-
-   val itemsTxt: TextView by lazy {
-      rootView.findViewById<TextView>(R.id.items)
-   }
+   private val detailPresenter: DetailPresenter by inject()
+   private lateinit var loading: LinearLayout
+   private lateinit var content: LinearLayout
+   private lateinit var priceTxt: TextView
+   private lateinit var itemsTxt: TextView
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      detailPresenter.setVIew(this)
       paramId = arguments?.getString("User") ?: ""
-   }
-
-   override fun onCreateView(
-         inflater: LayoutInflater, container: ViewGroup?,
-         savedInstanceState: Bundle?
-   ): View? {
-      cartPresenter.setVIew(this)
-      rootView = inflater.inflate(R.layout.fragment_cart, container, false)
-      return rootView
    }
 
    override fun onResume() {
       super.onResume()
-      cartPresenter.onBind()
-      cartPresenter.loadCart(paramId)
+      detailPresenter.onBind()
+      detailPresenter.loadCart(paramId)
    }
 
    override fun onPause() {
       super.onPause()
-      cartPresenter.onUnbind()
+      detailPresenter.onUnbind()
    }
 
-   override fun onAttach(context: Context) {
-      super.onAttach(context)
-
-
-   }
-
-   override fun onDetach() {
-      super.onDetach()
+   override fun getLayoutResId(): Int {
+      return R.layout.fragment_detail
    }
 
    override fun initCart(cartEntity: CartEntity) {
@@ -87,5 +69,14 @@ class CartFragment : Fragment(), CartContract.View {
    override fun showContent(visible: Boolean) {
       if (visible) price.visibility = View.VISIBLE else price.visibility = View.GONE
       if (visible) items.visibility = View.VISIBLE else items.visibility = View.GONE
+   }
+
+   override fun initViews(view: View) {
+      loading = view.findViewById(R.id.loading)
+      content = view.findViewById(R.id.content)
+      priceTxt = view.findViewById(R.id.price)
+      itemsTxt = view.findViewById(R.id.items)
+
+      ToolbarLoader(activity as AppCompatActivity?, R.string.details_title, true)
    }
 }
