@@ -3,6 +3,7 @@ package com.example.christian.cleantest.cart.presentation.overview
 import com.example.christian.cleantest.cart.domain.model.UserOverview
 import com.example.christian.cleantest.cart.domain.usecases.GetUsersInPool
 import com.example.christian.cleantest.cart.presentation.overview.mapper.UserDomainMapper
+import com.example.christian.cleantest.core.domain.single.SingleLCEObserver
 import io.reactivex.observers.DisposableSingleObserver
 
 class OverviewPresenter constructor(
@@ -11,14 +12,13 @@ class OverviewPresenter constructor(
 
    lateinit var overviewView: OverviewContract.View
 
-   inner class GetUsersObserver : DisposableSingleObserver<UserOverview>() {
+   inner class GetUsersObserver : SingleLCEObserver<UserOverview>(overviewView) {
       override fun onSuccess(t: UserOverview) {
-         overviewView.showContent()
          overviewView.showUsers(UserDomainMapper.transform(t))
       }
 
-      override fun onError(e: Throwable) {
-         overviewView.showError()
+      override fun onError(throwable: Throwable) {
+         super.onError(throwable)
       }
    }
 

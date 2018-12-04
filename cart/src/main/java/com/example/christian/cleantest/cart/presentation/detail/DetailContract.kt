@@ -1,8 +1,8 @@
-package com.example.christian.cleantest.cart.presentation.cartview
+package com.example.christian.cleantest.cart.presentation.detail
 
 import com.example.christian.cleantest.core.core.ui.BasePresenter
 import com.example.christian.cleantest.core.core.ui.BaseView
-import com.example.christian.cleantest.cart.presentation.cartview.model.CartEntity
+import com.example.christian.cleantest.cart.presentation.detail.model.CartEntity
 
 interface DetailContract {
 

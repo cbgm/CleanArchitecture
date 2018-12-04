@@ -1,7 +1,7 @@
-package com.example.christian.cleantest.cart.presentation.cartview.mapper
+package com.example.christian.cleantest.cart.presentation.detail.mapper
 
 import com.example.christian.cleantest.cart.domain.model.Cart
-import com.example.christian.cleantest.cart.presentation.cartview.model.CartEntity
+import com.example.christian.cleantest.cart.presentation.detail.model.CartEntity
 
 
 abstract class CartDomainMapper {

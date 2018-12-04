@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.cart.presentation.cartview
+package com.example.christian.cleantest.cart.presentation.detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,7 +8,7 @@ import android.widget.TextView
 
 import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.core.ui.CartBaseFragment
-import com.example.christian.cleantest.cart.presentation.cartview.model.CartEntity
+import com.example.christian.cleantest.cart.presentation.detail.model.CartEntity
 import com.example.christian.cleantest.core.device.ToolbarLoader
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.ext.android.inject

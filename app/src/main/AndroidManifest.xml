@@ -13,12 +13,21 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
-      <activity android:name=".app.core.SplashActivity">
+      <activity android:name=".app.core.SplashActivity" android:noHistory="true" android:theme="@style/SplashTheme">
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter>
+         <intent-filter>
             <action android:name="android.intent.action.VIEW" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data
+               android:host="*"
+               android:pathPattern=".*"
+               android:scheme="com.example.christian" />
          </intent-filter>
       </activity>
    </application>

@@ -1,8 +1,8 @@
-package com.example.christian.cleantest.cart.presentation.cartview
+package com.example.christian.cleantest.cart.presentation.detail
 
 import com.example.christian.cleantest.cart.domain.model.Cart
 import com.example.christian.cleantest.cart.domain.usecases.GetCartByUser
-import com.example.christian.cleantest.cart.presentation.cartview.mapper.CartDomainMapper
+import com.example.christian.cleantest.cart.presentation.detail.mapper.CartDomainMapper
 import io.reactivex.observers.DisposableSingleObserver
 
 class DetailPresenter constructor(

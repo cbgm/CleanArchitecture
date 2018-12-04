@@ -1,32 +1,52 @@
 package com.example.christian.cleantest.cart.core.navigation
 
-import android.support.v4.app.FragmentActivity
 import com.example.christian.cleantest.cart.R
-import com.example.christian.cleantest.cart.presentation.cartview.DetailFragment
+import com.example.christian.cleantest.cart.presentation.detail.DetailFragment
 import com.example.christian.cleantest.cart.presentation.overview.OverviewFragment
 import com.example.christian.cleantest.core.core.navigation.BaseCoordinator
-import com.example.christian.cleantest.core.core.util.extension.backStack
+import com.example.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.example.christian.cleantest.core.core.util.extension.replaceFragment
 
 class CartFlowCoordinatorImpl : BaseCoordinator(), CartFlowCoordinator {
 
-   override fun start(fragmentActivity: FragmentActivity) {
-      super.start(fragmentActivity)
-      //is there a deep link?
-
-      //if not
-      showOverview()
-   }
-
-   override fun back() {
-      activity.backStack()
+   override fun onDeepLinkBack() {
+      when (currentFragment) {
+         is DetailFragment -> showOverview()
+         else -> activity.finish()
+      }
    }
 
    override fun showDetail(userId: String) {
-      activity.replaceFragment(DetailFragment.newInstance(userId), R.id.fragment_container, DetailFragment.TAG)
+      currentFragment = DetailFragment.newInstance(userId)
+      activity.replaceFragment(
+            currentFragment,
+            R.id.fragment_container,
+            DetailFragment.TAG
+      )
    }
 
    override fun showOverview() {
-      activity.replaceFragment(OverviewFragment.newInstance(), R.id.fragment_container, OverviewFragment.TAG)
+      currentFragment = OverviewFragment.newInstance()
+      activity.replaceFragment(
+            currentFragment,
+            R.id.fragment_container,
+            OverviewFragment.TAG
+      )
+   }
+
+   override fun navigateDeepLink() {
+      deepLinkHandler.getDeepLink()
+            ?.let {
+               when (it.action) {
+                  DeepLinkHandler.DeepLinkIdentifier.DETAIL -> showDetail(it.parameter!!)
+                  else -> {
+                  }
+               }
+               isDeepLinkActive = true
+            }
+   }
+
+   override fun navigateLink() {
+      showOverview()
    }
 }

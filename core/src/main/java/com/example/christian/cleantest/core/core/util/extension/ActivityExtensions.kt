@@ -12,10 +12,13 @@ private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() ->
    fragmentTransaction.commit()
 }
 
-private fun FragmentManager.inBackStack() {
-   if (backStackEntryCount > 1) {
+private fun FragmentManager.inBackStack(): Boolean {
+   return if (backStackEntryCount > 1) {
       popBackStackImmediate()
       beginTransaction().commit()
+      true
+   } else {
+      false
    }
 }
 
@@ -28,5 +31,6 @@ fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStack
 }
 
 fun FragmentActivity.backStack() {
-   supportFragmentManager.inBackStack()
+   if (!supportFragmentManager.inBackStack())
+      finish()
 }

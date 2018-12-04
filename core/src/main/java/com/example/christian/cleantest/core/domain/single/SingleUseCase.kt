@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.cart.domain.usecases
+package com.example.christian.cleantest.core.domain.single
 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

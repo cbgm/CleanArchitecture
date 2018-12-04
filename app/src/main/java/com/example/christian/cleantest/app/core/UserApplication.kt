@@ -1,6 +1,7 @@
 package com.example.christian.cleantest.app.core
 
 import android.app.Application
+import com.example.christian.cleantest.app.core.di.appCoreModule
 import com.example.christian.cleantest.cart.core.di.cartCoreModule
 import com.example.christian.cleantest.cart.core.di.cartDetailModule
 import com.example.christian.cleantest.core.core.di.appModule
@@ -13,9 +14,11 @@ class UserApplication : Application() {
 
    override fun onCreate() {
       super.onCreate()
+
       startKoin(
             this, listOf(
             appModule, networkModule,
+            appCoreModule,
             cartCoreModule,
             cartOverviewModule,
             cartDetailModule,

@@ -2,6 +2,7 @@ package com.example.christian.cleantest.cart.domain.usecases
 
 import com.example.christian.cleantest.cart.domain.model.Cart
 import com.example.christian.cleantest.cart.domain.repository.CartRepository
+import com.example.christian.cleantest.core.domain.single.SingleUseCase
 import io.reactivex.Single
 
 class GetCartByUser constructor(private val cartRepository: CartRepository): SingleUseCase<Cart, String>() {
