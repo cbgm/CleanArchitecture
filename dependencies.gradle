@@ -19,6 +19,7 @@ ext {
    koinVersion = "1.0.1"
    espressoVersion = "3.0.1"
    shimmerVersion = "0.3.0"
+   timberVersion = "4.7.1"
 
 
    presentationDependencies = [
@@ -35,7 +36,8 @@ ext {
          dagger: "com.google.dagger:dagger:$daggerVersion",
          koinAndroid: "org.koin:koin-android:$koinVersion",
          koinCore: "org.koin:koin-core:$koinVersion",
-         shimmer: "com.facebook.shimmer:shimmer:$shimmerVersion"
+         shimmer: "com.facebook.shimmer:shimmer:$shimmerVersion",
+         timber: "com.jakewharton.timber:timber:$timberVersion"
    ]
 
    dataDependencies = [

@@ -7,7 +7,11 @@ apply from: "../default-config.gradle"
 android {
    signingConfigs {
       config {
-
+         keyAlias 'key0'
+         keyPassword '08150815'
+         storeFile
+         file('/Users/christian/AndroidStudioProjects/CleanArchitecture/keystore/keystore')
+         storePassword '08150815'
       }
    }
    defaultConfig {
@@ -54,15 +58,13 @@ android {
 }
 
 dependencies {
-   implementation fileTree(dir: 'libs', include: ['*.jar'])
+   implementation fileTree(include: ['*.jar'], dir: 'libs')
    def presDep = rootProject.ext.presentationDependencies
    implementation presDep.koinAndroid
    implementation presDep.koinCore
-
-   implementation project(":core")
-   implementation project(":cart")
-   implementation project(":shop")
-
+   implementation project(':core')
+   implementation project(':cart')
+   implementation project(':shop')
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit
    testImplementation testDep.testRunner

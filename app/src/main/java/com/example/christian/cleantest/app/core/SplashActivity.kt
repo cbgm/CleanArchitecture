@@ -5,14 +5,12 @@ import android.animation.ValueAnimator
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
 import org.koin.android.ext.android.inject
 import android.support.constraint.ConstraintLayout
-import android.view.animation.AnimationUtils
-import android.view.animation.Animation
 import android.widget.TextView
+import timber.log.Timber
 
 
 class SplashActivity : AppCompatActivity() {
@@ -25,8 +23,8 @@ class SplashActivity : AppCompatActivity() {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_splash2)
-      //loadAnimation()
       startAnimation()
+      Timber.v("release - debug switch test")
    }
 
    private fun startAnimation() {
@@ -40,7 +38,7 @@ class SplashActivity : AppCompatActivity() {
          val animatedValue = valueAnimator.animatedValue as Float
          title.textSize = animatedValue
       }
-      animator.addListener(object: Animator.AnimatorListener{
+      animator.addListener(object : Animator.AnimatorListener {
          override fun onAnimationRepeat(p0: Animator?) {
 
          }
@@ -58,26 +56,6 @@ class SplashActivity : AppCompatActivity() {
       })
       animator.start()
    }
-
-
-   private fun loadAnimation() {
-      val animation = AnimationUtils.loadAnimation(this, R.anim.splash_animation)
-      root.startAnimation(animation)
-      animation.setAnimationListener(object : Animation.AnimationListener {
-         override fun onAnimationRepeat(p0: Animation?) {
-         }
-
-         override fun onAnimationStart(p0: Animation?) {
-         }
-
-
-         override fun onAnimationEnd(p0: Animation?) {
-            startRouting()
-         }
-
-      })
-   }
-
 
    private fun startRouting() {
       val data: Uri? = intent?.data

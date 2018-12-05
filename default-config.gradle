@@ -19,4 +19,22 @@ android {
          testCoverageEnabled false
       }
    }
+   compileOptions {
+      targetCompatibility 1.8
+      sourceCompatibility 1.8
+   }
+
+   sourceSets {
+      release {
+         java {
+            srcDirs = ['src/release/java']
+         }
+      }
+
+      debug {
+         java {
+            srcDirs = ['src/debug/java']
+         }
+      }
+   }
 }

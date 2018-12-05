@@ -14,6 +14,7 @@ dependencies {
    api presDep.koinAndroid
    api presDep.koinCore
    api presDep.shimmer
+   api presDep.timber
 
    def dataDep = rootProject.ext.dataDependencies
    api dataDep.rxJava
@@ -27,3 +28,5 @@ dependencies {
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
 }
+
+android { sourceSets { release { java.srcDirs = ['src/release/java', 'src/release/java/'] } } }

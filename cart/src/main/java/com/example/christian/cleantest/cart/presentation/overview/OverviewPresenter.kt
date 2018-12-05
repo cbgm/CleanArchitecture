@@ -14,6 +14,7 @@ class OverviewPresenter constructor(
 
    inner class GetUsersObserver : SingleLCEObserver<UserOverview>(overviewView) {
       override fun onSuccess(t: UserOverview) {
+         super.onSuccess(t)
          overviewView.showUsers(UserDomainMapper.transform(t))
       }
 
