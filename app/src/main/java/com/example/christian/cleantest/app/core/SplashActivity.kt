@@ -12,7 +12,6 @@ import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import timber.log.Timber
 
-
 class SplashActivity : AppCompatActivity() {
 
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()

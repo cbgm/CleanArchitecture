@@ -5,12 +5,12 @@
       android:id="@+id/action_cart"
       android:enabled="true"
       android:icon="@android:drawable/btn_minus"
-      android:title="Cart"
+      android:title="@string/cart"
       app:showAsAction="ifRoom" />
    <item
       android:id="@+id/action_shop"
       android:enabled="true"
       android:icon="@android:drawable/btn_plus"
-      android:title="Shop"
+      android:title="@string/shop"
       app:showAsAction="ifRoom" />
 </menu>

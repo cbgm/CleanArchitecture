@@ -25,6 +25,6 @@ class UserSQLDao: UserDao {
 
 
     override fun saveUsers(data: UserOverview) : Completable{
-        return Single.just(1).delay(1, TimeUnit.SECONDS).toCompletable()
+        return Single.just(1).delay(1, TimeUnit.SECONDS).ignoreElement()
     }
 }

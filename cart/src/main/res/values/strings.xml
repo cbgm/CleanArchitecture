@@ -1,5 +1,4 @@
 <resources>
-    <string name="title_overview">Overview</string>
+    <string name="title_overview">Übersicht</string>
     <string name="title_details">Details</string>
-    <string name="details_title">Details</string>
 </resources>

@@ -77,6 +77,6 @@ class DetailFragment : CartBaseFragment(), DetailContract.View {
       priceTxt = view.findViewById(R.id.price)
       itemsTxt = view.findViewById(R.id.items)
 
-      ToolbarLoader(activity as AppCompatActivity?, R.string.details_title, true)
+      ToolbarLoader(activity as AppCompatActivity?, R.string.title_details, true)
    }
 }

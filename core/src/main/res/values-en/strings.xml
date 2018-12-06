@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
    <string name="app_name">Test title</string>
    <string name="shop">Shop</string>
-   <string name="cart">Warenkorb</string>
+   <string name="cart">Cart</string>
 </resources>

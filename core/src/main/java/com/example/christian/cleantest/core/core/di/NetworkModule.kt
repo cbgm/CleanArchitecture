@@ -37,7 +37,7 @@ val networkModule = module {
 
 
 fun createOkHttpClient(context: Context): OkHttpClient {
-   val cacheSize = (5 * 1024 * 1024).toLong()
+   val cacheSize = (24 * 1024 * 1024).toLong()
    val cache = Cache(context.cacheDir, cacheSize)
    return OkHttpClient.Builder()
          .cache(cache)

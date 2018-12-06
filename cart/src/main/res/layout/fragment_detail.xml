@@ -8,32 +8,25 @@
    <LinearLayout
       android:id="@+id/content"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
-      <LinearLayout
+      <TextView
+         android:id="@+id/price"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
+
+      <TextView
+         android:id="@+id/items"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         android:orientation="vertical">
+         android:ems="10"
+         android:gravity="top"
+         android:padding="10dp" />
 
-         <TextView
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-         <TextView
-            android:id="@+id/items"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="ghhghg"
-            android:padding="10dp" />
-
-      </LinearLayout>
    </LinearLayout>
 
    <LinearLayout android:id="@+id/loading"
-      xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_gravity="center"

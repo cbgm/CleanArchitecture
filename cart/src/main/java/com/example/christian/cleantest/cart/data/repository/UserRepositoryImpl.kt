@@ -16,7 +16,8 @@ class UserRepositoryImpl constructor(
 ): UserRepository {
 
     override fun getAllUsers(): Single<UserOverview> {
-        netManager.isConnected.let {
+       //for different purposes
+        /*netManager.isConnected.let {
             if(it)
                 return usersFromNetwork.getUsers().flatMap {
                     return@flatMap usersFromLocal.saveUsers(it)
@@ -24,7 +25,12 @@ class UserRepositoryImpl constructor(
                 }
             else
                 return usersFromLocal.getUsers()
-        }
+        }*/
+       //if no network, local cached data is loaded(interceptor)
+       return usersFromNetwork.getUsers().flatMap {
+          return@flatMap usersFromLocal.saveUsers(it)
+                .toSingleDefault(it)
+       }
     }
 
     override fun saveUser(user: UserDto): Completable {
