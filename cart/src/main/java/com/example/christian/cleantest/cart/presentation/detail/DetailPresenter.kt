@@ -12,15 +12,10 @@ class DetailPresenter constructor(
    lateinit var cartview: DetailContract.View
 
    inner class GetCartObserver : SingleLCEObserver<Cart>(cartview) {
-      override fun onSuccess(t: Cart) {
-         super.onSuccess(t)
-         cartview.initCart(CartDomainMapper.transform(t))
+      override fun onSuccess(value: Cart) {
+         super.onSuccess(value)
+         cartview.initCart(CartDomainMapper.transform(value))
       }
-
-      override fun onError(e: Throwable) {
-         super.onError(e)
-      }
-
    }
 
    override fun loadCart(byUser: String) {

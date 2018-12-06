@@ -59,16 +59,16 @@ class DetailFragment : CartBaseFragment(), DetailContract.View {
       items.text = cartEntity.items.toString()
    }
 
-   override fun showError(visible: Boolean) {
+   override fun showError(isVisible: Boolean) {
    }
 
-   override fun showLoading(visible: Boolean) {
+   override fun showLoading(isVisible: Boolean) {
 
    }
 
-   override fun showContent(visible: Boolean) {
-      if (visible) price.visibility = View.VISIBLE else price.visibility = View.GONE
-      if (visible) items.visibility = View.VISIBLE else items.visibility = View.GONE
+   override fun showContent(isVisible: Boolean) {
+      if (isVisible) price.visibility = View.VISIBLE else price.visibility = View.GONE
+      if (isVisible) items.visibility = View.VISIBLE else items.visibility = View.GONE
    }
 
    override fun initViews(view: View) {

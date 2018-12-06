@@ -13,9 +13,9 @@ class OverviewPresenter constructor(
    lateinit var overviewView: OverviewContract.View
 
    inner class GetUsersObserver : SingleLCEObserver<UserOverview>(overviewView) {
-      override fun onSuccess(t: UserOverview) {
-         super.onSuccess(t)
-         overviewView.showUsers(UserDomainMapper.transform(t))
+      override fun onSuccess(value: UserOverview) {
+         super.onSuccess(value)
+         overviewView.showUsers(UserDomainMapper.transform(value))
       }
 
       override fun onError(throwable: Throwable) {
@@ -24,9 +24,9 @@ class OverviewPresenter constructor(
    }
 
    inner class GetMoreUsersObserver : DisposableSingleObserver<UserOverview>() {
-      override fun onSuccess(t: UserOverview) {
+      override fun onSuccess(value: UserOverview) {
          overviewView.showListLoading(false)
-         overviewView.showUsers(UserDomainMapper.transform(t))
+         overviewView.showUsers(UserDomainMapper.transform(value))
       }
 
       override fun onError(e: Throwable) {
