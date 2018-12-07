@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco-android'
 apply from: "../default-config.gradle"
 
 android {
@@ -69,4 +70,10 @@ dependencies {
    testImplementation testDep.junit
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
+}
+
+jacocoAndroidUnitTestReport {
+   csv.enabled false
+   html.enabled false
+   xml.enabled true
 }

@@ -22,5 +22,7 @@ class RootFlowCoordinatorImpl : BaseCoordinator() {
       activity.navigateToCart()
    }
 
-   override fun onDeepLinkBack() {}
+   override fun onDeepLinkBack() {
+      //not needed
+   }
 }

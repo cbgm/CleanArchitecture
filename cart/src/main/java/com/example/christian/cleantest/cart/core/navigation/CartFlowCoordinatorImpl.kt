@@ -40,6 +40,7 @@ class CartFlowCoordinatorImpl : BaseCoordinator(), CartFlowCoordinator {
                when (it.action) {
                   DeepLinkHandler.DeepLinkIdentifier.DETAIL -> showDetail(it.parameter!!)
                   else -> {
+                     //not needed
                   }
                }
                isDeepLinkActive = true

@@ -39,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
       }
       animator.addListener(object : Animator.AnimatorListener {
          override fun onAnimationRepeat(p0: Animator?) {
-
+            //not needed
          }
 
          override fun onAnimationEnd(p0: Animator?) {
@@ -47,9 +47,11 @@ class SplashActivity : AppCompatActivity() {
          }
 
          override fun onAnimationCancel(p0: Animator?) {
+            //not needed
          }
 
          override fun onAnimationStart(p0: Animator?) {
+            //not needed
          }
 
       })

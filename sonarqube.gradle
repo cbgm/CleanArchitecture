@@ -1,0 +1,17 @@
+sonarqube {
+   androidVariant 'debug'
+
+   properties {
+      property "sonar.verbose", true
+      property "sonar.host.url", "http://localhost:9000"
+      property "sonar.issuesReport.html.enable", "true"
+      property "sonar.issuesReport.console.enable", "true"
+      property "detekt.sonar.kotlin.config.path", "${rootProject.projectDir}/detekt-config.yml"
+      property "sonar.sources", "**/src/main/java"
+      property "sonar.tests", "**/src/test/java"
+      property "sonar.java.coveragePlugin", "jacoco"
+      property "sonar.java.binaries", "${rootProject.projectDir}/app/build/intermediates/classes," +
+            "${rootProject.projectDir}/app/build/tmp/kotlin-classes"
+      property 'sonar.jacoco.reportPaths', "${rootProject.projectDir}/app/build/jacoco/testDebugUnitTest.exec"
+   }
+}
