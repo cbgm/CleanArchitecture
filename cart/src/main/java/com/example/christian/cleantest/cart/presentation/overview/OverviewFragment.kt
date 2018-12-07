@@ -60,7 +60,7 @@ class OverviewFragment : CartBaseFragment(), OverviewContract.View, OverviewAdap
    }
 
    override fun showError(isVisible: Boolean) {
-      //if (visible) error.visibility = View.VISIBLE else error.visibility = View.GONE
+      //not needed
    }
 
    override fun showLoading(isVisible: Boolean) {

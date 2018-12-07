@@ -25,11 +25,6 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
       }
    }
 
-   override fun onPause() {
-      super.onPause()
-      //overridePendingTransition(0, 0);
-   }
-
    override fun onBackPressed() {
       finish()
    }
@@ -43,6 +38,7 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
             navigateToshop()
          }
          else -> {
+            //not needed
          }
       }
       return true;

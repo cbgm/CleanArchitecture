@@ -60,10 +60,11 @@ class DetailFragment : CartBaseFragment(), DetailContract.View {
    }
 
    override fun showError(isVisible: Boolean) {
+      //not needed
    }
 
    override fun showLoading(isVisible: Boolean) {
-
+      //not needed
    }
 
    override fun showContent(isVisible: Boolean) {

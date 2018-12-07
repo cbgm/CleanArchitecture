@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface UserApi {
 
     @GET("users")
-    fun getAllUsers(): Single<ArrayList<UserDto>>
+    fun getAllUsers(): Single<List<UserDto>>
 }

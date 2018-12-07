@@ -15,11 +15,15 @@ class ShopFlowCoordinatorImpl : BaseCoordinator(), ShopFlowCoordinator {
       )
    }
 
-   override fun navigateDeepLink() {}
+   override fun navigateDeepLink() {
+      //not needed
+   }
 
    override fun navigateLink() {
       showOverview()
    }
 
-   override fun onDeepLinkBack() {}
+   override fun onDeepLinkBack() {
+      //not needed
+   }
 }

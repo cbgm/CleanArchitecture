@@ -7,35 +7,41 @@ import android.support.v7.app.AppCompatActivity
 class ToolbarLoader(
       activity: AppCompatActivity?,
       @StringRes
-                    private val title: Int,
+      private val title: Int,
       private val backButtonEnabled: Boolean
 ) {
 
-    val toolbar: ActionBar? = activity?.supportActionBar
+   val toolbar: ActionBar? = activity?.supportActionBar
 
-    init {
-        setTitle()
-        setBackButton()
+   init {
+      setTitle()
+      setBackButton()
+   }
 
-    }
 
+   private fun setTitle() {
+      if (this.title != -1) {
+         toolbar?.setTitle(title)
+      }
+   }
 
-    private fun setTitle(){
-        if (this.title != -1) {
-            toolbar?.setTitle(title)
-        }
-    }
+   private fun setBackButton() {
 
-    private fun setBackButton(){
+      if (backButtonEnabled) {
+         toolbar?.setDisplayShowHomeEnabled(false)
+         toolbar?.setDisplayHomeAsUpEnabled(true)
 
-        if (backButtonEnabled) {
-            toolbar?.setDisplayShowHomeEnabled(false)
-            toolbar?.setDisplayHomeAsUpEnabled(true)
-            //toolbar?.setHomeAsUpIndicator(ContextCompat.getDrawable(activity, android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material))
-        } else {
-            toolbar?.setDisplayHomeAsUpEnabled(false)
-        }
-    }
-
+         //custom back icon
+         /*
+         toolbar?.setHomeAsUpIndicator(
+               ContextCompat.getDrawable(
+                     activity!!.applicationContext,
+                     android.support.v7.appcompat.R.drawable.abc_btn_check_material
+               )
+         )*/
+      } else {
+         toolbar?.setDisplayHomeAsUpEnabled(false)
+      }
+   }
 
 }
