@@ -3,8 +3,8 @@
 ## Configured with:
 - Koin dependency injection
 - Sonarqube using detekt
-    easy use with homebrew (install sonar)
-    command: "sonar console" to start
+    - easy use with homebrew (install sonar)
+    - command: "sonar console" to start
 - Coordinator pattern for navigation
 - Multi modules
 - Split gradle files
