@@ -2,7 +2,9 @@
 <manifest package="com.example.christian.cleantest"
    xmlns:android="http://schemas.android.com/apk/res/android">
 
+   <uses-permission android:name="android.permission.INTERNET" />
    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
    <application
       android:name=".app.core.UserApplication"
@@ -31,9 +33,10 @@
             <data
                android:host="*"
                android:pathPattern=".*"
-               android:scheme="com.example.christian" />
+               android:scheme="cleanarch.test" />
          </intent-filter>
       </activity>
+
    </application>
 
 </manifest>

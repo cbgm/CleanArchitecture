@@ -22,6 +22,8 @@ dependencies {
    api dataDep.retrofit
    api dataDep.rxJavaAdapter
    api dataDep.gson
+   api dataDep.firebaseMessaging
+   api dataDep.firebaseCore
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

@@ -20,6 +20,8 @@ ext {
    espressoVersion = "3.0.1"
    shimmerVersion = "0.3.0"
    timberVersion = "4.7.1"
+   firebaseMessagingVersion = "17.3.4"
+   firebaseCoreVersion = "16.0.4"
 
 
    presentationDependencies = [
@@ -45,7 +47,9 @@ ext {
          rxAndroid: "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
          retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
          rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-         gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+         gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+         firebaseMessaging: "com.google.firebase:firebase-messaging:$firebaseMessagingVersion",
+         firebaseCore: "com.google.firebase:firebase-core:$firebaseCoreVersion"
 
    ]
 

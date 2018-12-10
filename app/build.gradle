@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'jacoco-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "../default-config.gradle"
 
 android {
@@ -13,6 +14,13 @@ android {
          storeFile
          file('/Users/christian/AndroidStudioProjects/CleanArchitecture/keystore/keystore')
          storePassword '08150815'
+         storeFile
+         file('/Users/christian/AndroidStudioProjects/CleanArchitecture/keystore/keystore')
+         storeFile
+         file('/Users/christian/AndroidStudioProjects/CleanArchitecture/keystore/keystore')
+         storeFile
+         file('/Users/christian/AndroidStudioProjects/CleanArchitecture/keystore/keystore')
+         storeFile file('/Users/christian/Desktop/keystore')
       }
    }
    defaultConfig {
