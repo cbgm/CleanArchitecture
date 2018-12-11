@@ -14,6 +14,12 @@ class NotificationFactory(val application: Application) {
    val id = application.getString(R.string.default_notification_channel_id)
    val title = "default channel"
 
+   enum class NotificationType {
+      ALERT,
+      HINT,
+      DEFAULT
+   }
+
    init {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
          val importance = NotificationManager.IMPORTANCE_HIGH
@@ -25,16 +31,17 @@ class NotificationFactory(val application: Application) {
       }
    }
 
-   enum class NotificationType {
-      ALERT,
-      HINT,
-      DEFAULT
-   }
-
-   fun createNotification(remoteMessage: RemoteMessage, notificationType: NotificationType): DefaultNotification {
+   fun createNotification(
+         remoteMessage: RemoteMessage,
+         notificationType: NotificationType
+   ): DefaultNotification {
 
       return when (notificationType) {
-         NotificationType.ALERT -> AlertNotification(notificationManager, application, remoteMessage)
+         NotificationType.ALERT -> AlertNotification(
+               notificationManager,
+               application,
+               remoteMessage
+         )
          NotificationType.HINT -> HintNotification(notificationManager, application, remoteMessage)
          else -> AlertNotification(notificationManager, application, remoteMessage)
       }

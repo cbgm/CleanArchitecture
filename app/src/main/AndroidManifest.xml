@@ -33,7 +33,11 @@
             <data
                android:host="*"
                android:pathPattern=".*"
-               android:scheme="cleanarch.test" />
+               android:scheme="cleantest.de" />
+            <data
+               android:host="cleantest.de"
+               android:scheme="https"/>
+
          </intent-filter>
       </activity>
 

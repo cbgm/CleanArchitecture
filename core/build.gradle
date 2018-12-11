@@ -24,6 +24,8 @@ dependencies {
    api dataDep.gson
    api dataDep.firebaseMessaging
    api dataDep.firebaseCore
+   api dataDep.firebaseDynamic
+   api dataDep.firebaseInAppMessaging
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

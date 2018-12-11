@@ -22,6 +22,8 @@ ext {
    timberVersion = "4.7.1"
    firebaseMessagingVersion = "17.3.4"
    firebaseCoreVersion = "16.0.4"
+   firebaseDynamicVersion = "16.1.5"
+   firebaseInAppVersion = "17.0.0"
 
 
    presentationDependencies = [
@@ -49,7 +51,9 @@ ext {
          rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
          gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
          firebaseMessaging: "com.google.firebase:firebase-messaging:$firebaseMessagingVersion",
-         firebaseCore: "com.google.firebase:firebase-core:$firebaseCoreVersion"
+         firebaseCore: "com.google.firebase:firebase-core:$firebaseCoreVersion",
+         firebaseDynamic: "com.google.firebase:firebase-dynamic-links:$firebaseDynamicVersion",
+         firebaseInAppMessaging: "com.google.firebase:firebase-inappmessaging-display:$firebaseInAppVersion"
 
    ]
 
