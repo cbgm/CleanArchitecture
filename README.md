@@ -9,7 +9,7 @@
 - Multi modules
 - Split gradle files
 - SourceSets for release and debug
-- Deep links (adb shell am start -W -a android.intent.action.VIEW -d  "cleanarch.test://*"  com.example.christian.cleantest.debug)
+- Deep links (adb shell am start -W -a android.intent.action.VIEW -d  "cleantest.de://*"  com.example.christian.cleantest.debug)
 - Firebase
     - Cloud Messaging
     - InAppMessaging
