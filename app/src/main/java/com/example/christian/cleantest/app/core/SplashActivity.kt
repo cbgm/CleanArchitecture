@@ -17,7 +17,6 @@ class SplashActivity : AppCompatActivity() {
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
 
    private val title: TextView by lazy { findViewById<TextView>(R.id.textTitle) }
-   private val root: ConstraintLayout by lazy { findViewById<ConstraintLayout>(R.id.textTitle) }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)

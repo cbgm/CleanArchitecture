@@ -11,6 +11,13 @@ import com.google.firebase.messaging.RemoteMessage
 class NotificationFactory(val application: Application) {
 
    private val notificationManager: NotificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+
+   /*companion object {
+      private const val id = "fcm_default_channel"
+      private const val title = "default channel"
+   }*/
+
    val id = application.getString(R.string.default_notification_channel_id)
    val title = "default channel"
 

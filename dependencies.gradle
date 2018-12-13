@@ -54,7 +54,6 @@ ext {
          firebaseCore: "com.google.firebase:firebase-core:$firebaseCoreVersion",
          firebaseDynamic: "com.google.firebase:firebase-dynamic-links:$firebaseDynamicVersion",
          firebaseInAppMessaging: "com.google.firebase:firebase-inappmessaging-display:$firebaseInAppVersion"
-
    ]
 
    testDependencies = [

@@ -1,18 +1,20 @@
 package com.example.christian.cleantest.core.device.notification
 
+import com.example.christian.cleantest.core.domain.completable.DefaultCompletableObserver
+import com.example.christian.cleantest.core.domain.usecases.ShowNotificationUseCase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 
 
-class MessagingService : FirebaseMessagingService() {
+class MessagingService() : FirebaseMessagingService(), KoinComponent {
 
-   private val notificationFactory by lazy {
-      NotificationFactory(application)
-   }
+   private val showNotificationUseCase: ShowNotificationUseCase by inject()
 
    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
       remoteMessage?.let {
-         notificationFactory.createNotification(it, NotificationFactory.NotificationType.HINT).show()
+         showNotificationUseCase.execute(DefaultCompletableObserver(), it)
       }
    }
 }

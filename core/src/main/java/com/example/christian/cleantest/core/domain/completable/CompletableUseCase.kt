@@ -7,7 +7,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
 
-abstract class CompletableUseCase<T, in Params> {
+abstract class CompletableUseCase<in Params> {
 
    private var compositeDisposable: CompositeDisposable? = null
 
