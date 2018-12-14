@@ -12,12 +12,17 @@ import com.google.firebase.messaging.RemoteMessage
 
 class HintNotification(
       private val notificationManager: NotificationManager,
+      channelId: String,
       context: Context,
       remoteMessage: RemoteMessage
 
 ) : DefaultNotification(context, remoteMessage) {
 
    private var notification: Notification? = null
+
+   companion object {
+      private const val NOTIFY_ID = 0
+   }
 
    init {
       val intent = Intent(BuildConfig.ACTION_CART)
