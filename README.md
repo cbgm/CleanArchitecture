@@ -13,6 +13,7 @@
 - Firebase
     - Cloud Messaging
     - InAppMessaging
+- DayNight-Mode toggled by power saving option
 
     
  Refer to branch koin_test until served to master
