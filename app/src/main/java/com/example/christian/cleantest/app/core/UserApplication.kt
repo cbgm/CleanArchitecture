@@ -19,29 +19,28 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.PowerManager
 import android.support.v7.app.AppCompatDelegate
-import com.example.christian.cleantest.app.core.power.PowerSaveModeReceiver
+import com.example.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import org.koin.android.ext.android.inject
 
 
 class UserApplication : Application() {
 
-   private val lowPowerReceiver: PowerSaveModeReceiver by inject()
+   private val lowPowerReceiver: PowerSaveModeReceiver by lazy {
+      PowerSaveModeReceiver {
+         restartApplication()
+      }
+   }
+
    private val sharedPreferences: SharedPreferences by inject()
 
    override fun onCreate() {
       super.onCreate()
 
-      startKoin(
-            this, listOf(
-            appModule, networkModule, appCoreModule,
-            cartCoreModule, cartOverviewModule, cartDetailModule,
-            shopCoreModule
-      )
-      )
+      initKoin()
 
       setDayNight()
 
-      registerPowerSaveModeReceiver()
+      registerReceiversAndServices()
 
       Timber.plant(TimberTree())
    }
@@ -56,13 +55,28 @@ class UserApplication : Application() {
       }
    }
 
+   private fun initKoin() {
+      startKoin(
+            this, listOf(
+            appModule, networkModule, appCoreModule,
+            cartCoreModule, cartOverviewModule, cartDetailModule,
+            shopCoreModule
+      )
+      )
+   }
+
+   private fun registerReceiversAndServices() {
+      registerPowerSaveModeReceiver()
+      //more to come
+   }
+
    private fun registerPowerSaveModeReceiver() {
       val filter = IntentFilter()
       filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
       registerReceiver(lowPowerReceiver, filter)
    }
 
-   fun restartApplication() {
+   private fun Application.restartApplication() {
       val startActivity = Intent(this, SplashActivity::class.java)
       val pendingIntentId = 12
       val pendingIntent = PendingIntent.getActivity(
