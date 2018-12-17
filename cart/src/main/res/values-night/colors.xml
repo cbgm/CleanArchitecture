@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <color name="backgroundListItem">#666666</color>
+   <color name="shimmerListItem">#cecece</color>
+   <color name="textListItem">#ffffff</color>
+</resources>

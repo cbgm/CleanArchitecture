@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import com.example.christian.cleantest.R
 import com.example.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
 import org.koin.android.ext.android.inject
-import android.support.constraint.ConstraintLayout
 import android.widget.TextView
 import timber.log.Timber
 
@@ -61,5 +60,4 @@ class SplashActivity : AppCompatActivity() {
       val data: Uri? = intent?.data
       rootFlowCoordinatorImpl.start(this, data)
    }
-
 }
