@@ -76,7 +76,7 @@ class UserApplication : Application() {
       registerReceiver(lowPowerReceiver, filter)
    }
 
-   private fun Application.restartApplication() {
+   private fun restartApplication() {
       val startActivity = Intent(this, SplashActivity::class.java)
       val pendingIntentId = 12
       val pendingIntent = PendingIntent.getActivity(
