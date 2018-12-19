@@ -1,4 +1,4 @@
-package com.example.christian.cleantest.core.domain.default
+package com.example.christian.cleantest.core.domain.single
 
 import com.example.christian.cleantest.core.domain.model.Result
 import com.example.christian.cleantest.core.domain.model.onError
@@ -9,13 +9,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
-abstract class DefaultUseCase<T, in Params> {
+abstract class SingleUseCase<T, in Params> {
 
    private var job: Job? = null
 
    abstract suspend fun buildUseCaseObservable(param: Params): Result<Any>
 
-   fun execute(observer: DefaultObserver<T>? = null, param: Params) {
+   fun execute(observer: DefaultSingleObserver<T>? = null, param: Params) {
       dispose()
       job = CoroutineScope(Dispatchers.Main).launch {
          val result = buildUseCaseObservable(param)

@@ -1,8 +1,8 @@
-package com.example.christian.cleantest.core.domain.default
+package com.example.christian.cleantest.core.domain.single
 
 import com.example.christian.cleantest.core.core.ui.BaseView
 
-abstract class DefaultLCEObserver<T>(private val view: BaseView): DefaultObserver<T>() {
+abstract class SingleLCEObserver<T>(private val view: BaseView): DefaultSingleObserver<T>() {
    override fun onSuccess(value: T) {
       super.onSuccess(value)
       view.showContent()

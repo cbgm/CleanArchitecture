@@ -3,7 +3,7 @@ package com.example.christian.cleantest.cart.presentation.detail
 import com.example.christian.cleantest.cart.domain.model.Cart
 import com.example.christian.cleantest.cart.domain.usecases.GetCartByUser
 import com.example.christian.cleantest.cart.presentation.detail.mapper.CartDomainMapper
-import com.example.christian.cleantest.core.domain.default.DefaultLCEObserver
+import com.example.christian.cleantest.core.domain.single.SingleLCEObserver
 
 class DetailPresenter constructor(
       private val getCartByUser: GetCartByUser
@@ -11,7 +11,7 @@ class DetailPresenter constructor(
 
    lateinit var cartview: DetailContract.View
 
-   inner class GetCartObserver : DefaultLCEObserver<Cart>(cartview) {
+   inner class GetCartObserver : SingleLCEObserver<Cart>(cartview) {
       override fun onSuccess(value: Cart) {
          super.onSuccess(value)
          cartview.initCart(CartDomainMapper.transform(value))

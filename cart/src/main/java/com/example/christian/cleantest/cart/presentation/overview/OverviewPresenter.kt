@@ -3,8 +3,8 @@ package com.example.christian.cleantest.cart.presentation.overview
 import com.example.christian.cleantest.cart.domain.model.UserOverview
 import com.example.christian.cleantest.cart.domain.usecases.GetUsersInPool
 import com.example.christian.cleantest.cart.presentation.overview.mapper.UserDomainMapper
-import com.example.christian.cleantest.core.domain.default.DefaultLCEObserver
-import com.example.christian.cleantest.core.domain.default.DefaultObserver
+import com.example.christian.cleantest.core.domain.single.SingleLCEObserver
+import com.example.christian.cleantest.core.domain.single.DefaultSingleObserver
 
 class OverviewPresenter constructor(
       private val getUsersInPool: GetUsersInPool
@@ -12,7 +12,7 @@ class OverviewPresenter constructor(
 
    lateinit var overviewView: OverviewContract.View
 
-   inner class GetUsersObserver : DefaultLCEObserver<UserOverview>(overviewView) {
+   inner class GetUsersObserver : SingleLCEObserver<UserOverview>(overviewView) {
       override fun onSuccess(value: UserOverview) {
          super.onSuccess(value)
          overviewView.showUsers(UserDomainMapper.transform(value))
@@ -24,7 +24,7 @@ class OverviewPresenter constructor(
       }
    }
 
-   inner class GetMoreUsersObserver : DefaultObserver<UserOverview>() {
+   inner class GetMoreUsersObserver : DefaultSingleObserver<UserOverview>() {
       override fun onSuccess(value: UserOverview) {
          overviewView.showListLoading(false)
          overviewView.showUsers(UserDomainMapper.transform(value))
