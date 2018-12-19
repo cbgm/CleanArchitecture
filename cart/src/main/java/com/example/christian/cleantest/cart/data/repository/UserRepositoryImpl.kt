@@ -6,34 +6,34 @@ import com.example.christian.cleantest.cart.domain.model.UserOverview
 import com.example.christian.cleantest.cart.domain.repository.UserRepository
 import com.example.christian.cleantest.cart.data.repository.remote.user.UsersFromNetwork
 import com.example.christian.cleantest.cart.data.repository.local.UsersFromLocal
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.example.christian.cleantest.core.domain.model.Result
+import com.example.christian.cleantest.core.domain.model.onSuccess
 
 class UserRepositoryImpl constructor(
       private val netManager: NetManager,
       private val usersFromNetwork: UsersFromNetwork,
       private val usersFromLocal: UsersFromLocal
-): UserRepository {
+) : UserRepository {
 
-    override fun getAllUsers(): Single<UserOverview> {
-       //for different purposes
-        /*netManager.isConnected.let {
-            if(it)
-                return usersFromNetwork.getUsers().flatMap {
-                    return@flatMap usersFromLocal.saveUsers(it)
-                            .toSingleDefault(it)
-                }
-            else
-                return usersFromLocal.getUsers()
-        }*/
-       //if no network, local cached data is loaded(interceptor)
-       return usersFromNetwork.getUsers().flatMap {
-          return@flatMap usersFromLocal.saveUsers(it)
-                .toSingleDefault(it)
-       }
-    }
+   override suspend fun getAllUsers(): Result<UserOverview> {
+      //for different purposes
+      /*netManager.isConnected.let {
+          if(it)
+              return usersFromNetwork.getUsers().flatMap {
+                  return@flatMap usersFromLocal.saveUsers(it)
+                          .toSingleDefault(it)
+              }
+          else
+              return usersFromLocal.getUsers()
+      }*/
+      //if no network, local cached data is loaded(interceptor)
+      val result = usersFromNetwork.getUsers()
+      result.onSuccess { usersFromLocal.saveUsers(it) }
+      return result
+   }
 
-    override fun saveUser(user: UserDto): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
+   override suspend fun saveUser(user: UserDto): Result<Nothing> {
+      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+   }
 }

@@ -3,26 +3,24 @@ package com.example.christian.cleantest.cart.data.repository.remote.user
 import com.example.christian.cleantest.cart.data.mapper.UserDtoMapper
 import com.example.christian.cleantest.cart.domain.model.User
 import com.example.christian.cleantest.cart.domain.model.UserOverview
-import io.reactivex.Single
-import java.util.concurrent.TimeUnit
+import com.example.christian.cleantest.core.domain.model.Result
+import java.io.IOException
 
 class UsersFromNetwork constructor(private val userApi: UserApi) {
 
-   fun getUsers(): Single<UserOverview> {
+   suspend fun getUsers(): Result<UserOverview> {
+      val response = userApi.getAllUsers()
+            .await()
 
-      return userApi.getAllUsers()
-            .flatMap {
-               Single.just(
-                     UserOverview(
-                           10,
-                           (it.map { user ->
-                              UserDtoMapper.transform(
-                                    user
-                              )
-                           } as ArrayList<User>)
-                     )
-               )
-                     .delay(1, TimeUnit.SECONDS)
-            }
+      if (response.isSuccessful) {
+         return Result.Success(UserOverview(
+               10,
+               (response.body()!!.map { user ->
+                  UserDtoMapper.transform(
+                        user
+                  )
+               } as ArrayList<User>)))
+      }
+      return Result.Error(IOException("" + response.errorBody()))
    }
 }

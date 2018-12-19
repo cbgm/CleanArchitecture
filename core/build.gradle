@@ -17,10 +17,10 @@ dependencies {
    api presDep.timber
 
    def dataDep = rootProject.ext.dataDependencies
-   api dataDep.rxJava
-   api dataDep.rxAndroid
    api dataDep.retrofit
-   api dataDep.rxJavaAdapter
+   api dataDep.coroutinesAdapter
+   api dataDep.coroutinesAndroid
+   api dataDep.coroutinesCore
    api dataDep.gson
    api dataDep.firebaseMessaging
    api dataDep.firebaseCore

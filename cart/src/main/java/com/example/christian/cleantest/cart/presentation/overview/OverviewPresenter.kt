@@ -3,8 +3,8 @@ package com.example.christian.cleantest.cart.presentation.overview
 import com.example.christian.cleantest.cart.domain.model.UserOverview
 import com.example.christian.cleantest.cart.domain.usecases.GetUsersInPool
 import com.example.christian.cleantest.cart.presentation.overview.mapper.UserDomainMapper
-import com.example.christian.cleantest.core.domain.single.SingleLCEObserver
-import io.reactivex.observers.DisposableSingleObserver
+import com.example.christian.cleantest.core.domain.default.DefaultLCEObserver
+import com.example.christian.cleantest.core.domain.default.DefaultObserver
 
 class OverviewPresenter constructor(
       private val getUsersInPool: GetUsersInPool
@@ -12,7 +12,7 @@ class OverviewPresenter constructor(
 
    lateinit var overviewView: OverviewContract.View
 
-   inner class GetUsersObserver : SingleLCEObserver<UserOverview>(overviewView) {
+   inner class GetUsersObserver : DefaultLCEObserver<UserOverview>(overviewView) {
       override fun onSuccess(value: UserOverview) {
          super.onSuccess(value)
          overviewView.showUsers(UserDomainMapper.transform(value))
@@ -20,16 +20,17 @@ class OverviewPresenter constructor(
 
       override fun onError(throwable: Throwable) {
          super.onError(throwable)
+         overviewView.showError()
       }
    }
 
-   inner class GetMoreUsersObserver : DisposableSingleObserver<UserOverview>() {
+   inner class GetMoreUsersObserver : DefaultObserver<UserOverview>() {
       override fun onSuccess(value: UserOverview) {
          overviewView.showListLoading(false)
          overviewView.showUsers(UserDomainMapper.transform(value))
       }
 
-      override fun onError(e: Throwable) {
+      override fun onError(throwable: Throwable) {
          overviewView.showError()
       }
    }

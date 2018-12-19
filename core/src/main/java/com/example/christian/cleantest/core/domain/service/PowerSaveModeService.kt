@@ -1,7 +1,7 @@
 package com.example.christian.cleantest.core.domain.service
 
-import io.reactivex.Single
+import com.example.christian.cleantest.core.domain.model.Result
 
 interface PowerSaveModeService {
-   fun switchNightDay(): Single<Boolean>
+   fun switchNightDay(): Result<Boolean>
 }

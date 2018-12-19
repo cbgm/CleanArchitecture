@@ -1,6 +1,7 @@
 package com.example.christian.cleantest.app.core
 
 import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.net.Uri
 import android.os.Bundle
@@ -35,23 +36,11 @@ class SplashActivity : AppCompatActivity() {
          val animatedValue = valueAnimator.animatedValue as Float
          title.textSize = animatedValue
       }
-      animator.addListener(object : Animator.AnimatorListener {
-         override fun onAnimationRepeat(p0: Animator?) {
-            //not needed
-         }
+      animator.addListener(object : AnimatorListenerAdapter() {
 
          override fun onAnimationEnd(p0: Animator?) {
             startRouting()
          }
-
-         override fun onAnimationCancel(p0: Animator?) {
-            //not needed
-         }
-
-         override fun onAnimationStart(p0: Animator?) {
-            //not needed
-         }
-
       })
       animator.start()
    }
