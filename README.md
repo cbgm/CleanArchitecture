@@ -1,6 +1,6 @@
 # CleanArchitecture concept
 
-## Configured with:
+## Currently configured with:
 - Koin dependency injection
 - Sonarqube using detekt
     - easy use with homebrew (install sonar)
@@ -18,5 +18,3 @@
 - Kotlin coroutines
 
     
- Refer to branch develop until served to master
- 
