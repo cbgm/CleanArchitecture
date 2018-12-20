@@ -1,11 +1,13 @@
 package com.example.christian.cleantest.core.device
 
 import android.support.annotation.StringRes
+import android.support.design.widget.AppBarLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import com.example.christian.cleantest.core.R
 
 class ToolbarLoader(
-      activity: AppCompatActivity?,
+      private val activity: AppCompatActivity?,
       @StringRes
       private val title: Int,
       private val backButtonEnabled: Boolean
@@ -16,10 +18,16 @@ class ToolbarLoader(
    init {
       setTitle()
       setBackButton()
+      resetAppBarScroll()
    }
 
+   private fun resetAppBarScroll() {
+      val appBarLayout = activity?.findViewById<AppBarLayout>(R.id.appBarLayout)
+      appBarLayout?.setExpanded(true)
+   }
 
    private fun setTitle() {
+
       if (this.title != -1) {
          toolbar?.setTitle(title)
       }
