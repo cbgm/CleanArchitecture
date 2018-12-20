@@ -10,21 +10,25 @@ import org.koin.android.ext.android.inject
 
 class CartActivity: BaseActivity() {
 
-   private val cartFlowCoordinator: CartFlowCoordinatorImpl by inject()
+   override val coordinator: CartFlowCoordinatorImpl by inject()
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       bottomNavigationView.menu.findItem(R.id.action_cart).isChecked = true
-      cartFlowCoordinator.start(this)
+      coordinator.start(this)
    }
 
    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
       return when (item?.itemId) {
          android.R.id.home -> {
-            cartFlowCoordinator.back()
+            coordinator.back()
             true
          }
          else -> false
       }
+   }
+
+   override fun onBackPressed() {
+
    }
 }

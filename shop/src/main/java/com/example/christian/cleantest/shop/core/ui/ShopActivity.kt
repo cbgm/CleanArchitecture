@@ -8,11 +8,15 @@ import org.koin.android.ext.android.inject
 
 class ShopActivity : BaseActivity() {
 
-   private val shopFlowCoordinator: ShopFlowCoordinatorImpl by inject()
+   override val coordinator: ShopFlowCoordinatorImpl by inject()
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       bottomNavigationView.menu.findItem(R.id.action_shop).isChecked = true
-      shopFlowCoordinator.start(this)
+      coordinator.start(this)
+   }
+
+   override fun onBackPressed() {
+      coordinator.back()
    }
 }

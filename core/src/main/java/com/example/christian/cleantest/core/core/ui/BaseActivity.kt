@@ -5,12 +5,13 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.christian.cleantest.core.R
+import com.example.christian.cleantest.core.core.navigation.BaseCoordinator
 import com.example.christian.cleantest.core.core.util.extension.navigateToCart
 import com.example.christian.cleantest.core.core.util.extension.navigateToshop
 import kotlinx.android.synthetic.main.toolbar.toolbar
 
 abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
+   open val coordinator: BaseCoordinator? = null
    lateinit var bottomNavigationView: BottomNavigationView
 
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,12 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
    }
 
    override fun onBackPressed() {
-      finish()
+
+      if (coordinator != null) {
+         coordinator!!.back()
+      } else {
+         finish()
+      }
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {

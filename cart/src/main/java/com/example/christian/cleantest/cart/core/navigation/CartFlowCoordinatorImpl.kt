@@ -3,11 +3,11 @@ package com.example.christian.cleantest.cart.core.navigation
 import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.presentation.detail.DetailFragment
 import com.example.christian.cleantest.cart.presentation.overview.OverviewFragment
-import com.example.christian.cleantest.core.core.navigation.BaseCoordinator
+import com.example.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
 import com.example.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.example.christian.cleantest.core.core.util.extension.replaceFragment
 
-class CartFlowCoordinatorImpl : BaseCoordinator(), CartFlowCoordinator {
+class CartFlowCoordinatorImpl : BaseCoordinatorImpl(), CartFlowCoordinator {
 
    override fun onDeepLinkBack() {
       when (currentFragment) {

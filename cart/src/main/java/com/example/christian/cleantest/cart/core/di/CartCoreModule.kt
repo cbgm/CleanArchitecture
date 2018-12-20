@@ -4,5 +4,5 @@ import com.example.christian.cleantest.cart.core.navigation.CartFlowCoordinatorI
 import org.koin.dsl.module.module
 
 val cartCoreModule = module {
-   single{CartFlowCoordinatorImpl()}
+   single { CartFlowCoordinatorImpl() }
 }

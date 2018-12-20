@@ -8,43 +8,19 @@ import com.example.christian.cleantest.core.core.util.extension.backStack
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-abstract class BaseCoordinator : KoinComponent {
+interface BaseCoordinator : KoinComponent {
 
-   val deepLinkHandler: DeepLinkHandler by inject()
-   lateinit var currentFragment: Fragment
-   var isDeepLinkActive: Boolean = false
+   fun start(fragmentActivity: FragmentActivity)
 
-   lateinit var activity: FragmentActivity
+   fun start(fragmentActivity: FragmentActivity, uri: Uri?)
 
-   open fun start(fragmentActivity: FragmentActivity) {
-      activity = fragmentActivity
-      initialNavigation()
-   }
+   fun initialNavigation()
 
-   open fun start(fragmentActivity: FragmentActivity, uri: Uri?) {
-      activity = fragmentActivity
-      uri?.let { deepLinkHandler.setDeepLinks(it) }
-      initialNavigation()
-   }
+   fun back()
 
-   private fun initialNavigation() {
-      if (deepLinkHandler.hasDeepLinks())
-         navigateDeepLink()
-      else
-         navigateLink()
-   }
+   fun onDeepLinkBack()
 
-   fun back() {
-      if (isDeepLinkActive) {
-         onDeepLinkBack()
-      } else {
-         activity.backStack()
-      }
-   }
+   fun navigateLink()
 
-   abstract fun onDeepLinkBack()
-
-   abstract fun navigateLink()
-
-   abstract fun navigateDeepLink()
+   fun navigateDeepLink()
 }
