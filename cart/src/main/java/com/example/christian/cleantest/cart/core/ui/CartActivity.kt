@@ -27,8 +27,4 @@ class CartActivity: BaseActivity() {
          else -> false
       }
    }
-
-   override fun onBackPressed() {
-
-   }
 }
