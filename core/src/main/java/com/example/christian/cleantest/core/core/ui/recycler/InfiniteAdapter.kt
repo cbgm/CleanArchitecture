@@ -17,6 +17,8 @@ abstract class InfiniteAdapter<I>(
       private const val ITEM_VIEW_TYPE_LOADING = 1
    }
 
+   private var indexFirst: Int = 0
+   private var indexLast: Int = 0
    private var isLoading: Boolean = false
    lateinit var layoutInflater: LayoutInflater
 
@@ -69,13 +71,17 @@ abstract class InfiniteAdapter<I>(
    }
 
    fun replaceData(data: ArrayList<I>) {
+      indexFirst = 0
+      indexLast = 0
       this.data = data
       notifyDataSetChanged()
    }
 
    fun addData(data: ArrayList<I>) {
+      indexFirst = indexLast
+      indexLast = data.size - 1
       this.data.addAll(data)
-      notifyDataSetChanged()
+      notifyItemRangeInserted(indexFirst, indexLast)
    }
 
    open fun showLoading(isVisible: Boolean) {
