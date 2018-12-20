@@ -4,7 +4,6 @@ import com.example.christian.cleantest.cart.data.mapper.CartDtoMapper
 import com.example.christian.cleantest.cart.domain.model.Cart
 import com.example.christian.cleantest.core.core.util.extension.mapToResult
 import com.example.christian.cleantest.core.domain.model.Result
-import java.io.IOException
 
 class CartFromNetwork constructor(private val cartApi: CartApi) {
 
