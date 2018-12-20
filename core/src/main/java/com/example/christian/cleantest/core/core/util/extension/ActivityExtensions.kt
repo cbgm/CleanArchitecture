@@ -20,6 +20,7 @@ private fun FragmentManager.inBackStack(): Boolean {
    } else {
       false
    }
+
 }
 
 fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStackTag: String) {

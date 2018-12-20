@@ -38,10 +38,10 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
    override fun onNavigationItemSelected(item: MenuItem): Boolean {
       when (item.itemId) {
          R.id.action_cart -> {
-            navigateToCart()
+            navigateToCart(this)
          }
          R.id.action_shop -> {
-            navigateToshop()
+            navigateToshop(this)
          }
          else -> {
             //not needed

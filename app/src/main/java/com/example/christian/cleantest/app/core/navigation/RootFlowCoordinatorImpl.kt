@@ -11,15 +11,15 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
       deepLinkHandler.getDeepLink()
             ?.let {
                when (it.action) {
-                  DeepLinkHandler.DeepLinkIdentifier.CART-> activity.navigateToCart()
-                  DeepLinkHandler.DeepLinkIdentifier.SHOP -> activity.navigateToshop()
-                  else -> activity.navigateToCart()
+                  DeepLinkHandler.DeepLinkIdentifier.CART-> activity.navigateToCart(activity)
+                  DeepLinkHandler.DeepLinkIdentifier.SHOP -> activity.navigateToshop(activity)
+                  else -> activity.navigateToCart(activity)
                }
             }
    }
 
    override fun navigateLink() {
-      activity.navigateToCart()
+      activity.navigateToCart(activity)
    }
 
    override fun onDeepLinkBack() {

@@ -4,7 +4,7 @@
 
    <application>
 
-      <activity android:name=".core.ui.CartActivity" android:noHistory="true">
+      <activity android:name=".core.ui.CartActivity">
          <intent-filter>
             <action android:name="${ACTION_CART}" />
             <category android:name="android.intent.category.DEFAULT" />

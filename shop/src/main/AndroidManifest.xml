@@ -4,7 +4,7 @@
 
    <application>
 
-      <activity android:name=".core.ui.ShopActivity" android:noHistory="true">
+      <activity android:name=".core.ui.ShopActivity">
          <intent-filter>
             <action android:name="${ACTION_SHOP}" />
             <category android:name="android.intent.category.DEFAULT" />
