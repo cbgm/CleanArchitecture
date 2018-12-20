@@ -14,23 +14,24 @@ class PowerSaveModeReceiver(
       private val callbackOnSuccess: Any.() -> Unit
 ) : BroadcastReceiver(), KoinComponent {
 
-   private val powerSaveModeUseCase: SwitchPowerSaveModeUseCase by inject()
+   private val switchPowerSaveModeUseCase: SwitchPowerSaveModeUseCase by inject()
 
    init {
       Timber.v("PowerSave Broadcast registered")
-      powerSaveModeUseCase.execute(ShowPowerSaveModeObserver(), Unit)
+      switchPowerSaveModeUseCase.execute(ShowPowerSaveModeObserver(), Unit)
    }
 
    inner class ShowPowerSaveModeObserver : DefaultSingleObserver<Boolean>() {
 
       override fun onSuccess(value: Boolean) {
          if (value) {
+            switchPowerSaveModeUseCase.dispose()
             callbackOnSuccess()
          }
       }
    }
 
    override fun onReceive(context: Context, intent: Intent) {
-      powerSaveModeUseCase.execute(ShowPowerSaveModeObserver(), Unit)
+      switchPowerSaveModeUseCase.execute(ShowPowerSaveModeObserver(), Unit)
    }
 }
