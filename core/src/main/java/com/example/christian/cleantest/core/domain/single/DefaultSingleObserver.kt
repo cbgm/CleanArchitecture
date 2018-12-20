@@ -1,7 +1,9 @@
 package com.example.christian.cleantest.core.domain.single
 
-open class DefaultSingleObserver<T> {
-   open fun onSuccess(value: T) {}
+import com.example.christian.cleantest.core.domain.base.BaseObserver
 
-   open fun onError(throwable: Throwable) {}
+open class DefaultSingleObserver<T> : BaseObserver<T>() {
+   override fun onSuccess(value: T) {}
+   override fun onError(throwable: Throwable) {}
+   final override fun onComplete() {}
 }

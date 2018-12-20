@@ -1,9 +1,9 @@
 package com.example.christian.cleantest.core.domain.completable
 
-open class DefaultCompletableObserver {
+import com.example.christian.cleantest.core.domain.base.BaseObserver
 
-   open fun onError(throwable: Throwable) {
-   }
-
-   open fun onComplete() {}
+open class DefaultCompletableObserver : BaseObserver<Unit>() {
+   override fun onError(throwable: Throwable) {}
+   override fun onComplete() {}
+   final override fun onSuccess(value: Unit) {}
 }
