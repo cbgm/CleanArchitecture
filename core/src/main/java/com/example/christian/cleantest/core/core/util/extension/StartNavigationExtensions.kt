@@ -7,18 +7,18 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
 
-fun Context.navigateToshop(oldAc: FragmentActivity) {
+fun Context.navigateToshop(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_SHOP)
-   startAction(intentToStart, this, oldAc)
+   startAction(intentToStart, this, oldActivity)
 }
 
-fun Context.navigateToCart(oldAc: FragmentActivity) {
+fun Context.navigateToCart(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_CART)
-   startAction(intentToStart, this, oldAc)
+   startAction(intentToStart, this, oldActivity)
 }
 
-private fun startAction(intentToStart: Intent, context: Context, oldAc: FragmentActivity? = null) {
+private fun startAction(intentToStart: Intent, context: Context, oldActivity: FragmentActivity? = null) {
    intentToStart.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
    context.startActivity(intentToStart)
-   oldAc?.finish()
+   oldActivity?.finish()
 }
