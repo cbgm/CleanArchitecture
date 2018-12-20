@@ -23,7 +23,7 @@ class ToolbarLoader(
 
    private fun resetAppBarScroll() {
       val appBarLayout = activity?.findViewById<AppBarLayout>(R.id.appBarLayout)
-      appBarLayout?.setExpanded(true)
+      appBarLayout?.setExpanded(true, false)
    }
 
    private fun setTitle() {

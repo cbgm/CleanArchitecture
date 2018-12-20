@@ -3,6 +3,7 @@ package com.example.christian.cleantest.cart.data.repository.remote.user
 import com.example.christian.cleantest.cart.data.mapper.UserDtoMapper
 import com.example.christian.cleantest.cart.domain.model.User
 import com.example.christian.cleantest.cart.domain.model.UserOverview
+import com.example.christian.cleantest.core.core.util.extension.mapToResult
 import com.example.christian.cleantest.core.domain.model.Result
 import java.io.IOException
 
@@ -12,15 +13,14 @@ class UsersFromNetwork constructor(private val userApi: UserApi) {
       val response = userApi.getAllUsers()
             .await()
 
-      if (response.isSuccessful) {
-         return Result.Success(UserOverview(
+      return response.mapToResult {
+         UserOverview(
                10,
                (response.body()!!.map { user ->
                   UserDtoMapper.transform(
                         user
                   )
-               } as ArrayList<User>)))
+               } as ArrayList<User>))
       }
-      return Result.Error(IOException("" + response.errorBody()))
    }
 }
