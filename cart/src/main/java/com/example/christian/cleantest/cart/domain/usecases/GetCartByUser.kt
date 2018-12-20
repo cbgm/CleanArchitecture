@@ -3,12 +3,13 @@ package com.example.christian.cleantest.cart.domain.usecases
 import com.example.christian.cleantest.cart.domain.model.Cart
 import com.example.christian.cleantest.cart.domain.repository.CartRepository
 import com.example.christian.cleantest.core.domain.single.SingleUseCase
-import io.reactivex.Single
+import com.example.christian.cleantest.core.domain.model.Result
 
-class GetCartByUser constructor(private val cartRepository: CartRepository): SingleUseCase<Cart, String>() {
+class GetCartByUser constructor(private val cartRepository: CartRepository) : SingleUseCase<Cart, String>() {
 
-    override fun buildUseCaseObservable(param: String): Single<Cart> {
-        return this.cartRepository.getCart(param)
-    }
+   override suspend fun buildUseCaseObservable(param: String): Result<Cart> {
+      return cartRepository.getCart(param)
+   }
+
 
 }

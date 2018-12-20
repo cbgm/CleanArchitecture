@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.PowerManager
+import com.example.christian.cleantest.core.domain.model.Result
 import com.example.christian.cleantest.core.domain.service.PowerSaveModeService
-import io.reactivex.Single
 
 class PowerSaveModeServiceImpl(
       private val context: Context,
@@ -13,7 +13,7 @@ class PowerSaveModeServiceImpl(
 ): PowerSaveModeService {
 
    @SuppressLint("ApplySharedPref")
-   override fun switchNightDay(): Single<Boolean> {
+   override fun switchNightDay(): Result<Boolean> {
       val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
       val currentMode = sharedPreferences.getBoolean("NIGHT_MODE", false)
       var newMode: Boolean
@@ -30,6 +30,6 @@ class PowerSaveModeServiceImpl(
                }
                this.commit()
             }
-      return Single.just(currentMode != newMode)
+      return Result.Success(currentMode != newMode)
    }
 }

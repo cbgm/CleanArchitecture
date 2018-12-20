@@ -4,7 +4,7 @@ import com.example.christian.cleantest.cart.domain.model.UserOverview
 import com.example.christian.cleantest.cart.domain.usecases.GetUsersInPool
 import com.example.christian.cleantest.cart.presentation.overview.mapper.UserDomainMapper
 import com.example.christian.cleantest.core.domain.single.SingleLCEObserver
-import io.reactivex.observers.DisposableSingleObserver
+import com.example.christian.cleantest.core.domain.single.DefaultSingleObserver
 
 class OverviewPresenter constructor(
       private val getUsersInPool: GetUsersInPool
@@ -20,16 +20,17 @@ class OverviewPresenter constructor(
 
       override fun onError(throwable: Throwable) {
          super.onError(throwable)
+         overviewView.showError()
       }
    }
 
-   inner class GetMoreUsersObserver : DisposableSingleObserver<UserOverview>() {
+   inner class GetMoreUsersObserver : DefaultSingleObserver<UserOverview>() {
       override fun onSuccess(value: UserOverview) {
          overviewView.showListLoading(false)
          overviewView.showUsers(UserDomainMapper.transform(value))
       }
 
-      override fun onError(e: Throwable) {
+      override fun onError(throwable: Throwable) {
          overviewView.showError()
       }
    }

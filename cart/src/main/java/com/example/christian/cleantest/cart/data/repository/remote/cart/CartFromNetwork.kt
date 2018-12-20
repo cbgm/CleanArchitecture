@@ -2,16 +2,18 @@ package com.example.christian.cleantest.cart.data.repository.remote.cart
 
 import com.example.christian.cleantest.cart.data.mapper.CartDtoMapper
 import com.example.christian.cleantest.cart.domain.model.Cart
-import io.reactivex.Single
+import com.example.christian.cleantest.core.domain.model.Result
+import java.io.IOException
 
 class CartFromNetwork constructor(private val cartApi: CartApi) {
 
-    fun getCart(userId: String) : Single<Cart> {
+   suspend fun getCart(userId: String): Result<Cart> {
+      val response = cartApi.getCartByUser(userId)
+            .await()
 
-
-        return cartApi.getCartByUser(userId).map {
-            CartDtoMapper.transform(it)
-        }
-    }
-
+      if (response.isSuccessful) {
+         return Result.Success(CartDtoMapper.transform(response.body()!!))
+      }
+      return Result.Error(IOException("" + response.errorBody()))
+   }
 }

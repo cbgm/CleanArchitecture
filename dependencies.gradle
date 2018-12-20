@@ -12,10 +12,11 @@ ext {
    daggerVersion = "2.14.1"
    lifecycleVersion = "1.1.1"
    retrofitVersion = "2.4.0"
-   rxJavaVersion = "2.2.2"
+   coroutinesAdapterVersion = "0.9.2"
+   coroutinesAndroidVersion = "1.1.0-alpha"
+   coroutinesCoreVersion = "1.1.0-alpha"
    junitVersion = "4.12"
    testRunnerVersion = "1.0.1"
-   rxAndroidVersion = "2.1.0"
    koinVersion = "1.0.1"
    espressoVersion = "3.0.1"
    shimmerVersion = "0.3.0"
@@ -45,10 +46,10 @@ ext {
    ]
 
    dataDependencies = [
-         rxJava: "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-         rxAndroid: "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+         coroutinesAdapter: "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutinesAdapterVersion",
+         coroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroidVersion",
+         coroutinesCore: "org.jetbrains.kotlinx:kotlinx-coroutines-core:",
          retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
-         rxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
          gson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
          firebaseMessaging: "com.google.firebase:firebase-messaging:$firebaseMessagingVersion",
          firebaseCore: "com.google.firebase:firebase-core:$firebaseCoreVersion",

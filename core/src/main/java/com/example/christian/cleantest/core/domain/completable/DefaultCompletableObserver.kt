@@ -1,11 +1,9 @@
 package com.example.christian.cleantest.core.domain.completable
 
-import io.reactivex.observers.DisposableCompletableObserver
+import com.example.christian.cleantest.core.domain.base.BaseObserver
 
-open class DefaultCompletableObserver : DisposableCompletableObserver() {
-   override fun onComplete() {
-   }
-
-   override fun onError(throwable: Throwable) {
-   }
+open class DefaultCompletableObserver : BaseObserver<Unit>() {
+   override fun onError(throwable: Throwable) {}
+   override fun onComplete() {}
+   final override fun onSuccess(value: Unit) {}
 }

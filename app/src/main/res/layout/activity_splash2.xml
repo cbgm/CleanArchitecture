@@ -11,6 +11,6 @@
       android:paddingTop="200dp"
       android:text="@string/app_name"
       android:textAlignment="center"
-      android:textColor="@color/backgroundTheme"
+      android:textColor="@color/animatedText"
       android:textSize="30sp" />
 </RelativeLayout>

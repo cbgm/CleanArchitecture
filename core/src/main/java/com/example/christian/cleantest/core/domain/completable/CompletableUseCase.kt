@@ -1,32 +1,12 @@
 package com.example.christian.cleantest.core.domain.completable
 
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableCompletableObserver
-import io.reactivex.schedulers.Schedulers
+import com.example.christian.cleantest.core.domain.base.BaseUseCase
+import com.example.christian.cleantest.core.domain.model.Result
+import com.example.christian.cleantest.core.domain.model.onComplete
+import com.example.christian.cleantest.core.domain.model.onError
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-abstract class CompletableUseCase<in Params> {
-
-   private var compositeDisposable: CompositeDisposable? = null
-
-   abstract fun buildUseCaseObservable(param: Params): Completable
-
-   fun execute(observer: DisposableCompletableObserver? = null, param: Params): Completable {
-      dispose()
-      val observable = buildUseCaseObservable(param)
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-      if (observer != null)
-         addDisposable(observable.subscribeWith(observer))
-      return observable
-   }
-
-   fun dispose() = compositeDisposable?.takeIf { !it.isDisposed }?.dispose()
-
-   private fun addDisposable(disposable: Disposable) {
-      compositeDisposable = CompositeDisposable().apply { add(disposable) }
-   }
-
-}
+abstract class CompletableUseCase<in Params>: BaseUseCase<Unit, Params>()
