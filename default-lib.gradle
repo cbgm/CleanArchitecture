@@ -20,5 +20,7 @@ android {
             action -> addConstant(action, "${rootProject.ext.applicationId}${debugFlag}.${action}")
          }
       }
+
+      assembleRelease.dependsOn test, connectedAndroidTest
    }
 }

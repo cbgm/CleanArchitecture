@@ -6,7 +6,10 @@ import com.example.christian.cleantest.cart.domain.model.UserOverview
 import com.example.christian.cleantest.core.core.util.extension.mapToResult
 import com.example.christian.cleantest.core.domain.model.Result
 
-class UsersFromNetwork constructor(private val userApi: UserApi) {
+class UsersFromNetwork constructor(
+      private val userApi: UserApi,
+      private val userDtoMapper: UserDtoMapper
+) {
 
    suspend fun getUsers(): Result<UserOverview> {
       val response = userApi.getAllUsers()
@@ -16,7 +19,7 @@ class UsersFromNetwork constructor(private val userApi: UserApi) {
          UserOverview(
                10,
                (response.body()!!.map { user ->
-                  UserDtoMapper.transform(
+                  userDtoMapper.transform(
                         user
                   )
                } as ArrayList<User>))

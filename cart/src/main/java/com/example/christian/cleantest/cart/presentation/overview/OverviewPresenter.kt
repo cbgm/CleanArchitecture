@@ -7,7 +7,8 @@ import com.example.christian.cleantest.core.domain.single.SingleLCEObserver
 import com.example.christian.cleantest.core.domain.single.DefaultSingleObserver
 
 class OverviewPresenter constructor(
-      private val getUsersInPool: GetUsersInPool
+      private val getUsersInPool: GetUsersInPool,
+      private val userDomainMapper: UserDomainMapper
 ) : OverviewContract.Presenter {
 
    lateinit var overviewView: OverviewContract.View
@@ -15,7 +16,7 @@ class OverviewPresenter constructor(
    inner class GetUsersObserver : SingleLCEObserver<UserOverview>(overviewView) {
       override fun onSuccess(value: UserOverview) {
          super.onSuccess(value)
-         overviewView.showUsers(UserDomainMapper.transform(value))
+         overviewView.showUsers(userDomainMapper.transform(value))
       }
 
       override fun onError(throwable: Throwable) {
@@ -27,7 +28,7 @@ class OverviewPresenter constructor(
    inner class GetMoreUsersObserver : DefaultSingleObserver<UserOverview>() {
       override fun onSuccess(value: UserOverview) {
          overviewView.showListLoading(false)
-         overviewView.showUsers(UserDomainMapper.transform(value))
+         overviewView.showUsers(userDomainMapper.transform(value))
       }
 
       override fun onError(throwable: Throwable) {

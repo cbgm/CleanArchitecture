@@ -5,12 +5,15 @@ import com.example.christian.cleantest.cart.domain.model.Cart
 import com.example.christian.cleantest.core.core.util.extension.mapToResult
 import com.example.christian.cleantest.core.domain.model.Result
 
-class CartFromNetwork constructor(private val cartApi: CartApi) {
+class CartFromNetwork constructor(
+      private val cartApi: CartApi,
+      private val cartDtoMapper: CartDtoMapper
+) {
 
    suspend fun getCart(userId: String): Result<Cart> {
       val response = cartApi.getCartByUser(userId)
             .await()
 
-      return response.mapToResult { CartDtoMapper.transform(response.body()!!) }
+      return response.mapToResult { cartDtoMapper.transform(response.body()!!) }
    }
 }

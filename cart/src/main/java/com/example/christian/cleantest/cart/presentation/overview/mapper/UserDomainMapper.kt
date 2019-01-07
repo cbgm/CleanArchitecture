@@ -7,29 +7,27 @@ import com.example.christian.cleantest.cart.presentation.overview.model.UserOver
 
 class UserDomainMapper {
 
-    companion object {
-        fun transform(userOverview: UserOverview) : UserOverviewEntity {
-            return UserOverviewEntity(
-                  userOverview.count,
-                  userOverview
-                        .users
-                        .flatMap {
-                            listOf(
-                                  transform(
-                                        it
-                                  )
-                            )
-                        }.toCollection(
-                              ArrayList()
-                        )
-            )
-        }
+   fun transform(userOverview: UserOverview): UserOverviewEntity {
+      return UserOverviewEntity(
+            userOverview.count,
+            userOverview
+                  .users
+                  .flatMap {
+                     listOf(
+                           transform(
+                                 it
+                           )
+                     )
+                  }.toCollection(
+                        ArrayList()
+                  )
+      )
+   }
 
-        private fun transform(user: User) : UserEntity {
-            return UserEntity(
-                  user.name,
-                  user.lastname
-            )
-        }
-    }
+   private fun transform(user: User): UserEntity {
+      return UserEntity(
+            user.name,
+            user.lastname
+      )
+   }
 }

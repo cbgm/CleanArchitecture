@@ -9,7 +9,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
-class UserSQLDao : UserDao {
+class UserSQLDao(private val userDtoMapper: UserDtoMapper) : UserDao {
    override fun getUsers(): Single<UserOverview> {
       val data = ArrayList<UserDto>()
       data.add(UserDto("me", "bla"))
@@ -18,7 +18,7 @@ class UserSQLDao : UserDao {
             UserOverview(
                   10,
                   (data.map { user ->
-                     UserDtoMapper.transform(
+                     userDtoMapper.transform(
                            user
                      )
                   } as ArrayList<User>)

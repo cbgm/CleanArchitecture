@@ -5,11 +5,7 @@ import com.example.christian.cleantest.core.data.model.UserDto
 
 class UserDtoMapper {
 
-    companion object {
-
-        @Suppress("MemberVisibilityCanBePrivate")
-        fun transform(user: UserDto) : User {
-            return User(user.name, user.lastname)
-        }
-    }
+   fun transform(user: UserDto): User {
+      return User(user.name, user.lastname)
+   }
 }
