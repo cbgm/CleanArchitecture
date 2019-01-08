@@ -13,5 +13,6 @@ sonarqube {
       property "sonar.java.binaries", "${rootProject.projectDir}/app/build/intermediates/classes," +
             "${rootProject.projectDir}/app/build/tmp/kotlin-classes"
       property 'sonar.jacoco.reportPaths', "${rootProject.projectDir}/app/build/jacoco/testDebugUnitTest.exec"
+      property "sonar.jacoco.itReportPath", instrumentationFileName
    }
 }

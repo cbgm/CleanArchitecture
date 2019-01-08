@@ -20,11 +20,12 @@ val cartOverviewModule = module {
    single { UsersFromNetwork(get(), get()) }
    single { UsersFromLocal() }
    single { GetUsersInPool(get()) }
-   single<UserRepository> {
+   /*single<UserRepository> {
       UserRepositoryImpl(
             get(),
             get(),
             get()
       )
-   }
+   }*/
+   single { UserRepositoryImpl(get(), get(), get())} bind UserRepository::class
 }

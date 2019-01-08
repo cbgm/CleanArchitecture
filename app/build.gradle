@@ -53,6 +53,14 @@ android {
       }
    }
 
+   testOptions {
+      unitTests.all {
+         jacoco {
+            includeNoLocationClasses = true
+         }
+      }
+   }
+
    bundle {
       language {
          enableSplit = true
@@ -79,10 +87,4 @@ dependencies {
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
    testImplementation testDep.koinTest
-}
-
-jacocoAndroidUnitTestReport {
-   csv.enabled false
-   html.enabled false
-   xml.enabled true
 }
