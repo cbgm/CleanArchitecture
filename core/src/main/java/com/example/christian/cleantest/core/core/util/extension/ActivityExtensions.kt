@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
+import org.koin.android.ext.android.getKoin
+import org.koin.android.scope.ext.android.bindScope
+import org.koin.android.scope.ext.android.getOrCreateScope
 
 private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
    val fragmentTransaction = beginTransaction()
@@ -34,4 +37,8 @@ fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStack
 fun FragmentActivity.backStack() {
    if (!supportFragmentManager.inBackStack())
       finish()
+}
+
+fun FragmentActivity.updateScope(scope: String) {
+   bindScope(getOrCreateScope(scope))
 }

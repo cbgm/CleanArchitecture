@@ -5,7 +5,6 @@ import android.view.MenuItem
 import com.example.christian.cleantest.cart.core.navigation.CartFlowCoordinatorImpl
 import com.example.christian.cleantest.core.R
 import com.example.christian.cleantest.core.core.ui.BaseActivity
-
 import org.koin.android.ext.android.inject
 
 class CartActivity: BaseActivity() {

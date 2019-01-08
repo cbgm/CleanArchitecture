@@ -12,7 +12,7 @@ import com.example.christian.cleantest.cart.presentation.detail.mapper.CartDomai
 import org.koin.dsl.module.module
 
 val cartDetailModule = module {
-   factory { DetailPresenter(get(), get()) }
+   scope("detail") { DetailPresenter(get(), get()) }
    single { createWebService<CartApi>(get("retrofit2")) }
    single { CartDtoMapper() }
    single { CartDomainMapper() }

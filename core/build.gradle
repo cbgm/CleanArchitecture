@@ -9,10 +9,9 @@ dependencies {
    api presDep.lifecycleRuntime
    api presDep.lifecycleExtensions
    api presDep.supportDesign
-   kapt presDep.daggerCompiler
-   api presDep.dagger
    api presDep.koinAndroid
    api presDep.koinCore
+   api presDep.koinScope
    api presDep.shimmer
    api presDep.timber
 
@@ -31,6 +30,7 @@ dependencies {
    testImplementation testDep.junit
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
+   testImplementation testDep.koinTest
 }
 
 android { sourceSets { release { java.srcDirs = ['src/release/java', 'src/release/java/'] } } }

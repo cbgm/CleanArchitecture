@@ -1,6 +1,5 @@
 package com.example.christian.cleantest.cart.core.di
 
-import com.example.christian.cleantest.cart.data.mapper.CartDtoMapper
 import com.example.christian.cleantest.cart.data.mapper.UserDtoMapper
 import com.example.christian.cleantest.core.core.di.createWebService
 import com.example.christian.cleantest.cart.data.repository.UserRepositoryImpl
@@ -9,13 +8,12 @@ import com.example.christian.cleantest.cart.data.repository.remote.user.UserApi
 import com.example.christian.cleantest.cart.data.repository.remote.user.UsersFromNetwork
 import com.example.christian.cleantest.cart.domain.repository.UserRepository
 import com.example.christian.cleantest.cart.domain.usecases.GetUsersInPool
-import com.example.christian.cleantest.cart.presentation.detail.mapper.CartDomainMapper
 import com.example.christian.cleantest.cart.presentation.overview.OverviewPresenter
 import com.example.christian.cleantest.cart.presentation.overview.mapper.UserDomainMapper
 import org.koin.dsl.module.module
 
 val cartOverviewModule = module {
-   factory { OverviewPresenter(get(), get()) }
+   scope("overview") { OverviewPresenter(get(), get()) }
    single { createWebService<UserApi>(get("retrofit1")) }
    single { UserDtoMapper() }
    single { UserDomainMapper() }
@@ -29,5 +27,4 @@ val cartOverviewModule = module {
             get()
       )
    }
-
 }
