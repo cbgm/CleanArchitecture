@@ -11,7 +11,7 @@ import com.example.christian.cleantest.cart.presentation.overview.OverviewPresen
 import org.koin.dsl.module.module
 
 val cartOverviewModule = module {
-   factory { OverviewPresenter(get()) }
+   scope("overview") { OverviewPresenter(get()) }
    single { createWebService<UserApi>(get("retrofit1")) }
    single { UsersFromNetwork(get()) }
    single { UsersFromLocal() }

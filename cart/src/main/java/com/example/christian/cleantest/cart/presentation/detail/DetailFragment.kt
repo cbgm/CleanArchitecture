@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.core.ui.CartBaseFragment
 import com.example.christian.cleantest.cart.presentation.detail.model.CartEntity
+import com.example.christian.cleantest.core.core.util.extension.updateScope
 import com.example.christian.cleantest.core.device.ToolbarLoader
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.ext.android.inject
@@ -35,6 +36,7 @@ class DetailFragment : CartBaseFragment(), DetailContract.View {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      activity?.updateScope("detail")
       detailPresenter.setVIew(this)
       paramId = arguments?.getString("User") ?: ""
    }

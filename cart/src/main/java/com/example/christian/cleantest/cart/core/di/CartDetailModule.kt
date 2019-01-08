@@ -10,7 +10,7 @@ import com.example.christian.cleantest.cart.presentation.detail.DetailPresenter
 import org.koin.dsl.module.module
 
 val cartDetailModule = module {
-   factory { DetailPresenter(get()) }
+   scope("detail") { DetailPresenter(get()) }
    single { createWebService<CartApi>(get("retrofit2")) }
    single { CartFromNetwork(get()) }
    single { GetCartByUser(get()) }

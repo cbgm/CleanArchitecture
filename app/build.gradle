@@ -78,6 +78,7 @@ dependencies {
    testImplementation testDep.junit
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
+   testImplementation testDep.koinTest
 }
 
 jacocoAndroidUnitTestReport {

@@ -10,6 +10,7 @@ import com.example.christian.cleantest.cart.R
 import com.example.christian.cleantest.cart.core.ui.CartBaseFragment
 import com.example.christian.cleantest.cart.presentation.overview.model.UserOverviewEntity
 import com.example.christian.cleantest.core.core.ui.recycler.EndlessScrollListener
+import com.example.christian.cleantest.core.core.util.extension.updateScope
 import com.example.christian.cleantest.core.device.ToolbarLoader
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
@@ -36,6 +37,7 @@ class OverviewFragment : CartBaseFragment(), OverviewContract.View, OverviewAdap
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      activity?.updateScope("overview")
       presenter.setVIew(this)
    }
 
