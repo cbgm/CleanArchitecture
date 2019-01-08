@@ -4,7 +4,7 @@ apply plugin: "org.sonarqube"
 def instrumentationFileName = ""
 
 jacoco {
-   toolVersion = "0.7.9"
+   toolVersion = "0.8.2"
 }
 
 sonarqube {
@@ -22,7 +22,7 @@ sonarqube {
       property "sonar.java.binaries", "${rootProject.projectDir}/app/build/intermediates/classes," +
             "${rootProject.projectDir}/app/build/tmp/kotlin-classes"
       property 'sonar.jacoco.reportPaths', "${rootProject.projectDir}/app/build/jacoco/testDebugUnitTest.exec"
-      property "sonar.jacoco.itReportPath", instrumentationFileName
+      //property "sonar.jacoco.itReportPath", instrumentationFileName
    }
 }
 
@@ -45,13 +45,21 @@ task createTestReports(type: JacocoReport, dependsOn: ["cart:testDebugUnitTest"/
          'android/**/*.*',
          '**/*.json'
    ]
-   def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+
+   def debugTree = fileTree(dir: "**/${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+   def mainSrc = "**/src/main/java"
+
+   sourceDirectories = files([mainSrc])
+   classDirectories = files([debugTree])
+   executionData = files("**/${project.buildDir}/jacoco/testDebugUnitTest.exec")
+
+   /*def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
    def mainSrc = "${project.projectDir}/src/main/java"
 
    sourceDirectories = files([mainSrc])
    classDirectories = files([debugTree])
 
-   executionData = files("${project.buildDir}/jacoco/testDevDebugUnitTest.exec")
-   def files = fileTree("${buildDir}/outputs/code-coverage/connected/flavors/DEV/").filter { it.isFile() }.files.name
-   instrumentationFileName = "${buildDir}/outputs/code-coverage/connected/flavors/DEV/" + files[0]
+   executionData = files("${project.buildDir}/jacoco/testDebugUnitTest.exec")
+   def files = fileTree("${buildDir}/outputs/code-coverage/connected/debug/").filter { it.isFile() }.files.name
+   instrumentationFileName = "${buildDir}/outputs/code-coverage/connected/debug/" + files[0]*/
 }

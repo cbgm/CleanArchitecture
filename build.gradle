@@ -19,7 +19,7 @@ buildscript {
    configurations.all { exclude module: "groovy-all" }
 }
 
-apply from: "jacoco.gradle"
+apply from: "sonar-jacoco.gradle"
 
 tasks.sonarqube.dependsOn "createTestReports"
 
