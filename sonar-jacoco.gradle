@@ -1,10 +1,10 @@
 apply plugin: 'jacoco'
 apply plugin: "org.sonarqube"
 
-def instrumentationFileName = ""
 
 jacoco {
-   toolVersion = "0.8.2"
+   toolVersion = "$jacocoVersion"
+   reportsDir = file("$buildDir/reports")
 }
 
 sonarqube {
@@ -21,45 +21,39 @@ sonarqube {
       property "sonar.java.coveragePlugin", "jacoco"
       property "sonar.java.binaries", "${rootProject.projectDir}/app/build/intermediates/classes," +
             "${rootProject.projectDir}/app/build/tmp/kotlin-classes"
-      property 'sonar.jacoco.reportPaths', "${rootProject.projectDir}/app/build/jacoco/testDebugUnitTest.exec"
-      //property "sonar.jacoco.itReportPath", instrumentationFileName
+      property 'sonar.jacoco.reportPaths',
+            "${rootProject.projectDir}/app/build/jacoco/testDebugUnitTest.exec"
    }
 }
 
-task createTestReports(type: JacocoReport, dependsOn: ["cart:testDebugUnitTest"/*, "app:createDebugCoverageReport"*/]) {
-   group = "Reporting"
+task createTestReports(type: JacocoReport, dependsOn: ['cart:testDebugUnitTest', 'cart:createDebugCoverageReport']) {
 
    reports {
       xml.enabled = true
       html.enabled = true
    }
 
-   def fileFilter = ['**/R.class',
+   def excludes = [
+         '**/R.class',
          '**/R$*.class',
-         '**/BuildConfig.*',
          '**/*$ViewInjector*.*',
-         '**/*$ViewBinder*.*',
-         '**/*$MembersInjector*.*',
+         '**/BuildConfig.*',
          '**/Manifest*.*',
          '**/*Test*.*',
          'android/**/*.*',
-         '**/*.json'
+         '**/*Fragment.*',
+         '**/*Activity.*'
    ]
 
-   def debugTree = fileTree(dir: "**/${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-   def mainSrc = "**/src/main/java"
+
+
+   def kotlinDebugTree = fileTree(dir: "$buildDir/tmp/kotlin-classes/debug", excludes: excludes)
+   def debugTree = fileTree(dir: "$buildDir/intermediates/classes/debug", excludes: excludes)
+   def mainSrc = "$projectDir/src/main/java"
 
    sourceDirectories = files([mainSrc])
-   classDirectories = files([debugTree])
-   executionData = files("**/${project.buildDir}/jacoco/testDebugUnitTest.exec")
-
-   /*def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-   def mainSrc = "${project.projectDir}/src/main/java"
-
-   sourceDirectories = files([mainSrc])
-   classDirectories = files([debugTree])
-
-   executionData = files("${project.buildDir}/jacoco/testDebugUnitTest.exec")
-   def files = fileTree("${buildDir}/outputs/code-coverage/connected/debug/").filter { it.isFile() }.files.name
-   instrumentationFileName = "${buildDir}/outputs/code-coverage/connected/debug/" + files[0]*/
+   classDirectories = files([debugTree], [kotlinDebugTree])
+   executionData = fileTree(dir: project.buildDir, includes: [
+         'jacoco/testDebugUnitTest.exec', 'outputs/code_coverage/debugAndroidTest/connected/**/*.ec'
+   ])
 }
