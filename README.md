@@ -16,5 +16,6 @@
 - DayNight-Mode toggled by power saving option
 - Facebook Shimmer loading
 - Kotlin coroutines
+- Retrofit for Api construction
 
     
