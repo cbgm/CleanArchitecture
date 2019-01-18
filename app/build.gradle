@@ -64,6 +64,8 @@ android {
          enableSplit = true
       }
    }
+
+   dynamicFeatures = [":shop"]
 }
 
 dependencies {
@@ -71,9 +73,10 @@ dependencies {
    def presDep = rootProject.ext.presentationDependencies
    implementation presDep.koinAndroid
    implementation presDep.koinCore
-   implementation project(':core')
-   implementation project(':cart')
-   implementation project(':shop')
+
+   implementation project (":core")
+   implementation project (":cart")
+
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit
    testImplementation testDep.testRunner

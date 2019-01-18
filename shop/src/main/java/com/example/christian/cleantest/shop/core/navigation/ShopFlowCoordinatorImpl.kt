@@ -8,11 +8,11 @@ import com.example.christian.cleantest.core.core.util.extension.replaceFragment
 class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
 
    override fun showOverview() {
-      activity.replaceFragment(
+      /*activity.replaceFragment(
             OverviewFragment.newInstance(),
             R.id.fragment_container,
             OverviewFragment.TAG
-      )
+      )*/
    }
 
    override fun navigateDeepLink() {

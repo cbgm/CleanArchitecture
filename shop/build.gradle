@@ -1,8 +1,9 @@
-apply from: "../default-lib.gradle"
+apply from: "../default-feature.gradle"
 
 dependencies {
 
    implementation project(":core")
+   implementation project(":app")
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

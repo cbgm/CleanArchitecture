@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
 
+
 fun Context.navigateToshop(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_SHOP)
    startAction(intentToStart, this, oldActivity)

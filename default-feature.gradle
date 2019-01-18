@@ -1,17 +1,12 @@
-apply plugin: "com.android.library"
+apply plugin: "com.android.dynamic-feature"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: "../default-config.gradle"
 
 android {
-
-   defaultConfig {
-      multiDexEnabled true
-   }
-
    project.afterEvaluate {
-      project.android.libraryVariants.all { variant ->
+      project.android.applicationVariants.all { variant ->
          def addConstant = { constantName, constantValue ->
             variant.mergedFlavor.manifestPlaceholders += [(constantName): constantValue]
             buildConfigField "String", "${constantName}", "\"${constantValue}\""
@@ -26,15 +21,4 @@ android {
          }
       }
    }
-
-   buildTypes {
-      release {
-         minifyEnabled true
-      }
-      debug {
-         testCoverageEnabled false
-      }
-   }
-
-   sourceSets { release { java.srcDirs = ['src/release/java', 'src/release/java/'] } }
 }

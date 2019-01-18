@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.example.christian.cleantest"
-   xmlns:android="http://schemas.android.com/apk/res/android">
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:dist="http://schemas.android.com/apk/distribution">
 
    <uses-permission android:name="android.permission.INTERNET" />
    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+   <dist:module dist:instant="true" />
 
    <application
       android:name=".app.core.UserApplication"

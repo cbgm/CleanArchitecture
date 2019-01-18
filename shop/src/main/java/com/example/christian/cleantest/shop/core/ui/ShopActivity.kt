@@ -1,10 +1,17 @@
 package com.example.christian.cleantest.shop.core.ui
 
+import android.content.Context
 import android.os.Bundle
 import com.example.christian.cleantest.core.R
 import com.example.christian.cleantest.core.core.ui.BaseActivity
+import com.example.christian.cleantest.shop.core.di.shopCoreModule
 import com.example.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl
+import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.android.ext.android.inject
+import org.koin.standalone.StandAloneContext.loadKoinModules
+
+private val loadFeature by lazy { loadKoinModules(shopCoreModule) }
+private fun injectFeature() = loadFeature
 
 class ShopActivity : BaseActivity() {
 
@@ -12,11 +19,17 @@ class ShopActivity : BaseActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      injectFeature()
       bottomNavigationView.menu.findItem(R.id.action_shop).isChecked = true
       coordinator.start(this)
    }
 
    override fun onBackPressed() {
       coordinator.back()
+   }
+
+   override fun attachBaseContext(newBase: Context?) {
+      super.attachBaseContext(newBase)
+      SplitCompat.install(this)
    }
 }
