@@ -8,11 +8,12 @@ buildscript {
       jcenter()
    }
    dependencies {
-      classpath 'com.android.tools.build:gradle:3.2.1'
+      classpath 'com.android.tools.build:gradle:3.3.0'
       classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
       classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
       classpath "com.dicedmelon.gradle:jacoco-android:0.1.1"
       classpath 'com.google.gms:google-services:4.0.1'
+      classpath 'de.felixschulze.gradle:gradle-hockeyapp-plugin:3.6'
    }
 }
 

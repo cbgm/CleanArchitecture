@@ -25,6 +25,11 @@ class SplitInstallRequester(context: Context) {
          featureLoadingFailed: Unit? = null
    ) {
 
+      if (isFeatureAvailable(featureName)) {
+         featureInstalled
+         return
+      }
+
       this.featureInstalled = featureInstalled
       this.featureInstalling = featureInstalling
       this.featureLoading = featureLoading

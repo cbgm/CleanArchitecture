@@ -20,7 +20,7 @@ class CartFlowCoordinatorImpl : BaseCoordinatorImpl(), CartFlowCoordinator {
       currentFragment = DetailFragment.newInstance(userId)
       activity.replaceFragment(
             currentFragment,
-            R.id.fragment_container,
+            replaceableFragmentId,
             DetailFragment.TAG
       )
    }
@@ -29,7 +29,7 @@ class CartFlowCoordinatorImpl : BaseCoordinatorImpl(), CartFlowCoordinator {
       currentFragment = OverviewFragment.newInstance()
       activity.replaceFragment(
             currentFragment,
-            R.id.fragment_container,
+            replaceableFragmentId,
             OverviewFragment.TAG
       )
    }

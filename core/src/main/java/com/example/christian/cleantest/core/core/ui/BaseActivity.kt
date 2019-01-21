@@ -47,7 +47,7 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
          }
          R.id.action_shop -> {
             splitInstallRequester.requestFeature(
-                  featureName = "shop",
+                  featureName = "Shop",
                   featureInstalled = navigateToshop(this)
             )
          }

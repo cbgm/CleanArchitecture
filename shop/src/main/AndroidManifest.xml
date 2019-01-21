@@ -19,6 +19,6 @@
       dist:onDemand="true"
       dist:title="@string/shop"
       tools:ignore="ManifestResource">
-      <dist:fusing dist:include="false" />
+      <dist:fusing dist:include="true" />
    </dist:module>
 </manifest>
