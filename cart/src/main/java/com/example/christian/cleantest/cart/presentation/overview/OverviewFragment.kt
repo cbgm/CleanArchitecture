@@ -53,7 +53,7 @@ class OverviewFragment : CartBaseFragment(), OverviewContract.View, OverviewAdap
    }
 
    override fun getLayoutResId(): Int {
-      return R.layout.fragment_overview
+      return R.layout.fragment_cart_overview
    }
 
    override fun showUsers(userOverviewEntity: UserOverviewEntity) {

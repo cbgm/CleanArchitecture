@@ -24,7 +24,7 @@ class OverviewFragment : ShopBaseFragment() {
    }
 
    override fun getLayoutResId(): Int {
-      return R.layout.fragment_overview
+      return R.layout.fragment_shop_overview
    }
 
    @SuppressLint("RestrictedApi")

@@ -4,7 +4,8 @@
    xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:dist="http://schemas.android.com/apk/distribution">
 
-   <application>
+   <application
+      android:hasCode="false">
 
       <activity android:name=".core.ui.ShopActivity">
          <intent-filter>
@@ -18,6 +19,6 @@
       dist:onDemand="true"
       dist:title="@string/shop"
       tools:ignore="ManifestResource">
-      <dist:fusing dist:include="true" />
+      <dist:fusing dist:include="false" />
    </dist:module>
 </manifest>

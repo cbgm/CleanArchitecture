@@ -1,6 +1,5 @@
 package com.example.christian.cleantest.shop.core.navigation
 
-import com.example.christian.cleantest.shop.R
 import com.example.christian.cleantest.shop.presentation.overview.OverviewFragment
 import com.example.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
 import com.example.christian.cleantest.core.core.util.extension.replaceFragment
@@ -8,11 +7,11 @@ import com.example.christian.cleantest.core.core.util.extension.replaceFragment
 class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
 
    override fun showOverview() {
-      /*activity.replaceFragment(
+      activity.replaceFragment(
             OverviewFragment.newInstance(),
-            R.id.fragment_container,
+            replaceableFragmentId,
             OverviewFragment.TAG
-      )*/
+      )
    }
 
    override fun navigateDeepLink() {

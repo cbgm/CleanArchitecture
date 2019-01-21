@@ -11,7 +11,7 @@ import com.example.christian.cleantest.cart.core.ui.CartBaseFragment
 import com.example.christian.cleantest.cart.presentation.detail.model.CartEntity
 import com.example.christian.cleantest.core.core.util.extension.updateScope
 import com.example.christian.cleantest.core.device.ToolbarLoader
-import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_cart_detail.*
 import org.koin.android.ext.android.inject
 
 class DetailFragment : CartBaseFragment(), DetailContract.View {
@@ -53,7 +53,7 @@ class DetailFragment : CartBaseFragment(), DetailContract.View {
    }
 
    override fun getLayoutResId(): Int {
-      return R.layout.fragment_detail
+      return R.layout.fragment_cart_detail
    }
 
    override fun initCart(cartEntity: CartEntity) {

@@ -19,10 +19,11 @@ import android.content.SharedPreferences
 import android.os.PowerManager
 import android.support.v7.app.AppCompatDelegate
 import com.example.christian.cleantest.core.device.power.PowerSaveModeReceiver
+import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
 
 
-class UserApplication : Application() {
+class UserApplication : SplitCompatApplication() {
 
    private val lowPowerReceiver: PowerSaveModeReceiver by lazy {
       PowerSaveModeReceiver {
