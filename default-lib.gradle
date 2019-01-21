@@ -26,15 +26,4 @@ android {
          }
       }
    }
-
-   buildTypes {
-      release {
-         minifyEnabled true
-      }
-      debug {
-         testCoverageEnabled false
-      }
-   }
-
-   sourceSets { release { java.srcDirs = ['src/release/java', 'src/release/java/'] } }
 }

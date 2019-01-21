@@ -6,6 +6,7 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 
+@Suppress("UNUSED_EXPRESSION")
 class SplitInstallRequester(context: Context) {
 
    private var splitInstallManager = SplitInstallManagerFactory.create(context)
@@ -19,7 +20,7 @@ class SplitInstallRequester(context: Context) {
    fun requestFeature(
          featureName: String,
          featureLoading: Unit? = null,
-         featureInstalled: Unit? = null,
+         featureInstalled:Unit? = null,
          featureInstalling: Unit? = null,
          featureRequiresConfirmation: Unit? = null,
          featureLoadingFailed: Unit? = null
