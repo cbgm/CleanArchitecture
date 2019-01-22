@@ -7,7 +7,7 @@ import android.view.MenuItem
 import com.example.christian.cleantest.core.R
 import com.example.christian.cleantest.core.core.navigation.BaseCoordinator
 import com.example.christian.cleantest.core.core.util.extension.navigateToCart
-import com.example.christian.cleantest.core.core.util.extension.navigateToshop
+import com.example.christian.cleantest.core.core.util.extension.navigateToShop
 import com.example.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
@@ -48,7 +48,7 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
          R.id.action_shop -> {
             splitInstallRequester.requestFeature(
                   featureName = "Shop",
-                  featureInstalled = navigateToshop(this)
+                  featureInstalled = navigateToShop(this)
             )
          }
          else -> {

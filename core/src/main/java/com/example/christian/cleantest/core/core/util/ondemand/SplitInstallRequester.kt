@@ -20,7 +20,7 @@ class SplitInstallRequester(context: Context) {
    fun requestFeature(
          featureName: String,
          featureLoading: Unit? = null,
-         featureInstalled:Unit? = null,
+         featureInstalled: Unit? = null,
          featureInstalling: Unit? = null,
          featureRequiresConfirmation: Unit? = null,
          featureLoadingFailed: Unit? = null
