@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
 
 
-abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
    open val coordinator: BaseCoordinator? = null
    lateinit var bottomNavigationView: BottomNavigationView
    private val splitInstallRequester: SplitInstallRequester by inject()
@@ -21,7 +21,12 @@ abstract class BaseActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      setContentView(R.layout.activity_main)
+      if (layout == null) {
+         setContentView(R.layout.activity_main)
+      } else {
+         setContentView(layout)
+      }
+
       initBottomNavigation()
       setSupportActionBar(toolbar)
       supportFragmentManager.addOnBackStackChangedListener {
