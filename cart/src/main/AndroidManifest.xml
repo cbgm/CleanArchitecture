@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-   package="com.example.christian.cleantest.cart"
+<manifest package="com.distribution.christian.cleantest.cart"
    xmlns:android="http://schemas.android.com/apk/res/android">
 
    <application>
 
-      <activity android:name=".core.ui.CartActivity">
+      <activity android:name="com.distribution.christian.cleantest.cart.core.ui.CartActivity">
          <intent-filter>
             <action android:name="${ACTION_CART}" />
             <category android:name="android.intent.category.DEFAULT" />

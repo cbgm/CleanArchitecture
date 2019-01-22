@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.christian.cleantest"
+<manifest package="com.distribution.christian.cleantest"
    xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:dist="http://schemas.android.com/apk/distribution">
 
@@ -10,7 +10,7 @@
    <dist:module dist:instant="true" />
 
    <application
-      android:name=".app.core.UserApplication"
+      android:name="com.distribution.christian.cleantest.app.core.UserApplication"
       android:allowBackup="true"
       android:fullBackupContent="@xml/backup_rules"
       android:icon="@mipmap/ic_launcher"
@@ -21,26 +21,25 @@
       android:theme="@style/AppTheme">
 
       <activity
-         android:name=".app.core.SplashActivity"
+         android:name="com.distribution.christian.cleantest.app.core.SplashActivity"
          android:noHistory="true"
          android:theme="@style/SplashTheme">
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
          </intent-filter>
-         <intent-filter>
+         <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.VIEW" />
 
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-
-            <data
-               android:host="*"
-               android:pathPattern=".*"
-               android:scheme="cleantest.de" />
+            
             <data
                android:host="cleantest.de"
                android:scheme="https"/>
+            <data
+               android:host="cleantest.de"
+               android:scheme="http"/>
 
          </intent-filter>
       </activity>

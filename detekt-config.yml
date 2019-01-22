@@ -213,5 +213,5 @@ migration:
   active: true
   imports:
     # your.package.Class: new.package.or.Class
-    # for example:
+    # for distribution:
     # io.gitlab.arturbosch.detekt.api.Rule: io.gitlab.arturbosch.detekt.rule.Rule

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:779108213728:android:279ac7446363cb87",
         "android_client_info": {
-          "package_name": "com.example.christian.cleantest"
+          "package_name": "com.distribution.christian.cleantest"
         }
       },
       "oauth_client": [
@@ -41,7 +41,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:779108213728:android:cc3afc86179c19c8",
         "android_client_info": {
-          "package_name": "com.example.christian.cleantest.debug"
+          "package_name": "com.distribution.christian.cleantest.debug"
         }
       },
       "oauth_client": [
@@ -49,7 +49,7 @@
           "client_id": "779108213728-nitm68qkoe96tvmd2si8joqmgfn7gflh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.christian.cleantest.debug",
+            "package_name": "com.distribution.christian.cleantest.debug",
             "certificate_hash": "72aa5ef244b439158eb909295078f102cb4a01a5"
           }
         },
