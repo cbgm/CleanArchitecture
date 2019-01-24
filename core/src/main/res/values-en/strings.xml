@@ -2,5 +2,6 @@
 <resources>
    <string name="app_name">CleanArchTest</string>
    <string name="shop">Shop</string>
-   <string name="cart">Cart</string>
+   <string name="event">Cart</string>
+   <string name="events">Events</string>
 </resources>

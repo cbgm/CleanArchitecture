@@ -1,1 +1,1 @@
-include ':cart', ':app', ':core', ':shop'
+include ':event', ':app', ':core', ':shop'

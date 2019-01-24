@@ -43,16 +43,16 @@ class DeepLinkHandler {
 
    private fun mapAction(action: String): DeepLinkIdentifier {
       return when(action){
-         "cart" -> DeepLinkIdentifier.CART
+         "events" -> DeepLinkIdentifier.EVENTS
          "shop" -> DeepLinkIdentifier.SHOP
-         "detail" -> DeepLinkIdentifier.DETAIL
+         "event_detail" -> DeepLinkIdentifier.EVENT_DETAIL
          else -> DeepLinkIdentifier.NONE
       }
    }
 
    enum class DeepLinkIdentifier{
-      CART,
-      DETAIL,
+      EVENTS,
+      EVENT_DETAIL,
       SHOP,
       NONE
    }

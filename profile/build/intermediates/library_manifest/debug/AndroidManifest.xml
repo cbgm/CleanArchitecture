@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.distribution.christian.cleantest.profile"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="23"
+        android:targetSdkVersion="28" />
+
+    <application>
+        <activity android:name="com.distribution.christian.cleantest.profile.core.ui.ProfileActivity" >
+            <intent-filter>
+                <action android:name="com.distribution.christian.cleantest.debug.ACTION_CART" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

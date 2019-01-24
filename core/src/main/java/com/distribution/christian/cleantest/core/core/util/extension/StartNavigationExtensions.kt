@@ -13,7 +13,7 @@ fun Context.navigateToShop(oldActivity: FragmentActivity) {
    startAction(intentToStart, this, oldActivity)
 }
 
-fun Context.navigateToCart(oldActivity: FragmentActivity) {
+fun Context.navigateToEvents(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_CART)
    startAction(intentToStart, this, oldActivity)
 }
