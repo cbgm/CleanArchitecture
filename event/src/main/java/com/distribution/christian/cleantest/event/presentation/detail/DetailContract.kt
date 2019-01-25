@@ -8,9 +8,11 @@ interface DetailContract {
 
    interface View : BaseView {
       fun showEvent(eventEntity: EventEntity)
+      fun showUpdatedEventState(event: EventEntity)
    }
 
    interface Presenter : BasePresenter<View> {
       fun loadEvent(eventId: String)
+      fun updateEvent(event: EventEntity)
    }
 }

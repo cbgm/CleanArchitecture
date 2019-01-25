@@ -29,4 +29,10 @@ class EventFromNetwork constructor(private val eventApi: EventApi) {
 
       return response.mapToResult { EventDtoMapper.transform(response.body()!!) }
    }
+
+   suspend fun updateEvent(event: Event): Result<Event> {
+      val response = eventApi.updateEvent(event.id.toString(), EventDtoMapper.transform(event))
+            .await()
+      return response.mapToResult { EventDtoMapper.transform(response.body()!!) }
+   }
 }

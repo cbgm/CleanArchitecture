@@ -1,13 +1,17 @@
 package com.distribution.christian.cleantest.core.core.mock
 
 import com.distribution.christian.cleantest.core.data.model.EventDto
+import com.google.gson.Gson
 import okhttp3.*
 import java.io.IOException
 import com.google.gson.GsonBuilder
+import okio.Buffer
 
 class FakeInterceptor : Interceptor {
 
-   private var events = ArrayList<EventDto>()
+   private companion object {
+      var events = ArrayList<EventDto>()
+   }
 
    init {
       /*events.add(
@@ -101,17 +105,31 @@ class FakeInterceptor : Interceptor {
 
    @Throws(IOException::class)
    override fun intercept(chain: Interceptor.Chain): Response? {
+      val segements = chain.request()
+            .url()
+            .pathSegments()
       val response: Response?
 
       val url: String = chain.request()
             .url()
             .url()
             .toString()
-      val responseString: String = if (url.contains("events")) {
-         Thread.sleep(2000)
-         getMockedEventsJson()
-      } else
-         getMockedEventJson(chain.request().url().queryParameter("eventId")!!)
+
+      val responseString: String = when (chain.request().method()) {
+         "GET" -> {
+            if (segements.size == 1) {
+               Thread.sleep(2000)
+               getMockedEventsJson()
+            } else {
+               getMockedEventJson(segements[1])
+            }
+         }
+         "PUT" -> {
+            updateMockedEventJson(requestBodyToString(chain.request().body()!!))
+         }
+         else -> ""
+      }
+
       response = Response.Builder()
             .code(200)
             .message(responseString)
@@ -137,13 +155,38 @@ class FakeInterceptor : Interceptor {
             .toJson(events.first { it.id.toString() == id })
    }
 
+   private fun updateMockedEventJson(json: String): String {
+      val event = Gson().fromJson(json, EventDto::class.java)
+      var updatedEvent: EventDto? = null
+      events.forEach {
+         if (it.id == event.id) {
+            it.isStarred = !event.isStarred
+            updatedEvent = it
+         }
+      }
+      return GsonBuilder().create()
+            .toJson(updatedEvent)
+
+   }
+
    private fun getMockedEventsJson(): String {
 
       return GsonBuilder().create()
             .toJson(events)
    }
 
-   companion object {
+   fun requestBodyToString(requestBody: RequestBody): String {
+      return try {
+         val buffer = Buffer()
+         requestBody.writeTo(buffer)
+         buffer.readUtf8()
+      } catch (e: Exception) {
+         e.printStackTrace()
+         ""
+      }
+   }
+
+   /*companion object {
       private const val description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
       private const val location = "Cityhall, Street 12"
       private const val date = "Thursday 13.09.2017"
@@ -151,6 +194,6 @@ class FakeInterceptor : Interceptor {
       private const val price = "13 Euro"
 
 
-   }
+   }*/
 
 }

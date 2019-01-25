@@ -6,18 +6,33 @@ import com.distribution.christian.cleantest.event.presentation.detail.model.Even
 
 abstract class EventDomainMapper {
 
-    companion object {
-        fun transform(event: Event) : EventEntity {
-            return EventEntity(
-                  event.id,
-                  event.name,
-                  event.city,
-                  event.location,
-                  event.date,
-                  event.time,
-                  event.price,
-                  event.description
-            )
-        }
-    }
+   companion object {
+      fun transform(event: Event): EventEntity {
+         return EventEntity(
+               event.id,
+               event.name,
+               event.city,
+               event.location,
+               event.date,
+               event.time,
+               event.price,
+               event.description,
+               event.isStarred
+         )
+      }
+
+      fun transform(event: EventEntity): Event {
+         return Event(
+               event.id,
+               event.name,
+               event.city,
+               event.location,
+               event.date,
+               event.time,
+               event.price,
+               event.description,
+               event.isStarred
+         )
+      }
+   }
 }

@@ -19,16 +19,25 @@ class OverviewAdapter(
    override fun onBindCustomViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
       if (holder is EventViewHolder) {
-         val item = data[position]
-         holder.nameText.text = item.name
-         holder.cityText.text = item.city
-         holder.locationText.text = item.location
-         holder.dateText.text = item.date
-         holder.starBtn.setOnClickListener { listener.onBookmarkClick(item.id.toString()) }
+         val event = data[position]
+         holder.nameText.text = event.name
+         holder.cityText.text = event.city
+         holder.locationText.text = event.location
+         holder.dateText.text = event.date
+         holder.starBtn.setImageResource(
+               if (event.isStarred) {
+                  R.drawable.ic_star
+               } else {
+                  R.drawable.ic_empty_star
+               }
+         )
+         holder.starBtn.setOnClickListener {
+            listener.onBookmarkClick(event)
+         }
          ViewCompat.setTransitionName(holder.typeImg, "image$position")
          holder.itemView.setOnClickListener {
             listener.onItemClick(
-                  item.id.toString(),
+                  event.id.toString(),
                   position,
                   holder.typeImg
             )
@@ -48,9 +57,15 @@ class OverviewAdapter(
       return 1
    }
 
+   fun updateItem(event: EventEntity) {
+      val position: Int = data.indexOf(data.first { it.id == event.id })
+      data[position] = event
+      notifyItemChanged(position)
+   }
+
    interface OnItemClickListener {
       fun onItemClick(eventId: String, position: Int, sharedView: View)
-      fun onBookmarkClick(eventId: String)
+      fun onBookmarkClick(event: EventEntity)
    }
 
    inner class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {

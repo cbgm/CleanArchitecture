@@ -34,7 +34,8 @@ class EventOverviewDomainMapper {
                   event.date,
                   event.time,
                   event.price,
-                  event.description
+                  event.description,
+                  event.isStarred
             )
         }
     }

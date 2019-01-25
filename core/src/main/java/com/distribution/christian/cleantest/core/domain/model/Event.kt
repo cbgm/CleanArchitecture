@@ -8,5 +8,6 @@ data class Event(
       val date: String,
       val time: String,
       val price: String,
-      val description: String
+      val description: String,
+      val isStarred: Boolean = false
 )

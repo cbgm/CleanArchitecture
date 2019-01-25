@@ -1,6 +1,7 @@
 package com.distribution.christian.cleantest.event.presentation.detail
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
@@ -44,6 +45,7 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    private lateinit var descriptionText: TextView
    private lateinit var locationText: TextView
    private lateinit var flyerImg: ImageView
+   private lateinit var starBtn: FloatingActionButton
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -82,6 +84,26 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
       cityText.text = eventEntity.city
       nameText.text = eventEntity.name
       descriptionText.text = eventEntity.description
+      starBtn.setImageResource(
+            if (eventEntity.isStarred) {
+               R.drawable.ic_star
+            } else {
+               R.drawable.ic_empty_star
+            }
+      )
+      starBtn.setOnClickListener {
+         detailPresenter.updateEvent(eventEntity)
+      }
+   }
+
+   override fun showUpdatedEventState(event: EventEntity) {
+      starBtn.setImageResource(
+            if (event.isStarred) {
+               R.drawable.ic_star
+            } else {
+               R.drawable.ic_empty_star
+            }
+      )
    }
 
    override fun showError(isVisible: Boolean) {
@@ -106,9 +128,9 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
       dateText = view.findViewById(R.id.date_text)
       descriptionText = view.findViewById(R.id.description_text)
       nameText = view.findViewById(R.id.name_text)
+      starBtn = view.findViewById(R.id.star_btn)
       flyerImg = view.findViewById(R.id.flyer_img)
       flyerImg.transitionName = transitionName
-
 
       ToolbarLoader(activity as AppCompatActivity?, R.string.title_details, true)
    }

@@ -8,5 +8,6 @@ data class EventDto(
       val date: String,
       val time: String,
       val price: String,
-      val description: String
+      val description: String,
+      var isStarred: Boolean = false
 )

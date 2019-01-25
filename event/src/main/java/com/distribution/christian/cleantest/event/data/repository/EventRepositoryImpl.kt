@@ -34,8 +34,8 @@ class EventRepositoryImpl constructor(
    }
 
 
-   override suspend fun saveEvent(event: EventDto): Result<Nothing> {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+   override suspend fun updateEvent(event: Event): Result<Event> {
+      return eventFromNetwork.updateEvent(event)
    }
 
    override suspend fun getEventById(eventId: String): Result<Event> {

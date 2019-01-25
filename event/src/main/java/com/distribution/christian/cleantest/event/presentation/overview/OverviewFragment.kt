@@ -11,6 +11,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
@@ -26,7 +27,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
 
    private val presenter: OverviewPresenter by inject()
 
-   private var userAdapter: OverviewAdapter = OverviewAdapter(
+   private var overviewAdapter: OverviewAdapter = OverviewAdapter(
          arrayListOf(),
          this
    )
@@ -57,7 +58,11 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    }
 
    override fun showEvents(eventOverviewEntity: EventOverviewEntity) {
-      userAdapter.addData(eventOverviewEntity.events)
+      overviewAdapter.replaceData(eventOverviewEntity.events)
+   }
+
+   override fun showMoreEvents(eventOverviewEntity: EventOverviewEntity) {
+      overviewAdapter.addData(eventOverviewEntity.events)
    }
 
    override fun showError(isVisible: Boolean) {
@@ -69,11 +74,15 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    }
 
    override fun showListLoading(isVisible: Boolean) {
-      if (isVisible) userAdapter.showLoading(true) else userAdapter.showLoading(false)
+      if (isVisible) overviewAdapter.showLoading(true) else overviewAdapter.showLoading(false)
    }
 
    override fun showContent(isVisible: Boolean) {
       if (isVisible) content.visibility = View.VISIBLE else content.visibility = View.GONE
+   }
+
+   override fun showUpdatedEventState(event: EventEntity) {
+      overviewAdapter.updateItem(event)
    }
 
    override fun initViews(view: View) {
@@ -81,7 +90,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
       loading = view.findViewById(R.id.loading)
       userList = view.findViewById(R.id.user_list)
       userList.layoutManager = LinearLayoutManager(activity)
-      userList.adapter = userAdapter
+      userList.adapter = overviewAdapter
       userList.addOnScrollListener(object : EndlessScrollListener() {
          override fun onLoadMore() {
             presenter.loadMoreEvents()
@@ -102,7 +111,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
       )
    }
 
-   override fun onBookmarkClick(eventId: String) {
-      //not used
+   override fun onBookmarkClick(event: EventEntity) {
+      presenter.updateEvent(event)
    }
 }

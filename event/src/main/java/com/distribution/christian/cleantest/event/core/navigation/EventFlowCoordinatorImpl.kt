@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.event.core.navigation
 
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
+import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragmentwithSharedElement
@@ -54,7 +54,7 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
       deepLinkHandler.getDeepLink()
             ?.let {
                when (it.action) {
-                  DeepLinkHandler.DeepLinkIdentifier.EVENT_DETAIL -> showDetail(it.parameter!!)
+                  DeepLinkIdentifier.EVENT_DETAIL -> showDetail(it.parameter!!)
                   else -> {
                      //not needed
                   }

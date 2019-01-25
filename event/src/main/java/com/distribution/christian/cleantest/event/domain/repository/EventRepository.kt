@@ -9,7 +9,7 @@ interface EventRepository {
 
     suspend fun getAllEvents(): Result<EventOverview>
 
-    suspend fun saveEvent(event: EventDto): Result<Nothing>
+    suspend fun updateEvent(event: Event): Result<Event>
 
     suspend fun getEventById(eventId: String): Result<Event>
 }
