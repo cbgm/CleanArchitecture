@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:app="http://schemas.android.com/apk/res-auto">
    <item
-      android:id="@+id/action_cart"
+      android:id="@+id/action_events"
       android:enabled="true"
       android:icon="@android:drawable/btn_minus"
-      android:title="@string/cart"
+      android:title="@string/events"
       app:showAsAction="ifRoom" />
    <item
       android:id="@+id/action_shop"

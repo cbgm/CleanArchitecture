@@ -4,13 +4,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
+import android.view.View
 import org.koin.android.scope.ext.android.bindScope
 import org.koin.android.scope.ext.android.getOrCreateScope
 
 private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
    val fragmentTransaction = beginTransaction()
    fragmentTransaction.func()
-   fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+   //fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
    fragmentTransaction.commit()
 }
 
@@ -32,6 +33,22 @@ fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStack
 
    }
 }
+
+fun FragmentActivity.replaceFragmentwithSharedElement(
+      fragment: Fragment,
+      frameId: Int,
+      backStackTag: String,
+      sharedElement: View,
+      transitionName: String
+) {
+   supportFragmentManager.inTransaction {
+      addSharedElement(sharedElement, transitionName)
+      addToBackStack(backStackTag)
+      replace(frameId, fragment, backStackTag)
+
+   }
+}
+
 
 fun FragmentActivity.backStack() {
    if (!supportFragmentManager.inBackStack())

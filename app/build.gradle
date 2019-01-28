@@ -81,9 +81,8 @@ dependencies {
    implementation presDep.koinCore
 
    implementation project (":core")
-   implementation project (":cart")
    implementation project (":profile")
-
+   implementation project (':event')
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

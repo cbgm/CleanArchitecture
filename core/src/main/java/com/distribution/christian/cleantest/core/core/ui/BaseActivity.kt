@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.distribution.christian.cleantest.core.R
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToCart
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToShop
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
@@ -47,8 +47,8 @@ abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {
       when (item.itemId) {
-         R.id.action_cart -> {
-            navigateToCart(this)
+         R.id.action_events -> {
+            navigateToEvents(this)
          }
          R.id.action_shop -> {
             splitInstallRequester.requestFeature(

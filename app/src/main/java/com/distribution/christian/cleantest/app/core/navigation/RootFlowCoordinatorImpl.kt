@@ -1,8 +1,8 @@
 package com.distribution.christian.cleantest.app.core.navigation
 
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToCart
+import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToShop
 
 class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
@@ -11,15 +11,15 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
       deepLinkHandler.getDeepLink()
             ?.let {
                when (it.action) {
-                  DeepLinkHandler.DeepLinkIdentifier.CART-> activity.navigateToCart(activity)
-                  DeepLinkHandler.DeepLinkIdentifier.SHOP -> activity.navigateToShop(activity)
-                  else -> activity.navigateToCart(activity)
+                  DeepLinkIdentifier.EVENTS-> activity.navigateToEvents(activity)
+                  DeepLinkIdentifier.SHOP -> activity.navigateToShop(activity)
+                  else -> activity.navigateToEvents(activity)
                }
             }
    }
 
    override fun navigateLink() {
-      activity.navigateToCart(activity)
+      activity.navigateToEvents(activity)
    }
 
    override fun onDeepLinkBack() {

@@ -7,8 +7,9 @@
       <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
       <item name="colorAccent">@color/colorAccent</item>
       <item name="android:windowBackground">@color/backgroundTheme</item>
-      <item name="android:windowAnimationStyle">@null</item>
+      <!--<item name="android:windowAnimationStyle">@null</item>-->
       <item name="android:statusBarColor">@color/backgroundToolbar</item>
+      <item name="android:windowContentTransitions">true</item>
    </style>
 
    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">

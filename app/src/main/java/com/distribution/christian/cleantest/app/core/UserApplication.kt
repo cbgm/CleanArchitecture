@@ -5,10 +5,9 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.distribution.christian.cleantest.app.core.di.appCoreModule
-import com.distribution.christian.cleantest.cart.core.di.cartCoreModule
-import com.distribution.christian.cleantest.cart.core.di.cartDetailModule
+import com.distribution.christian.cleantest.event.core.di.eventDetailModule
 import com.distribution.christian.cleantest.core.core.di.appModule
-import com.distribution.christian.cleantest.cart.core.di.cartOverviewModule
+import com.distribution.christian.cleantest.event.core.di.eventOverviewModule
 import com.distribution.christian.cleantest.core.core.logging.TimberTree
 import com.distribution.christian.cleantest.core.core.di.networkModule
 import org.koin.android.ext.android.startKoin
@@ -18,6 +17,7 @@ import android.content.SharedPreferences
 import android.os.PowerManager
 import android.support.v7.app.AppCompatDelegate
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
+import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
 
@@ -58,7 +58,7 @@ class UserApplication : SplitCompatApplication() {
       startKoin(
             this, listOf(
             appModule, networkModule, appCoreModule,
-            cartCoreModule, cartOverviewModule, cartDetailModule
+            eventCoreModule, eventOverviewModule, eventDetailModule
       )
       )
    }

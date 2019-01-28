@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:layout_margin="8dp"
+   android:background="@color/backgroundListItem">
+
+   <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+         android:id="@+id/date_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginEnd="8dp"
+         android:layout_marginStart="8dp"
+         android:layout_marginTop="8dp"
+         android:background="@color/shimmerListItem"
+         android:text="some text to show"
+         android:textColor="@color/shimmerListItem"
+         android:textSize="10sp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+         android:id="@+id/name_text"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginEnd="16dp"
+         android:layout_marginStart="16dp"
+         android:background="@color/shimmerListItem"
+         android:textColor="@android:color/holo_green_light"
+         app:layout_constraintEnd_toStartOf="@+id/star_img"
+         app:layout_constraintStart_toEndOf="@+id/type_img"
+         app:layout_constraintTop_toBottomOf="@+id/date_text" />
+
+      <TextView
+         android:id="@+id/city_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="5dp"
+         android:textColor="@android:color/black"
+         android:textSize="12sp"
+         app:layout_constraintStart_toStartOf="@+id/name_text"
+         app:layout_constraintTop_toBottomOf="@+id/name_text" />
+
+      <TextView
+         android:id="@+id/location_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="8dp"
+         android:background="@color/shimmerListItem"
+         android:text="Cityhall, Straße 21"
+         android:textColor="@color/shimmerListItem"
+         android:textSize="10sp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintStart_toStartOf="@+id/city_text"
+         app:layout_constraintTop_toBottomOf="@+id/city_text"
+         tools:text="Cityhall, Straße 21" />
+
+      <ImageView
+         android:id="@+id/type_img"
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         android:layout_marginBottom="8dp"
+         android:layout_marginStart="16dp"
+         android:layout_marginTop="8dp"
+         android:background="@color/shimmerListItem"
+         android:contentDescription="type image"
+         app:layout_constraintBottom_toBottomOf="@+id/city_text"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+
+      <ImageView
+         android:id="@+id/star_img"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="8dp"
+         android:layout_marginEnd="16dp"
+         android:layout_marginTop="8dp"
+         android:contentDescription="star icon"
+         android:tint="@color/shimmerListItem"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:srcCompat="@drawable/ic_star" />
+
+   </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
