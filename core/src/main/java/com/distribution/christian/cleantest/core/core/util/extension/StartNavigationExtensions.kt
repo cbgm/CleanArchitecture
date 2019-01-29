@@ -6,10 +6,16 @@ import com.distribution.christian.cleantest.core.BuildConfig.ACTION_CART
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
 
 
 fun Context.navigateToShop(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_SHOP)
+   startAction(intentToStart, this, oldActivity)
+}
+
+fun Context.navigateToProfile(oldActivity: FragmentActivity) {
+   val intentToStart = Intent(ACTION_PROFILE)
    startAction(intentToStart, this, oldActivity)
 }
 

@@ -877,6 +877,12 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable ic_alias
+drawable ic_city
+drawable ic_distance
+drawable ic_email
+drawable ic_password
+drawable ic_price
 drawable image_placeholder
 drawable navigation_empty_icon
 drawable notification_action_background
@@ -903,16 +909,17 @@ id action_bar_root
 id action_bar_spinner
 id action_bar_subtitle
 id action_bar_title
-id action_cart
 id action_container
 id action_context_bar
 id action_divider
+id action_events
 id action_image
 id action_menu_divider
 id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
+id action_profile
 id action_shop
 id action_text
 id actions
@@ -948,12 +955,6 @@ id cancel_action
 id center
 id chains
 id checkbox
-id chkState1
-id chkState2
-id chkState3
-id chkState4
-id chkState5
-id chkState6
 id chronometer
 id collapseActionView
 id collapse_button
@@ -985,6 +986,7 @@ id fixed
 id forever
 id fragment_container
 id ghost_view
+id glide_custom_view_target_tag
 id gone
 id home
 id homeAsUp
@@ -993,6 +995,7 @@ id icon_group
 id icon_only
 id ifRoom
 id image
+id imageView
 id image_content_root
 id image_root
 id image_view
@@ -1000,12 +1003,6 @@ id info
 id invisible
 id italic
 id item_touch_helper_previous_elevation
-id ivContactItem1
-id ivContactItem2
-id ivContactItem3
-id ivContactItem4
-id ivContactItem5
-id ivContactItem6
 id largeLabel
 id left
 id left_to_right
@@ -1026,6 +1023,7 @@ id mini
 id modal_content_root
 id modal_root
 id multiply
+id name_text
 id navigation_header_container
 id never
 id none
@@ -1040,6 +1038,8 @@ id parentPanel
 id parent_matrix
 id percent
 id pin
+id profile_header
+id profile_image
 id progress_circular
 id progress_horizontal
 id radial
@@ -1069,6 +1069,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id seekBar
 id select_dialog_listview
 id shortcut
 id showCustom
@@ -1095,6 +1096,10 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView10
+id textView6
+id textView8
+id textView9
 id text_input_password_toggle
 id textinput_counter
 id textinput_error
@@ -1112,12 +1117,6 @@ id transition_layout_save
 id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
-id tvNumber1
-id tvNumber2
-id tvNumber3
-id tvNumber4
-id tvNumber5
-id tvNumber6
 id uniform
 id up
 id useLogo
@@ -1210,7 +1209,7 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 layout toolbar
 menu bottom_navigation
-menu toolbar_menu
+menu profile_toolbar_menu
 string abc_action_bar_home_description
 string abc_action_bar_home_description_format
 string abc_action_bar_home_subtitle_description_format
@@ -1245,7 +1244,6 @@ string abc_toolbar_collapse_description
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
-string event
 string character_counter_pattern
 string common_google_play_services_enable_button
 string common_google_play_services_enable_text
@@ -1266,6 +1264,7 @@ string common_open_on_phone
 string common_signin_button_text
 string common_signin_button_text_long
 string edit
+string events
 string fcm_fallback_notification_channel_label
 string modal_content_descriptor
 string modal_inner_content_descriptor
@@ -1274,6 +1273,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string profile
 string save
 string search_menu_title
 string shop
@@ -1762,3 +1762,4 @@ styleable Toolbar android_gravity android_minHeight buttonGravity collapseConten
 styleable View android_focusable android_theme paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_inflatedId android_layout
+transition default_transition

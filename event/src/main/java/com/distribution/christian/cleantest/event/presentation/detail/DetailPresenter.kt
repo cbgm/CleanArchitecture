@@ -40,8 +40,8 @@ class DetailPresenter constructor(
       updateEvent.execute(UpateEventObserver(), EventDomainMapper.transform(event))
    }
 
-   override fun setVIew(v: DetailContract.View) {
-      detailView = v
+   override fun setVIew(view: DetailContract.View) {
+      detailView = view
    }
 
    override fun onBind() {

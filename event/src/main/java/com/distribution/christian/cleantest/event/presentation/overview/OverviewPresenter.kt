@@ -63,8 +63,8 @@ class OverviewPresenter constructor(
       getEventsInPool.execute(GetMoreEventsObserver(), Unit)
    }
 
-   override fun setVIew(v: OverviewContract.View) {
-      overviewView = v
+   override fun setVIew(view: OverviewContract.View) {
+      overviewView = view
    }
 
    override fun onBind() {

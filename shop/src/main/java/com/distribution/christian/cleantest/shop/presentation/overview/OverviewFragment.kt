@@ -23,18 +23,13 @@ class OverviewFragment : ShopBaseFragment() {
       fun newInstance() = OverviewFragment()
    }
 
-   override fun getLayoutResId(): Int {
-      return R.layout.fragment_shop_overview
+   override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+      setHasOptionsMenu(true)
    }
 
-   @SuppressLint("RestrictedApi")
-   override fun onCreateView(
-         inflater: LayoutInflater,
-         container: ViewGroup?,
-         savedInstanceState: Bundle?
-   ): View? {
-      setHasOptionsMenu(true)
-      return super.onCreateView(inflater, container, savedInstanceState)
+   override fun getLayoutResId(): Int {
+      return R.layout.fragment_shop_overview
    }
 
    override fun initViews(view: View) {

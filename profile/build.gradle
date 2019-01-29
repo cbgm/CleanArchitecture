@@ -5,6 +5,7 @@ dependencies {
    implementation presDep.cardView
    implementation presDep.recyclerView
    implementation presDep.shimmer
+   implementation presDep.supportDesign
 
    implementation project(":core")
 

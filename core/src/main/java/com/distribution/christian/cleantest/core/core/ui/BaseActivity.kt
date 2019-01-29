@@ -7,6 +7,7 @@ import android.view.MenuItem
 import com.distribution.christian.cleantest.core.R
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToProfile
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToShop
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
@@ -55,6 +56,9 @@ abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity
                   featureName = "Shop",
                   featureInstalled = navigateToShop(this)
             )
+         }
+         R.id.action_profile -> {
+            navigateToProfile(this)
          }
          else -> {
             //not needed

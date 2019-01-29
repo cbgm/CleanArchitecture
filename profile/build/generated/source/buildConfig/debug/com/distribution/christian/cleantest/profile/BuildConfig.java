@@ -12,5 +12,6 @@ public final class BuildConfig {
   public static final String VERSION_NAME = "1.0";
   // Fields from the variant
   public static final String ACTION_CART = "com.distribution.christian.cleantest.debug.ACTION_CART";
+  public static final String ACTION_PROFILE = "com.distribution.christian.cleantest.debug.ACTION_PROFILE";
   public static final String ACTION_SHOP = "com.distribution.christian.cleantest.debug.ACTION_SHOP";
 }

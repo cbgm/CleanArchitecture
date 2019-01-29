@@ -16,6 +16,7 @@ dependencies {
    api presDep.shimmer
    api presDep.timber
    api presDep.googleCore
+   api presDep.glide
 
    def dataDep = rootProject.ext.dataDependencies
    api dataDep.retrofit

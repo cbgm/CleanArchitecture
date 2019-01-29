@@ -6,7 +6,7 @@
 
       <activity android:name="com.distribution.christian.cleantest.profile.core.ui.ProfileActivity">
          <intent-filter>
-            <action android:name="${ACTION_CART}" />
+            <action android:name="${ACTION_PROFILE}" />
             <category android:name="android.intent.category.DEFAULT" />
          </intent-filter>
       </activity>

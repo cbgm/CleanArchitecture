@@ -1,446 +1,481 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   android:background="@color/backgroundTheme"
    android:orientation="vertical">
 
    <LinearLayout
       android:id="@+id/content"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:orientation="vertical">
+      android:orientation="horizontal">
 
-      <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-         xmlns:app="http://schemas.android.com/apk/res-auto"
-         xmlns:tools="http://schemas.android.com/tools"
+      <android.support.v4.widget.NestedScrollView
          android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_marginTop="@dimen/activity_horizontal_margin"
-         android:padding="@dimen/activity_horizontal_margin"
-         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-         tools:context="com.letsnurture.ln_202.coordinatorlayoutpart1.ScrollingActivity"
-         tools:showIn="@layout/activity_scrolling">
+         android:layout_height="match_parent">
+
+         <!--<android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="600dp">
+
+            <TextView
+               android:id="@+id/alias_lbl"
+               android:layout_width="80dp"
+               android:layout_height="wrap_content"
+               android:text="Alias"
+               android:textSize="12sp"
+               tools:layout_editor_absoluteX="21dp"
+               tools:layout_editor_absoluteY="16dp" />
+
+            <EditText
+               android:id="@+id/alias_text"
+               style="@style/Widget.AppCompat.EditText"
+               android:layout_width="267dp"
+               android:layout_height="wrap_content"
+               android:ems="10"
+               android:inputType="text"
+               android:singleLine="true"
+               android:text="cb2019"
+               android:textSize="12sp"
+               tools:layout_editor_absoluteX="123dp"
+               tools:layout_editor_absoluteY="16dp" />
+
+            <TextView
+               android:id="@+id/name_lbl"
+               android:layout_width="80dp"
+               android:layout_height="wrap_content"
+               android:text="Name"
+               android:textSize="12sp"
+               tools:layout_editor_absoluteX="16dp"
+               tools:layout_editor_absoluteY="48dp" />
+
+            <TextView
+               android:id="@+id/name_text"
+               android:layout_width="267dp"
+               android:layout_height="wrap_content"
+               android:text="Christian"
+               android:textSize="12sp"
+               tools:layout_editor_absoluteX="112dp"
+               tools:layout_editor_absoluteY="48dp" />
+
+            <TextView
+               android:id="@+id/lastname_lbl"
+               android:layout_width="80dp"
+               android:layout_height="wrap_content"
+               android:text="Lastname"
+               android:textSize="12sp"
+               tools:layout_editor_absoluteX="139dp"
+               tools:layout_editor_absoluteY="81dp" />
+
+            <TextView
+               android:id="@+id/lastname_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Bergmann"
+               android:textSize="12sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintHorizontal_bias="0.5"
+               app:layout_constraintStart_toEndOf="@+id/lastname_lbl"
+               tools:layout_editor_absoluteY="80dp" />
+
+            <TextView
+               android:id="@+id/email_lbl"
+               android:layout_width="80dp"
+               android:layout_height="wrap_content"
+               android:text="Email"
+               android:textSize="12sp"
+               app:layout_constraintEnd_toStartOf="@+id/email_text"
+               app:layout_constraintHorizontal_bias="0.5"
+               app:layout_constraintHorizontal_chainStyle="packed"
+               app:layout_constraintStart_toStartOf="parent"
+               tools:layout_editor_absoluteY="113dp" />
+
+            <EditText
+               android:id="@+id/email_text"
+               style="@style/Widget.AppCompat.EditText"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:ems="10"
+               android:inputType="textEmailAddress"
+               android:text="somemail@nothing.de"
+               android:textSize="12sp"
+               tools:layout_editor_absoluteX="173dp"
+               tools:layout_editor_absoluteY="113dp" />
+
+            <TextView
+               android:id="@+id/textView8"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="TextView"
+               tools:layout_editor_absoluteX="80dp"
+               tools:layout_editor_absoluteY="291dp" />
+
+            <TextView
+               android:id="@+id/upgrade_btn"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="TextView"
+               tools:layout_editor_absoluteX="212dp"
+               tools:layout_editor_absoluteY="291dp" />
+
+            <Button
+               android:id="@+id/button2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Upgrade"
+               tools:layout_editor_absoluteX="71dp"
+               tools:layout_editor_absoluteY="337dp" />
+         </android.support.constraint.ConstraintLayout>
+
+      </LinearLayout>
+
+      <android.support.design.widget.FloatingActionButton
+         android:id="@+id/star_btn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="16dp"
+         android:clickable="true"
+         android:focusable="true"
+         android:src="@android:drawable/ic_menu_edit"
+         app:backgroundTint="@android:color/white"
+         app:layout_anchor="@id/profile_header"
+         app:layout_anchorGravity="bottom|right|end" />
+
+   </android.support.design.widget.CoordinatorLayout>-->
 
          <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
 
             <RelativeLayout
                android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="?attr/selectableItemBackground"
-               android:clickable="true"
-               android:padding="@dimen/activity_horizontal_margin">
+               android:layout_height="wrap_content">
 
-               <ImageView
-                  android:id="@+id/ivContactItem1"
-                  android:layout_width="wrap_content"
+               <LinearLayout
+                  android:id="@+id/profile_header"
+                  android:layout_width="match_parent"
+                  android:layout_height="230dp"
+                  android:background="@android:color/holo_green_light"
+                  android:gravity="center"
+                  android:orientation="horizontal">>
+
+                  <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="10dp"
+                     android:gravity="center"
+                     android:orientation="vertical">
+
+                     <ImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginStart="32dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/rounded_layout" />
+
+                     <TextView
+                        android:id="@+id/name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Christian Bergmann"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                  </LinearLayout>
+               </LinearLayout>
+
+               <android.support.v7.widget.CardView
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                  android:layout_marginRight="@dimen/activity_horizontal_margin"
-                  android:src="@drawable/ic_phone_black_24dp" />
+                  android:layout_marginEnd="50dp"
+                  android:layout_marginStart="50dp"
+                  android:layout_marginTop="200dp"
+                  android:background="@android:color/white"
+                  app:cardBackgroundColor="@android:color/white"
+                  app:cardPreventCornerOverlap="false">
 
-               <TextView
-                  android:id="@+id/tvNumber1"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_toEndOf="@id/ivContactItem1"
-                  android:layout_toRightOf="@id/ivContactItem1"
-                  android:text="(123) 456-7890"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                  android:textColor="#212121" />
+                  <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:orientation="vertical">
 
-               <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/tvNumber1"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="8dp"
-                  android:layout_toEndOf="@id/ivContactItem1"
-                  android:layout_toRightOf="@id/ivContactItem1"
-                  android:text="Home"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                  android:textColor="#727272" />
+                     <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="User criteria"
+                        android:textStyle="bold" />
 
-               <ToggleButton
-                  android:id="@+id/chkState1"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:background="@drawable/toggle_selector"
-                  android:checked="true"
-                  android:padding="6dp"
-                  android:textOff=""
-                  android:textOn="" />
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:gravity="center_vertical"
+                           android:orientation="horizontal">
+
+                           <LinearLayout
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal">
+
+                              <ImageView
+                                 android:id="@+id/imageView"
+                                 android:layout_width="20dp"
+                                 android:layout_height="20dp"
+                                 android:layout_weight="1"
+                                 app:srcCompat="@drawable/ic_alias" />
+                           </LinearLayout>
+
+                           <TextView
+                              android:id="@+id/textView8"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="20dp"
+                              android:text="cb2019"
+                              android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginTop="10dp"
+                           android:gravity="center_vertical"
+                           android:orientation="horizontal">
+
+                           <LinearLayout
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal">
+
+                              <ImageView
+                                 android:id="@+id/imageView"
+                                 android:layout_width="20dp"
+                                 android:layout_height="20dp"
+                                 android:layout_weight="1"
+                                 app:srcCompat="@drawable/ic_email" />
+                           </LinearLayout>
+
+                           <TextView
+                              android:id="@+id/textView8"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="20dp"
+                              android:text="test@test.de"
+                              android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_marginTop="10dp"
+                           android:gravity="center_vertical"
+                           android:orientation="horizontal">
+
+                           <LinearLayout
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal">
+
+                              <ImageView
+                                 android:id="@+id/imageView"
+                                 android:layout_width="20dp"
+                                 android:layout_height="20dp"
+                                 android:layout_weight="1"
+                                 app:srcCompat="@drawable/ic_password" />
+                           </LinearLayout>
+
+                           <TextView
+                              android:id="@+id/textView9"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginStart="20dp"
+                              android:text="******"
+                              android:textSize="12sp" />
+
+                        </LinearLayout>
+                     </LinearLayout>
+
+                  </LinearLayout>
+               </android.support.v7.widget.CardView>
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <android.support.v7.widget.CardView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:background="?attr/selectableItemBackground"
-               android:clickable="true"
-               android:padding="@dimen/activity_horizontal_margin">
+               android:layout_marginEnd="50dp"
+               android:layout_marginStart="50dp"
+               android:layout_marginTop="20dp"
+               android:background="@android:color/white"
+               app:cardBackgroundColor="@android:color/white"
+               app:cardPreventCornerOverlap="false">
 
-               <ImageView
-                  android:id="@+id/ivContactItem2"
-                  android:layout_width="wrap_content"
+               <LinearLayout
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                  android:layout_marginRight="@dimen/activity_horizontal_margin"
-                  android:src="@drawable/ic_phone_black_24dp"
-                  android:visibility="invisible" />
+                  android:orientation="vertical">
 
-               <TextView
-                  android:id="@+id/tvNumber2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_toEndOf="@id/ivContactItem2"
-                  android:layout_toRightOf="@id/ivContactItem2"
-                  android:text="(321) 654-0987"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                  android:textColor="#212121" />
+                  <TextView
+                     android:id="@+id/textView6"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="10dp"
+                     android:text="Search criteria"
+                     android:textStyle="bold" />
 
-               <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/tvNumber2"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="8dp"
-                  android:layout_toEndOf="@id/ivContactItem2"
-                  android:layout_toRightOf="@id/ivContactItem2"
-                  android:text="Work"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                  android:textColor="#727272" />
+                  <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_margin="10dp"
+                     android:orientation="vertical">
 
-               <ToggleButton
-                  android:id="@+id/chkState2"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:background="@drawable/toggle_selector"
-                  android:checked="false"
-                  android:padding="6dp"
-                  android:textOff=""
-                  android:textOn="" />
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-            </RelativeLayout>
+                        <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal">
 
-            <include layout="@layout/item_divider" />
+                           <ImageView
+                              android:id="@+id/imageView"
+                              android:layout_width="20dp"
+                              android:layout_height="20dp"
+                              android:layout_weight="1"
+                              app:srcCompat="@drawable/ic_city" />
+                        </LinearLayout>
 
-            <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="?attr/selectableItemBackground"
-               android:clickable="true"
-               android:padding="@dimen/activity_horizontal_margin">
+                        <TextView
+                           android:id="@+id/textView8"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginStart="20dp"
+                           android:text="Burgkunstadt"
+                           android:textSize="12sp" />
+                     </LinearLayout>
 
-               <ImageView
-                  android:id="@+id/ivContactItem3"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                  android:layout_marginRight="@dimen/activity_horizontal_margin"
-                  android:src="@drawable/ic_email_black_24dp" />
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-               <TextView
-                  android:id="@+id/tvNumber3"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_toEndOf="@id/ivContactItem3"
-                  android:layout_toLeftOf="@+id/chkState3"
-                  android:layout_toRightOf="@id/ivContactItem3"
-                  android:layout_toStartOf="@+id/chkState3"
-                  android:ellipsize="end"
-                  android:maxLines="1"
-                  android:text="chintan@letsnurture.com"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                  android:textColor="#212121" />
+                        <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="match_parent"
+                           android:orientation="horizontal">
 
-               <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/tvNumber3"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="8dp"
-                  android:layout_toEndOf="@id/ivContactItem3"
-                  android:layout_toRightOf="@id/ivContactItem3"
-                  android:text="Home"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                  android:textColor="#727272" />
+                           <ImageView
+                              android:id="@+id/imageView"
+                              android:layout_width="20dp"
+                              android:layout_height="20dp"
+                              android:layout_weight="1"
+                              app:srcCompat="@drawable/ic_distance" />
 
-               <ToggleButton
-                  android:id="@+id/chkState3"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:background="@drawable/toggle_selector"
-                  android:checked="true"
-                  android:padding="6dp"
-                  android:textOff=""
-                  android:textOn="" />
+                        </LinearLayout>
 
-            </RelativeLayout>
+                        <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginStart="10dp"
+                           android:orientation="vertical"
+                           android:weightSum="2">
 
-            <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="?attr/selectableItemBackground"
-               android:clickable="true"
-               android:padding="@dimen/activity_horizontal_margin">
+                           <SeekBar
+                              android:id="@+id/seekBar"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:layout_weight="1"
+                              android:max="100"
+                              android:thumbTint="@android:color/holo_green_light" />
 
-               <ImageView
-                  android:id="@+id/ivContactItem4"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                  android:layout_marginRight="@dimen/activity_horizontal_margin"
-                  android:src="@drawable/ic_email_black_24dp"
-                  android:visibility="invisible" />
+                           <TextView
+                              android:id="@+id/textView10"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:layout_marginStart="10dp"
+                              android:layout_weight="1"
+                              android:text="10Km"
+                              android:textSize="12sp" />
+                        </LinearLayout>
 
-               <TextView
-                  android:id="@+id/tvNumber4"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_toEndOf="@id/ivContactItem4"
-                  android:layout_toLeftOf="@+id/chkState4"
-                  android:layout_toRightOf="@id/ivContactItem4"
-                  android:layout_toStartOf="@+id/chkState4"
-                  android:ellipsize="end"
-                  android:maxLines="1"
-                  android:text="pratik@letsnurture.com"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                  android:textColor="#212121" />
+                     </LinearLayout>
 
-               <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/tvNumber4"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="8dp"
-                  android:layout_toEndOf="@id/ivContactItem4"
-                  android:layout_toRightOf="@id/ivContactItem4"
-                  android:text="Work"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                  android:textColor="#727272" />
+                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-               <ToggleButton
-                  android:id="@+id/chkState4"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:background="@drawable/toggle_selector"
-                  android:padding="6dp"
-                  android:textOff=""
-                  android:textOn="" />
+                        <LinearLayout
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:orientation="horizontal">
 
-            </RelativeLayout>
+                           <ImageView
+                              android:id="@+id/imageView"
+                              android:layout_width="20dp"
+                              android:layout_height="20dp"
+                              android:layout_weight="1"
+                              app:srcCompat="@drawable/ic_price" />
+                        </LinearLayout>
 
-            <include layout="@layout/item_divider" />
+                        <TextView
+                           android:id="@+id/textView8"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_marginStart="20dp"
+                           android:text="13 Euro"
+                           android:textSize="12sp" />
+                     </LinearLayout>
 
-            <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="?attr/selectableItemBackground"
-               android:clickable="true"
-               android:padding="@dimen/activity_horizontal_margin">
+                  </LinearLayout>
 
-               <ImageView
-                  android:id="@+id/ivContactItem5"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                  android:layout_marginRight="@dimen/activity_horizontal_margin"
-                  android:src="@drawable/ic_location_on_black_24dp" />
+               </LinearLayout>
 
-               <TextView
-                  android:id="@+id/tvNumber5"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_toEndOf="@id/ivContactItem5"
-                  android:layout_toLeftOf="@+id/chkState5"
-                  android:layout_toRightOf="@id/ivContactItem5"
-                  android:layout_toStartOf="@+id/chkState5"
-                  android:ellipsize="end"
-                  android:maxLines="1"
-                  android:text="202 Park Street, Los Angeles"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                  android:textColor="#212121" />
+            </android.support.v7.widget.CardView>
 
-               <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/tvNumber5"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="8dp"
-                  android:layout_toEndOf="@id/ivContactItem5"
-                  android:layout_toRightOf="@id/ivContactItem5"
-                  android:text="Home"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                  android:textColor="#727272" />
-
-               <ToggleButton
-                  android:id="@+id/chkState5"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:background="@drawable/toggle_selector"
-                  android:checked="true"
-                  android:padding="6dp"
-                  android:textOff=""
-                  android:textOn="" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:background="?attr/selectableItemBackground"
-               android:clickable="true"
-               android:padding="@dimen/activity_horizontal_margin">
-
-               <ImageView
-                  android:id="@+id/ivContactItem6"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_centerVertical="true"
-                  android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                  android:layout_marginRight="@dimen/activity_horizontal_margin"
-                  android:src="@drawable/ic_email_black_24dp"
-                  android:visibility="invisible" />
-
-               <TextView
-                  android:id="@+id/tvNumber6"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_toEndOf="@id/ivContactItem6"
-                  android:layout_toLeftOf="@+id/chkState6"
-                  android:layout_toRightOf="@id/ivContactItem6"
-                  android:layout_toStartOf="@+id/chkState6"
-                  android:ellipsize="end"
-                  android:maxLines="1"
-                  android:text="221B Baker Street, England"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                  android:textColor="#212121" />
-
-               <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/tvNumber6"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="8dp"
-                  android:layout_toEndOf="@id/ivContactItem6"
-                  android:layout_toRightOf="@id/ivContactItem6"
-                  android:text="Work"
-                  android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                  android:textColor="#727272" />
-
-               <ToggleButton
-                  android:id="@+id/chkState6"
-                  android:layout_width="24dp"
-                  android:layout_height="24dp"
-                  android:layout_alignParentEnd="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                  android:layout_marginStart="@dimen/activity_horizontal_margin"
-                  android:background="@drawable/toggle_selector"
-                  android:padding="6dp"
-                  android:textOff=""
-                  android:textOn="" />
-
-            </RelativeLayout>
-
-            <include layout="@layout/item_divider" />
-
-            <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               android:padding="@dimen/activity_horizontal_margin">
-
-               <Button
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Send SMS" />
-
-               <Button
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="@dimen/activity_horizontal_margin"
-                  android:text="Call" />
-
-               <Button
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="@dimen/activity_horizontal_margin"
-                  android:text="Email" />
-
-               <Button
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                  android:layout_marginTop="@dimen/activity_horizontal_margin"
-                  android:text="Remove Contact" />
-
-            </LinearLayout>
          </LinearLayout>
-
       </android.support.v4.widget.NestedScrollView>
    </LinearLayout>
 
+   <LinearLayout
+      android:id="@+id/loading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="gone">
+
+      <ProgressBar
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
+   </LinearLayout>
 </LinearLayout>
-
-
-
-
-
-
-
