@@ -13,7 +13,7 @@ class ProfileActivity : BaseActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      //bottomNavigationView.menu.findItem(R.id.action_shop).isChecked = true
+      bottomNavigationView.menu.findItem(R.id.action_profile).isChecked = true
       coordinator.start(this)
    }
 
