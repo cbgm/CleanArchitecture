@@ -6,5 +6,5 @@ import com.distribution.christian.cleantest.profile.domain.model.ProfileOverview
 interface ProfileRepository {
 
    suspend fun getProfile(): Result<ProfileOverview>
-   suspend fun updatePRofile(profileOverview: ProfileOverview): Result<ProfileOverview>
+   suspend fun updateProfile(profileOverview: ProfileOverview): Result<ProfileOverview>
 }

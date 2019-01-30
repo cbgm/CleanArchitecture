@@ -152,6 +152,22 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
 
       editBtn.setOnClickListener {
          switchEditMode()
+
+         if (!this.isEditMode) {
+            presenter.updateProfile(
+                  ProfileOverviewEntity(
+                        name = nameText.text.toString(),
+                        email = emailText.text.toString(),
+                        password = passwordText.text.toString(),
+                        birthDate = "",
+                        alias = aliasText.text.toString(),
+                        city = cityText.text.toString(),
+                        distance = distanceSeekbar.progress,
+                        type = "",
+                        maxPrice = priceText.text.toString().split(" ")[0].toInt()
+                  )
+            )
+         }
       }
 
       cityText.onItemClickListener = AdapterView.OnItemClickListener { p0, p1, p2, p3 ->

@@ -14,7 +14,7 @@ class ProfileRepositoryImpl(
       return profileFromNetwork.getProfile()
    }
 
-   override suspend fun updatePRofile(profileOverview: ProfileOverview): Result<ProfileOverview> {
+   override suspend fun updateProfile(profileOverview: ProfileOverview): Result<ProfileOverview> {
       return profileFromNetwork.updateProfile(profileOverview)
    }
 

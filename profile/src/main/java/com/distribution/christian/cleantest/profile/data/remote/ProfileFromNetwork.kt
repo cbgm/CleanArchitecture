@@ -30,12 +30,15 @@ class ProfileFromNetwork constructor(
    }
 
    suspend fun updateProfile(profileOverview: ProfileOverview): Result<ProfileOverview> {
-      /*val response = userApi.updateUser(UserDtoMapper.transform())
+      val userSearch = ProfileOverviewDtoMapper.transform(profileOverview)
+
+
+      val response = userApi.updateUser(userSearch.first)
             .await()
             .body()
             ?.let {
                val userDto = it
-               val response2 = searchApi.getSearchConfigByUserId(it.alias)
+               val response2 = searchApi.upateSearchConfigByUserId(userDto.alias, userSearch.second)
                      .await()
                response2.mapToResult {
                   ProfileOverviewDtoMapper.transform(
@@ -44,7 +47,6 @@ class ProfileFromNetwork constructor(
                   )
                }
             }
-      return response!!*/
-      return Result.Error(Exception())
+      return response!!
    }
 }

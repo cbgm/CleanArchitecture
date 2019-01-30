@@ -12,5 +12,6 @@ interface OverviewContract {
 
    interface Presenter: BasePresenter<View> {
       fun loadProfile()
+      fun updateProfile(profileOverviewEntity: ProfileOverviewEntity)
    }
 }

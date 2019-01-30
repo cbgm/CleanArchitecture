@@ -21,5 +21,26 @@ class ProfileOverviewDtoMapper {
                maxPrice = searchDto.maxPrice
          )
       }
+
+      fun transform(profileOverview: ProfileOverview): Pair<UserDto, SearchDto> {
+         return Pair(
+               UserDto(
+                     firstName = profileOverview.name.split(" ")[0],
+                     lastName = profileOverview.name.split(" ")[1],
+                     password = profileOverview.password,
+                     birthDate = profileOverview.birthDate,
+                     alias = profileOverview.alias,
+                     email = profileOverview.email,
+                     isUpgraded = false
+                     ),
+               SearchDto(
+                     city = profileOverview.city,
+                     distance = profileOverview.distance,
+                     type = profileOverview.type,
+                     maxPrice = profileOverview.maxPrice,
+                     userId = profileOverview.alias
+               )
+         )
+      }
    }
 }

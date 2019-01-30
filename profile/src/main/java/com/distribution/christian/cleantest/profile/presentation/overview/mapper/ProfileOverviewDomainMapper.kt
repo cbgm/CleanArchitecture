@@ -20,5 +20,19 @@ class ProfileOverviewDomainMapper {
                maxPrice = profileOverview.maxPrice
          )
       }
+
+      fun transform(profileOverviewEntity: ProfileOverviewEntity): ProfileOverview {
+         return ProfileOverview(
+               name = profileOverviewEntity.name,
+               email = profileOverviewEntity.email,
+               password = profileOverviewEntity.password,
+               birthDate = profileOverviewEntity.birthDate,
+               alias = profileOverviewEntity.alias,
+               city = profileOverviewEntity.city,
+               distance = profileOverviewEntity.distance,
+               type = profileOverviewEntity.type,
+               maxPrice = profileOverviewEntity.maxPrice
+         )
+      }
    }
 }
