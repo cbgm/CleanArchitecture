@@ -1,14 +1,15 @@
 package com.distribution.christian.cleantest.event.data.repository.local
 
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.distribution.christian.cleantest.core.domain.model.Result
 
 interface EventDao {
-   fun getEvents(): Single<EventOverview>
+   fun getEvents(): Result<EventOverview>
 
-   fun saveEvents(data: EventOverview): Completable
+   fun saveEvents(data: EventOverview): Result<Nothing>
 
-   fun getEventById(eventId: String): Single<Event>
+   fun updateEvent(event: Event): Result<Event>
+
+   fun getEventById(eventId: String): Result<Event>
 }

@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.core.domain.usecases
+package com.distribution.christian.cleantest.core.domain.usecase
 
 import com.distribution.christian.cleantest.core.device.notification.NotificationFactory
 import com.distribution.christian.cleantest.core.domain.completable.CompletableUseCase

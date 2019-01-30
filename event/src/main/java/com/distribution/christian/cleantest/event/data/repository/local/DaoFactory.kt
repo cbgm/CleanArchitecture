@@ -4,7 +4,7 @@ import com.distribution.christian.cleantest.event.data.repository.local.sql.SQLF
 
 abstract class DaoFactory {
 
-   abstract fun getUserDao(): EventDao
+   abstract fun getEventDao(): EventDao
 
    companion object {
       const val SQL = 1

@@ -988,6 +988,7 @@ id edit_query
 id email_text
 id end
 id end_padder
+id error
 id expand_activities_button
 id expanded_menu
 id fill
@@ -1188,9 +1189,11 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout error
 layout fragment_profile_overview
 layout image
 layout loading
+layout loading_list
 layout modal
 layout modal_portrait_inner
 layout notification_action

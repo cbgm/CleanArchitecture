@@ -1,6 +1,6 @@
 package com.distribution.christian.cleantest.event.presentation.detail.mapper
 
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
 

@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.event.domain.usecases
+package com.distribution.christian.cleantest.event.domain.usecase
 
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
 import com.distribution.christian.cleantest.event.domain.repository.EventRepository

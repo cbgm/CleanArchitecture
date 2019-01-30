@@ -1,6 +1,6 @@
-package com.distribution.christian.cleantest.event.domain.usecases
+package com.distribution.christian.cleantest.event.domain.usecase
 
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.repository.EventRepository
 import com.distribution.christian.cleantest.core.domain.single.SingleUseCase
 import com.distribution.christian.cleantest.core.domain.model.Result

@@ -19,6 +19,7 @@ import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarCha
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.profile.R
 import com.distribution.christian.cleantest.profile.core.ui.ProfileBaseFragment
+import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
 import org.koin.android.ext.android.inject
 
 class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
@@ -33,12 +34,14 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
    private lateinit var content: View
    private lateinit var loading: View
    private lateinit var error: View
+   private lateinit var nameText: TextView
    private lateinit var priceText: EditText
    private lateinit var cityText: AutoCompleteTextView
    private lateinit var distanceText: TextView
    private lateinit var distanceSeekbar: SeekBar
    private lateinit var passwordText: EditText
    private lateinit var emailText: EditText
+   private lateinit var aliasText: TextView
    private lateinit var editBtn: ImageView
    private lateinit var profileImageView: ImageView
    private var isEditMode: Boolean = false
@@ -67,13 +70,16 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
    override fun initViews(view: View) {
       content = view.findViewById(R.id.content)
       loading = view.findViewById(R.id.loading)
+      error = view.findViewById(R.id.error)
       priceText = view.findViewById(R.id.price_text)
       cityText = view.findViewById(R.id.city_text)
       distanceText = view.findViewById(R.id.distance_text)
       distanceSeekbar = view.findViewById(R.id.distance_seekbar)
       passwordText = view.findViewById(R.id.password_text)
       emailText = view.findViewById(R.id.email_text)
+      aliasText = view.findViewById(R.id.alias_text)
       profileImageView = view.findViewById(R.id.profile_image)
+      nameText = view.findViewById(R.id.name_text)
       editBtn = view.findViewById(R.id.edit_btn)
 
       val adapter = AutoCompleteAdapter(
@@ -95,8 +101,14 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       setListeners()
    }
 
-   override fun showProfile() {
+   override fun showProfile(profileOverviewEntity: ProfileOverviewEntity) {
       profileImageView.loadResource(android.R.drawable.sym_def_app_icon)
+      nameText.text = profileOverviewEntity.name
+      aliasText.text = profileOverviewEntity.alias
+      passwordText.setText(profileOverviewEntity.password)
+      emailText.setText(profileOverviewEntity.email)
+      distanceText.text = profileOverviewEntity.distance.toString()
+      distanceSeekbar.progress = profileOverviewEntity.distance
    }
 
    override fun showContent(isVisible: Boolean) {
@@ -104,7 +116,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
    }
 
    override fun showError(isVisible: Boolean) {
-      //not used
+      if (isVisible) error.visibility = View.VISIBLE else error.visibility = View.GONE
    }
 
    override fun showLoading(isVisible: Boolean) {
@@ -134,7 +146,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       distanceSeekbar.setOnSeekBarChangeListener(object : OnSeekbarChangedListener() {
 
          override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-            distanceText.text = String.format("%dKm", p1)
+            distanceText.text = String.format("%d Km", p1)
          }
       })
 

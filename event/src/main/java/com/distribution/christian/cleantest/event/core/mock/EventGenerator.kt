@@ -1,6 +1,6 @@
-package com.distribution.christian.cleantest.core.core.mock
+package com.distribution.christian.cleantest.event.core.mock
 
-import com.distribution.christian.cleantest.core.data.model.EventDto
+import com.distribution.christian.cleantest.event.data.model.EventDto
 import kotlin.random.Random
 
 class EventGenerator {
@@ -8,11 +8,11 @@ class EventGenerator {
    companion object {
 
       fun generate(numberToGenerate: Int): List<EventDto> {
-         val events = ArrayList<EventDto>()
+         val events = ArrayList<com.distribution.christian.cleantest.event.data.model.EventDto>()
 
          for (i in 1..numberToGenerate) {
             events.add(
-                  EventDto(
+                  com.distribution.christian.cleantest.event.data.model.EventDto(
                         id = getRandomId(),
                         name = getRandomName(),
                         location = getRandomLocation(),
@@ -39,12 +39,16 @@ class EventGenerator {
       )
 
       private fun getRandomLocation() =
-            "${getRandomString(Random.nextInt(8, 15))}, ${getRandomString(
+            "${getRandomString(
+                  Random.nextInt(8, 15)
+            )}, ${getRandomString(
                   Random.nextInt(
                         8,
                         15
                   )
-            )} ${getRandomNumber(Random.nextInt(2, 3))}"
+            )} ${getRandomNumber(
+                  Random.nextInt(2, 3)
+            )}"
 
       private fun getRandomDate(): String {
          val weekdays = listOf(

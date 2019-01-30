@@ -6,7 +6,7 @@ import com.distribution.christian.cleantest.event.data.repository.local.EventDao
 class SQLFactory: DaoFactory() {
     //create connection etc
 
-    override fun getUserDao(): EventDao {
+    override fun getEventDao(): EventDao {
         return EventSQLDao()
     }
 }

@@ -1,6 +1,7 @@
 package com.distribution.christian.cleantest.core.core.mock
 
-import com.distribution.christian.cleantest.core.data.model.EventDto
+import com.distribution.christian.cleantest.core.data.model.SearchDto
+import com.distribution.christian.cleantest.core.data.model.UserDto
 import com.google.gson.Gson
 import okhttp3.*
 import java.io.IOException
@@ -10,95 +11,41 @@ import okio.Buffer
 class FakeInterceptor : Interceptor {
 
    private companion object {
-      var events = ArrayList<EventDto>()
+      //var events = ArrayList<com.distribution.christian.cleantest.event.data.model.EventDto>()
+      lateinit var userDto: UserDto
+      var searchDtos = ArrayList<SearchDto>()
    }
 
    init {
-      /*events.add(
-            EventDto(
-                  0,
-                  "Wild PartyHell in Buku",
-                  "Burgkunstadt",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
+      //events.addAll(EventGenerator.generate(10))
+      userDto = UserDto(
+         firstName = "Christian",
+         lastName = "Bergmann",
+         birthDate = "12.09.2104",
+         email = "test@test.de",
+         password = "asdad",
+         alias = "cb2019"
+      )
+
+      searchDtos.add(
+            SearchDto(
+                  userId = "cb2019",
+                  city = "Lichtenfeks",
+                  distance = 20,
+                  maxPrice = 13,
+                  type = "empty"
             )
       )
-      events.add(
-            EventDto(
-                  1,
-                  "Wild PartyHell in Bamberg",
-                  "Bamberg",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
+
+      searchDtos.add(
+            SearchDto(
+                  userId = "klk",
+                  city = "Burgkunstadt",
+                  distance = 20,
+                  maxPrice = 10,
+                  type = "empty"
             )
       )
-      events.add(
-            EventDto(
-                  2,
-                  "Wild PartyHell in Coburg",
-                  "Coburg",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
-            )
-      )
-      events.add(
-            EventDto(
-                  3,
-                  "Wild PartyHell in Neustadt",
-                  "Neustadt",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
-            )
-      )
-      events.add(
-            EventDto(
-                  4,
-                  "Wild PartyHell in Nürnberg",
-                  "Nürnberg",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
-            )
-      )
-      events.add(
-            EventDto(
-                  5,
-                  "Wild PartyHell in Altenkusntadt",
-                  "Altenkunstadt",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
-            )
-      )
-      events.add(
-            EventDto(
-                  6,
-                  "Wild PartyHell in Lif",
-                  "Lichtenfels",
-                  location,
-                  date,
-                  time,
-                  price,
-                  description
-            )
-      )*/
-      events.addAll(EventGenerator.generate(10))
 
    }
 
@@ -115,23 +62,26 @@ class FakeInterceptor : Interceptor {
             .url()
             .toString()
 
+      var code = 200
+
       val responseString: String = when (chain.request().method()) {
          "GET" -> {
-            if (segements.size == 1) {
+            if (url.contains("authenticate")) {
                Thread.sleep(2000)
-               getMockedEventsJson()
+               getMockedUserJson()
+
             } else {
-               getMockedEventJson(segements[1])
+               getMockedSearchJson(segements[1])
             }
          }
          "PUT" -> {
-            updateMockedEventJson(requestBodyToString(chain.request().body()!!))
+            updateMockedUserJson(requestBodyToString(chain.request().body()!!))
          }
          else -> ""
       }
 
       response = Response.Builder()
-            .code(200)
+            .code(code)
             .message(responseString)
             .request(chain.request())
             .protocol(Protocol.HTTP_1_0)
@@ -149,15 +99,15 @@ class FakeInterceptor : Interceptor {
    }
 
 
-   private fun getMockedEventJson(id: String): String {
+   /*private fun getMockedEventJson(id: String): String {
 
       return GsonBuilder().create()
             .toJson(events.first { it.id.toString() == id })
-   }
+   }*/
 
-   private fun updateMockedEventJson(json: String): String {
-      val event = Gson().fromJson(json, EventDto::class.java)
-      var updatedEvent: EventDto? = null
+   /*private fun updateMockedEventJson(json: String): String {
+      val event = Gson().fromJson(json, com.distribution.christian.cleantest.event.data.model.EventDto::class.java)
+      var updatedEvent: com.distribution.christian.cleantest.event.data.model.EventDto? = null
       events.forEach {
          if (it.id == event.id) {
             it.isStarred = !event.isStarred
@@ -167,12 +117,27 @@ class FakeInterceptor : Interceptor {
       return GsonBuilder().create()
             .toJson(updatedEvent)
 
-   }
+   }*/
 
-   private fun getMockedEventsJson(): String {
+   /*private fun getMockedEventsJson(): String {
 
       return GsonBuilder().create()
             .toJson(events)
+   }*/
+
+   private fun updateMockedUserJson(json: String): String {
+      val tempUser = Gson().fromJson(json, UserDto::class.java)
+      userDto = tempUser
+      return GsonBuilder().create().toJson(userDto)
+   }
+
+   private fun getMockedUserJson(): String {
+      return GsonBuilder().create().toJson(userDto)
+   }
+
+   private fun getMockedSearchJson(id: String): String {
+      return GsonBuilder().create()
+            .toJson(searchDtos.first { it.userId == id })
    }
 
    fun requestBodyToString(requestBody: RequestBody): String {

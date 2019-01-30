@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.core.domain.model
+package com.distribution.christian.cleantest.event.domain.model
 
 data class Event(
       val id: Int,

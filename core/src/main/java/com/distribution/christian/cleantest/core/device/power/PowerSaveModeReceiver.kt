@@ -4,7 +4,7 @@ import android.content.Intent
 import android.content.BroadcastReceiver
 import android.content.Context
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
-import com.distribution.christian.cleantest.core.domain.usecases.SwitchPowerSaveModeUseCase
+import com.distribution.christian.cleantest.core.domain.usecase.SwitchPowerSaveModeUseCase
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import timber.log.Timber

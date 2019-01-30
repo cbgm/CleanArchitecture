@@ -36,7 +36,7 @@ abstract class InfiniteAdapter<I>(
 
       viewHolder = if (viewType == ITEM_VIEW_TYPE_LOADING) {
 
-         val view = layoutInflater.inflate(R.layout.loading, parent, false)
+         val view = layoutInflater.inflate(R.layout.loading_list, parent, false)
          ProgressViewHolder(view)
       } else {
          onCreateCustomViewHolder(parent, viewType)

@@ -1,12 +1,12 @@
 package com.distribution.christian.cleantest.event.presentation.overview
 
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
-import com.distribution.christian.cleantest.event.domain.usecases.GetEventsInPool
+import com.distribution.christian.cleantest.event.domain.usecase.GetEventsInPool
 import com.distribution.christian.cleantest.event.presentation.overview.mapper.EventOverviewDomainMapper
 import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
-import com.distribution.christian.cleantest.event.domain.usecases.UpdateEvent
+import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.mapper.EventDomainMapper
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 

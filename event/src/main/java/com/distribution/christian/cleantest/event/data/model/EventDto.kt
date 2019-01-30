@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.core.data.model
+package com.distribution.christian.cleantest.event.data.model
 
 data class EventDto(
       val id: Int,

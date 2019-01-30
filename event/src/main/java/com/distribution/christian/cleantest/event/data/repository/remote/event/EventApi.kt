@@ -1,13 +1,12 @@
 package com.distribution.christian.cleantest.event.data.repository.remote.event
 
-import com.distribution.christian.cleantest.core.data.model.EventDto
+import com.distribution.christian.cleantest.event.data.model.EventDto
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface EventApi {
 

@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.event.data.mapper
 
-import com.distribution.christian.cleantest.core.data.model.EventDto
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.data.model.EventDto
+import com.distribution.christian.cleantest.event.domain.model.Event
 
 abstract class EventDtoMapper {
 

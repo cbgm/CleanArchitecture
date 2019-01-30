@@ -4,11 +4,11 @@ import com.distribution.christian.cleantest.event.domain.model.EventOverview
 import com.distribution.christian.cleantest.core.core.util.extension.mapToResult
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.event.data.mapper.EventDtoMapper
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.domain.model.Event
 
 class EventFromNetwork constructor(private val eventApi: EventApi) {
 
-   suspend fun getUsers(): Result<EventOverview> {
+   suspend fun getEvents(): Result<EventOverview> {
       val response = eventApi.getAllUsers()
             .await()
 

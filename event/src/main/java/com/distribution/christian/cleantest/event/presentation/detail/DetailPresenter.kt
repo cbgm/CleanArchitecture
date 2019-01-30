@@ -1,11 +1,11 @@
 package com.distribution.christian.cleantest.event.presentation.detail
 
-import com.distribution.christian.cleantest.core.domain.model.Event
+import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
-import com.distribution.christian.cleantest.event.domain.usecases.GetEventById
+import com.distribution.christian.cleantest.event.domain.usecase.GetEventById
 import com.distribution.christian.cleantest.event.presentation.detail.mapper.EventDomainMapper
 import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
-import com.distribution.christian.cleantest.event.domain.usecases.UpdateEvent
+import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
 class DetailPresenter constructor(
