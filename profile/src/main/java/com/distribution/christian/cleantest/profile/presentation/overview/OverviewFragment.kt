@@ -60,6 +60,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
    override fun onResume() {
       super.onResume()
       presenter.onBind()
+      activity!!
    }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -107,6 +108,8 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       aliasText.text = profileOverviewEntity.alias
       passwordText.setText(profileOverviewEntity.password)
       emailText.setText(profileOverviewEntity.email)
+      cityText.setText(profileOverviewEntity.city)
+      priceText.setText(profileOverviewEntity.maxPrice)
       distanceText.text = profileOverviewEntity.distance.toString()
       distanceSeekbar.progress = profileOverviewEntity.distance
    }

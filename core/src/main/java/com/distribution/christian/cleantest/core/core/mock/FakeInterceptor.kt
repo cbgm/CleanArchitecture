@@ -11,13 +11,11 @@ import okio.Buffer
 class FakeInterceptor : Interceptor {
 
    private companion object {
-      //var events = ArrayList<com.distribution.christian.cleantest.event.data.model.EventDto>()
       lateinit var userDto: UserDto
       var searchDtos = ArrayList<SearchDto>()
    }
 
    init {
-      //events.addAll(EventGenerator.generate(10))
       userDto = UserDto(
             firstName = "Christian",
             lastName = "Bergmann",
@@ -46,7 +44,6 @@ class FakeInterceptor : Interceptor {
                   type = "empty"
             )
       )
-
    }
 
 
@@ -134,7 +131,7 @@ class FakeInterceptor : Interceptor {
             .toJson(searchDtos.first { it.userId == id })
    }
 
-   fun requestBodyToString(requestBody: RequestBody): String {
+   private fun requestBodyToString(requestBody: RequestBody): String {
       return try {
          val buffer = Buffer()
          requestBody.writeTo(buffer)

@@ -11,17 +11,17 @@ enum class DeepLinkIdentifier {
    },
    EVENT_DETAIL {
       override fun mapAction(action: String): DeepLinkIdentifier {
-         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+         return NONE
       }
    },
    SHOP {
       override fun mapAction(action: String): DeepLinkIdentifier {
-         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+         return NONE
       }
    },
    NONE {
       override fun mapAction(action: String): DeepLinkIdentifier {
-         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+         return NONE
       }
    };
 

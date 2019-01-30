@@ -15,33 +15,17 @@ class EventRepositoryImpl constructor(
 ) : EventRepository {
 
    override suspend fun getAllEvents(): Result<EventOverview> {
-      //for different purposes
-      /*netManager.isConnected.let {
-          if(it)
-              return eventFromNetwork.getUsers().flatMap {
-                  return@flatMap eventFromLocal.saveUsers(it)
-                          .toSingleDefault(it)
-              }
-          else
-              return eventFromLocal.getUsers()
-      }*/
-      //if no network, local cached data is loaded(interceptor)
+      netManager.isConnected.let {
+
+      }
       return eventFromLocal.getEvents()
-
-
-      /*val result = eventFromNetwork.getEvents()
-      result.onSuccess { eventFromLocal.saveEvents(it) }
-      return result*/
    }
-
 
    override suspend fun updateEvent(event: Event): Result<Event> {
       return eventFromLocal.updateEvent(event)
-      //return eventFromNetwork.updateEvent(event)
    }
 
    override suspend fun getEventById(eventId: String): Result<Event> {
       return eventFromLocal.getEventById(eventId)
-      //return eventFromNetwork.getEvent(eventId)
    }
 }
