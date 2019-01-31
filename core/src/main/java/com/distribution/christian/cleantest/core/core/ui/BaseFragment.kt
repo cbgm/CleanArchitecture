@@ -3,7 +3,10 @@ package com.distribution.christian.cleantest.core.core.ui
 import android.support.v4.app.Fragment
 import android.view.View
 
-abstract class BaseFragment: Fragment() {
+@Suppress("UNCHECKED_CAST")
+abstract class BaseFragment<T> : Fragment() {
+
+   val activity: T by lazy { getActivity() as T }
 
    protected lateinit var transitionName: String
 

@@ -9,7 +9,7 @@ import com.distribution.christian.cleantest.profile.presentation.overview.Overvi
 import org.koin.dsl.module.module
 
 val profileOverviewModule = module {
-   single { OverviewPresenter(get(), get()) }
+   scope("profile") { OverviewPresenter(get(), get()) }
    single { UpdateProfileOfAuthenticatedUser(get()) }
    single { GetProfileOfAuthenticatedUser(get()) }
    single { ProfileFromNetwork(get(), get()) }

@@ -1,12 +1,12 @@
 package com.distribution.christian.cleantest.profile.core.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 
-abstract class ProfileBaseFragment : Fragment() {
+abstract class ProfileBaseFragment : BaseFragment<ProfileActivity>() {
 
    override fun onCreateView(
          inflater: LayoutInflater,

@@ -15,6 +15,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
 import com.distribution.christian.cleantest.core.core.util.extension.loadResource
+import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarChangedListener
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.profile.R
@@ -52,7 +53,8 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+      activity.updateScope("profile")
+      activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
       setHasOptionsMenu(true)
       presenter.setVIew(this)
    }
@@ -60,7 +62,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
    override fun onResume() {
       super.onResume()
       presenter.onBind()
-      activity!!
+      activity
    }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,7 +111,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       passwordText.setText(profileOverviewEntity.password)
       emailText.setText(profileOverviewEntity.email)
       cityText.setText(profileOverviewEntity.city)
-      priceText.setText(profileOverviewEntity.maxPrice)
+      priceText.setText(profileOverviewEntity.maxPrice.toString())
       distanceText.text = profileOverviewEntity.distance.toString()
       distanceSeekbar.progress = profileOverviewEntity.distance
    }

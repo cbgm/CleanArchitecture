@@ -6,7 +6,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import org.koin.android.scope.ext.android.bindScope
+import org.koin.android.scope.ext.android.createScope
 import org.koin.android.scope.ext.android.getOrCreateScope
+import org.koin.android.scope.ext.android.getScope
+import org.koin.core.scope.Scope
 
 private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
    val fragmentTransaction = beginTransaction()
@@ -55,6 +58,12 @@ fun FragmentActivity.backStack() {
       finish()
 }
 
-fun FragmentActivity.updateScope(scope: String) {
-   bindScope(getOrCreateScope(scope))
+fun FragmentActivity.updateScope(scope: String): Scope? {
+   val session = getOrCreateScope(scope)
+   bindScope(session)
+   return  session
+}
+
+fun FragmentActivity.getScope(scope: String): Scope? {
+   return  getScope(scope)
 }

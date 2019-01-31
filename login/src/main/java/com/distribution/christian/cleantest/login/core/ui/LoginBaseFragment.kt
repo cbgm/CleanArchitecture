@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.event.core.ui
+package com.distribution.christian.cleantest.login.core.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 
-abstract class EventBaseFragment : BaseFragment<EventActivity>() {
+abstract class LoginBaseFragment : BaseFragment<LoginActivity>() {
 
    override fun onCreateView(
          inflater: LayoutInflater,

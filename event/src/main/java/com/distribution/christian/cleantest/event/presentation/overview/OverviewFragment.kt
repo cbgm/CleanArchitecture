@@ -38,7 +38,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity?.updateScope("overview")
+      activity.updateScope("overview")
       presenter.setVIew(this)
    }
 
@@ -105,7 +105,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    }
 
    override fun onItemClick(eventId: String, position: Int, sharedView: View) {
-      cartFlowCoordinator.showDetail(
+      activity.coordinator.showDetail(
             eventId,
             TransitionInformation(sharedView, sharedView.transitionName)
       )
