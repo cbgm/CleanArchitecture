@@ -1,25 +1,16 @@
 package com.distribution.christian.cleantest.app.core.navigation
 
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToShop
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 
 class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    override fun navigateDeepLink() {
-      deepLinkHandler.getDeepLink()
-            ?.let {
-               when (it.action) {
-                  DeepLinkIdentifier.EVENTS-> activity.navigateToEvents(activity)
-                  DeepLinkIdentifier.SHOP -> activity.navigateToShop(activity)
-                  else -> activity.navigateToEvents(activity)
-               }
-            }
+      navigateLink()
    }
 
    override fun navigateLink() {
-      activity.navigateToEvents(activity)
+      activity.navigateToAuth(activity)
    }
 
    override fun onDeepLinkBack() {

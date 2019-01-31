@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.app.core
+package com.distribution.christian.cleantest.app
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -47,6 +47,6 @@ class SplashActivity : AppCompatActivity() {
 
    private fun startRouting() {
       val data: Uri? = intent?.data
-      rootFlowCoordinatorImpl.start(this, data)
+       rootFlowCoordinatorImpl.start(this, data)
    }
 }

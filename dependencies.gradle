@@ -70,6 +70,7 @@ ext {
          [
                'ACTION_SHOP',
                'ACTION_CART',
-               'ACTION_PROFILE'
+               'ACTION_PROFILE',
+               'ACTION_AUTH'
          ]
 }

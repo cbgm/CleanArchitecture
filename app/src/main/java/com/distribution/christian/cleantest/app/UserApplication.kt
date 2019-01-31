@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.app.core
+package com.distribution.christian.cleantest.app
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -18,6 +18,7 @@ import android.os.PowerManager
 import android.support.v7.app.AppCompatDelegate
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import com.distribution.christian.cleantest.event.core.di.eventCoreModule
+import com.distribution.christian.cleantest.login.core.di.authCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
 import com.google.android.play.core.splitcompat.SplitCompatApplication
@@ -61,7 +62,7 @@ class UserApplication : SplitCompatApplication() {
             this, listOf(
             appModule, networkModule, appCoreModule,
             eventCoreModule, eventOverviewModule, eventDetailModule,
-            profileCoreModule, profileOverviewModule
+            profileCoreModule, profileOverviewModule, authCoreModule
       )
       )
    }

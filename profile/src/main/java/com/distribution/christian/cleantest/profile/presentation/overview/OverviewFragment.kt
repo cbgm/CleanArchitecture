@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
 import com.distribution.christian.cleantest.core.core.util.extension.loadResource
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
@@ -53,7 +54,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope("profile")
+      activity.updateScope(DiScope.PROFILE_OVERVIEW)
       activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
       setHasOptionsMenu(true)
       presenter.setVIew(this)

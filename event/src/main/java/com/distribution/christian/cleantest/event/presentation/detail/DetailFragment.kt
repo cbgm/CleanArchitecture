@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.distribution.christian.cleantest.core.core.di.DiScope
 
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
@@ -54,7 +55,7 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
             .inflateTransition(R.transition.default_transition)
       enterTransition = TransitionInflater.from(context)
             .inflateTransition(android.R.transition.no_transition)
-      activity?.updateScope("detail")
+      activity.updateScope(DiScope.EVENT_DETAIL)
       detailPresenter.setVIew(this)
       eventId = arguments?.getString("User") ?: ""
       transitionName = arguments?.getString("transitionName", "")!!

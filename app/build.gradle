@@ -83,7 +83,7 @@ dependencies {
    implementation project (":core")
    implementation project (":profile")
    implementation project (":event")
-   implementation project (":login")
+   implementation project (':auth')
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

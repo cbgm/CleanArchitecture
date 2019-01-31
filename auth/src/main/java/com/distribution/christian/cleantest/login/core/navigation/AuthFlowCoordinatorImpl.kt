@@ -5,7 +5,7 @@ import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLi
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToShop
 
-class LoginFlowCoordinatorImpl : BaseCoordinatorImpl() {
+class AuthFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    override fun navigateDeepLink() {
       deepLinkHandler.getDeepLink()

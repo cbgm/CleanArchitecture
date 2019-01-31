@@ -10,7 +10,7 @@
    <dist:module dist:instant="true" />
 
    <application
-      android:name="com.distribution.christian.cleantest.app.core.UserApplication"
+      android:name="com.distribution.christian.cleantest.app.UserApplication"
       android:allowBackup="true"
       android:fullBackupContent="@xml/backup_rules"
       android:icon="@mipmap/ic_launcher"
@@ -21,7 +21,7 @@
       android:theme="@style/AppTheme">
 
       <activity
-         android:name="com.distribution.christian.cleantest.app.core.SplashActivity"
+         android:name="com.distribution.christian.cleantest.app.SplashActivity"
          android:noHistory="true"
          android:theme="@style/SplashTheme">
          <intent-filter>

@@ -24,17 +24,17 @@ abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity
       super.onCreate(savedInstanceState)
       if (layout == null) {
          setContentView(R.layout.activity_main)
+         initBottomNavigation()
+         setSupportActionBar(toolbar)
       } else {
          setContentView(layout)
       }
 
-      initBottomNavigation()
-      setSupportActionBar(toolbar)
-      supportFragmentManager.addOnBackStackChangedListener {
+      /*supportFragmentManager.addOnBackStackChangedListener {
          val currentFragment = supportFragmentManager
                .findFragmentById(R.id.fragment_container)
          currentFragment?.onResume()
-      }
+      }*/
    }
 
    override fun onBackPressed() {
@@ -67,7 +67,7 @@ abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity
       return true
    }
 
-   private fun initBottomNavigation() {
+   protected fun initBottomNavigation() {
       bottomNavigationView = findViewById(R.id.bottom_navigation)
       bottomNavigationView.setOnNavigationItemSelectedListener(this)
    }

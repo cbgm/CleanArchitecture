@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
+import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.recycler.EndlessScrollListener
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
@@ -38,7 +39,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope("overview")
+      activity.updateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
    }
 
