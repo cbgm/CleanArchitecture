@@ -18,9 +18,12 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
    protected lateinit var activity: FragmentActivity
    protected var replaceableFragmentId = R.id.fragment_container
 
-   override fun start(fragmentActivity: FragmentActivity) {
+   override fun start(fragmentActivity: FragmentActivity, withInitialNavigation: Boolean) {
       activity = fragmentActivity
-      initialNavigation()
+
+      if (withInitialNavigation) {
+         initialNavigation()
+      }
    }
 
    override fun start(fragmentActivity: FragmentActivity, uri: Uri?) {

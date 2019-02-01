@@ -8,6 +8,10 @@ import android.content.Intent
 import android.support.v4.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
+import android.support.v4.app.ActivityCompat
+import android.R.attr.transitionName
+import android.support.v4.app.ActivityOptionsCompat
+import android.view.View
 
 
 fun Context.navigateToShop(oldActivity: FragmentActivity) {
@@ -25,9 +29,17 @@ fun Context.navigateToEvents(oldActivity: FragmentActivity) {
    startAction(intentToStart, this, oldActivity)
 }
 
-fun Context.navigateToAuth(oldActivity: FragmentActivity) {
+fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View) {
    val intentToStart = Intent(ACTION_AUTH)
-   startAction(intentToStart, this, oldActivity)
+   val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+         oldActivity,
+         view, // Starting view
+         "test"    // The String
+   )
+   //start the intent
+   this.startActivity( intentToStart, options.toBundle())
+   //oldActivity.finish()
+   //startAction(intentToStart, this, oldActivity)
 }
 
 private fun startAction(intentToStart: Intent, context: Context, oldActivity: FragmentActivity? = null) {

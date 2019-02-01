@@ -37,6 +37,16 @@ abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity
       }*/
    }
 
+   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+      return when (item?.itemId) {
+         android.R.id.home -> {
+            onBackPressed()
+            true
+         }
+         else -> return super.onOptionsItemSelected(item)
+      }
+   }
+
    override fun onBackPressed() {
 
       if (coordinator != null) {

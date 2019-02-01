@@ -2,16 +2,16 @@
 <resources>
    <color name="colorPrimary">#3F51B5</color>
    <color name="colorPrimaryDark">#303F9F</color>
-   <color name="colorAccent">#FF4081</color>
+   <color name="colorAccent">@android:color/holo_green_light</color>
    <color name="primary">#00A651</color>
    <color name="primary_dark">#009348</color>
 
    <color name="backgroundTheme">#ffffff</color>
 
-   <color name="backgroundToolbar">#039BE5</color>
+   <color name="backgroundToolbar">@android:color/holo_green_light</color>
    <color name="titleToolbar">#ffffff</color>
 
-   <color name="backgroundBottomNavigation">#039BE5</color>
+   <color name="backgroundBottomNavigation">@android:color/holo_green_light</color>
    <color name="textBottomNavigation">#5b5b5b</color>
    <color name="textHighlightedBottomNavigation">#ffffff</color>
 </resources>

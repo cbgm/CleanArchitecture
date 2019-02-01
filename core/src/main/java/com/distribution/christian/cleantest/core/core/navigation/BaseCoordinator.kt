@@ -6,7 +6,7 @@ import org.koin.standalone.KoinComponent
 
 interface BaseCoordinator : KoinComponent {
 
-   fun start(fragmentActivity: FragmentActivity)
+   fun start(fragmentActivity: FragmentActivity, withInitialNavigation: Boolean = true)
 
    fun start(fragmentActivity: FragmentActivity, uri: Uri?)
 

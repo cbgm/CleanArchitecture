@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -16,6 +17,8 @@ import com.distribution.christian.cleantest.event.presentation.detail.model.Even
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import org.koin.android.ext.android.inject
+
+
 
 
 class DetailFragment : EventBaseFragment(), DetailContract.View {
@@ -50,11 +53,7 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      postponeEnterTransition()
-      sharedElementEnterTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.default_transition)
-      enterTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.no_transition)
+      configureTransition()
       activity.updateScope(DiScope.EVENT_DETAIL)
       detailPresenter.setVIew(this)
       eventId = arguments?.getString("User") ?: ""
@@ -134,5 +133,12 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
       flyerImg.transitionName = transitionName
 
       ToolbarLoader(activity as AppCompatActivity?, R.string.title_details, true)
+   }
+
+   private fun configureTransition() {
+      sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.default_transition)
+      enterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.no_transition)
    }
 }

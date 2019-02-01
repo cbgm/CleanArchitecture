@@ -6,17 +6,17 @@ import android.animation.ValueAnimator
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.TextView
 import com.distribution.christian.cleantest.R
 import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
 import org.koin.android.ext.android.inject
-import android.widget.TextView
 import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
 
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
 
-   private val title: TextView by lazy { findViewById<TextView>(R.id.textTitle) }
+   private val title: TextView by lazy { findViewById<TextView>(R.id.title_text) }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -30,6 +30,7 @@ class SplashActivity : AppCompatActivity() {
       val endSize = 38f
       val animationDuration: Long = 600
       val animator = ValueAnimator.ofFloat(startSize, endSize)
+      title.transitionName = "test"
       animator.duration = animationDuration
 
       animator.addUpdateListener { valueAnimator ->
@@ -47,6 +48,7 @@ class SplashActivity : AppCompatActivity() {
 
    private fun startRouting() {
       val data: Uri? = intent?.data
-       rootFlowCoordinatorImpl.start(this, data)
+      rootFlowCoordinatorImpl.start(this, data)
+      rootFlowCoordinatorImpl.showAuthentication(title)
    }
 }

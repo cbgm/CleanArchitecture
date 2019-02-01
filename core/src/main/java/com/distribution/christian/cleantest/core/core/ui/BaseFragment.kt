@@ -1,6 +1,7 @@
 package com.distribution.christian.cleantest.core.core.ui
 
 import android.support.v4.app.Fragment
+import android.view.MenuItem
 import android.view.View
 
 @Suppress("UNCHECKED_CAST")

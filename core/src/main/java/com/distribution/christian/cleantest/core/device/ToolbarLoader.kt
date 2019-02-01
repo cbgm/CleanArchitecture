@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.R
 
+
+
 class ToolbarLoader(
       private val activity: AppCompatActivity?,
       @StringRes
@@ -13,7 +15,7 @@ class ToolbarLoader(
       private val backButtonEnabled: Boolean
 ) {
 
-   val toolbar: ActionBar? = activity?.supportActionBar
+   private val toolbar: ActionBar? = activity?.supportActionBar
 
    init {
       setTitle()
@@ -29,15 +31,15 @@ class ToolbarLoader(
    private fun setTitle() {
 
       if (this.title != -1) {
-         toolbar?.setTitle(title)
+         this.toolbar?.setTitle(title)
       }
    }
 
    private fun setBackButton() {
 
       if (backButtonEnabled) {
-         toolbar?.setDisplayShowHomeEnabled(false)
-         toolbar?.setDisplayHomeAsUpEnabled(true)
+         this.toolbar?.setDisplayShowHomeEnabled(false)
+         this.toolbar?.setDisplayHomeAsUpEnabled(true)
 
          //custom back icon
          /*
@@ -48,7 +50,7 @@ class ToolbarLoader(
                )
          )*/
       } else {
-         toolbar?.setDisplayHomeAsUpEnabled(false)
+         this.toolbar?.setDisplayHomeAsUpEnabled(false)
       }
    }
 

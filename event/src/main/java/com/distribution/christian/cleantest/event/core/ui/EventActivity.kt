@@ -16,14 +16,4 @@ class EventActivity: BaseActivity() {
       bottomNavigationView.menu.findItem(R.id.action_events).isChecked = true
       coordinator.start(this)
    }
-
-   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-      return when (item?.itemId) {
-         android.R.id.home -> {
-            coordinator.back()
-            true
-         }
-         else -> false
-      }
-   }
 }
