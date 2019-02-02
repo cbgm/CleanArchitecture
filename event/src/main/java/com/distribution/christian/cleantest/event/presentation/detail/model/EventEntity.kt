@@ -1,5 +1,7 @@
 package com.distribution.christian.cleantest.event.presentation.detail.model
 
+import java.io.Serializable
+
 data class EventEntity(
       val id: Int,
       val name: String,
@@ -10,4 +12,4 @@ data class EventEntity(
       val price: String,
       val description: String,
       val isStarred: Boolean = false
-)
+): Serializable

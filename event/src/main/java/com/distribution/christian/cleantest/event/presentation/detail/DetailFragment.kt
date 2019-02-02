@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -16,31 +15,30 @@ import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
-
-
-
 
 class DetailFragment : EventBaseFragment(), DetailContract.View {
 
    companion object {
 
       const val TAG = "Detail"
-      fun newInstance(paramId: String, transitionInformation: TransitionInformation? = null) =
+      fun newInstance(paramId: String? = null, transitionInformation: TransitionInformation? = null, event: EventEntity? = null) =
             DetailFragment().apply {
                arguments = Bundle().apply {
                   putString("User", paramId)
                   putString(
-                        "transitionName",
+                        "TransitionName",
                         transitionInformation?.transitionName
                   )
+                  putSerializable("Event", event)
                }
             }
    }
 
    private val detailPresenter: DetailPresenter by inject()
    private lateinit var eventId: String
-   private lateinit var loading: LinearLayout
+   private lateinit var loading: ShimmerFrameLayout
    private lateinit var content: LinearLayout
    private lateinit var timeText: TextView
    private lateinit var cityText: TextView
@@ -51,20 +49,27 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    private lateinit var flyerImg: ImageView
    private lateinit var starBtn: FloatingActionButton
 
+   private var event: EventEntity? = null
+
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       configureTransition()
       activity.updateScope(DiScope.EVENT_DETAIL)
       detailPresenter.setVIew(this)
       eventId = arguments?.getString("User") ?: ""
-      transitionName = arguments?.getString("transitionName", "")!!
+      transitionName = arguments?.getString("TransitionName", "")!!
+      event = arguments?.getSerializable("Event")?.let { it as EventEntity }
    }
-
 
    override fun onResume() {
       super.onResume()
-      detailPresenter.onBind()
-      detailPresenter.loadEvent(eventId)
+      if (event == null) {
+         detailPresenter.onBind()
+         detailPresenter.loadEvent(eventId)
+      } else {
+         showEvent(event!!)
+      }
+
    }
 
    override fun onPause() {
@@ -77,22 +82,25 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    }
 
    override fun showEvent(eventEntity: EventEntity) {
-      startPostponedEnterTransition()
-      locationText.text = eventEntity.location
-      timeText.text = eventEntity.time
-      dateText.text = eventEntity.date
-      cityText.text = eventEntity.city
-      nameText.text = eventEntity.name
-      descriptionText.text = eventEntity.description
-      starBtn.setImageResource(
-            if (eventEntity.isStarred) {
-               R.drawable.ic_star
-            } else {
-               R.drawable.ic_empty_star
-            }
-      )
-      starBtn.setOnClickListener {
-         detailPresenter.updateEvent(eventEntity)
+      event = eventEntity
+      //startPostponedEnterTransition()
+      event?.let {
+         locationText.text = it.location
+         timeText.text = it.time
+         dateText.text = it.date
+         cityText.text = it.city
+         nameText.text = it.name
+         descriptionText.text = it.description
+         starBtn.setImageResource(
+               if (eventEntity.isStarred) {
+                  R.drawable.ic_star
+               } else {
+                  R.drawable.ic_empty_star
+               }
+         )
+         starBtn.setOnClickListener {
+            detailPresenter.updateEvent(eventEntity)
+         }
       }
    }
 
@@ -111,12 +119,11 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    }
 
    override fun showLoading(isVisible: Boolean) {
-      //not needed
+      if (isVisible) loading.visibility = View.VISIBLE else loading.visibility = View.GONE
    }
 
    override fun showContent(isVisible: Boolean) {
-      if (isVisible) locationText.visibility = View.VISIBLE else locationText.visibility = View.GONE
-      if (isVisible) timeText.visibility = View.VISIBLE else timeText.visibility = View.GONE
+      if (isVisible) content.visibility = View.VISIBLE else content.visibility = View.GONE
    }
 
    override fun initViews(view: View) {
@@ -140,5 +147,12 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
             .inflateTransition(R.transition.default_transition)
       enterTransition = TransitionInflater.from(context)
             .inflateTransition(android.R.transition.no_transition)
+      exitTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.default_transition)
+   }
+
+   override fun onSaveInstanceState(outState: Bundle) {
+      super.onSaveInstanceState(outState)
+      arguments?.putSerializable("Event", event)
    }
 }

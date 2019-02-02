@@ -13,8 +13,8 @@ class AuthActivity: BaseActivity(R.layout.activity_auth) {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      coordinator.start(this, false)
-      coordinator.showLogin()
+      coordinator.start(this )
+      //coordinator.showLogin()
    }
 
    override fun onOptionsItemSelected(item: MenuItem?): Boolean {

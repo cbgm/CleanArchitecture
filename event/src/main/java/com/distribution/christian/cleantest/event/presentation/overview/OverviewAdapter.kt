@@ -37,7 +37,7 @@ class OverviewAdapter(
          ViewCompat.setTransitionName(holder.typeImg, "image$position")
          holder.itemView.setOnClickListener {
             listener.onItemClick(
-                  event.id.toString(),
+                  event,
                   position,
                   holder.typeImg
             )
@@ -64,7 +64,7 @@ class OverviewAdapter(
    }
 
    interface OnItemClickListener {
-      fun onItemClick(eventId: String, position: Int, sharedView: View)
+      fun onItemClick(event: EventEntity, position: Int, sharedView: View)
       fun onBookmarkClick(event: EventEntity)
    }
 

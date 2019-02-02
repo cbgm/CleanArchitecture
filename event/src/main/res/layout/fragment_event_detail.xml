@@ -178,21 +178,11 @@
       </android.support.v4.widget.NestedScrollView>
    </LinearLayout>
 
-   <LinearLayout
+   <com.facebook.shimmer.ShimmerFrameLayout
       android:id="@+id/loading"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="gone">
+      android:layout_height="match_parent">
 
-      <ProgressBar
-         android:layout_width="50dp"
-         android:layout_height="50dp"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toTopOf="parent" />
-   </LinearLayout>
+      <include layout="@layout/shimmer_detail_item"/>
+   </com.facebook.shimmer.ShimmerFrameLayout>
 </LinearLayout>

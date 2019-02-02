@@ -23,8 +23,14 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    companion object {
 
       const val TAG = "Overview"
-      fun newInstance() = OverviewFragment()
+      fun newInstance() = OverviewFragment().apply {
+         arguments = Bundle().apply {
+            putSerializable("Data", null)
+         }
+      }
    }
+
+   private var data: ArrayList<EventEntity>? = null
 
    private val presenter: OverviewPresenter by inject()
 
@@ -41,11 +47,17 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
       super.onCreate(savedInstanceState)
       activity.updateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
+      data = arguments?.getSerializable("Data")?.let { it as ArrayList<EventEntity> }
    }
 
    override fun onResume() {
       super.onResume()
-      presenter.onBind()
+      if (data == null) {
+         presenter.onBind()
+      } else {
+         overviewAdapter.replaceData(data!!)
+      }
+
 
    }
 
@@ -59,11 +71,13 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    }
 
    override fun showEvents(eventOverviewEntity: EventOverviewEntity) {
-      overviewAdapter.replaceData(eventOverviewEntity.events)
+      data = eventOverviewEntity.events
+      overviewAdapter.replaceData(data!!)
    }
 
    override fun showMoreEvents(eventOverviewEntity: EventOverviewEntity) {
-      overviewAdapter.addData(eventOverviewEntity.events)
+      data!!.addAll(eventOverviewEntity.events)
+      overviewAdapter.addData(data!!)
    }
 
    override fun showError(isVisible: Boolean) {
@@ -105,14 +119,20 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
       )
    }
 
-   override fun onItemClick(eventId: String, position: Int, sharedView: View) {
+   override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
+      data = overviewAdapter.data
       activity.coordinator.showDetail(
-            eventId,
-            TransitionInformation(sharedView, sharedView.transitionName)
+            transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
+            event = event
       )
    }
 
    override fun onBookmarkClick(event: EventEntity) {
       presenter.updateEvent(event)
+   }
+
+   override fun onSaveInstanceState(outState: Bundle) {
+      super.onSaveInstanceState(outState)
+      arguments?.putSerializable("Data", overviewAdapter.data)
    }
 }

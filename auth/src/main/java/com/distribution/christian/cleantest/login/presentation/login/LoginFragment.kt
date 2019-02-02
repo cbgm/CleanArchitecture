@@ -20,13 +20,6 @@ class LoginFragment : AuthBaseFragment() {
 
    private lateinit var loginBtn: TextView
 
-   override fun initViews(view: View) {
-      loginBtn = view.findViewById(R.id.login_btn)
-      loginBtn.setOnClickListener {
-         activity.navigateToEvents(activity)
-      }
-   }
-
    override fun onCreateView(
          inflater: LayoutInflater,
          container: ViewGroup?,
@@ -34,21 +27,26 @@ class LoginFragment : AuthBaseFragment() {
    ): View? {
 
       val view = super.onCreateView(inflater, container, savedInstanceState)
-      view!!.findViewById<TextView>(R.id.header_text).transitionName = "test"
-      sharedElementEnterTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.default_transition)
-      enterTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.no_transition)
+      configureTransition(view)
       return view
    }
 
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-      super.onViewCreated(view, savedInstanceState)
+   override fun initViews(view: View) {
+      loginBtn = view.findViewById(R.id.login_btn)
+      loginBtn.setOnClickListener {
+         activity.navigateToEvents(activity)
+      }
    }
-
 
    override fun getLayoutResId(): Int {
       return R.layout.fragment_login
    }
 
+   private fun configureTransition(view: View?) {
+      view!!.findViewById<TextView>(R.id.header_text).transitionName = "test"
+      sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(R.transition.default_transition)
+      enterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.no_transition)
+   }
 }

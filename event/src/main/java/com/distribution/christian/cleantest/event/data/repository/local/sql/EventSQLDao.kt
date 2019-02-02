@@ -21,7 +21,6 @@ class EventSQLDao : EventDao {
 
 
    override fun getEvents(): Result<EventOverview> {
-
       return Result.Success(
             EventOverview(
                   10,

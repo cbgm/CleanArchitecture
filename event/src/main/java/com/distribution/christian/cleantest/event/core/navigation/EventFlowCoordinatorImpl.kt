@@ -6,6 +6,7 @@ import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragmentwithSharedElement
 import com.distribution.christian.cleantest.event.presentation.detail.DetailFragment
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.OverviewFragment
 
 
@@ -19,10 +20,11 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
    }
 
    override fun showDetail(
-         userId: String,
-         transitionInformation: BaseFragment.TransitionInformation?
+         userId: String?,
+         transitionInformation: BaseFragment.TransitionInformation?,
+         event: EventEntity?
    ) {
-      currentFragment = DetailFragment.newInstance(userId, transitionInformation)
+      currentFragment = DetailFragment.newInstance(userId, transitionInformation, event)
 
       if (transitionInformation != null) {
          activity.replaceFragmentwithSharedElement(

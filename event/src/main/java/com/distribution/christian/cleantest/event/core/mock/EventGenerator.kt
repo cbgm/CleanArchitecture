@@ -25,6 +25,19 @@ class EventGenerator {
                   )
             )
          }
+         events.add(
+               com.distribution.christian.cleantest.event.data.model.EventDto(
+                     id = 123,
+                     name = getRandomName(),
+                     location = getRandomLocation(),
+                     city = getRandomCity(),
+                     date = getRandomDate(),
+                     time = getRandomTime(),
+                     price = getRandomPrice(),
+                     description = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+
+               )
+         )
          return events
       }
 

@@ -7,6 +7,7 @@ import com.distribution.christian.cleantest.core.domain.model.onComplete
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
@@ -19,6 +20,7 @@ abstract class BaseUseCase<T, in Params> {
    fun execute(observer: BaseObserver<T>? = null, param: Params) {
       dispose()
       job = CoroutineScope(Dispatchers.Main).launch {
+         delay(1000)
          val result = buildUseCaseObservable(param)
          result.onSuccess { observer?.onSuccess(it as T) }
          result.onComplete{ observer?.onComplete()}

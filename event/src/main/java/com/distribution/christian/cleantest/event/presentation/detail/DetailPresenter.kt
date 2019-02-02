@@ -33,6 +33,7 @@ class DetailPresenter constructor(
    }
 
    override fun loadEvent(eventId: String) {
+      detailView.showLoading()
       getEventById.execute(GetCartObserver(), eventId)
    }
 
@@ -45,7 +46,7 @@ class DetailPresenter constructor(
    }
 
    override fun onBind() {
-      detailView.showLoading()
+      //not used
    }
 
    override fun onUnbind() {
