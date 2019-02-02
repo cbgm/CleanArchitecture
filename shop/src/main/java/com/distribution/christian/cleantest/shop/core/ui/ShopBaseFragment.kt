@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+
 abstract class ShopBaseFragment : Fragment() {
 
    override fun onCreateView(

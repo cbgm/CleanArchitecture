@@ -4,6 +4,7 @@ import android.view.View
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 
+
 class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    override fun navigateDeepLink() {

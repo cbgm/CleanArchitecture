@@ -24,6 +24,7 @@ import com.distribution.christian.cleantest.profile.core.ui.ProfileBaseFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
 import org.koin.android.ext.android.inject
 
+
 class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
 
    companion object {

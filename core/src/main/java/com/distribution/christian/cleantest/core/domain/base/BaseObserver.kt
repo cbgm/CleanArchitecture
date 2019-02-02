@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.core.domain.base
 
+
 abstract class BaseObserver<Any> {
    open fun onSuccess(value: Any) {
       //implemented in child

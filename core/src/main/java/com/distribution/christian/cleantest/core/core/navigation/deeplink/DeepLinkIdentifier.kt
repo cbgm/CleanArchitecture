@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.core.core.navigation.deeplink
 
+
 enum class DeepLinkIdentifier {
    EVENTS {
       override fun mapAction(action: String): DeepLinkIdentifier {

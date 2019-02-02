@@ -4,6 +4,7 @@ import com.distribution.christian.cleantest.core.data.model.SearchDto
 import com.distribution.christian.cleantest.core.data.model.UserDto
 import com.distribution.christian.cleantest.profile.domain.model.ProfileOverview
 
+
 class ProfileOverviewDtoMapper {
 
    companion object {

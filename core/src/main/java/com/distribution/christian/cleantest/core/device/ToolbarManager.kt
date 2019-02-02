@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.core.device
 
+
 class ToolbarManager (
         private var builder: FragmentToolbar
 ) {

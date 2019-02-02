@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.core.core.di
 
+
 enum class DiScope(val identifier: String) {
    EVENT_OVERVIEW("event_overview"),
    EVENT_DETAIL("event_detail"),

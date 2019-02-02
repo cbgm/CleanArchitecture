@@ -8,7 +8,7 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
 
-class MessagingService() : FirebaseMessagingService(), KoinComponent {
+class MessagingService : FirebaseMessagingService(), KoinComponent {
 
    private val showNotificationUseCase: ShowNotificationUseCase by inject()
 

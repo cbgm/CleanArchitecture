@@ -10,6 +10,7 @@ import org.koin.android.scope.ext.android.bindScope
 import org.koin.android.scope.ext.android.getOrCreateScope
 import org.koin.core.scope.Scope
 
+
 private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
    val fragmentTransaction = beginTransaction()
    fragmentTransaction.func()

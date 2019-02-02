@@ -11,6 +11,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.navigateToE
 import com.distribution.christian.cleantest.login.R
 import com.distribution.christian.cleantest.login.core.ui.AuthBaseFragment
 
+
 class LoginFragment : AuthBaseFragment() {
 
    companion object {

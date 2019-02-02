@@ -12,6 +12,7 @@ import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordina
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
+
 class SplashActivity : AppCompatActivity() {
 
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()

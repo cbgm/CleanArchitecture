@@ -6,6 +6,7 @@ import com.distribution.christian.cleantest.core.domain.model.Result
 
 import javax.inject.Inject
 
+
 class EventFromLocal @Inject constructor() {
 
    private val eventDao = DaoFactory.getDaoFactory(

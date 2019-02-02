@@ -7,6 +7,7 @@ import com.distribution.christian.cleantest.login.R
 import com.distribution.christian.cleantest.login.core.navigation.AuthFlowCoordinatorImpl
 import org.koin.android.ext.android.inject
 
+
 class AuthActivity: BaseActivity(R.layout.activity_auth) {
 
    override val coordinator: AuthFlowCoordinatorImpl by inject()

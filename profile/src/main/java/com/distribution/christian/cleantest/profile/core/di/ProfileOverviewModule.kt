@@ -9,6 +9,7 @@ import com.distribution.christian.cleantest.profile.domain.usecase.UpdateProfile
 import com.distribution.christian.cleantest.profile.presentation.overview.OverviewPresenter
 import org.koin.dsl.module.module
 
+
 val profileOverviewModule = module {
    scope(DiScope.PROFILE_OVERVIEW.identifier) { OverviewPresenter(get(), get()) }
    single { UpdateProfileOfAuthenticatedUser(get()) }

@@ -6,6 +6,7 @@ import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import java.io.IOException
 
+
 class OfflineResponseCacheInterceptor : Interceptor, KoinComponent {
    private val netManager: NetManager by inject()
 

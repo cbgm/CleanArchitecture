@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.R
 
 
-
 class ToolbarLoader(
       private val activity: AppCompatActivity?,
       @StringRes

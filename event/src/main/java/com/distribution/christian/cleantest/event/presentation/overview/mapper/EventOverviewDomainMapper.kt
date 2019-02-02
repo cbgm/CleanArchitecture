@@ -5,6 +5,7 @@ import com.distribution.christian.cleantest.event.domain.model.EventOverview
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 
+
 class EventOverviewDomainMapper {
 
     companion object {

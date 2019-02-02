@@ -23,7 +23,11 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    companion object {
 
       const val TAG = "Detail"
-      fun newInstance(paramId: String? = null, transitionInformation: TransitionInformation? = null, event: EventEntity? = null) =
+      fun newInstance(
+            paramId: String? = null,
+            transitionInformation: TransitionInformation? = null,
+            event: EventEntity? = null
+      ) =
             DetailFragment().apply {
                arguments = Bundle().apply {
                   putString("User", paramId)
@@ -58,7 +62,8 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
       detailPresenter.setVIew(this)
       eventId = arguments?.getString("User") ?: ""
       transitionName = arguments?.getString("TransitionName", "")!!
-      event = arguments?.getSerializable("Event")?.let { it as EventEntity }
+      event = arguments?.getSerializable("Event")
+            ?.let { it as EventEntity }
    }
 
    override fun onResume() {
@@ -83,7 +88,6 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
 
    override fun showEvent(eventEntity: EventEntity) {
       event = eventEntity
-      //startPostponedEnterTransition()
       event?.let {
          locationText.text = it.location
          timeText.text = it.time

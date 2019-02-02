@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.core.data.mapper
 import com.distribution.christian.cleantest.core.data.model.UserDto
 import com.distribution.christian.cleantest.core.domain.model.User
 
+
 class UserDtoMapper {
 
    companion object {

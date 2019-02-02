@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.event.core.mock
 import com.distribution.christian.cleantest.event.data.model.EventDto
 import kotlin.random.Random
 
+
 class EventGenerator {
 
    companion object {

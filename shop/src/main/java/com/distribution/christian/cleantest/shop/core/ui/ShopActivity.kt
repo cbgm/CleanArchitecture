@@ -12,6 +12,7 @@ import org.koin.standalone.StandAloneContext.loadKoinModules
 private val loadFeature by lazy { loadKoinModules(shopCoreModule) }
 private fun injectFeature() = loadFeature
 
+
 class ShopActivity : BaseSplitActivity() {
 
    override val coordinator: ShopFlowCoordinatorImpl by inject()

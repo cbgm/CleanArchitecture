@@ -7,6 +7,7 @@ import com.google.firebase.messaging.RemoteMessage
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
+
 class ShowNotificationUseCase : CompletableUseCase<RemoteMessage>(), KoinComponent {
 
    private val notificationFactory: NotificationFactory by inject()

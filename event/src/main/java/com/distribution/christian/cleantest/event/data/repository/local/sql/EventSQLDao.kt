@@ -8,6 +8,7 @@ import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
 import com.distribution.christian.cleantest.core.domain.model.Result
 
+
 class EventSQLDao : EventDao {
 
 
@@ -32,7 +33,6 @@ class EventSQLDao : EventDao {
             )
       )
    }
-
 
    override fun saveEvents(data: EventOverview): Result<Nothing> {
       return Result.Complete()

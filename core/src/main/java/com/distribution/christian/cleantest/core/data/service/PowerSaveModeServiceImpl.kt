@@ -7,6 +7,7 @@ import android.os.PowerManager
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.service.PowerSaveModeService
 
+
 class PowerSaveModeServiceImpl(
       private val context: Context,
       private val sharedPreferences: SharedPreferences

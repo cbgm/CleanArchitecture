@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 
+
 abstract class ProfileBaseFragment : BaseFragment<ProfileActivity>() {
 
    override fun onCreateView(

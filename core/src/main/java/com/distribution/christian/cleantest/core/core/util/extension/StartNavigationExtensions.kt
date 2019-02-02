@@ -5,11 +5,10 @@ import com.distribution.christian.cleantest.core.BuildConfig.ACTION_CART
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
-import android.support.v4.app.ActivityCompat
-import android.R.attr.transitionName
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 
@@ -36,14 +35,11 @@ fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View) {
          view, // Starting view
          "test"    // The String
    )
-   //start the intent
-   this.startActivity( intentToStart, options.toBundle())
-   //oldActivity.finish()
-   //startAction(intentToStart, this, oldActivity)
+   startAction(intentToStart, this, oldActivity, options.toBundle())
 }
 
-private fun startAction(intentToStart: Intent, context: Context, oldActivity: FragmentActivity? = null) {
+private fun startAction(intentToStart: Intent, context: Context, oldActivity: FragmentActivity? = null, bundle: Bundle? = null) {
    intentToStart.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-   context.startActivity(intentToStart)
+   context.startActivity(intentToStart, bundle)
    oldActivity?.finish()
 }

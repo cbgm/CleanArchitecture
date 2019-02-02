@@ -1,8 +1,8 @@
 package com.distribution.christian.cleantest.profile.presentation.overview.mapper
 
-
 import com.distribution.christian.cleantest.profile.domain.model.ProfileOverview
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
+
 
 class ProfileOverviewDomainMapper {
 

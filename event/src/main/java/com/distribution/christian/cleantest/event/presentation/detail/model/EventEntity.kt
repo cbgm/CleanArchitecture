@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.event.presentation.detail.model
 
 import java.io.Serializable
 
+
 data class EventEntity(
       val id: Int,
       val name: String,

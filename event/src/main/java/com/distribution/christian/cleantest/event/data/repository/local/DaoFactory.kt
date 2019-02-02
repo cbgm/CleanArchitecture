@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.event.data.repository.local
 
 import com.distribution.christian.cleantest.event.data.repository.local.sql.SQLFactory
 
+
 abstract class DaoFactory {
 
    abstract fun getEventDao(): EventDao
@@ -15,7 +16,6 @@ abstract class DaoFactory {
          return when (type) {
             SQL -> SQLFactory()
             else -> SQLFactory()
-
          }
       }
    }

@@ -11,6 +11,7 @@ import com.distribution.christian.cleantest.core.core.ui.recycler.InfiniteAdapte
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import java.util.ArrayList
 
+
 class OverviewAdapter(
       override var data: ArrayList<EventEntity>,
       private var listener: OnItemClickListener
@@ -64,7 +65,9 @@ class OverviewAdapter(
    }
 
    interface OnItemClickListener {
+
       fun onItemClick(event: EventEntity, position: Int, sharedView: View)
+
       fun onBookmarkClick(event: EventEntity)
    }
 

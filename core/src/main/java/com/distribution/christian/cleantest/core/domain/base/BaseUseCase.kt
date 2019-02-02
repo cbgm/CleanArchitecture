@@ -10,6 +10,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 @Suppress("UNCHECKED_CAST")
 abstract class BaseUseCase<T, in Params> {
 

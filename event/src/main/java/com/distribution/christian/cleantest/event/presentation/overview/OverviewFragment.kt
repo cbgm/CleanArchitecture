@@ -18,6 +18,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
 
+@Suppress("UNCHECKED_CAST")
 class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
 
    companion object {

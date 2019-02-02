@@ -6,6 +6,7 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 
+
 @Suppress("UNUSED_EXPRESSION", "UNUSED_ANONYMOUS_PARAMETER", "UNUSED_VARIABLE")
 class SplitInstallRequester(context: Context) {
 

@@ -9,6 +9,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.backStack
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
+
 abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
 
    protected val deepLinkHandler: DeepLinkHandler by inject()

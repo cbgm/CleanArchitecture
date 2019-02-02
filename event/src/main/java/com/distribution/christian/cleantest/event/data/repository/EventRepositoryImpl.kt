@@ -8,6 +8,7 @@ import com.distribution.christian.cleantest.event.data.repository.local.EventFro
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.event.domain.model.Event
 
+
 class EventRepositoryImpl constructor(
       private val netManager: NetManager,
       private val eventFromNetwork: EventFromNetwork,

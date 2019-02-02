@@ -10,6 +10,7 @@ import com.distribution.christian.cleantest.core.BuildConfig
 import com.distribution.christian.cleantest.core.R
 import com.google.firebase.messaging.RemoteMessage
 
+
 class HintNotification(
       private val notificationManager: NotificationManager,
       channelId: String,

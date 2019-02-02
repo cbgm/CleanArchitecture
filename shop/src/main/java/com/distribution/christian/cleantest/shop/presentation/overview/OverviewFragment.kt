@@ -1,17 +1,14 @@
 package com.distribution.christian.cleantest.shop.presentation.overview
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
-import com.distribution.christian.cleantest.core.device.ToolbarLoader
-import com.distribution.christian.cleantest.shop.core.ui.ShopBaseFragment
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import com.distribution.christian.cleantest.core.device.ToolbarLoader
+import com.distribution.christian.cleantest.shop.core.ui.ShopBaseFragment
 import com.example.christian.cleantest.shop.R
 
 

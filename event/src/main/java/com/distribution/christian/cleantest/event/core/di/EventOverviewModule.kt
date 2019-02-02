@@ -5,6 +5,7 @@ import com.distribution.christian.cleantest.event.domain.usecase.GetEventsInPool
 import com.distribution.christian.cleantest.event.presentation.overview.OverviewPresenter
 import org.koin.dsl.module.module
 
+
 val eventOverviewModule = module {
    scope(DiScope.EVENT_OVERVIEW.identifier) { OverviewPresenter(get(), get()) }
    single { GetEventsInPool(get()) }

@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.core.domain.completable
 
 import com.distribution.christian.cleantest.core.core.ui.BaseView
 
+
 abstract class CompletableLCEObserver(private val view: BaseView) : DefaultCompletableObserver() {
    override fun onComplete() {
       super.onComplete()

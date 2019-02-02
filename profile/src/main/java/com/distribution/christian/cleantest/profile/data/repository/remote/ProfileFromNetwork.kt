@@ -1,10 +1,12 @@
-package com.distribution.christian.cleantest.core.data.repository.remote
+package com.distribution.christian.cleantest.profile.data.repository.remote
 
 import com.distribution.christian.cleantest.core.core.util.extension.mapToResult
+import com.distribution.christian.cleantest.core.data.repository.remote.SearchApi
+import com.distribution.christian.cleantest.core.data.repository.remote.UserApi
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.profile.data.mapper.ProfileOverviewDtoMapper
 import com.distribution.christian.cleantest.profile.domain.model.ProfileOverview
-import java.lang.Exception
+
 
 class ProfileFromNetwork constructor(
       private val userApi: UserApi,

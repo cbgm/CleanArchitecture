@@ -1,8 +1,11 @@
 package com.distribution.christian.cleantest.core.core.ui
 
 interface BaseView {
+
     fun showError(isVisible: Boolean)
+
     fun showLoading(isVisible: Boolean)
+
     fun showContent(isVisible: Boolean)
 
     fun showLoading() {

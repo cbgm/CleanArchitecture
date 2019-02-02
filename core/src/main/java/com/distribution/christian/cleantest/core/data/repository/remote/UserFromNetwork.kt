@@ -5,6 +5,7 @@ import com.distribution.christian.cleantest.core.data.mapper.UserDtoMapper
 import com.distribution.christian.cleantest.core.domain.model.User
 import com.distribution.christian.cleantest.core.domain.model.Result
 
+
 class UserFromNetwork constructor(private val userApi: UserApi) {
 
    suspend fun getUser(): Result<User> {

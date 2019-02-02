@@ -10,6 +10,7 @@ import com.distribution.christian.cleantest.event.domain.repository.EventReposit
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import org.koin.dsl.module.module
 
+
 val eventCoreModule = module {
    single { EventFlowCoordinatorImpl() }
    single { createWebService<EventApi>(get("retrofit1")) }

@@ -4,6 +4,7 @@ import com.distribution.christian.cleantest.core.data.service.PowerSaveModeServi
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.single.SingleUseCase
 
+
 class SwitchPowerSaveModeUseCase(
       private val powerSaveModeServiceImpl: PowerSaveModeServiceImpl
 ) : SingleUseCase<Boolean, Unit>() {

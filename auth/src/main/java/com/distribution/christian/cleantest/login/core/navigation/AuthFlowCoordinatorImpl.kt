@@ -7,6 +7,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.navigateToS
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.login.presentation.login.LoginFragment
 
+
 class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
 
    override fun navigateDeepLink() {

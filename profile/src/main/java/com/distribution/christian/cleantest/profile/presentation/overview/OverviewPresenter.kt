@@ -7,6 +7,7 @@ import com.distribution.christian.cleantest.profile.domain.usecase.UpdateProfile
 import com.distribution.christian.cleantest.profile.presentation.overview.mapper.ProfileOverviewDomainMapper
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
 
+
 class OverviewPresenter(
       private val getProfileOfAuthenticatedUser: GetProfileOfAuthenticatedUser,
       private val updateProfileOfAuthenticatedUser: UpdateProfileOfAuthenticatedUser

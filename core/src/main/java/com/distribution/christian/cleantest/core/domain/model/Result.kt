@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.core.domain.model
 
+
 sealed class Result<out T : Any> {
    data class Success<out T : Any>(val data: T) : Result<T>()
    data class Complete(val none: Unit? = null) : Result<Nothing>()

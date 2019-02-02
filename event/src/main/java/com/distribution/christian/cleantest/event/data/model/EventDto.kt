@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.event.data.model
 
+
 data class EventDto(
       val id: Int,
       val name: String,

@@ -8,6 +8,7 @@ import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
+
 class DetailPresenter constructor(
       private val getEventById: GetEventById,
       private val updateEvent: UpdateEvent

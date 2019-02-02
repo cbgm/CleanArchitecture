@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.R
 import com.facebook.shimmer.ShimmerFrameLayout
 
+
 abstract class InfiniteAdapter<I>(
       open var data: ArrayList<I>,
       val  shimmerPlaceholderId: Int

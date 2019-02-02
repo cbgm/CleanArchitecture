@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.event.data.mapper
 import com.distribution.christian.cleantest.event.data.model.EventDto
 import com.distribution.christian.cleantest.event.domain.model.Event
 
+
 abstract class EventDtoMapper {
 
    companion object {

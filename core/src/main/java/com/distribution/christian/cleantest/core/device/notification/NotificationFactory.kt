@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Build
 import com.google.firebase.messaging.RemoteMessage
 
+
 class NotificationFactory(val application: Application) {
 
    private val notificationManager: NotificationManager = application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
