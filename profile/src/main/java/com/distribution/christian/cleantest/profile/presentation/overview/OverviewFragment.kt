@@ -22,6 +22,7 @@ import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.profile.R
 import com.distribution.christian.cleantest.profile.core.ui.ProfileBaseFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
 
@@ -35,7 +36,7 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
 
    private val presenter: OverviewPresenter by inject()
    private lateinit var content: View
-   private lateinit var loading: View
+   private lateinit var loading: ShimmerFrameLayout
    private lateinit var error: View
    private lateinit var nameText: TextView
    private lateinit var priceText: EditText

@@ -355,6 +355,13 @@
       </android.support.v4.widget.NestedScrollView>
    </LinearLayout>
 
-   <include layout="@layout/loading" android:visibility="gone"/>
+   <com.facebook.shimmer.ShimmerFrameLayout
+      android:id="@+id/loading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <include layout="@layout/shimmer_profile_item"/>
+   </com.facebook.shimmer.ShimmerFrameLayout>
+
    <include layout="@layout/error" android:visibility="gone"/>
 </LinearLayout>
