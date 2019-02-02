@@ -45,13 +45,12 @@ class EventSQLDao : EventDao {
    }
 
    override fun updateEvent(event: Event): Result<Event> {
-      var updatedEvent: EventDto? = null
       events.forEach {
          if (it.id == event.id) {
-            it.isStarred = !event.isStarred
-            updatedEvent = it
+            it.isStarred = !it.isStarred
+            return Result.Success(EventDtoMapper.transform(it))
          }
       }
-      return Result.Success(EventDtoMapper.transform(updatedEvent!!))
+      return Result.Error(Exception())
    }
 }
