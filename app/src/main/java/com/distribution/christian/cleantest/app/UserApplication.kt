@@ -18,7 +18,7 @@ import android.os.PowerManager
 import android.support.v7.app.AppCompatDelegate
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import com.distribution.christian.cleantest.event.core.di.eventCoreModule
-import com.distribution.christian.cleantest.login.core.di.authCoreModule
+import com.distribution.christian.cleantest.auth.core.di.authCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
 import com.google.android.play.core.splitcompat.SplitCompatApplication

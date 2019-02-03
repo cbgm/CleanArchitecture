@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.login;
+package com.distribution.christian.cleantest.auth;
 
 import org.junit.Test;
 

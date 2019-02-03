@@ -1,10 +1,10 @@
-package com.distribution.christian.cleantest.login.core.ui
+package com.distribution.christian.cleantest.auth.core.ui
 
 import android.os.Bundle
 import android.view.MenuItem
 import com.distribution.christian.cleantest.core.core.ui.BaseActivity
-import com.distribution.christian.cleantest.login.R
-import com.distribution.christian.cleantest.login.core.navigation.AuthFlowCoordinatorImpl
+import com.distribution.christian.cleantest.auth.R
+import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
 import org.koin.android.ext.android.inject
 
 
@@ -14,8 +14,8 @@ class AuthActivity: BaseActivity(R.layout.activity_auth) {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      coordinator.start(this )
-      //coordinator.showLogin()
+      coordinator.start(this, false)
+      coordinator.showLogin()
    }
 
    override fun onOptionsItemSelected(item: MenuItem?): Boolean {

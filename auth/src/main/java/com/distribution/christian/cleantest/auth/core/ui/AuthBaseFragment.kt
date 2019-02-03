@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.login.core.ui
+package com.distribution.christian.cleantest.auth.core.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

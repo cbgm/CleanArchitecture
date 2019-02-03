@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.login.presentation.login
+package com.distribution.christian.cleantest.auth.presentation.login
 
 import com.distribution.christian.cleantest.core.core.ui.BasePresenter
 import com.distribution.christian.cleantest.core.core.ui.BaseView

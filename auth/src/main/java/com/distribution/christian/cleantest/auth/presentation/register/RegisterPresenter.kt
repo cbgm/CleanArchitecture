@@ -1,8 +1,8 @@
-package com.distribution.christian.cleantest.login.presentation.login
+package com.distribution.christian.cleantest.auth.presentation.register
 
 
-class LoginPresenter: LoginContract.Presenter {
-   override fun setVIew(view: LoginContract.View) {
+class RegisterPresenter: RegisterContract.Presenter {
+   override fun setVIew(view: RegisterContract.View) {
       TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
    }
 

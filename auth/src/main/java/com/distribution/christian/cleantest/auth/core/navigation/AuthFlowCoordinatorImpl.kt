@@ -1,11 +1,13 @@
-package com.distribution.christian.cleantest.login.core.navigation
+package com.distribution.christian.cleantest.auth.core.navigation
 
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToShop
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
-import com.distribution.christian.cleantest.login.presentation.login.LoginFragment
+import com.distribution.christian.cleantest.auth.presentation.login.LoginFragment
+import com.distribution.christian.cleantest.auth.presentation.register.RegisterFragment
+import com.distribution.christian.cleantest.auth.presentation.reset.ResetFragment
 
 
 class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
@@ -27,6 +29,24 @@ class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
             currentFragment,
             replaceableFragmentId,
             LoginFragment.TAG
+      )
+   }
+
+   override fun showRegister() {
+      currentFragment = RegisterFragment.newInstance()
+      activity.replaceFragment(
+            currentFragment,
+            replaceableFragmentId,
+            RegisterFragment.TAG
+      )
+   }
+
+   override fun showReset() {
+      currentFragment = ResetFragment.newInstance()
+      activity.replaceFragment(
+            currentFragment,
+            replaceableFragmentId,
+            ResetFragment.TAG
       )
    }
 

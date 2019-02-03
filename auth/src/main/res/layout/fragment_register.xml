@@ -56,27 +56,30 @@
             android:textSize="12sp"
             tools:text="Password" />
 
-         <TextView
-            android:id="@+id/login_btn"
-            style="@style/AppTheme.ButtonNormal"
-            android:layout_marginTop="10dp"
-            android:text="SIGN IN" />
+         <EditText
+            android:id="@+id/password_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="Retype Password"
+            android:inputType="textPersonName"
+            android:textCursorDrawable="@android:color/holo_green_light"
+            android:textSize="12sp"
+            tools:text="Retype Password" />
 
          <TextView
             android:id="@+id/register_btn"
+            style="@style/AppTheme.ButtonNormal"
+            android:layout_marginTop="10dp"
+            android:text="REGISTER" />
+
+         <TextView
+            android:id="@+id/back_btn"
             style="@style/AppTheme.ButtonAlternate"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="SIGN UP" />
-
-         <TextView
-            android:id="@+id/reset_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Forgot Password?"
-            android:textAlignment="textEnd"
-            android:textSize="12sp" />
+            android:text="BACK" />
 
       </LinearLayout>
 
@@ -89,6 +92,6 @@
       android:layout_centerHorizontal="true"
       android:layout_centerInParent="false"
       android:elevation="2dp"
-      android:src="@drawable/shape_login" />
+      android:src="@drawable/shape_register" />
 
 </RelativeLayout>
