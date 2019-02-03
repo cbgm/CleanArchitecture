@@ -6,6 +6,8 @@ enum class DiScope(val identifier: String) {
    EVENT_DETAIL("event_detail"),
    SHOP_OVERVIEW("shop_overview"),
    AUTH_LOGIN("auth_login"),
+   AUTH_REGISTER("auth_register"),
+   AUTH_RESET("auth_reset"),
    PROFILE_OVERVIEW("profile_overview")
 
 }

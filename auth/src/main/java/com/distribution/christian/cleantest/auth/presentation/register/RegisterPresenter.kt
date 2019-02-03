@@ -1,16 +1,45 @@
 package com.distribution.christian.cleantest.auth.presentation.register
 
+import com.distribution.christian.cleantest.auth.domain.usecase.RegisterNewUser
+import com.distribution.christian.cleantest.core.domain.completable.CompletableLCEObserver
 
-class RegisterPresenter: RegisterContract.Presenter {
+
+class RegisterPresenter(
+      private val registerNewUSer: RegisterNewUser
+) : RegisterContract.Presenter {
+
+   private lateinit var registerView: RegisterContract.View
+
+   private inner class PostNewUserObserver : CompletableLCEObserver(registerView) {
+      override fun onComplete() {
+         super.onComplete()
+         registerView.showAddedUserSuccess()
+      }
+   }
+
+   override fun addUser(email: String, password: String) {
+      registerView.showLoading()
+      registerNewUSer.execute(PostNewUserObserver(), Pair(email, password))
+   }
+
+   override fun validateRegistrationData(email: String, password: String, retypedPassword: String) {
+
+      if (email.isNotEmpty() && password.isNotEmpty() && retypedPassword.isNotEmpty() && (password == retypedPassword)) {
+         registerView.showRegisterButtonEnabled(true)
+      } else {
+         registerView.showRegisterButtonEnabled(false)
+      }
+   }
+
    override fun setVIew(view: RegisterContract.View) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      this.registerView = view
    }
 
    override fun onBind() {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      //not used
    }
 
    override fun onUnbind() {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      registerNewUSer.dispose()
    }
 }

@@ -8,9 +8,17 @@ interface RegisterContract {
 
    interface View: BaseView {
 
+      fun showAddedUserSuccess()
+
+      fun showRegisterButtonEnabled(isEnabled: Boolean)
+
+      fun showAddedUserFailure()
    }
 
    interface Presenter: BasePresenter<View> {
 
+      fun addUser(email: String, password: String)
+
+      fun validateRegistrationData(email: String, password: String, retypedPassword: String)
    }
 }

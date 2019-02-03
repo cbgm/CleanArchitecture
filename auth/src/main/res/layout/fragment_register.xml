@@ -32,7 +32,7 @@
             android:textSize="18sp" />
 
          <EditText
-            android:id="@+id/user_text"
+            android:id="@+id/email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -57,7 +57,7 @@
             tools:text="Password" />
 
          <EditText
-            android:id="@+id/password_text2"
+            android:id="@+id/retype_password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="5dp"
@@ -72,6 +72,7 @@
             android:id="@+id/register_btn"
             style="@style/AppTheme.ButtonNormal"
             android:layout_marginTop="10dp"
+            android:enabled="false"
             android:text="REGISTER" />
 
          <TextView
