@@ -35,13 +35,11 @@ class AuthenticationFromNetwork(
    suspend fun registerNewUser(email: String, password: String): Result<Nothing> {
       return auth.createUserWithEmailAndPassword(email, password)
             .awaitComplete()
-
    }
 
    suspend fun loginUser(email: String, password: String): Result<User> {
       return auth.signInWithEmailAndPassword(email, password)
             .awaitSuccess()
-
    }
 
    suspend fun resetUser(email: String): Result<Nothing> {

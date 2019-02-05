@@ -10,7 +10,7 @@ interface RegisterContract {
 
       fun showAddedUserSuccess()
 
-      fun showRegisterButtonEnabled(isEnabled: Boolean)
+      fun showEnabledRegisterButton(isEnabled: Boolean)
 
       fun showAddedUserFailure()
 

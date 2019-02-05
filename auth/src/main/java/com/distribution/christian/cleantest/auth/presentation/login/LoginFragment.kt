@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.auth.presentation.login
 
 import android.animation.Animator
 import android.os.Bundle
+import android.text.Editable
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.core.ui.AuthBaseFragment
 import android.text.method.PasswordTransformationMethod
 import android.text.method.HideReturnsTransformationMethod
-import android.widget.CompoundButton
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -20,6 +20,7 @@ import android.widget.ProgressBar
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
+import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
 import org.koin.android.ext.android.inject
 
 
@@ -121,6 +122,8 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
       loginBtnText = view.findViewById(R.id.login_text)
       validImage = view.findViewById(R.id.valid_img)
 
+      loginBtn.isEnabled = false
+
       showPasswordCheck.setOnCheckedChangeListener { _, isChecked ->
          if (isChecked) {
             passwordText.transformationMethod = HideReturnsTransformationMethod.getInstance()
@@ -140,6 +143,21 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
       loginBtn.setOnClickListener {
          presenter.login(emailText.text.toString(), passwordText.text.toString())
       }
+
+      passwordText.addTextChangedListener(object : OnTextChangedListener() {
+         override fun afterTextChanged(p0: Editable?) {
+            super.afterTextChanged(p0)
+            validateCredentials()
+         }
+      })
+
+
+      emailText.addTextChangedListener(object : OnTextChangedListener() {
+         override fun afterTextChanged(p0: Editable?) {
+            super.afterTextChanged(p0)
+            validateCredentials()
+         }
+      })
    }
 
    override fun showLoginSuccess() {
@@ -159,6 +177,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
 
    }
 
+   override fun showEnabledLoginButton(isEnabled: Boolean) {
+      loginBtn.isEnabled = isEnabled
+   }
+
    override fun getLayoutResId(): Int {
       return R.layout.fragment_login
    }
@@ -175,5 +197,13 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
             .inflateTransition(R.transition.default_transition)
       enterTransition = TransitionInflater.from(context)
             .inflateTransition(android.R.transition.no_transition)
+   }
+
+   private fun validateCredentials() {
+      showError(false)
+      presenter.validateLoginData(
+            emailText.text.toString(),
+            passwordText.text.toString()
+      )
    }
 }

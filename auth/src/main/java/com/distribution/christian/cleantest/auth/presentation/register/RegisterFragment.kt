@@ -101,7 +101,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
       //not used
    }
 
-   override fun showRegisterButtonEnabled(isEnabled: Boolean) {
+   override fun showEnabledRegisterButton(isEnabled: Boolean) {
       registerBtn.isEnabled = isEnabled
    }
 

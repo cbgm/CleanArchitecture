@@ -30,9 +30,9 @@ class RegisterPresenter(
    override fun validateRegistrationData(email: String, password: String, retypedPassword: String) {
 
       if (email.isNotEmpty() && password.isNotEmpty() && retypedPassword.isNotEmpty() && (password == retypedPassword)) {
-         registerView.showRegisterButtonEnabled(true)
+         registerView.showEnabledRegisterButton(true)
       } else {
-         registerView.showRegisterButtonEnabled(false)
+         registerView.showEnabledRegisterButton(false)
       }
    }
 

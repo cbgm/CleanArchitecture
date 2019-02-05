@@ -10,10 +10,12 @@ interface LoginContract {
       fun showLoginSuccess()
       fun showAlreadyAuthenticated()
       fun showLoginLoading(isVisible: Boolean)
+      fun showEnabledLoginButton(isEnabled: Boolean)
    }
 
    interface Presenter: BasePresenter<View> {
       fun login(email: String, password: String)
       fun checkLogin()
+      fun validateLoginData(email: String, password: String)
    }
 }

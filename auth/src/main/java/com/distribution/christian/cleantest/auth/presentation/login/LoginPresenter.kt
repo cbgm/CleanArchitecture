@@ -47,6 +47,14 @@ class LoginPresenter(
       getAuthenticatedUser.execute(GetAuthenticatedUserObserver(), Unit)
    }
 
+   override fun validateLoginData(email: String, password: String) {
+      if (email.isNotEmpty() && password.isNotEmpty()) {
+         loginView.showEnabledLoginButton(true)
+      } else {
+         loginView.showEnabledLoginButton(false)
+      }
+   }
+
    override fun onUnbind() {
       loginUser.dispose()
    }

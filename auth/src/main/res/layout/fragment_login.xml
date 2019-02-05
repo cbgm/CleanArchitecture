@@ -73,7 +73,6 @@
             <LinearLayout
                android:id="@+id/login_btn"
                style="@style/AppTheme.ButtonNormalLoading"
-               android:layout_width="match_parent"
                android:orientation="horizontal">
 
                <TextView
