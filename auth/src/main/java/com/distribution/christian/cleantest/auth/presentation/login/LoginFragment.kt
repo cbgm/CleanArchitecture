@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.auth.presentation.login
 
+import android.animation.Animator
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -13,21 +14,39 @@ import android.text.method.PasswordTransformationMethod
 import android.text.method.HideReturnsTransformationMethod
 import android.widget.CompoundButton
 import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import com.distribution.christian.cleantest.core.core.di.DiScope
+import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
+import org.koin.android.ext.android.inject
 
 
-class LoginFragment : AuthBaseFragment() {
+class LoginFragment : AuthBaseFragment(), LoginContract.View {
 
    companion object {
       const val TAG = "Login"
       fun newInstance() = LoginFragment()
    }
 
-   private lateinit var loginBtn: TextView
+   private val presenter: LoginPresenter by inject()
+
+   private lateinit var loginBtn: LinearLayout
    private lateinit var registerBtn: TextView
    private lateinit var resetBtn: TextView
    private lateinit var emailText: TextView
    private lateinit var passwordText: TextView
    private lateinit var showPasswordCheck: CheckBox
+   private lateinit var loginBtnProgress: ProgressBar
+   private lateinit var loginBtnText: TextView
+   private lateinit var validImage: ImageView
+
+   override fun onCreate(savedInstanceState: Bundle?) {
+      super.onCreate(savedInstanceState)
+      activity.updateScope(DiScope.AUTH_LOGIN)
+      presenter.setVIew(this)
+   }
 
    override fun onCreateView(
          inflater: LayoutInflater,
@@ -40,6 +59,34 @@ class LoginFragment : AuthBaseFragment() {
       return view
    }
 
+   override fun onResume() {
+      super.onResume()
+      presenter.onBind()
+   }
+
+   override fun onPause() {
+      super.onPause()
+      presenter.onUnbind()
+   }
+
+   override fun showError(isVisible: Boolean) {
+      //not used
+   }
+
+   override fun showLoading(isVisible: Boolean) {
+      if (isVisible) {
+         loginBtnText.visibility = View.GONE
+         loginBtnProgress.visibility = View.VISIBLE
+      } else {
+         loginBtnText.visibility = View.VISIBLE
+         loginBtnProgress.visibility = View.GONE
+      }
+   }
+
+   override fun showContent(isVisible: Boolean) {
+      //not used
+   }
+
    override fun initViews(view: View) {
       loginBtn = view.findViewById(R.id.login_btn)
       registerBtn = view.findViewById(R.id.register_btn)
@@ -47,6 +94,9 @@ class LoginFragment : AuthBaseFragment() {
       emailText = view.findViewById(R.id.email_text)
       passwordText = view.findViewById(R.id.password_text)
       showPasswordCheck = view.findViewById(R.id.show_password_check)
+      loginBtnProgress = view.findViewById(R.id.login_loading)
+      loginBtnText = view.findViewById(R.id.login_text)
+      validImage = view.findViewById(R.id.valid_img)
 
       showPasswordCheck.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
          if (isChecked) {
@@ -65,8 +115,25 @@ class LoginFragment : AuthBaseFragment() {
       }
 
       loginBtn.setOnClickListener {
-         activity.navigateToEvents(activity)
+         presenter.login(emailText.text.toString(), passwordText.text.toString())
       }
+   }
+
+   override fun showLoginSuccess() {
+      loginBtnText.visibility = View.GONE
+      validImage.apply {
+         alpha = 0f
+         visibility = View.VISIBLE
+         animate()
+               .alpha(1f)
+               .setDuration(500)
+               .setListener(object : AnimationEndListener() {
+                  override fun onAnimationEnd(p0: Animator?) {
+                     activity.navigateToEvents(activity)
+                  }
+               })
+      }
+
    }
 
    override fun getLayoutResId(): Int {
@@ -74,7 +141,8 @@ class LoginFragment : AuthBaseFragment() {
    }
 
    private fun configureTransition(view: View?) {
-      view!!.findViewById<TextView>(R.id.header_text).transitionName = "test"
+      view!!.findViewById<TextView>(R.id.header_text)
+            .transitionName = "test"
       sharedElementEnterTransition = TransitionInflater.from(context)
             .inflateTransition(R.transition.default_transition)
       enterTransition = TransitionInflater.from(context)

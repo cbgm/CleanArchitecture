@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.auth.data.repository.remote.auth
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.model.User
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -33,13 +34,15 @@ class AuthenticationFromNetwork(
    }
 
    suspend fun loginUser(email: String, password: String): Result<User> {
-      return auth.signInWithEmailAndPassword(email, password).awaitSuccess()
+      return auth.signInWithEmailAndPassword(email, password)
+            .awaitSuccess()
 
    }
 
    suspend fun resetUser(email: String): Result<Nothing> {
 
-      val result: Result<Nothing> = auth.sendPasswordResetEmail(email).awaitComplete()
+      val result: Result<Nothing> = auth.sendPasswordResetEmail(email)
+            .awaitComplete()
 
       return if (result is Result.Success) {
          Result.Complete()
@@ -51,8 +54,10 @@ class AuthenticationFromNetwork(
    private suspend fun <T : Any, R : Any> Task<T>.awaitSuccess(): Result<R> = suspendCoroutine { continuation ->
       addOnCompleteListener { task ->
          when {
-            task.isSuccessful -> continuation.resume(Result.Success(task.result as R))
-            else -> continuation.resume(Result.Error(task.exception))
+            task.isSuccessful -> continuation.resume(
+                  Result.Success(User("", "", "", (task.result as AuthResult).user.email!!, "", "") as R))
+                  else
+            -> continuation.resume(Result.Error(task.exception))
          }
       }
    }

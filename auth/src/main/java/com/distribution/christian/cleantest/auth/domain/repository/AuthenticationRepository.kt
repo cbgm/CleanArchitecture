@@ -10,4 +10,6 @@ interface AuthenticationRepository {
    suspend fun registerUser(email: String, password: String): Result<Nothing>
 
    suspend fun resetUserByMail(email: String): Result<Nothing>
+
+   suspend fun loginUser(email: String, password: String): Result<User>
 }

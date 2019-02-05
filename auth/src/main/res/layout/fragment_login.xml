@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
    xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             android:drawablePadding="5dp"
             android:ems="10"
             android:hint="User"
+            android:text="christian.bergmann@huk-coburg.de"
             android:inputType="textEmailAddress"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
@@ -62,11 +64,37 @@
             android:layout_gravity="left"
             android:text="Show Password" />
 
-         <TextView
+         <LinearLayout
             android:id="@+id/login_btn"
-            style="@style/AppTheme.ButtonNormal"
-            android:layout_marginTop="10dp"
-            android:text="SIGN IN" />
+            style="@style/AppTheme.ButtonNormalLoading"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+               android:id="@+id/login_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:clickable="false"
+               android:text="SIGN IN"
+               android:textColor="@android:color/black"
+               android:visibility="visible" />
+
+            <ImageView
+               android:id="@+id/valid_img"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:visibility="gone"
+               app:srcCompat="@drawable/ic_valid" />
+
+            <ProgressBar
+               android:id="@+id/login_loading"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:clickable="false"
+               android:indeterminateTint="@android:color/black"
+               android:visibility="gone" />
+         </LinearLayout>
 
          <TextView
             android:id="@+id/register_btn"

@@ -1,16 +1,37 @@
 package com.distribution.christian.cleantest.auth.presentation.login
 
+import com.distribution.christian.cleantest.auth.domain.usecase.LoginUser
+import com.distribution.christian.cleantest.core.domain.model.User
+import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 
-class LoginPresenter: LoginContract.Presenter {
+
+class LoginPresenter(
+      private val loginUser: LoginUser
+): LoginContract.Presenter {
+
+   private lateinit var loginView: LoginContract.View
+
+   inner class LoginUserObserver: SingleLCEObserver<User>(loginView) {
+      override fun onSuccess(value: User) {
+         super.onSuccess(value)
+         loginView.showLoginSuccess()
+      }
+   }
+
    override fun setVIew(view: LoginContract.View) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      loginView = view
    }
 
    override fun onBind() {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      //not used
    }
 
    override fun onUnbind() {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      loginUser.dispose()
+   }
+
+   override fun login(email: String, password: String) {
+      loginView.showLoading()
+      loginUser.execute(LoginUserObserver(), Pair(email, password))
    }
 }

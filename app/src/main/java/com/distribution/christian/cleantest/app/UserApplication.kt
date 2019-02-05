@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatDelegate
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule
+import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
@@ -63,7 +64,8 @@ class UserApplication : SplitCompatApplication() {
             this, listOf(
             appModule, networkModule, appCoreModule,
             eventCoreModule, eventOverviewModule, eventDetailModule,
-            profileCoreModule, profileOverviewModule, authCoreModule, authRegisterModule
+            profileCoreModule, profileOverviewModule, authCoreModule, authRegisterModule,
+            authLoginModule
       )
       )
    }

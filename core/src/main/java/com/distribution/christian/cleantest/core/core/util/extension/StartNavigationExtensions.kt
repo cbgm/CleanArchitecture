@@ -28,17 +28,28 @@ fun Context.navigateToEvents(oldActivity: FragmentActivity) {
    startAction(intentToStart, this, oldActivity)
 }
 
-fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View) {
+fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View? = null) {
    val intentToStart = Intent(ACTION_AUTH)
-   val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-         oldActivity,
-         view, // Starting view
-         "test"    // The String
-   )
-   startAction(intentToStart, this, oldActivity, options.toBundle())
+
+   if (view != null) {
+      val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            oldActivity,
+            view, // Starting view
+            "test"    // The String
+      )
+      startAction(intentToStart, this, oldActivity, options.toBundle())
+   } else {
+      startAction(intentToStart, this, oldActivity)
+   }
+
 }
 
-private fun startAction(intentToStart: Intent, context: Context, oldActivity: FragmentActivity? = null, bundle: Bundle? = null) {
+private fun startAction(
+      intentToStart: Intent,
+      context: Context,
+      oldActivity: FragmentActivity? = null,
+      bundle: Bundle? = null
+) {
    intentToStart.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
    context.startActivity(intentToStart, bundle)
    oldActivity?.finish()

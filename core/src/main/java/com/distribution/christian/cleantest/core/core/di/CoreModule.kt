@@ -9,6 +9,7 @@ import com.distribution.christian.cleantest.core.data.service.PowerSaveModeServi
 import com.distribution.christian.cleantest.core.device.notification.NotificationFactory
 import com.distribution.christian.cleantest.core.domain.usecase.ShowNotificationUseCase
 import com.distribution.christian.cleantest.core.domain.usecase.SwitchPowerSaveModeUseCase
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.module
 
@@ -27,4 +28,6 @@ val appModule = module {
    single { androidApplication().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE) }
    single { createWebService<UserApi>(get("retrofit1")) }
    single { createWebService<SearchApi>(get("retrofit1")) }
+   single { FirebaseAuth.getInstance() }
+
 }

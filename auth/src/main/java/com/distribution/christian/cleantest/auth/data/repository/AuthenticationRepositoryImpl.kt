@@ -20,4 +20,8 @@ class AuthenticationRepositoryImpl(
    override suspend fun resetUserByMail(email: String): Result<Nothing> {
       return authenticationFromNetwork.resetUser(email)
    }
+
+   override suspend fun loginUser(email: String, password: String): Result<User> {
+      return authenticationFromNetwork.loginUser(email,password)
+   }
 }

@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentActivity
 import com.distribution.christian.cleantest.core.R
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.distribution.christian.cleantest.core.core.util.extension.backStack
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
@@ -13,11 +15,20 @@ import org.koin.standalone.inject
 abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
 
    protected val deepLinkHandler: DeepLinkHandler by inject()
+   private val firebaseAuth: FirebaseAuth by inject()
    protected lateinit var currentFragment: Fragment
    protected var isDeepLinkActive: Boolean = false
 
    protected lateinit var activity: FragmentActivity
    protected var replaceableFragmentId = R.id.fragment_container
+
+   init {
+      firebaseAuth.addAuthStateListener {
+         if (it.currentUser == null) {
+            activity.navigateToAuth(activity, null)
+         }
+      }
+   }
 
    override fun start(fragmentActivity: FragmentActivity, withInitialNavigation: Boolean) {
       activity = fragmentActivity

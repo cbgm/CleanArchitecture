@@ -7,10 +7,10 @@ import com.distribution.christian.cleantest.core.core.ui.BaseView
 interface LoginContract {
 
    interface View: BaseView {
-
+      fun showLoginSuccess()
    }
 
    interface Presenter: BasePresenter<View> {
-
+      fun login(email: String, password: String)
    }
 }

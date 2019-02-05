@@ -12,10 +12,4 @@ import org.koin.dsl.module.module
 val authRegisterModule = module {
    scope(DiScope.AUTH_REGISTER.identifier) { RegisterPresenter(get()) }
    single { RegisterNewUser(get()) }
-   single { AuthenticationFromNetwork(get()) }
-   single<AuthenticationRepository> {
-      AuthenticationRepositoryImpl(
-            get()
-      )
-   }
 }
