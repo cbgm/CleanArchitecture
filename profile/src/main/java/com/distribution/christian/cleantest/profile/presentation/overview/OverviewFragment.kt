@@ -1,6 +1,8 @@
 package com.distribution.christian.cleantest.profile.presentation.overview
 
+import android.animation.Animator
 import android.os.Bundle
+import android.support.v4.view.ViewCompat.animate
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
@@ -11,12 +13,17 @@ import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
 import com.distribution.christian.cleantest.core.core.util.extension.loadResource
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarChangedListener
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.profile.R
@@ -49,6 +56,10 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
    private lateinit var editBtn: ImageView
    private lateinit var profileImageView: ImageView
    private var isEditMode: Boolean = false
+   private lateinit var logoutBtn: LinearLayout
+   private lateinit var logoutBtnProgress: ProgressBar
+   private lateinit var logoutBtnText: TextView
+   private lateinit var validImage: ImageView
 
    override fun getLayoutResId(): Int {
       return R.layout.fragment_profile_overview
@@ -87,6 +98,14 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       profileImageView = view.findViewById(R.id.profile_image)
       nameText = view.findViewById(R.id.name_text)
       editBtn = view.findViewById(R.id.edit_btn)
+      logoutBtn = view.findViewById(R.id.logout_btn)
+      logoutBtnProgress = view.findViewById(R.id.logout_loading)
+      logoutBtnText = view.findViewById(R.id.logout_text)
+      validImage = view.findViewById(R.id.valid_img)
+
+      logoutBtn.setOnClickListener {
+         presenter.logout()
+      }
 
       val adapter = AutoCompleteAdapter(
             this.context!!,
@@ -136,12 +155,40 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       super.onCreateOptionsMenu(menu, inflater)
    }
 
+   override fun showLogoutLoading(isVisible: Boolean) {
+      if (isVisible) {
+         logoutBtnText.visibility = View.GONE
+         logoutBtnProgress.visibility = View.VISIBLE
+      } else {
+         logoutBtnText.visibility = View.VISIBLE
+         logoutBtnProgress.visibility = View.GONE
+      }
+   }
+
    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
       when (item!!.itemId) {
          //R.id.edit -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
       }
       return super.onOptionsItemSelected(item)
+   }
+
+   override fun showLogoutSuccess() {
+      logoutBtnText.visibility = View.GONE
+      validImage.apply {
+         alpha = 0f
+         visibility = View.VISIBLE
+         animate()
+               .alpha(1f)
+               .setDuration(500)
+               .setListener(object : AnimationEndListener() {
+                  override fun onAnimationEnd(p0: Animator?) {
+                     //auth listener in BaseCoordinator is doing this job
+                     //activity.navigateToAuth(activity)
+                  }
+               })
+      }
+
    }
 
    override fun onPause() {

@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.auth.data.repository.remote.auth
+package com.distribution.christian.cleantest.core.data.repository.remote
 
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.model.User
@@ -15,16 +15,21 @@ class AuthenticationFromNetwork(
 
    suspend fun getAuthenticatedUser(): Result<User> {
       val user = auth.currentUser
-      return Result.Success(
-            User(
-                  "",
-                  "",
-                  "",
-                  user!!.email!!,
-                  "",
-                  ""
-            )
-      )
+
+      return if (user != null) {
+         Result.Success(
+               User(
+                     "",
+                     "",
+                     "",
+                     user!!.email!!,
+                     "",
+                     ""
+               )
+         )
+      } else {
+         Result.Error(Exception())
+      }
    }
 
    suspend fun registerNewUser(email: String, password: String): Result<Nothing> {
@@ -49,6 +54,11 @@ class AuthenticationFromNetwork(
       } else {
          result
       }
+   }
+
+   suspend fun logoutUser(): Result<Nothing>{
+      auth.signOut()
+      return Result.Complete()
    }
 
    private suspend fun <T : Any, R : Any> Task<T>.awaitSuccess(): Result<R> = suspendCoroutine { continuation ->

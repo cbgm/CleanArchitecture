@@ -9,10 +9,13 @@ interface OverviewContract {
 
    interface View: BaseView {
       fun showProfile(profileOverviewEntity: ProfileOverviewEntity)
+      fun showLogoutSuccess()
+      fun showLogoutLoading(isVisible: Boolean)
    }
 
    interface Presenter: BasePresenter<View> {
       fun loadProfile()
       fun updateProfile(profileOverviewEntity: ProfileOverviewEntity)
+      fun logout()
    }
 }

@@ -83,6 +83,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
       }
    }
 
+   override fun showAlreadyAuthenticated() {
+      activity.navigateToEvents(activity)
+   }
+
    override fun showContent(isVisible: Boolean) {
       //not used
    }

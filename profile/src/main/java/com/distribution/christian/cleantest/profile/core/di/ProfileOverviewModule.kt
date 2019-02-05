@@ -5,15 +5,17 @@ import com.distribution.christian.cleantest.profile.data.repository.ProfileRepos
 import com.distribution.christian.cleantest.profile.data.repository.remote.ProfileFromNetwork
 import com.distribution.christian.cleantest.profile.domain.repository.ProfileRepository
 import com.distribution.christian.cleantest.profile.domain.usecase.GetProfileOfAuthenticatedUser
+import com.distribution.christian.cleantest.profile.domain.usecase.LogoutUser
 import com.distribution.christian.cleantest.profile.domain.usecase.UpdateProfileOfAuthenticatedUser
 import com.distribution.christian.cleantest.profile.presentation.overview.OverviewPresenter
 import org.koin.dsl.module.module
 
 
 val profileOverviewModule = module {
-   scope(DiScope.PROFILE_OVERVIEW.identifier) { OverviewPresenter(get(), get()) }
+   scope(DiScope.PROFILE_OVERVIEW.identifier) { OverviewPresenter(get(), get(), get()) }
    single { UpdateProfileOfAuthenticatedUser(get()) }
    single { GetProfileOfAuthenticatedUser(get()) }
+   single { LogoutUser(get()) }
    single { ProfileFromNetwork(get(), get()) }
    single<ProfileRepository> { ProfileRepositoryImpl(get(), get()) }
 }

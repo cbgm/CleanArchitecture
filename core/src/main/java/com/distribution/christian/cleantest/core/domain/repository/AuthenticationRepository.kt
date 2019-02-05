@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.auth.domain.repository
+package com.distribution.christian.cleantest.core.domain.repository
 
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.model.User
@@ -12,4 +12,6 @@ interface AuthenticationRepository {
    suspend fun resetUserByMail(email: String): Result<Nothing>
 
    suspend fun loginUser(email: String, password: String): Result<User>
+
+   suspend fun logoutUser(): Result<Nothing>
 }

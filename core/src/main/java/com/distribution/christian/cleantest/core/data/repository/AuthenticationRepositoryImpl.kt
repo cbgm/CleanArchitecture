@@ -1,9 +1,9 @@
-package com.distribution.christian.cleantest.auth.data.repository
+package com.distribution.christian.cleantest.core.data.repository
 
-import com.distribution.christian.cleantest.auth.data.repository.remote.auth.AuthenticationFromNetwork
-import com.distribution.christian.cleantest.auth.domain.repository.AuthenticationRepository
+import com.distribution.christian.cleantest.core.data.repository.remote.AuthenticationFromNetwork
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.model.User
+import com.distribution.christian.cleantest.core.domain.repository.AuthenticationRepository
 
 class AuthenticationRepositoryImpl(
       private val authenticationFromNetwork: AuthenticationFromNetwork
@@ -23,5 +23,9 @@ class AuthenticationRepositoryImpl(
 
    override suspend fun loginUser(email: String, password: String): Result<User> {
       return authenticationFromNetwork.loginUser(email,password)
+   }
+
+   override suspend fun logoutUser(): Result<Nothing> {
+      return authenticationFromNetwork.logoutUser()
    }
 }

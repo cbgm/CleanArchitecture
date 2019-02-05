@@ -8,6 +8,7 @@ interface LoginContract {
 
    interface View: BaseView {
       fun showLoginSuccess()
+      fun showAlreadyAuthenticated()
    }
 
    interface Presenter: BasePresenter<View> {
