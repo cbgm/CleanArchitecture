@@ -9,20 +9,28 @@ import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 class LoginPresenter(
       private val loginUser: LoginUser,
       private val getAuthenticatedUser: GetAuthenticatedUser
-): LoginContract.Presenter {
+) : LoginContract.Presenter {
 
    private lateinit var loginView: LoginContract.View
 
-   private inner class LoginUserObserver: SingleLCEObserver<User>(loginView) {
+   private inner class LoginUserObserver : SingleLCEObserver<User>(loginView) {
       override fun onSuccess(value: User) {
-         super.onSuccess(value)
+         loginView.showLoginLoading(false)
          loginView.showLoginSuccess()
+      }
+
+      override fun onError(throwable: Throwable) {
+         loginView.showLoginLoading(false)
       }
    }
 
-   private inner class GetAuthenticatedUserObserver: SingleLCEObserver<User>(loginView) {
+   private inner class GetAuthenticatedUserObserver : SingleLCEObserver<User>(loginView) {
       override fun onSuccess(value: User) {
          loginView.showAlreadyAuthenticated()
+      }
+
+      override fun onError(throwable: Throwable) {
+         loginView.showContent()
       }
    }
 
@@ -31,6 +39,11 @@ class LoginPresenter(
    }
 
    override fun onBind() {
+      //not used
+   }
+
+   override fun checkLogin() {
+      loginView.showLoading()
       getAuthenticatedUser.execute(GetAuthenticatedUserObserver(), Unit)
    }
 
@@ -39,7 +52,7 @@ class LoginPresenter(
    }
 
    override fun login(email: String, password: String) {
-      loginView.showLoading()
+      loginView.showLoginLoading(true)
       loginUser.execute(LoginUserObserver(), Pair(email, password))
    }
 }

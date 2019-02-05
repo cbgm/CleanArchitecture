@@ -9,9 +9,11 @@ interface LoginContract {
    interface View: BaseView {
       fun showLoginSuccess()
       fun showAlreadyAuthenticated()
+      fun showLoginLoading(isVisible: Boolean)
    }
 
    interface Presenter: BasePresenter<View> {
       fun login(email: String, password: String)
+      fun checkLogin()
    }
 }

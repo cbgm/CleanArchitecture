@@ -27,11 +27,16 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
 
    companion object {
       const val TAG = "Login"
-      fun newInstance() = LoginFragment()
+      fun newInstance() = LoginFragment().apply {
+         arguments = Bundle().apply {}
+      }
    }
 
    private val presenter: LoginPresenter by inject()
 
+
+   private lateinit var content: View
+   private lateinit var loading: View
    private lateinit var loginBtn: LinearLayout
    private lateinit var registerBtn: TextView
    private lateinit var resetBtn: TextView
@@ -42,10 +47,14 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    private lateinit var loginBtnText: TextView
    private lateinit var validImage: ImageView
 
+   private var loginWasChecked: Boolean = false
+
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      postponeEnterTransition()
       activity.updateScope(DiScope.AUTH_LOGIN)
       presenter.setVIew(this)
+      loginWasChecked = arguments?.getBoolean("isUserLoggedIn", false)!!
    }
 
    override fun onCreateView(
@@ -62,6 +71,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    override fun onResume() {
       super.onResume()
       presenter.onBind()
+      if (!loginWasChecked) {
+         loginWasChecked = true
+         presenter.checkLogin()
+      }
    }
 
    override fun onPause() {
@@ -74,6 +87,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    }
 
    override fun showLoading(isVisible: Boolean) {
+      if (isVisible) loading.visibility = View.VISIBLE else loading.visibility = View.GONE
+   }
+
+   override fun showLoginLoading(isVisible: Boolean) {
       if (isVisible) {
          loginBtnText.visibility = View.GONE
          loginBtnProgress.visibility = View.VISIBLE
@@ -88,10 +105,12 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    }
 
    override fun showContent(isVisible: Boolean) {
-      //not used
+      if (isVisible) content.visibility = View.VISIBLE else content.visibility = View.GONE
    }
 
    override fun initViews(view: View) {
+      content = view.findViewById(R.id.content)
+      loading = view.findViewById(R.id.loading)
       loginBtn = view.findViewById(R.id.login_btn)
       registerBtn = view.findViewById(R.id.register_btn)
       resetBtn = view.findViewById(R.id.reset_btn)
@@ -102,13 +121,13 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
       loginBtnText = view.findViewById(R.id.login_text)
       validImage = view.findViewById(R.id.valid_img)
 
-      showPasswordCheck.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+      showPasswordCheck.setOnCheckedChangeListener { _, isChecked ->
          if (isChecked) {
             passwordText.transformationMethod = HideReturnsTransformationMethod.getInstance()
          } else {
             passwordText.transformationMethod = PasswordTransformationMethod.getInstance()
          }
-      })
+      }
 
       resetBtn.setOnClickListener {
          activity.coordinator.showReset()
@@ -142,6 +161,11 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
 
    override fun getLayoutResId(): Int {
       return R.layout.fragment_login
+   }
+
+   override fun onSaveInstanceState(outState: Bundle) {
+      super.onSaveInstanceState(outState)
+      arguments?.putBoolean("isUserLoggedIn", loginWasChecked)
    }
 
    private fun configureTransition(view: View?) {
