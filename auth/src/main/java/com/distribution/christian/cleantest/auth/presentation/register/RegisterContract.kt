@@ -13,6 +13,8 @@ interface RegisterContract {
       fun showRegisterButtonEnabled(isEnabled: Boolean)
 
       fun showAddedUserFailure()
+
+      fun showErrorResponse(error: String)
    }
 
    interface Presenter: BasePresenter<View> {

@@ -15,6 +15,11 @@ class RegisterPresenter(
          super.onComplete()
          registerView.showAddedUserSuccess()
       }
+
+      override fun onError(throwable: Throwable) {
+         super.onError(throwable)
+         registerView.showErrorResponse(throwable.message!!)
+      }
    }
 
    override fun addUser(email: String, password: String) {

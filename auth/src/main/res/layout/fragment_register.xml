@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
    xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
@@ -40,6 +41,7 @@
             android:ems="10"
             android:hint="User"
             android:inputType="textPersonName"
+            android:text="christian.bergmann@huk-coburg.de"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
             tools:text="User" />
@@ -51,7 +53,8 @@
             android:drawablePadding="5dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
+            android:text="1234"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
             tools:text="Password" />
@@ -63,17 +66,54 @@
             android:drawablePadding="5dp"
             android:ems="10"
             android:hint="Retype Password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
+            android:text="1234"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
             tools:text="Retype Password" />
 
          <TextView
-            android:id="@+id/register_btn"
-            style="@style/AppTheme.ButtonNormal"
+            android:id="@+id/error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:enabled="false"
-            android:text="REGISTER" />
+            android:text="TextView"
+            android:visibility="gone"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="12sp" />
+
+         <LinearLayout
+            android:id="@+id/register_btn"
+            style="@style/AppTheme.ButtonNormalLoading"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+               android:id="@+id/register_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:clickable="false"
+               android:text="REGISTER"
+               android:textColor="@android:color/black"
+               android:visibility="visible" />
+
+            <ImageView
+               android:id="@+id/valid_img"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:visibility="gone"
+               app:srcCompat="@drawable/ic_valid" />
+
+            <ProgressBar
+               android:id="@+id/register_loading"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:clickable="false"
+               android:indeterminateTint="@android:color/black"
+               android:visibility="gone" />
+         </LinearLayout>
 
          <TextView
             android:id="@+id/back_btn"

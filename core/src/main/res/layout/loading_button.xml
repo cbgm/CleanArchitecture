@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+   style="@style/AppTheme.ButtonNormalLoading"
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+   android:orientation="horizontal">
+
+  <TextView
+      android:id="@+id/button_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="false"
+      android:text="empty"
+      android:textColor="@android:color/black" />
+
+   <ProgressBar
+      android:id="@+id/button_loading"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="false"
+      android:indeterminateTint="@android:color/black"
+      android:visibility="gone" />
+</LinearLayout>

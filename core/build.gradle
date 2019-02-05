@@ -28,6 +28,7 @@ dependencies {
    api dataDep.firebaseCore
    api dataDep.firebaseDynamic
    api dataDep.firebaseInAppMessaging
+   api dataDep.firebaseAuth
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

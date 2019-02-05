@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:779108213728:android:279ac7446363cb87",
+        "mobilesdk_app_id": "1:779108213728:android:6e143c6110a07d04",
         "android_client_info": {
           "package_name": "com.distribution.christian.cleantest"
         }
@@ -39,20 +39,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:779108213728:android:cc3afc86179c19c8",
+        "mobilesdk_app_id": "1:779108213728:android:6e29a75cb0cd53dc",
         "android_client_info": {
           "package_name": "com.distribution.christian.cleantest.debug"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "779108213728-nitm68qkoe96tvmd2si8joqmgfn7gflh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.distribution.christian.cleantest.debug",
-            "certificate_hash": "72aa5ef244b439158eb909295078f102cb4a01a5"
-          }
-        },
         {
           "client_id": "779108213728-3cfcmg61c45otdi2tsuh8aphgdkbn5cp.apps.googleusercontent.com",
           "client_type": 3
@@ -68,13 +60,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "779108213728-3cfcmg61c45otdi2tsuh8aphgdkbn5cp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
