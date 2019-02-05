@@ -39,7 +39,7 @@
             android:drawablePadding="5dp"
             android:ems="10"
             android:hint="User"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
             tools:text="User" />
@@ -48,13 +48,19 @@
             android:id="@+id/password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="5dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
             tools:text="Password" />
+
+         <CheckBox
+            android:id="@+id/show_password_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Show Password" />
 
          <TextView
             android:id="@+id/login_btn"
