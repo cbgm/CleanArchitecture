@@ -103,6 +103,8 @@ class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
       logoutBtnText = view.findViewById(R.id.logout_text)
       validImage = view.findViewById(R.id.valid_img)
 
+      distanceSeekbar.isEnabled = false
+
       logoutBtn.setOnClickListener {
          presenter.logout()
       }

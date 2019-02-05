@@ -134,6 +134,7 @@
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
                               android:layout_marginStart="20dp"
+                              android:enabled="false"
                               android:text="cb2019"
                               android:textSize="12sp" />
                         </LinearLayout>
@@ -299,7 +300,6 @@
                               android:layout_height="match_parent"
                               android:layout_weight="1"
                               android:max="100"
-                              android:enabled="false"
                               android:thumbTint="@android:color/holo_green_light" />
 
                            <TextView
@@ -308,6 +308,7 @@
                               android:layout_height="match_parent"
                               android:layout_marginStart="10dp"
                               android:layout_weight="1"
+                              android:enabled="false"
                               android:text="10Km"
                               android:textSize="12sp" />
                         </LinearLayout>
