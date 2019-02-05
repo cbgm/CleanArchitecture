@@ -6,13 +6,15 @@ import com.distribution.christian.cleantest.event.domain.usecase.GetEventsInPool
 import com.distribution.christian.cleantest.event.presentation.overview.mapper.EventOverviewDomainMapper
 import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
+import com.distribution.christian.cleantest.event.domain.usecase.GetEventById
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.mapper.EventDomainMapper
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
 class OverviewPresenter constructor(
       private val getEventsInPool: GetEventsInPool,
-      private val updateEvent: UpdateEvent
+      private val updateEvent: UpdateEvent,
+      private val getEventById: GetEventById
 ) : OverviewContract.Presenter {
 
    private lateinit var overviewView: OverviewContract.View
@@ -26,6 +28,12 @@ class OverviewPresenter constructor(
       override fun onError(throwable: Throwable) {
          super.onError(throwable)
          overviewView.showError()
+      }
+   }
+
+   private inner class GetEventByIdObserver : SingleLCEObserver<Event>(overviewView) {
+      override fun onSuccess(value: Event) {
+         overviewView.showUpdatedEventState(EventDomainMapper.transform(value))
       }
    }
 
@@ -48,6 +56,10 @@ class OverviewPresenter constructor(
       override fun onError(throwable: Throwable) {
          overviewView.showError()
       }
+   }
+
+   override fun loadUpdatedEventById(eventId: String) {
+      getEventById.execute(GetEventByIdObserver(), eventId)
    }
 
    override fun loadEvents() {

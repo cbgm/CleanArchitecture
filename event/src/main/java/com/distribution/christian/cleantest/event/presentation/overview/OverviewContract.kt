@@ -26,5 +26,7 @@ interface OverviewContract {
       fun loadMoreEvents()
 
       fun updateEvent(event: EventEntity)
+
+      fun loadUpdatedEventById(eventId: String)
    }
 }

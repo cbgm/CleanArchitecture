@@ -21,7 +21,7 @@ abstract class BaseUseCase<T, in Params> {
    fun execute(observer: BaseObserver<T>? = null, param: Params) {
       dispose()
       job = CoroutineScope(Dispatchers.Main).launch {
-         delay(1000)
+         delay(500)
          val result = buildUseCaseObservable(param)
          result.onSuccess { observer?.onSuccess(it as T) }
          result.onComplete{ observer?.onComplete()}

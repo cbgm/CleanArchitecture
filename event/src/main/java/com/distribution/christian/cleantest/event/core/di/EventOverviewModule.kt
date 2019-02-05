@@ -7,6 +7,6 @@ import org.koin.dsl.module.module
 
 
 val eventOverviewModule = module {
-   scope(DiScope.EVENT_OVERVIEW.identifier) { OverviewPresenter(get(), get()) }
+   scope(DiScope.EVENT_OVERVIEW.identifier) { OverviewPresenter(get(), get(), get()) }
    single { GetEventsInPool(get()) }
 }

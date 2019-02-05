@@ -44,6 +44,8 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    private lateinit var loading: ShimmerFrameLayout
    private lateinit var userList: RecyclerView
 
+   private var posToReload: Int = -1
+
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       activity.updateScope(DiScope.EVENT_OVERVIEW)
@@ -59,7 +61,10 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
          overviewAdapter.replaceData(data!!)
       }
 
-
+      if(posToReload != -1){
+         presenter.loadUpdatedEventById(data!![posToReload].id.toString())
+         posToReload = -1
+      }
    }
 
    override fun onPause() {
@@ -122,6 +127,7 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
       data = overviewAdapter.data
+      posToReload = position
       activity.coordinator.showDetail(
             transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
             event = event

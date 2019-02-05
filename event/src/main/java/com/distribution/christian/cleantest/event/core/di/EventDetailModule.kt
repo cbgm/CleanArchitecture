@@ -8,5 +8,4 @@ import org.koin.dsl.module.module
 
 val eventDetailModule = module {
    scope(DiScope.EVENT_DETAIL.identifier) { DetailPresenter(get(), get()) }
-   single { GetEventById(get()) }
 }

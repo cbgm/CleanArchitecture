@@ -7,6 +7,7 @@ import com.distribution.christian.cleantest.event.data.repository.local.EventFro
 import com.distribution.christian.cleantest.event.data.repository.remote.event.EventApi
 import com.distribution.christian.cleantest.event.data.repository.remote.event.EventFromNetwork
 import com.distribution.christian.cleantest.event.domain.repository.EventRepository
+import com.distribution.christian.cleantest.event.domain.usecase.GetEventById
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import org.koin.dsl.module.module
 
@@ -24,4 +25,5 @@ val eventCoreModule = module {
       )
    }
    single { UpdateEvent(get()) }
+   single { GetEventById(get()) }
 }
