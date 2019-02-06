@@ -1,9 +1,9 @@
 package com.distribution.christian.cleantest.core.core.util.extension
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import android.view.View
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import org.koin.android.scope.ext.android.bindScope

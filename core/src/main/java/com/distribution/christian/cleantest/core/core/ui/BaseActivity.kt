@@ -1,8 +1,8 @@
 package com.distribution.christian.cleantest.core.core.ui
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.distribution.christian.cleantest.core.R
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator

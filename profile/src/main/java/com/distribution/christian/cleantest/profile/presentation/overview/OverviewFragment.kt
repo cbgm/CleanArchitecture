@@ -2,8 +2,8 @@ package com.distribution.christian.cleantest.profile.presentation.overview
 
 import android.animation.Animator
 import android.os.Bundle
-import android.support.v4.view.ViewCompat.animate
-import android.support.v7.app.AppCompatActivity
+import androidx.core.view.ViewCompat.animate
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem

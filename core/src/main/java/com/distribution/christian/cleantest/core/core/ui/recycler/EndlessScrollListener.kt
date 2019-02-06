@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.core.core.ui.recycler
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 
 abstract class EndlessScrollListener : RecyclerView.OnScrollListener() {

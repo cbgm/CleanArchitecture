@@ -6,10 +6,10 @@ import com.distribution.christian.cleantest.core.BuildConfig.ACTION_CART
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
-import android.support.v4.app.ActivityOptionsCompat
+import androidx.core.app.ActivityOptionsCompat
 import android.view.View
 
 

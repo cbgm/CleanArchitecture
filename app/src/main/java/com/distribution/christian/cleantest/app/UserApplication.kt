@@ -15,7 +15,7 @@ import timber.log.Timber
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.PowerManager
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule

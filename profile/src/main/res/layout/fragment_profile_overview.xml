@@ -12,7 +12,7 @@
       android:layout_height="match_parent"
       android:orientation="horizontal">
 
-      <android.support.v4.widget.NestedScrollView
+      <androidx.core.widget.NestedScrollView
          android:layout_width="match_parent"
          android:layout_height="match_parent">
 
@@ -83,7 +83,7 @@
                   </LinearLayout>
                </LinearLayout>
 
-               <android.support.v7.widget.CardView
+               <androidx.cardview.widget.CardView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_marginEnd="50dp"
@@ -204,11 +204,11 @@
                      </LinearLayout>
 
                   </LinearLayout>
-               </android.support.v7.widget.CardView>
+               </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginEnd="50dp"
@@ -350,7 +350,7 @@
 
                </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                android:id="@+id/logout_btn"
@@ -388,7 +388,7 @@
             </LinearLayout>
 
          </LinearLayout>
-      </android.support.v4.widget.NestedScrollView>
+      </androidx.core.widget.NestedScrollView>
 
    </LinearLayout>
 

@@ -17,6 +17,7 @@ dependencies {
    api presDep.timber
    api presDep.googleCore
    api presDep.glide
+   api presDep.material
 
    def dataDep = rootProject.ext.dataDependencies
    api dataDep.retrofit

@@ -1,9 +1,9 @@
 package com.distribution.christian.cleantest.core.device
 
-import android.support.annotation.DrawableRes
-import android.support.annotation.MenuRes
-import android.support.annotation.StringRes
-import android.support.v7.app.ActionBar
+import androidx.annotation.DrawableRes
+import androidx.annotation.MenuRes
+import androidx.annotation.StringRes
+import androidx.appcompat.app.ActionBar
 import android.view.MenuItem
 
 

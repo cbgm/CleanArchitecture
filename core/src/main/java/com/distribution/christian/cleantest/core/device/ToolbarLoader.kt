@@ -1,9 +1,9 @@
 package com.distribution.christian.cleantest.core.device
 
-import android.support.annotation.StringRes
-import android.support.design.widget.AppBarLayout
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.StringRes
+import com.google.android.material.appbar.AppBarLayout
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.R
 
 

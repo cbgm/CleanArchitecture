@@ -3,7 +3,7 @@ package com.distribution.christian.cleantest.core.core.ui
 import android.widget.LinearLayout
 import android.content.Context
 import android.widget.TextView
-import android.support.annotation.StyleableRes
+import androidx.annotation.StyleableRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ProgressBar

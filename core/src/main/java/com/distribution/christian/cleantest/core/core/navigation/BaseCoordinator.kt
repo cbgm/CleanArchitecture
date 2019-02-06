@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.core.core.navigation
 
 import android.net.Uri
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import org.koin.standalone.KoinComponent
 
 

@@ -5,7 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import com.distribution.christian.cleantest.R
 import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl

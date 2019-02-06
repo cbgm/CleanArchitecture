@@ -1,8 +1,8 @@
 package com.distribution.christian.cleantest.event.presentation.detail
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
 import android.widget.ImageView
