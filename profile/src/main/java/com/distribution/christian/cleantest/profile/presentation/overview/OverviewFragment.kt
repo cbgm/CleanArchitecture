@@ -2,8 +2,6 @@ package com.distribution.christian.cleantest.profile.presentation.overview
 
 import android.animation.Animator
 import android.os.Bundle
-import androidx.core.view.ViewCompat.animate
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -17,11 +15,10 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
 import com.distribution.christian.cleantest.core.core.util.extension.loadResource
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarChangedListener
@@ -29,11 +26,12 @@ import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.profile.R
 import com.distribution.christian.cleantest.profile.core.ui.ProfileBaseFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
+import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
 
-class OverviewFragment : ProfileBaseFragment(), OverviewContract.View {
+class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>(), OverviewContract.View {
 
    companion object {
 

@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
+import com.distribution.christian.cleantest.core.core.ui.FragmentConsistency
 
 
-abstract class EventBaseFragment : BaseFragment<EventActivity>() {
+abstract class EventBaseFragment<C : FragmentConsistency> : BaseFragment<EventActivity, C>() {
 
    override fun onCreateView(
          inflater: LayoutInflater,

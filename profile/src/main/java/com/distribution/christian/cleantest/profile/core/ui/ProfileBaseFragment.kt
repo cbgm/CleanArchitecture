@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
+import com.distribution.christian.cleantest.core.core.ui.FragmentConsistency
 
 
-abstract class ProfileBaseFragment : BaseFragment<ProfileActivity>() {
+abstract class ProfileBaseFragment<C : FragmentConsistency> : BaseFragment<ProfileActivity, C>() {
 
    override fun onCreateView(
          inflater: LayoutInflater,

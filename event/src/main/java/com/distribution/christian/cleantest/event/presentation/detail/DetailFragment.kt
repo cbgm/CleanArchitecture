@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.event.presentation.detail
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
@@ -9,16 +10,20 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.distribution.christian.cleantest.core.core.di.DiScope
+import com.distribution.christian.cleantest.core.core.ui.FragmentConsistency
+import com.distribution.christian.cleantest.core.core.util.extension.args
+import com.distribution.christian.cleantest.core.core.util.extension.argsUpdate
 
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
-class DetailFragment : EventBaseFragment(), DetailContract.View {
+class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), DetailContract.View {
 
    companion object {
 
@@ -28,15 +33,13 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
             transitionInformation: TransitionInformation? = null,
             event: EventEntity? = null
       ) =
-            DetailFragment().apply {
-               arguments = Bundle().apply {
-                  putString("User", paramId)
-                  putString(
-                        "TransitionName",
-                        transitionInformation?.transitionName
-                  )
-                  putSerializable("Event", event)
-               }
+            DetailFragment().args {
+               putString(EventDetailFragmentConsistency.USER_KEY, paramId)
+               putSerializable(
+                     FragmentConsistency.TRANSITION_KEY,
+                     transitionInformation
+               )
+               putSerializable(EventDetailFragmentConsistency.EVENT_KEY, event)
             }
    }
 
@@ -53,26 +56,25 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    private lateinit var flyerImg: ImageView
    private lateinit var starBtn: FloatingActionButton
 
-   private var event: EventEntity? = null
-
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       configureTransition()
       activity.updateScope(DiScope.EVENT_DETAIL)
       detailPresenter.setVIew(this)
-      eventId = arguments?.getString("User") ?: ""
-      transitionName = arguments?.getString("TransitionName", "")!!
-      event = arguments?.getSerializable("Event")
-            ?.let { it as EventEntity }
+   }
+
+   override fun onAttach(context: Context?) {
+      super.onAttach(context)
+      consistency = EventDetailFragmentConsistency.deserializeFrom(this)
    }
 
    override fun onResume() {
       super.onResume()
-      if (event == null) {
+      if (consistency.event == null) {
          detailPresenter.onBind()
          detailPresenter.loadEvent(eventId)
       } else {
-         showEvent(event!!)
+         showEvent(consistency.event!!)
       }
 
    }
@@ -87,8 +89,8 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
    }
 
    override fun showEvent(eventEntity: EventEntity) {
-      event = eventEntity
-      event?.let {
+      consistency.event = eventEntity
+      consistency.event?.let {
          locationText.text = it.location
          timeText.text = it.time
          dateText.text = it.date
@@ -141,7 +143,7 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
       nameText = view.findViewById(R.id.name_text)
       starBtn = view.findViewById(R.id.star_btn)
       flyerImg = view.findViewById(R.id.flyer_img)
-      flyerImg.transitionName = transitionName
+      flyerImg.transitionName = consistency.transitionInformation?.transitionName
 
       ToolbarLoader(activity as AppCompatActivity?, R.string.title_details, true)
    }
@@ -157,6 +159,6 @@ class DetailFragment : EventBaseFragment(), DetailContract.View {
 
    override fun onSaveInstanceState(outState: Bundle) {
       super.onSaveInstanceState(outState)
-      arguments?.putSerializable("Event", event)
+      argsUpdate { putSerializable(EventDetailFragmentConsistency.EVENT_KEY, consistency.event) }
    }
 }

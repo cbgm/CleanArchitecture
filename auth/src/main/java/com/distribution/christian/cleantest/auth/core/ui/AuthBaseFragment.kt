@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 
 
-abstract class AuthBaseFragment : BaseFragment<AuthActivity>() {
+abstract class AuthBaseFragment : BaseFragment<AuthActivity, Unit>() {
 
    override fun onCreateView(
          inflater: LayoutInflater,

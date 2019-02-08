@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.event.presentation.overview
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,30 +9,30 @@ import android.view.View
 import android.widget.LinearLayout
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.recycler.EndlessScrollListener
+import com.distribution.christian.cleantest.core.core.util.extension.args
+import com.distribution.christian.cleantest.core.core.util.extension.argsUpdate
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
+import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
 
 @Suppress("UNCHECKED_CAST")
-class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
+class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
 
    companion object {
 
       const val TAG = "Overview"
-      fun newInstance() = OverviewFragment().apply {
-         arguments = Bundle().apply {
-            putSerializable("Data", null)
-         }
+      fun newInstance() = OverviewFragment().args {
+         putSerializable(EventOverviewFragmentConsistency.DATA_KEY, null)
+         putInt(EventOverviewFragmentConsistency.POS_KEY, -1)
       }
    }
-
-   private var data: ArrayList<EventEntity>? = null
 
    private val presenter: OverviewPresenter by inject()
 
@@ -44,26 +45,29 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    private lateinit var loading: ShimmerFrameLayout
    private lateinit var userList: RecyclerView
 
-   private var posToReload: Int = -1
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       activity.updateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
-      data = arguments?.getSerializable("Data")?.let { it as ArrayList<EventEntity> }
+   }
+
+   override fun onAttach(context: Context?) {
+      super.onAttach(context)
+      consistency = EventOverviewFragmentConsistency.deserializeFrom(this)
    }
 
    override fun onResume() {
       super.onResume()
-      if (data == null) {
+      if (consistency.data == null) {
          presenter.onBind()
       } else {
-         overviewAdapter.replaceData(data!!)
+         overviewAdapter.replaceData(consistency.data!!)
       }
 
-      if(posToReload != -1){
-         presenter.loadUpdatedEventById(data!![posToReload].id.toString())
-         posToReload = -1
+      if (consistency.posToReload != -1) {
+         presenter.loadUpdatedEventById(consistency.data!![consistency.posToReload].id.toString())
+         consistency.posToReload = -1
       }
    }
 
@@ -77,13 +81,13 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    }
 
    override fun showEvents(eventOverviewEntity: EventOverviewEntity) {
-      data = eventOverviewEntity.events
-      overviewAdapter.replaceData(data!!)
+      consistency.data = eventOverviewEntity.events
+      overviewAdapter.replaceData(consistency.data!!)
    }
 
    override fun showMoreEvents(eventOverviewEntity: EventOverviewEntity) {
-      data!!.addAll(eventOverviewEntity.events)
-      overviewAdapter.addData(data!!)
+      consistency.data!!.addAll(eventOverviewEntity.events)
+      overviewAdapter.addData(consistency.data!!)
    }
 
    override fun showError(isVisible: Boolean) {
@@ -126,8 +130,8 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
    }
 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
-      data = overviewAdapter.data
-      posToReload = position
+      consistency.data = overviewAdapter.data
+      consistency.posToReload = position
       activity.coordinator.showDetail(
             transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
             event = event
@@ -140,6 +144,9 @@ class OverviewFragment : EventBaseFragment(), OverviewContract.View, OverviewAda
 
    override fun onSaveInstanceState(outState: Bundle) {
       super.onSaveInstanceState(outState)
-      arguments?.putSerializable("Data", overviewAdapter.data)
+      argsUpdate {
+         putSerializable(EventOverviewFragmentConsistency.DATA_KEY, consistency.data)
+         putInt(EventOverviewFragmentConsistency.POS_KEY, consistency.posToReload)
+      }
    }
 }
