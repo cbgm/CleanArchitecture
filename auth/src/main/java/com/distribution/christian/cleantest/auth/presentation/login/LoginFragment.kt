@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToEvents
 import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.core.ui.AuthBaseFragment
 import android.text.method.PasswordTransformationMethod
@@ -102,7 +101,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    }
 
    override fun showAlreadyAuthenticated() {
-      activity.navigateToEvents(activity)
+      activity.coordinator.initialNavigation()
    }
 
    override fun showContent(isVisible: Boolean) {
@@ -170,7 +169,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     activity.navigateToEvents(activity)
+                     activity.coordinator.initialNavigation()
                   }
                })
       }
