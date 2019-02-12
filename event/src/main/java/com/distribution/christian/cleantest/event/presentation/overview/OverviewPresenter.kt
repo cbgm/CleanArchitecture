@@ -2,18 +2,20 @@ package com.distribution.christian.cleantest.event.presentation.overview
 
 import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
-import com.distribution.christian.cleantest.event.domain.usecase.GetEventsInPool
 import com.distribution.christian.cleantest.event.presentation.overview.mapper.EventOverviewDomainMapper
 import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
+import com.distribution.christian.cleantest.core.presentation.mapper.SearchDomainMapper
+import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
 import com.distribution.christian.cleantest.event.domain.usecase.GetCitysByQuery
 import com.distribution.christian.cleantest.event.domain.usecase.GetEventById
+import com.distribution.christian.cleantest.event.domain.usecase.GetEventsByCriteria
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.mapper.EventDomainMapper
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
 class OverviewPresenter constructor(
-      private val getEventsInPool: GetEventsInPool,
+      private val getEventsByCriteria: GetEventsByCriteria,
       private val updateEvent: UpdateEvent,
       private val getEventById: GetEventById,
       private val getCitysByQuery: GetCitysByQuery
@@ -70,10 +72,6 @@ class OverviewPresenter constructor(
       getEventById.execute(GetEventByIdObserver(), eventId)
    }
 
-   override fun loadEvents() {
-      getEventsInPool.execute(GetEventsObserver(), Unit)
-   }
-
    override fun updateEvent(event: EventEntity) {
       updateEvent.execute(UpateEventObserver(), EventDomainMapper.transform(event))
    }
@@ -82,9 +80,14 @@ class OverviewPresenter constructor(
       getCitysByQuery.execute(GetCitysObserver(), query)
    }
 
-   override fun loadMoreEvents() {
+   override fun loadMoreEvents(searchEntity: SearchEntity?) {
       overviewView.showListLoading(true)
-      getEventsInPool.execute(GetMoreEventsObserver(), Unit)
+      getEventsByCriteria.execute(
+            GetMoreEventsObserver(),
+            if (searchEntity != null) SearchDomainMapper.transform(
+                  searchEntity
+            ) else null
+      )
    }
 
    override fun setVIew(view: OverviewContract.View) {
@@ -93,11 +96,23 @@ class OverviewPresenter constructor(
 
    override fun onBind() {
       overviewView.showLoading()
-      loadEvents()
+      loadEvents(null)
+   }
+
+   override fun loadEvents(searchEntity: SearchEntity?) {
+      overviewView.showLoading()
+      getEventsByCriteria.execute(
+            GetEventsObserver(),
+            if (searchEntity != null) SearchDomainMapper.transform(
+                  searchEntity
+            ) else null
+      )
    }
 
    override fun onUnbind() {
-      getEventsInPool.dispose()
       getCitysByQuery.dispose()
+      getEventsByCriteria.dispose()
+      getEventById.dispose()
+      updateEvent.dispose()
    }
 }

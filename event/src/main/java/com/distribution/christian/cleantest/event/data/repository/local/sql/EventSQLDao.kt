@@ -7,6 +7,7 @@ import com.distribution.christian.cleantest.event.data.mapper.EventDtoMapper
 import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
 import com.distribution.christian.cleantest.core.domain.model.Result
+import com.distribution.christian.cleantest.core.domain.model.Search
 
 
 class EventSQLDao : EventDao {
@@ -20,12 +21,15 @@ class EventSQLDao : EventDao {
       events.addAll(EventGenerator.generate(10))
    }
 
-
-   override fun getEvents(): Result<EventOverview> {
+   override fun getEventsByCriteria(search: Search?): Result<EventOverview> {
+      events.addAll(EventGenerator.generate(10))
       return Result.Success(
             EventOverview(
                   10,
-                  (events.map { event ->
+                  (events.filter {
+                     it.city.toLowerCase()
+                           .contains(search?.city?.toLowerCase() ?: "")
+                  }.map { event ->
                      EventDtoMapper.transform(
                            event
                      )

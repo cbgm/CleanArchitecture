@@ -35,6 +35,7 @@ import android.widget.EditText
 import android.database.Cursor
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
+import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
 
 
 @Suppress("UNCHECKED_CAST")
@@ -68,16 +69,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       activity.updateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
       setHasOptionsMenu(true)
-      val from = arrayOf("cityName")
-      val to = intArrayOf(android.R.id.text1)
-      cityAdapter = SimpleCursorAdapter(
-            activity,
-            android.R.layout.simple_list_item_1,
-            null,
-            from,
-            to,
-            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
-      )
+      initCitySuggestionAdapter()
    }
 
    override fun onAttach(context: Context?) {
@@ -167,7 +159,11 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       userList.adapter = overviewAdapter
       userList.addOnScrollListener(object : EndlessScrollListener() {
          override fun onLoadMore() {
-            presenter.loadMoreEvents()
+            if (consistency.searchTerm != null) {
+               presenter.loadMoreEvents(SearchEntity("", consistency.searchTerm!!, "", 0, 0))
+            } else {
+               presenter.loadMoreEvents(null)
+            }
          }
       })
 
@@ -219,6 +215,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
          searchView.setQuery("", false)
          searchView.onActionViewCollapsed()
          searchItem.collapseActionView()
+         presenter.loadEvents(null)
       }
       searchView.setOnSuggestionListener(object : OnSuggestionClickedListener() {
          override fun onSuggestionClick(position: Int): Boolean {
@@ -226,6 +223,8 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
             consistency.searchTerm = cursor.getString(1)
             searchText.setText(consistency.searchTerm)
             searchView.clearFocus()
+            //overviewAdapter.filter.filter(consistency.searchTerm)
+            presenter.loadEvents(SearchEntity("", consistency.searchTerm!!, "", 0, 0))
             return true
          }
       })
@@ -237,5 +236,18 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
             return false
          }
       })
+   }
+
+   private fun initCitySuggestionAdapter() {
+      val from = arrayOf("cityName")
+      val to = intArrayOf(android.R.id.text1)
+      cityAdapter = SimpleCursorAdapter(
+            activity,
+            android.R.layout.simple_list_item_1,
+            null,
+            from,
+            to,
+            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+      )
    }
 }

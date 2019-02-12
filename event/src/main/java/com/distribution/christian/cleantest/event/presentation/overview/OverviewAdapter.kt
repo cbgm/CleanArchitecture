@@ -4,6 +4,8 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import com.distribution.christian.cleantest.event.R
@@ -15,7 +17,9 @@ import java.util.ArrayList
 class OverviewAdapter(
       override var data: ArrayList<EventEntity>,
       private var listener: OnItemClickListener
-) : InfiniteAdapter<EventEntity>(data, R.layout.shimmer_overview_item) {
+) : InfiniteAdapter<EventEntity>(data, R.layout.shimmer_overview_item), Filterable {
+
+   private lateinit var filteredData: ArrayList<EventEntity>
 
    override fun onBindCustomViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
@@ -56,6 +60,31 @@ class OverviewAdapter(
 
    override fun getCustomItemId(position: Int): Long {
       return 1
+   }
+
+   override fun getFilter(): Filter {
+      return object : Filter() {
+         override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
+            val charString = charSequence.toString()
+            filteredData = if (charString.isEmpty()) {
+               data
+            } else {
+               data.filter { it.city.toLowerCase().contains(charString.toLowerCase()) } as ArrayList<EventEntity>
+            }
+
+            val filterResults = Filter.FilterResults()
+            filterResults.values = filteredData
+            return filterResults
+         }
+
+         override fun publishResults(
+               charSequence: CharSequence,
+               filterResults: Filter.FilterResults
+         ) {
+            data = filterResults.values as ArrayList<EventEntity>
+            notifyDataSetChanged()
+         }
+      }
    }
 
    fun updateItem(event: EventEntity) {

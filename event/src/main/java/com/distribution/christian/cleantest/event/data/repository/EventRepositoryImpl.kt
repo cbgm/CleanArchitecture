@@ -6,6 +6,7 @@ import com.distribution.christian.cleantest.event.domain.repository.EventReposit
 import com.distribution.christian.cleantest.event.data.repository.remote.event.EventFromNetwork
 import com.distribution.christian.cleantest.event.data.repository.local.EventFromLocal
 import com.distribution.christian.cleantest.core.domain.model.Result
+import com.distribution.christian.cleantest.core.domain.model.Search
 import com.distribution.christian.cleantest.event.domain.model.Event
 
 
@@ -15,11 +16,11 @@ class EventRepositoryImpl constructor(
       private val eventFromLocal: EventFromLocal
 ) : EventRepository {
 
-   override suspend fun getAllEvents(): Result<EventOverview> {
+   override suspend fun getEventsByCriteria(search: Search?): Result<EventOverview> {
       netManager.isConnected.let {
 
       }
-      return eventFromLocal.getEvents()
+      return eventFromLocal.getEventsByCriteria(search)
    }
 
    override suspend fun updateEvent(event: Event): Result<Event> {

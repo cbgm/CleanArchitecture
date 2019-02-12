@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.event.presentation.overview
 
 import com.distribution.christian.cleantest.core.core.ui.BasePresenter
 import com.distribution.christian.cleantest.core.core.ui.BaseView
+import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 
@@ -23,9 +24,9 @@ interface OverviewContract {
 
    interface Presenter : BasePresenter<View> {
 
-      fun loadEvents()
+      fun loadEvents(searchEntity: SearchEntity?)
 
-      fun loadMoreEvents()
+      fun loadMoreEvents(searchEntity: SearchEntity?)
 
       fun updateEvent(event: EventEntity)
 
