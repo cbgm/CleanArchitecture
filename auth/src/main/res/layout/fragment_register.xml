@@ -41,7 +41,7 @@
             android:ems="10"
             android:hint="User"
             android:inputType="textPersonName"
-            android:text="christian.bergmann@huk-coburg.de"
+            android:text="christian.bergmann@kunstadt.de"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
             tools:text="User" />
