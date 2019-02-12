@@ -17,6 +17,8 @@ interface OverviewContract {
       fun showListLoading(isVisible: Boolean)
 
       fun showUpdatedEventState(event: EventEntity)
+
+      fun showPossibleCitys(citys: Array<String>)
    }
 
    interface Presenter : BasePresenter<View> {
@@ -28,5 +30,7 @@ interface OverviewContract {
       fun updateEvent(event: EventEntity)
 
       fun loadUpdatedEventById(eventId: String)
+
+      fun loadCitySuggestions(query: String)
    }
 }

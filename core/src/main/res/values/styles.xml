@@ -10,6 +10,16 @@
       <!--<item name="android:windowAnimationStyle">@null</item>-->
       <item name="android:statusBarColor">@color/backgroundToolbar</item>
       <item name="android:windowContentTransitions">true</item>
+      <item name="android:dropDownItemStyle">@style/AppTheme.DropDownItemStyle</item>
+      <item name="android:dropDownListViewStyle">@style/AppTheme.DropDownListViewStyle</item>
+   </style>
+
+   <style name="AppTheme.DropDownItemStyle" parent="Widget.AppCompat.DropDownItem.Spinner">
+      <item name="android:textColor">@android:color/black</item>
+   </style>
+
+   <style name="AppTheme.DropDownListViewStyle" parent="Widget.AppCompat.ListView.DropDown">
+      <item name="android:background">@color/titleToolbar</item>
    </style>
 
    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">

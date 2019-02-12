@@ -23,6 +23,7 @@ import com.distribution.christian.cleantest.event.presentation.detail.model.Even
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
+
 class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), DetailContract.View {
 
    companion object {

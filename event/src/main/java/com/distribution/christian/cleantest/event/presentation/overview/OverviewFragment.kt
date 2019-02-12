@@ -1,12 +1,23 @@
 package com.distribution.christian.cleantest.event.presentation.overview
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.database.MatrixCursor
 import android.os.Bundle
+import android.provider.BaseColumns
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.cursoradapter.widget.CursorAdapter
+import androidx.cursoradapter.widget.SimpleCursorAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
-import android.widget.LinearLayout
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.recycler.EndlessScrollListener
 import com.distribution.christian.cleantest.core.core.util.extension.args
@@ -20,6 +31,10 @@ import com.distribution.christian.cleantest.event.presentation.overview.model.Ev
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
+import android.widget.EditText
+import android.database.Cursor
+import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
+import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
 
 
 @Suppress("UNCHECKED_CAST")
@@ -44,12 +59,25 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    private lateinit var content: LinearLayout
    private lateinit var loading: ShimmerFrameLayout
    private lateinit var userList: RecyclerView
-
+   private lateinit var searchView: SearchView
+   private lateinit var searchItem: MenuItem
+   private lateinit var cityAdapter: SimpleCursorAdapter
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       activity.updateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
+      setHasOptionsMenu(true)
+      val from = arrayOf("cityName")
+      val to = intArrayOf(android.R.id.text1)
+      cityAdapter = SimpleCursorAdapter(
+            activity,
+            android.R.layout.simple_list_item_1,
+            null,
+            from,
+            to,
+            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+      )
    }
 
    override fun onAttach(context: Context?) {
@@ -69,6 +97,27 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
          presenter.loadUpdatedEventById(consistency.data!![consistency.posToReload].id.toString())
          consistency.posToReload = -1
       }
+   }
+
+   @SuppressLint("ResourceType")
+   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+      inflater!!.inflate(R.menu.event_toolbar_menu, menu)
+      super.onCreateOptionsMenu(menu, inflater)
+   }
+
+   override fun onPrepareOptionsMenu(menu: Menu?) {
+      super.onPrepareOptionsMenu(menu)
+      searchItem = menu!!.findItem(R.id.search)
+      searchView = searchItem.actionView as SearchView
+      initSearch()
+   }
+
+   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+      when (item!!.itemId) {
+         R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+      }
+      return super.onOptionsItemSelected(item)
    }
 
    override fun onPause() {
@@ -147,6 +196,46 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       argsUpdate {
          putSerializable(EventOverviewFragmentConsistency.DATA_KEY, consistency.data)
          putInt(EventOverviewFragmentConsistency.POS_KEY, consistency.posToReload)
+         putString(EventOverviewFragmentConsistency.SEARCH_TERM_KEY, consistency.searchTerm)
       }
+   }
+
+   override fun showPossibleCitys(citys: Array<String>) {
+      val c = MatrixCursor(arrayOf(BaseColumns._ID, "cityName"))
+      for (i in 0 until citys.size) {
+         c.addRow(arrayOf(i, citys[i]))
+      }
+      cityAdapter.changeCursor(c)
+   }
+
+   private fun initSearch() {
+      searchView.suggestionsAdapter = cityAdapter
+      val searchText = searchView.findViewById(R.id.search_src_text) as EditText
+      val closeButton = searchView.findViewById<ImageView>(R.id.search_close_btn)
+
+      closeButton.setOnClickListener {
+         searchText.setText("")
+         consistency.searchTerm = ""
+         searchView.setQuery("", false)
+         searchView.onActionViewCollapsed()
+         searchItem.collapseActionView()
+      }
+      searchView.setOnSuggestionListener(object : OnSuggestionClickedListener() {
+         override fun onSuggestionClick(position: Int): Boolean {
+            val cursor = cityAdapter.getItem(position) as Cursor
+            consistency.searchTerm = cursor.getString(1)
+            searchText.setText(consistency.searchTerm)
+            searchView.clearFocus()
+            return true
+         }
+      })
+      searchView.setOnQueryTextListener(object : OnQueryChangedListener() {
+
+         override fun onQueryTextChange(newText: String): Boolean {
+            consistency.searchTerm = newText
+            presenter.loadCitySuggestions(newText)
+            return false
+         }
+      })
    }
 }

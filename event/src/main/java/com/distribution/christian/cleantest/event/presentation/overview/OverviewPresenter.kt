@@ -6,6 +6,7 @@ import com.distribution.christian.cleantest.event.domain.usecase.GetEventsInPool
 import com.distribution.christian.cleantest.event.presentation.overview.mapper.EventOverviewDomainMapper
 import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
+import com.distribution.christian.cleantest.event.domain.usecase.GetCitysByQuery
 import com.distribution.christian.cleantest.event.domain.usecase.GetEventById
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.mapper.EventDomainMapper
@@ -14,7 +15,8 @@ import com.distribution.christian.cleantest.event.presentation.detail.model.Even
 class OverviewPresenter constructor(
       private val getEventsInPool: GetEventsInPool,
       private val updateEvent: UpdateEvent,
-      private val getEventById: GetEventById
+      private val getEventById: GetEventById,
+      private val getCitysByQuery: GetCitysByQuery
 ) : OverviewContract.Presenter {
 
    private lateinit var overviewView: OverviewContract.View
@@ -48,6 +50,12 @@ class OverviewPresenter constructor(
       }
    }
 
+   private inner class GetCitysObserver : DefaultSingleObserver<Array<String>>() {
+      override fun onSuccess(value: Array<String>) {
+         overviewView.showPossibleCitys(value)
+      }
+   }
+
    private inner class UpateEventObserver : DefaultSingleObserver<Event>() {
       override fun onSuccess(value: Event) {
          overviewView.showUpdatedEventState(EventDomainMapper.transform(value))
@@ -70,6 +78,10 @@ class OverviewPresenter constructor(
       updateEvent.execute(UpateEventObserver(), EventDomainMapper.transform(event))
    }
 
+   override fun loadCitySuggestions(query: String) {
+      getCitysByQuery.execute(GetCitysObserver(), query)
+   }
+
    override fun loadMoreEvents() {
       overviewView.showListLoading(true)
       getEventsInPool.execute(GetMoreEventsObserver(), Unit)
@@ -86,6 +98,6 @@ class OverviewPresenter constructor(
 
    override fun onUnbind() {
       getEventsInPool.dispose()
+      getCitysByQuery.dispose()
    }
-
 }
