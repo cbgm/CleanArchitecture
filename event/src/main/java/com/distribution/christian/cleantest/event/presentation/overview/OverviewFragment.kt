@@ -33,6 +33,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
+import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
 import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
@@ -100,6 +101,14 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun onPrepareOptionsMenu(menu: Menu?) {
       super.onPrepareOptionsMenu(menu)
       searchItem = menu!!.findItem(R.id.search)
+      searchItem.setOnActionExpandListener(object : OnMenuItemCollapsedListener() {
+
+         override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
+            consistency.searchTerm = ""
+            presenter.loadEvents(null)
+            return super.onMenuItemActionCollapse(menuItem)
+         }
+      })
       searchView = searchItem.actionView as SearchView
       initSearch()
    }
@@ -217,6 +226,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
          searchItem.collapseActionView()
          presenter.loadEvents(null)
       }
+
       searchView.setOnSuggestionListener(object : OnSuggestionClickedListener() {
          override fun onSuggestionClick(position: Int): Boolean {
             val cursor = cityAdapter.getItem(position) as Cursor

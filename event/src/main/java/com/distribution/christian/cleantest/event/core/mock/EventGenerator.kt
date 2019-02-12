@@ -48,10 +48,6 @@ class EventGenerator {
             Random.nextInt(12, 20)
       )
 
-      /*private fun getRandomCity() = getRandomString(
-            Random.nextInt(12, 20)
-      )*/
-
       private fun getRandomLocation() =
             "${getRandomString(
                   Random.nextInt(8, 15)
@@ -78,7 +74,7 @@ class EventGenerator {
                .toString()
          val month: String = Random.nextInt(1, 12)
                .toString()
-         val year: String = "2019"
+         val year = "2019"
          val weekday: String = weekdays[Random.nextInt(0, weekdays.size - 1)]
 
          return "$weekday $day.$month.$year"
