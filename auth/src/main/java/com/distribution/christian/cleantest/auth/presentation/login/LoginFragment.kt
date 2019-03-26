@@ -17,9 +17,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.distribution.christian.cleantest.core.core.di.DiScope
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
+import kotlinx.android.synthetic.main.fragment_login.offline_btn
 import org.koin.android.ext.android.inject
 
 
@@ -45,6 +47,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    private lateinit var showPasswordCheck: CheckBox
    private lateinit var loginBtnProgress: ProgressBar
    private lateinit var loginBtnText: TextView
+   private lateinit var offlineBtn: TextView
    private lateinit var validImage: ImageView
 
    private var loginWasChecked: Boolean = false
@@ -114,6 +117,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
       loginBtn = view.findViewById(R.id.login_btn)
       registerBtn = view.findViewById(R.id.register_btn)
       resetBtn = view.findViewById(R.id.reset_btn)
+      offlineBtn = view.findViewById(R.id.offline_btn)
       emailText = view.findViewById(R.id.email_text)
       passwordText = view.findViewById(R.id.password_text)
       showPasswordCheck = view.findViewById(R.id.show_password_check)
@@ -133,6 +137,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
 
       resetBtn.setOnClickListener {
          activity.coordinator.showReset()
+      }
+
+      offlineBtn.setOnClickListener{
+         activity.navigateToStars()
       }
 
       registerBtn.setOnClickListener {

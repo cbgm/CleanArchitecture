@@ -9,4 +9,9 @@
       app:showAsAction="always|collapseActionView"
       />
 
+   <item android:id="@+id/stars"
+      android:title="@string/app_name"
+      android:icon="@drawable/ic_empty_star"
+      app:showAsAction="always"
+      />
 </menu>

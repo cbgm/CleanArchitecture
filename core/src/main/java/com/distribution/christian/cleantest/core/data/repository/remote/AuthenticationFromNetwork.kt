@@ -22,7 +22,7 @@ class AuthenticationFromNetwork(
                      "",
                      "",
                      "",
-                     user!!.email!!,
+                     user.email!!,
                      "",
                      ""
                )

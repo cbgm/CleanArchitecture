@@ -50,6 +50,6 @@ class SplashActivity : AppCompatActivity() {
    private fun startRouting() {
       val data: Uri? = intent?.data
       rootFlowCoordinatorImpl.start(this, data)
-      rootFlowCoordinatorImpl.showAuthentication(title)
+      //rootFlowCoordinatorImpl.showAuthentication(title)
    }
 }

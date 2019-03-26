@@ -26,7 +26,7 @@ class HintNotification(
    }
 
    init {
-      val intent = Intent(BuildConfig.ACTION_CART)
+      val intent = Intent(BuildConfig.ACTION_EVENTS)
       val pendingIntent: PendingIntent
       val builder = NotificationCompat.Builder(context, channelId)
 

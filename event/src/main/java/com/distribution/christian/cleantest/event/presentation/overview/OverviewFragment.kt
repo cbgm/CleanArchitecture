@@ -33,6 +33,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
@@ -64,6 +66,8 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    private lateinit var searchView: SearchView
    private lateinit var searchItem: MenuItem
    private lateinit var cityAdapter: SimpleCursorAdapter
+   private lateinit var swipeContainer: SwipeRefreshLayout
+   private var searchEntity: SearchEntity? = null
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -73,9 +77,17 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       initCitySuggestionAdapter()
    }
 
+   @SuppressLint("CheckResult")
    override fun onAttach(context: Context?) {
       super.onAttach(context)
       consistency = EventOverviewFragmentConsistency.deserializeFrom(this)
+      consistency.searchTerm.observable.subscribe {
+         if (it != "") {
+            searchEntity = SearchEntity("", it, "", 0, 0)
+         } else {
+            searchEntity = null
+         }
+      }
    }
 
    override fun onResume() {
@@ -104,8 +116,8 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       searchItem.setOnActionExpandListener(object : OnMenuItemCollapsedListener() {
 
          override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
-            consistency.searchTerm = ""
-            presenter.loadEvents(null)
+            consistency.searchTerm.value = ""
+            presenter.loadEvents(searchEntity)
             return super.onMenuItemActionCollapse(menuItem)
          }
       })
@@ -117,6 +129,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
       when (item!!.itemId) {
          R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+         R.id.stars -> activity.coordinator.showStars()
       }
       return super.onOptionsItemSelected(item)
    }
@@ -145,7 +158,12 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    override fun showLoading(isVisible: Boolean) {
-      if (isVisible) loading.startShimmer() else loading.stopShimmer()
+      if (isVisible) {
+         loading.startShimmer()
+      } else {
+         loading.stopShimmer()
+         swipeContainer.isRefreshing = false
+      }
    }
 
    override fun showListLoading(isVisible: Boolean) {
@@ -163,16 +181,13 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun initViews(view: View) {
       content = view.findViewById(R.id.content)
       loading = view.findViewById(R.id.loading)
+      swipeContainer = view.findViewById(R.id.swipeContainer)
       userList = view.findViewById(R.id.user_list)
       userList.layoutManager = LinearLayoutManager(activity)
       userList.adapter = overviewAdapter
       userList.addOnScrollListener(object : EndlessScrollListener() {
          override fun onLoadMore() {
-            if (consistency.searchTerm != null) {
-               presenter.loadMoreEvents(SearchEntity("", consistency.searchTerm!!, "", 0, 0))
-            } else {
-               presenter.loadMoreEvents(null)
-            }
+            presenter.loadMoreEvents(searchEntity)
          }
       })
 
@@ -181,6 +196,10 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
             R.string.title_overview,
             false
       )
+
+      swipeContainer.setOnRefreshListener {
+         presenter.loadEvents(searchEntity)
+      }
    }
 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
@@ -201,7 +220,9 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       argsUpdate {
          putSerializable(EventOverviewFragmentConsistency.DATA_KEY, consistency.data)
          putInt(EventOverviewFragmentConsistency.POS_KEY, consistency.posToReload)
-         putString(EventOverviewFragmentConsistency.SEARCH_TERM_KEY, consistency.searchTerm)
+         putString(
+               EventOverviewFragmentConsistency.SEARCH_TERM_KEY, consistency.searchTerm.value
+         )
       }
    }
 
@@ -220,28 +241,28 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
       closeButton.setOnClickListener {
          searchText.setText("")
-         consistency.searchTerm = ""
+         consistency.searchTerm.value = ""
          searchView.setQuery("", false)
          searchView.onActionViewCollapsed()
          searchItem.collapseActionView()
-         presenter.loadEvents(null)
+         presenter.loadEvents(searchEntity)
       }
 
       searchView.setOnSuggestionListener(object : OnSuggestionClickedListener() {
          override fun onSuggestionClick(position: Int): Boolean {
             val cursor = cityAdapter.getItem(position) as Cursor
-            consistency.searchTerm = cursor.getString(1)
-            searchText.setText(consistency.searchTerm)
+            consistency.searchTerm.value = cursor.getString(1)
+            searchText.setText(consistency.searchTerm.value)
             searchView.clearFocus()
             //overviewAdapter.filter.filter(consistency.searchTerm)
-            presenter.loadEvents(SearchEntity("", consistency.searchTerm!!, "", 0, 0))
+            presenter.loadEvents(searchEntity)
             return true
          }
       })
       searchView.setOnQueryTextListener(object : OnQueryChangedListener() {
 
          override fun onQueryTextChange(newText: String): Boolean {
-            consistency.searchTerm = newText
+            consistency.searchTerm.value = newText
             presenter.loadCitySuggestions(newText)
             return false
          }
@@ -261,3 +282,5 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       )
    }
 }
+
+

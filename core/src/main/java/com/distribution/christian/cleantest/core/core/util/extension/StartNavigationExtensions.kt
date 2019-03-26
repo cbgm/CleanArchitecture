@@ -1,8 +1,6 @@
 package com.distribution.christian.cleantest.core.core.util.extension
 
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SHOP
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_CART
-
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +9,8 @@ import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
 import androidx.core.app.ActivityOptionsCompat
 import android.view.View
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_EVENTS
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_STARS
 
 
 fun Context.navigateToShop(oldActivity: FragmentActivity) {
@@ -24,8 +24,13 @@ fun Context.navigateToProfile(oldActivity: FragmentActivity) {
 }
 
 fun Context.navigateToEvents(oldActivity: FragmentActivity) {
-   val intentToStart = Intent(ACTION_CART)
+   val intentToStart = Intent(ACTION_EVENTS)
    startAction(intentToStart, this, oldActivity)
+}
+
+fun Context.navigateToStars() {
+   val intentToStart = Intent(ACTION_STARS)
+   startActivity(intentToStart)
 }
 
 fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View? = null) {

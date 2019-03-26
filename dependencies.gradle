@@ -73,7 +73,8 @@ ext {
    NavigationItems =
          [
                'ACTION_SHOP',
-               'ACTION_CART',
+               'ACTION_EVENTS',
+               'ACTION_STARS',
                'ACTION_PROFILE',
                'ACTION_AUTH'
          ]

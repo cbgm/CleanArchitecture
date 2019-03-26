@@ -9,4 +9,6 @@ interface EventFlowCoordinator {
    fun showDetail(userId: String? = null, transitionInformation: BaseFragment.TransitionInformation? = null, event: EventEntity? = null)
 
    fun showOverview()
+
+   fun showStars()
 }

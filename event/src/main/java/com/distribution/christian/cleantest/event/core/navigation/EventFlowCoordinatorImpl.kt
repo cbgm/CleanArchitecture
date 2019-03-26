@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.event.core.navigation
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragmentwithSharedElement
 import com.distribution.christian.cleantest.event.presentation.detail.DetailFragment
@@ -50,6 +51,10 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
             replaceableFragmentId,
             OverviewFragment.TAG
       )
+   }
+
+   override fun showStars() {
+      activity.navigateToStars()
    }
 
    override fun navigateDeepLink() {
