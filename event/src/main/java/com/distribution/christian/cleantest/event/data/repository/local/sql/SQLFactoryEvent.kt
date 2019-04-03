@@ -1,10 +1,10 @@
 package com.distribution.christian.cleantest.event.data.repository.local.sql
 
-import com.distribution.christian.cleantest.event.data.repository.local.DaoFactory
+import com.distribution.christian.cleantest.event.data.repository.local.EventDaoFactory
 import com.distribution.christian.cleantest.event.data.repository.local.EventDao
 
 
-class SQLFactory: DaoFactory() {
+class SQLFactoryEvent: EventDaoFactory() {
     //create connection etc
 
     override fun getEventDao(): EventDao {

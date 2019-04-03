@@ -7,6 +7,11 @@ dependencies {
    implementation presDep.shimmer
    implementation presDep.supportDesign
 
+   def dataDep = rootProject.ext.dataDependencies
+   implementation dataDep.roomCore
+   implementation dataDep.roomCoroutines
+   kapt dataDep.roomCompiler
+
    implementation project(":core")
 
    def testDep = rootProject.ext.testDependencies

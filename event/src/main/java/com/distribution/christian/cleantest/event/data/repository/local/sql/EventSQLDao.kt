@@ -57,4 +57,12 @@ class EventSQLDao : EventDao {
       }
       return Result.Error(Exception())
    }
+
+   override fun deleteEvent(evntId: String): Result<Nothing> {
+      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+   }
+
+   override fun saveEvent(event: Event): Result<Event> {
+      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+   }
 }

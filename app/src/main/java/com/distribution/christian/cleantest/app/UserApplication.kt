@@ -21,6 +21,7 @@ import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
+import com.distribution.christian.cleantest.event.core.di.eventStarsModule
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
 import com.google.android.play.core.splitcompat.SplitCompatApplication
@@ -63,7 +64,7 @@ class UserApplication : SplitCompatApplication() {
       startKoin(
             this, listOf(
             appModule, networkModule, appCoreModule,
-            eventCoreModule, eventOverviewModule, eventDetailModule,
+            eventCoreModule, eventOverviewModule, eventDetailModule, eventStarsModule,
             profileCoreModule, profileOverviewModule, authCoreModule, authRegisterModule,
             authLoginModule
       )

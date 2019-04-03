@@ -13,4 +13,8 @@ interface EventRepository {
    suspend fun updateEvent(event: Event): Result<Event>
 
    suspend fun getEventById(eventId: String): Result<Event>
+
+   suspend fun deleteEvent(event: Event): Result<Nothing>
+
+   suspend fun getEvents(): Result<EventOverview>
 }

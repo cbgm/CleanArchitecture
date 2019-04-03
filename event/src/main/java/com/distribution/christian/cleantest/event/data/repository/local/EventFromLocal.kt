@@ -8,14 +8,14 @@ import com.distribution.christian.cleantest.core.domain.model.Search
 import javax.inject.Inject
 
 
-class EventFromLocal @Inject constructor() {
+class EventFromLocal @Inject constructor(private val daoFactoryType: Int) {
 
-   private val eventDao = DaoFactory.getDaoFactory(
-         DaoFactory.SQL
-   )
+   private val eventDao = EventDaoFactory.getDaoFactory(daoFactoryType)
          .getEventDao()
 
-   fun getEventsByCriteria(search: Search?): Result<EventOverview> = eventDao.getEventsByCriteria(search)
+   fun getEventsByCriteria(search: Search?): Result<EventOverview> = eventDao.getEventsByCriteria(
+         search
+   )
 
    fun saveEvents(data: EventOverview): Result<Nothing> = eventDao.saveEvents(data)
 
