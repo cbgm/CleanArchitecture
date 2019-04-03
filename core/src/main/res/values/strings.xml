@@ -3,6 +3,7 @@
    <string name="shop">Shop</string>
    <string name="events">Events</string>
    <string name="profile">Profil</string>
+   <string name="empty" translatable="false"></string>
    <string-array name="city_array">
       <item>Abenberg</item>
       <item>Altdorf bei Nürnberg</item>
