@@ -34,7 +34,6 @@ class StarsPresenter @Inject constructor(
       }
    }
 
-
    override fun loadEvents() {
       getEventsFromCache.executeLong(LoadStarredEventsObserver(), Unit)
    }

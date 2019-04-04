@@ -32,6 +32,8 @@ class EventRepositoryImpl constructor(
       if (!event.isStarred) {
          eventCache.getEventDao()
                .saveEvent(EventDtoMapper.transform(event))
+      } else {
+         eventCache.getEventDao().deleteEvent(EventDtoMapper.transform(event))
       }
       return eventFromLocal.updateEvent(event)
    }
