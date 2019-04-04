@@ -20,8 +20,12 @@ class StarsPresenter @Inject constructor(
 
    inner class LoadStarredEventsObserver: SingleLCEObserver<EventOverview>(starsView) {
       override fun onSuccess(value: EventOverview) {
-         super.onSuccess(value)
-         starsView.showStars(EventOverviewDomainMapper.transform(value))
+         if (value.count > 0) {
+            starsView.showContent()
+            starsView.showStars(EventOverviewDomainMapper.transform(value))
+         } else {
+            starsView.showError()
+         }
       }
    }
 
@@ -45,6 +49,7 @@ class StarsPresenter @Inject constructor(
    }
 
    override fun onBind() {
+      starsView.showLoading()
       getEventsFromCache.execute(LoadStarredEventsObserver(), Unit)
    }
 

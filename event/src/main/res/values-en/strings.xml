@@ -2,4 +2,5 @@
 <resources>
    <string name="title_overview">Overview</string>
    <string name="title_details">Details</string>
+   <string name="title_stars">Bookmarks</string>
 </resources>

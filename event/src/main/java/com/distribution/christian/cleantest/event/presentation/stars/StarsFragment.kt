@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.event.presentation.stars
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,10 +16,10 @@ import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 import com.distribution.christian.cleantest.event.presentation.stars.model.EventStarsFragmentConsistency
-import kotlinx.android.synthetic.main.fragment_event_stars.recyle
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
-class StarsFragment: EventBaseFragment<EventStarsFragmentConsistency>(), StarsContract.View, SwipeAdapter.OnItemClickListener {
+class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsContract.View {
 
    companion object {
 
@@ -27,9 +28,12 @@ class StarsFragment: EventBaseFragment<EventStarsFragmentConsistency>(), StarsCo
    }
 
    private val presenter: StarsPresenter by inject()
-   private lateinit var simpleAdapter:SwipeAdapter
+   private lateinit var simpleAdapter: SwipeAdapter
 
    private lateinit var starsList: RecyclerView
+   private lateinit var content: LinearLayout
+   private lateinit var error: LinearLayout
+   private lateinit var loading: ShimmerFrameLayout
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -51,16 +55,8 @@ class StarsFragment: EventBaseFragment<EventStarsFragmentConsistency>(), StarsCo
       return R.layout.fragment_event_stars
    }
 
-   override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-   }
-
-   override fun onBookmarkClick(event: EventEntity) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-   }
-
    override fun showStars(eventOverviewEntity: EventOverviewEntity) {
-      simpleAdapter = SwipeAdapter(eventOverviewEntity, this)
+      simpleAdapter = SwipeAdapter(eventOverviewEntity)
       starsList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
       starsList.layoutManager = LinearLayoutManager(activity)
       starsList.adapter = simpleAdapter
@@ -73,26 +69,31 @@ class StarsFragment: EventBaseFragment<EventStarsFragmentConsistency>(), StarsCo
       }
 
       val itemTouchHelper = ItemTouchHelper(swipeHandler)
-      itemTouchHelper.attachToRecyclerView(recyle)
+      itemTouchHelper.attachToRecyclerView(starsList)
    }
+
    override fun initViews(view: View) {
-      //content = view.findViewById(R.id.content)
-      //loading = view.findViewById(R.id.loading)
-      starsList = view.findViewById(R.id.recyle)
+      content = view.findViewById(R.id.content)
+      loading = view.findViewById(R.id.loading)
+      error = view.findViewById(R.id.error)
+      starsList = view.findViewById(R.id.star_list)
 
       ToolbarLoader(
             activity as AppCompatActivity?,
-            R.string.empty,
+            R.string.title_stars,
             false
       )
    }
 
    override fun showContent(isVisible: Boolean) {
+      content.visibility = if (isVisible) View.VISIBLE else View.GONE
    }
 
    override fun showError(isVisible: Boolean) {
+      error.visibility = if (isVisible) View.VISIBLE else View.GONE
    }
 
    override fun showLoading(isVisible: Boolean) {
+      loading.visibility = if (isVisible) View.VISIBLE else View.GONE
    }
 }

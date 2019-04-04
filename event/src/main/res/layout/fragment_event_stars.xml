@@ -4,8 +4,45 @@
    android:layout_height="match_parent"
    android:orientation="vertical">
 
+   <LinearLayout
+      android:id="@+id/content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyle"
+      android:id="@+id/star_list"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
+   </LinearLayout>
+
+   <com.facebook.shimmer.ShimmerFrameLayout
+      android:id="@+id/loading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+
+         <include layout="@layout/shimmer_overview_item" />
+
+      </LinearLayout>
+
+   </com.facebook.shimmer.ShimmerFrameLayout>
+
+   <LinearLayout
+      android:id="@+id/error"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+      <TextView
+         android:text="Currently no bookmarks"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"/>
+   </LinearLayout>
+
 </LinearLayout>

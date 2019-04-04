@@ -12,7 +12,7 @@
       android:layout_height="wrap_content">
 
       <TextView
-         android:id="@+id/days_left"
+         android:id="@+id/days_left_text"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginEnd="8dp"
@@ -26,14 +26,15 @@
 
       <TextView
          android:id="@+id/name_text"
-         android:layout_width="0dp"
-         android:layout_height="wrap_content"
+         android:layout_width="298dp"
+         android:layout_height="23dp"
          android:layout_marginEnd="16dp"
          android:layout_marginStart="16dp"
+         android:layout_marginTop="5dp"
          android:textColor="@android:color/holo_green_light"
-         app:layout_constraintEnd_toStartOf="@+id/star_img"
+         app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintStart_toEndOf="@+id/type_img"
-         app:layout_constraintTop_toBottomOf="@+id/days_left"
+         app:layout_constraintTop_toBottomOf="@+id/days_left_text"
          tools:text="Wild Partyhell an der Höh" />
 
       <TextView
@@ -50,13 +51,25 @@
       <TextView
          android:id="@+id/location_text"
          android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginBottom="8dp"
+         android:layout_height="12dp"
+         android:layout_marginTop="5dp"
          android:textSize="10sp"
-         app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintStart_toStartOf="@+id/city_text"
          app:layout_constraintTop_toBottomOf="@+id/city_text"
          tools:text="Cityhall, Straße 21" />
+
+      <TextView
+         android:id="@+id/description_text"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="8dp"
+         android:layout_marginEnd="16dp"
+         android:layout_marginTop="5dp"
+         android:text="TextView"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="@+id/location_text"
+         app:layout_constraintTop_toBottomOf="@+id/location_text" />
 
       <ImageView
          android:id="@+id/type_img"
@@ -65,26 +78,13 @@
          android:layout_marginBottom="8dp"
          android:layout_marginStart="16dp"
          android:layout_marginTop="8dp"
+         android:contentDescription="type image"
          android:src="@android:drawable/sym_def_app_icon"
          app:layout_constraintBottom_toBottomOf="@+id/city_text"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent"
-         android:contentDescription="type image"
          tools:src="@tools:sample/avatars[0]"
          tools:srcCompat="@tools:sample/avatars[0]" />
-
-      <ImageView
-         android:id="@+id/star_img"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_marginBottom="8dp"
-         android:layout_marginEnd="16dp"
-         android:layout_marginTop="8dp"
-         android:contentDescription="star icon"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintTop_toTopOf="parent"
-         app:srcCompat="@drawable/ic_empty_star" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

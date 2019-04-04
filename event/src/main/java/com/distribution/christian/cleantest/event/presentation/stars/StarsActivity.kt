@@ -13,4 +13,8 @@ class StarsActivity : WindowActivity() {
       super.onCreate(savedInstanceState)
       replaceFragment(StarsFragment.newInstance(), R.id.fragment_container, "")
    }
+
+   override fun onBackPressed() {
+      
+   }
 }
