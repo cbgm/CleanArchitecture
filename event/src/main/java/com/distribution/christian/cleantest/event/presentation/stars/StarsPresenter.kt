@@ -8,7 +8,6 @@ import com.distribution.christian.cleantest.event.domain.usecase.GetEventsFromCa
 import com.distribution.christian.cleantest.event.presentation.detail.mapper.EventDomainMapper
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.mapper.EventOverviewDomainMapper
-import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 import javax.inject.Inject
 
 
@@ -31,7 +30,7 @@ class StarsPresenter @Inject constructor(
 
    inner class DeleteStarredEventObserver: CompletableLCEObserver(starsView) {
       override fun onComplete() {
-         super.onComplete()
+         starsView.showDeletedStars()
       }
    }
 
@@ -41,7 +40,7 @@ class StarsPresenter @Inject constructor(
    }
 
    override fun deleteEvent(eventEntity: EventEntity) {
-      deleteEventFromCache.executeLong(DeleteStarredEventObserver(), EventDomainMapper.transform(eventEntity))
+      deleteEventFromCache.execute(DeleteStarredEventObserver(), EventDomainMapper.transform(eventEntity))
    }
 
    override fun setVIew(view: StarsContract.View) {
@@ -56,5 +55,11 @@ class StarsPresenter @Inject constructor(
    override fun onUnbind() {
       getEventsFromCache.dispose()
       deleteEventFromCache.dispose()
+   }
+
+   override fun triggerEmptyEvents(starsSize: Int) {
+      if (starsSize == 0) {
+         starsView.showError()
+      }
    }
 }

@@ -13,7 +13,6 @@ import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
-import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 import com.distribution.christian.cleantest.event.presentation.stars.model.EventStarsFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -95,5 +94,9 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
 
    override fun showLoading(isVisible: Boolean) {
       loading.visibility = if (isVisible) View.VISIBLE else View.GONE
+   }
+
+   override fun showDeletedStars() {
+      presenter.triggerEmptyEvents(starsList.adapter!!.itemCount)
    }
 }

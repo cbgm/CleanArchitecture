@@ -40,6 +40,5 @@ abstract class BaseUseCase<T, in Params> {
       }
    }
 
-
    fun dispose() = job?.takeIf { !it.isCancelled }?.cancel()
 }
