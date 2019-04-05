@@ -10,9 +10,10 @@ import android.widget.TextView
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
+import com.google.android.gms.maps.MapView
 
 
-class SwipeAdapter(private val data: EventOverviewEntity) : RecyclerView.Adapter<SwipeAdapter.EventViewHolder>() {
+class SwipeAdapter(private val data: EventOverviewEntity, private val onClickListener: OnClickListener) : RecyclerView.Adapter<SwipeAdapter.EventViewHolder>() {
 
    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
       val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_star, parent, false)
@@ -26,6 +27,9 @@ class SwipeAdapter(private val data: EventOverviewEntity) : RecyclerView.Adapter
          holder.locationText.text = event.location
          holder.descriptionText.text = event.description
          holder.daysLeftText.text = event.date
+         holder.navigateImg.setOnClickListener {
+            onClickListener.navigate("" + holder.cityText.text + "," + holder.locationText.text)
+         }
          ViewCompat.setTransitionName(holder.typeImg, "image$position")
    }
 
@@ -36,13 +40,17 @@ class SwipeAdapter(private val data: EventOverviewEntity) : RecyclerView.Adapter
       notifyItemRemoved(position)
    }
 
+   interface OnClickListener {
+      fun navigate(location: String)
+   }
+
    inner class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
       val nameText: TextView = view.findViewById(R.id.name_text)
       val daysLeftText: TextView = view.findViewById(R.id.days_left_text)
       val locationText: TextView = view.findViewById(R.id.location_text)
       val cityText: TextView = view.findViewById(R.id.city_text)
       val typeImg: ImageView = view.findViewById(R.id.type_img)
+      val navigateImg: ImageView = view.findViewById(R.id.navigate_btn)
       val descriptionText: TextView = view.findViewById(R.id.description_text)
-
    }
 }

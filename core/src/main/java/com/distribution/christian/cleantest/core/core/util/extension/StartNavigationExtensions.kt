@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.core.core.util.extension
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SHOP
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
@@ -47,6 +48,13 @@ fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View? = null) {
       startAction(intentToStart, this, oldActivity)
    }
 
+}
+
+fun Context.navigateGoogleMaps(location: String) {
+   val gmmIntentUri = Uri.parse("google.navigation:q="+location);
+   val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri);
+   mapIntent.setPackage("com.google.android.apps.maps")
+   startActivity(mapIntent)
 }
 
 private fun startAction(

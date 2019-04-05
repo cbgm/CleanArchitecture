@@ -6,6 +6,7 @@ dependencies {
    implementation presDep.recyclerView
    implementation presDep.shimmer
    implementation presDep.supportDesign
+   implementation presDep.googleMaps
 
    def dataDep = rootProject.ext.dataDependencies
    implementation dataDep.roomCore

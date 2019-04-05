@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.distribution.christian.cleantest.core.core.di.DiScope
+import com.distribution.christian.cleantest.core.core.util.extension.navigateGoogleMaps
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.R
@@ -18,7 +19,8 @@ import com.distribution.christian.cleantest.event.presentation.stars.model.Event
 import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 
-class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsContract.View {
+
+class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsContract.View, SwipeAdapter.OnClickListener {
 
    companion object {
 
@@ -55,7 +57,7 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
    }
 
    override fun showStars(eventOverviewEntity: EventOverviewEntity) {
-      simpleAdapter = SwipeAdapter(eventOverviewEntity)
+      simpleAdapter = SwipeAdapter(eventOverviewEntity, this)
       starsList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
       starsList.layoutManager = LinearLayoutManager(activity)
       starsList.adapter = simpleAdapter
@@ -69,6 +71,10 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
 
       val itemTouchHelper = ItemTouchHelper(swipeHandler)
       itemTouchHelper.attachToRecyclerView(starsList)
+   }
+
+   override fun navigate(location: String) {
+      activity.navigateGoogleMaps(location)
    }
 
    override fun initViews(view: View) {
