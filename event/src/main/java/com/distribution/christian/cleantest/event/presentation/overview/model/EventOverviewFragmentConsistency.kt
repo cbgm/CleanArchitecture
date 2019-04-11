@@ -6,6 +6,7 @@ import com.distribution.christian.cleantest.core.core.util.listener.ObserableVar
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.OverviewFragment
 
+@Suppress("UNCHECKED_CAST")
 data class EventOverviewFragmentConsistency(
       var data: ArrayList<EventEntity>? = null,
       var posToReload: Int = -1,

@@ -14,6 +14,7 @@ import com.distribution.christian.cleantest.event.presentation.detail.model.Even
 import java.util.ArrayList
 
 
+@Suppress("UNCHECKED_CAST")
 class OverviewAdapter(
       override var data: ArrayList<EventEntity>,
       private var listener: OnItemClickListener

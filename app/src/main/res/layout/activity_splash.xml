@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:app="http://schemas.android.com/apk/res-auto"
-   android:id="@+id/root"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
-   android:layout_height="match_parent">
+   android:layout_height="match_parent"
+   android:background="@color/colorAccent"
+   android:orientation="vertical">
 
-   <TextView
-      android:id="@+id/firstLetter"
-      android:layout_width="8dp"
+   <LinearLayout
+      android:id="@+id/container"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:layout_marginTop="8dp"
-      android:text="@string/title_first_letter"
-      android:textColor="@color/colorPrimary"
-      android:textSize="30sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/lastLetters"
-      app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:paddingTop="2dp"
+      tools:ignore="HardcodedText">
 
-   <TextView
-      android:id="@+id/lastLetters"
+      <TextView
+         android:id="@+id/title"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="16dp"
+         android:alpha="0"
+         android:text="FrankenEvents"
+         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+         android:textColor="@android:color/white"
+         android:textSize="22sp"
+         tools:alpha="1" />
+
+      <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="8dp"
+         android:alpha="0"
+         android:gravity="center"
+         android:text="Welcome to your event organizer"
+         android:textColor="@android:color/white"
+         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
+         android:textSize="20sp"
+         tools:alpha="1" />
+
+   </LinearLayout>
+
+   <ImageView
+      android:id="@+id/img_logo"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/title_last_letters"
-      android:textColor="@android:color/holo_red_dark"
-      android:textSize="24sp"
-      app:layout_constraintBottom_toBottomOf="@+id/firstLetter"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/firstLetter"
-      app:layout_constraintTop_toTopOf="@+id/firstLetter" />
+      android:layout_gravity="center"
+      android:src="@drawable/ic_launcher_foreground"
+      tools:visibility="gone"
+      android:contentDescription="@string/logo" />
+</FrameLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>

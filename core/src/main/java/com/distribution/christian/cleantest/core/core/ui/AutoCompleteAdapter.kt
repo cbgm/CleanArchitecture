@@ -6,6 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 
 
+@Suppress("UNCHECKED_CAST")
 class AutoCompleteAdapter(
       context: Context,
       textViewResourceId: Int,
@@ -22,7 +23,6 @@ class AutoCompleteAdapter(
                suggestions.clear()
                val tempList = ArrayList(list)
                suggestions.addAll(tempList.filter { it.contains(constraint) })
-               val filterResults = FilterResults()
                filterResults.values = suggestions
                filterResults.count = suggestions.size
                return filterResults

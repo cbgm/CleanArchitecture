@@ -2,8 +2,6 @@ package com.distribution.christian.cleantest.profile.presentation.overview
 
 import android.animation.Animator
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -150,11 +148,6 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
       if (isVisible) loading.visibility = View.VISIBLE else loading.visibility = View.GONE
    }
 
-   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-      //inflater!!.inflate(R.menu.profile_toolbar_menu, menu)
-      super.onCreateOptionsMenu(menu, inflater)
-   }
-
    override fun showLogoutLoading(isVisible: Boolean) {
       if (isVisible) {
          logoutBtnText.visibility = View.GONE
@@ -225,7 +218,7 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
          }
       }
 
-      cityText.onItemClickListener = AdapterView.OnItemClickListener { p0, p1, p2, p3 ->
+      cityText.onItemClickListener = AdapterView.OnItemClickListener { _, _, _, _ ->
          //not used
       }
    }

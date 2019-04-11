@@ -9,6 +9,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 
+@Suppress("UNCHECKED_CAST", "RedundantSuspendModifier")
 class AuthenticationFromNetwork(
       private val auth: FirebaseAuth
 ) {

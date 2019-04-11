@@ -96,7 +96,7 @@ class EventGenerator {
       private fun getRandomString(size: Int): String {
          val charPool: List<Char> = ('a'..'z') + ('A'..'Z')
          return (1..size)
-               .map { i -> kotlin.random.Random.nextInt(0, charPool.size) }
+               .map { kotlin.random.Random.nextInt(0, charPool.size) }
                .map(charPool::get)
                .joinToString("")
       }
