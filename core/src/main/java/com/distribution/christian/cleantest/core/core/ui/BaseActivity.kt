@@ -12,8 +12,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.navigateToS
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
-import android.view.MenuInflater
-import android.view.Menu
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToSocial
 
 
 abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -68,6 +67,9 @@ abstract class BaseActivity(private val layout: Int? = null) : AppCompatActivity
                   featureName = "Shop",
                   featureInstalled = navigateToShop(this)
             )
+         }
+         R.id.action_social -> {
+            navigateToSocial(this)
          }
          R.id.action_profile -> {
             navigateToProfile(this)

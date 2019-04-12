@@ -83,6 +83,7 @@ dependencies {
    implementation project (":core")
    implementation project (":profile")
    implementation project (":event")
+   implementation project (":social")
    implementation project (':auth')
 
    def testDep = rootProject.ext.testDependencies

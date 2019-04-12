@@ -11,6 +11,7 @@ import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
 import androidx.core.app.ActivityOptionsCompat
 import android.view.View
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_EVENTS
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SOCIAL
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_STARS
 
 
@@ -26,6 +27,11 @@ fun Context.navigateToProfile(oldActivity: FragmentActivity) {
 
 fun Context.navigateToEvents(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_EVENTS)
+   startAction(intentToStart, this, oldActivity)
+}
+
+fun Context.navigateToSocial(oldActivity: FragmentActivity) {
+   val intentToStart = Intent(ACTION_SOCIAL)
    startAction(intentToStart, this, oldActivity)
 }
 

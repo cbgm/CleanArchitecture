@@ -9,6 +9,6 @@ enum class DiScope(val identifier: String) {
    AUTH_LOGIN("auth_login"),
    AUTH_REGISTER("auth_register"),
    AUTH_RESET("auth_reset"),
-   PROFILE_OVERVIEW("profile_overview")
-
+   PROFILE_OVERVIEW("profile_overview"),
+   SOCIAL_OVERVIEW("social_overview")
 }

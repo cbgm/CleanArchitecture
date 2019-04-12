@@ -83,6 +83,7 @@ ext {
                'ACTION_EVENTS',
                'ACTION_STARS',
                'ACTION_PROFILE',
-               'ACTION_AUTH'
+               'ACTION_AUTH',
+               'ACTION_SOCIAL'
          ]
 }

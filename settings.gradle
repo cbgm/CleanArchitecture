@@ -1,1 +1,1 @@
-include ':event', ':app', ':core', ':shop', ':profile', ':auth'
+include ':event', ':app', ':core', ':shop', ':profile', ':auth', ':social'

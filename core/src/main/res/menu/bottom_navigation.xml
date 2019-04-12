@@ -8,6 +8,12 @@
       android:title="@string/events"
       app:showAsAction="ifRoom" />
    <item
+      android:id="@+id/action_social"
+      android:enabled="true"
+      android:icon="@android:drawable/btn_minus"
+      android:title="@string/social"
+      app:showAsAction="ifRoom" />
+   <item
       android:id="@+id/action_shop"
       android:enabled="true"
       android:icon="@android:drawable/btn_plus"
