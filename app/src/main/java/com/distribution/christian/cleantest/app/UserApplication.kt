@@ -40,9 +40,8 @@ class UserApplication : SplitCompatApplication() {
    }
 
    private val networkReceiver: NetworkReceiver by lazy {
-      NetworkReceiver {
-         networkChanged()
-      }
+      NetworkReceiver(callbackOnAvailable = { networkAvailable() },
+                      callbackOnUnavailable = { networkUnavailable() })
    }
 
    private val networkReceiverManager: NetworkReceiverManager by inject()
@@ -84,7 +83,7 @@ class UserApplication : SplitCompatApplication() {
 
    private fun registerReceiversAndServices() {
       registerPowerSaveModeReceiver()
-      registeNetworkChangeReceiver()
+      registerNetworkChangeReceiver()
    }
 
    private fun registerPowerSaveModeReceiver() {
@@ -93,14 +92,18 @@ class UserApplication : SplitCompatApplication() {
       registerReceiver(lowPowerReceiver, filter)
    }
 
-   private fun registeNetworkChangeReceiver() {
+   private fun registerNetworkChangeReceiver() {
       val filter = IntentFilter()
       filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
       registerReceiver(networkReceiver, filter)
    }
 
-   private fun networkChanged() {
-      networkReceiverManager.notifyReceivers()
+   private fun networkAvailable() {
+      networkReceiverManager.notifyReceiversAvailable()
+   }
+
+   private fun networkUnavailable() {
+      networkReceiverManager.notifyReceiversUnavailable()
    }
 
    private fun restartApplication() {

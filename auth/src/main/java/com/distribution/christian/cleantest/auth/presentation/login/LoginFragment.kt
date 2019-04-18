@@ -60,7 +60,6 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       postponeEnterTransition()
       activity.updateScope(DiScope.AUTH_LOGIN)
       presenter.setVIew(this)
-      networkReceiverManager.registerReceiver("login", this)
       loginWasChecked = arguments?.getBoolean("isUserLoggedIn", false)!!
    }
 
@@ -78,6 +77,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    override fun onResume() {
       super.onResume()
       presenter.onBind()
+      networkReceiverManager.registerReceiver("login", this)
       if (!loginWasChecked) {
          loginWasChecked = true
          presenter.checkLogin()
@@ -87,6 +87,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    override fun onPause() {
       super.onPause()
       presenter.onUnbind()
+      networkReceiverManager.unregisterReceiver("login")
    }
 
    override fun showError(isVisible: Boolean) {
@@ -203,6 +204,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
 
    override fun networkUnavailable() {
       Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+   }
+
+   override fun networkAvailable() {
+      Toast.makeText(activity, "test2", Toast.LENGTH_SHORT).show()
    }
 
    private fun configureTransition(view: View?) {
