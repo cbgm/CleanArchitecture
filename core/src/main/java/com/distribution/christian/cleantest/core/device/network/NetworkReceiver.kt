@@ -10,7 +10,8 @@ import org.koin.standalone.inject
 import timber.log.Timber
 
 class NetworkReceiver(
-      private val callbackOnChange: Any.() -> Unit
+      private val callbackOnAvailable: Any.() -> Unit,
+      private val callbackOnUnavailable: Any.() -> Unit
 ) : BroadcastReceiver(), KoinComponent {
 
    private val switchNetworkModeUseCase: SwitchNetworkModeUseCase by inject()
@@ -22,10 +23,12 @@ class NetworkReceiver(
    inner class NetworkChangeModeObserver : DefaultSingleObserver<Boolean>() {
 
       override fun onSuccess(value: Boolean) {
-         if (!value) {
-            switchNetworkModeUseCase.dispose()
-            callbackOnChange()
+         if (value) {
+            callbackOnAvailable()
+         } else {
+            callbackOnUnavailable()
          }
+         switchNetworkModeUseCase.dispose()
       }
    }
 
