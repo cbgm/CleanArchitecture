@@ -6,7 +6,6 @@ import com.distribution.christian.cleantest.core.domain.model.onError
 import com.distribution.christian.cleantest.core.domain.model.onSuccess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

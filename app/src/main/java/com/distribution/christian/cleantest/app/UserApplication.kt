@@ -13,7 +13,7 @@ import com.distribution.christian.cleantest.core.core.di.networkModule
 import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 import android.content.IntentFilter
-import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.os.PowerManager
 import androidx.appcompat.app.AppCompatDelegate
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
@@ -21,6 +21,9 @@ import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
+import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
+import com.distribution.christian.cleantest.core.device.LocalPersistenceManager
+import com.distribution.christian.cleantest.core.device.network.NetworkReceiver
 import com.distribution.christian.cleantest.event.core.di.eventStarsModule
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
@@ -36,7 +39,15 @@ class UserApplication : SplitCompatApplication() {
       }
    }
 
-   private val sharedPreferences: SharedPreferences by inject()
+   private val networkReceiver: NetworkReceiver by lazy {
+      NetworkReceiver {
+         networkChanged()
+      }
+   }
+
+   private val networkReceiverManager: NetworkReceiverManager by inject()
+
+   private val localPersistenceManager: LocalPersistenceManager by inject()
 
    override fun onCreate() {
       super.onCreate()
@@ -51,7 +62,7 @@ class UserApplication : SplitCompatApplication() {
    }
 
    private fun setDayNight() {
-      val nightMode = sharedPreferences.getBoolean("NIGHT_MODE", false)
+      val nightMode = localPersistenceManager.getNightPersistence()
 
       if (nightMode) {
          AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -65,21 +76,31 @@ class UserApplication : SplitCompatApplication() {
             this, listOf(
             appModule, networkModule, appCoreModule,
             eventCoreModule, eventOverviewModule, eventDetailModule, eventStarsModule,
-            profileCoreModule, profileOverviewModule, authCoreModule, authRegisterModule,
-            authLoginModule
+            profileCoreModule, profileOverviewModule,
+            authCoreModule, authRegisterModule, authLoginModule
       )
       )
    }
 
    private fun registerReceiversAndServices() {
       registerPowerSaveModeReceiver()
-      //more to come
+      registeNetworkChangeReceiver()
    }
 
    private fun registerPowerSaveModeReceiver() {
       val filter = IntentFilter()
       filter.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED)
       registerReceiver(lowPowerReceiver, filter)
+   }
+
+   private fun registeNetworkChangeReceiver() {
+      val filter = IntentFilter()
+      filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+      registerReceiver(networkReceiver, filter)
+   }
+
+   private fun networkChanged() {
+      networkReceiverManager.notifyReceivers()
    }
 
    private fun restartApplication() {
