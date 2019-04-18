@@ -16,15 +16,18 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
+import com.distribution.christian.cleantest.core.core.util.listener.NetworkListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
+import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import org.koin.android.ext.android.inject
 
 
-class LoginFragment : AuthBaseFragment(), LoginContract.View {
+class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
 
    companion object {
       const val TAG = "Login"
@@ -34,6 +37,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    }
 
    private val presenter: LoginPresenter by inject()
+   private val networkReceiverManager: NetworkReceiverManager by inject()
 
 
    private lateinit var content: View
@@ -56,6 +60,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
       postponeEnterTransition()
       activity.updateScope(DiScope.AUTH_LOGIN)
       presenter.setVIew(this)
+      networkReceiverManager.registerReceiver("login", this)
       loginWasChecked = arguments?.getBoolean("isUserLoggedIn", false)!!
    }
 
@@ -194,6 +199,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View {
    override fun onSaveInstanceState(outState: Bundle) {
       super.onSaveInstanceState(outState)
       arguments?.putBoolean("isUserLoggedIn", loginWasChecked)
+   }
+
+   override fun networkUnavailable() {
+      Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
    }
 
    private fun configureTransition(view: View?) {

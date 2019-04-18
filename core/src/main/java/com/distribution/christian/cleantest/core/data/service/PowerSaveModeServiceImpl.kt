@@ -4,33 +4,24 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.PowerManager
+import com.distribution.christian.cleantest.core.device.LocalPersistenceManager
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.distribution.christian.cleantest.core.domain.service.PowerSaveModeService
 
 
 class PowerSaveModeServiceImpl(
       private val context: Context,
-      private val sharedPreferences: SharedPreferences
+      private val localPersistenceManager: LocalPersistenceManager
 ): PowerSaveModeService {
 
    @SuppressLint("ApplySharedPref")
    override fun switchNightDay(): Result<Boolean> {
       val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
-      val currentMode = sharedPreferences.getBoolean("NIGHT_MODE", false)
-      var newMode: Boolean
+      val currentMode = localPersistenceManager.getNightPersistence()
+      val newMode = powerManager.isPowerSaveMode
 
-      sharedPreferences.edit()
-            .apply {
+      localPersistenceManager.setNightPersistence(newMode)
 
-               newMode = if (powerManager.isPowerSaveMode) {
-                  this.putBoolean("NIGHT_MODE", true)
-                  true
-               } else {
-                  this.putBoolean("NIGHT_MODE", false)
-                  false
-               }
-               this.commit()
-            }
       return Result.Success(currentMode != newMode)
    }
 }

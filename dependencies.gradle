@@ -30,6 +30,7 @@ ext {
    materialVersion = "1.0.0"
    roomVersion = "2.1.0-alpha04"
    googleMapsVersion = "11.8.0"
+   firebaseJobVersion = "0.5.0"
 
 
    presentationDependencies = [
@@ -66,7 +67,8 @@ ext {
          firebaseAuth: "com.google.firebase:firebase-auth:$firebaseAuthVersion",
          roomCore: "android.arch.persistence.room:runtime:$roomVersion",
          roomCompiler: "android.arch.persistence.room:compiler:$roomVersion",
-         roomCoroutines: "androidx.room:room-coroutines:$roomVersion"
+         roomCoroutines: "androidx.room:room-coroutines:$roomVersion",
+         firebaseJob: "com.firebase:firebase-jobdispatcher:$firebaseJobVersion"
    ]
 
    testDependencies = [

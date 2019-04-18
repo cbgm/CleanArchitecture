@@ -30,6 +30,7 @@ dependencies {
    api dataDep.firebaseDynamic
    api dataDep.firebaseInAppMessaging
    api dataDep.firebaseAuth
+   api dataDep.firebaseJob
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit
