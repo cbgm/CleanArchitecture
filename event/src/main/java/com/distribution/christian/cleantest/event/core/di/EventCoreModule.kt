@@ -23,7 +23,6 @@ val eventCoreModule = module {
    single { EventCache() }
    single {
       Room.databaseBuilder(get(), EventDatabase::class.java, "event.db")
-            .allowMainThreadQueries()
             .build()
    }
    single { EventFromLocal(EventDaoFactory.SQL) }

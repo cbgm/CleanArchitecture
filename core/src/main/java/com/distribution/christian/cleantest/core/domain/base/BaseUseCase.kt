@@ -13,7 +13,7 @@ import kotlinx.coroutines.withTimeout
 
 abstract class BaseUseCase<T, in Params> {
 
-   var job: Job? = null
+   private var job: Job? = null
 
    abstract suspend fun buildUseCaseObservable(param: Params): Result<Any>
 
@@ -43,8 +43,9 @@ abstract class BaseUseCase<T, in Params> {
 
    fun executeLong(observer: BaseObserver<T>? = null, param: Params) {
       dispose()
-      job = CoroutineScope(Dispatchers.IO).launch {
-         val result = buildUseCaseObservable(param)
+      job = CoroutineScope(Dispatchers.Main).launch {
+         val task = async(Dispatchers.IO) { buildUseCaseObservable(param) }
+         val result = task.await()
          result.emit(observer)
       }
    }

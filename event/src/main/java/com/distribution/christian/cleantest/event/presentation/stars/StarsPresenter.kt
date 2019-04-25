@@ -39,7 +39,7 @@ class StarsPresenter @Inject constructor(
    }
 
    override fun deleteEvent(eventEntity: EventEntity) {
-      deleteEventFromCache.execute(DeleteStarredEventObserver(), EventDomainMapper.transform(eventEntity))
+      deleteEventFromCache.executeLong(DeleteStarredEventObserver(), EventDomainMapper.transform(eventEntity))
    }
 
    override fun setVIew(view: StarsContract.View) {
@@ -48,7 +48,7 @@ class StarsPresenter @Inject constructor(
 
    override fun onBind() {
       starsView.showLoading()
-      getEventsFromCache.execute(LoadStarredEventsObserver(), Unit)
+      getEventsFromCache.executeLong(LoadStarredEventsObserver(), Unit)
    }
 
    override fun onUnbind() {
