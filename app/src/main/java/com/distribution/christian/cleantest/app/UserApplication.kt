@@ -27,6 +27,7 @@ import com.distribution.christian.cleantest.core.device.network.NetworkReceiver
 import com.distribution.christian.cleantest.event.core.di.eventStarsModule
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
+import com.distribution.christian.cleantest.social.core.di.socialCoreModule
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
 
@@ -76,7 +77,8 @@ class UserApplication : SplitCompatApplication() {
             appModule, networkModule, appCoreModule,
             eventCoreModule, eventOverviewModule, eventDetailModule, eventStarsModule,
             profileCoreModule, profileOverviewModule,
-            authCoreModule, authRegisterModule, authLoginModule
+            authCoreModule, authRegisterModule, authLoginModule,
+            socialCoreModule
       )
       )
    }
