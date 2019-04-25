@@ -39,7 +39,8 @@ class DetailPresenter constructor(
    }
 
    override fun updateEvent(event: EventEntity) {
-      updateEvent.execute(UpateEventObserver(), EventDomainMapper.transform(event))
+      //because room persistence is also called its necessary to execute with long
+      updateEvent.executeLong(UpateEventObserver(), EventDomainMapper.transform(event))
    }
 
    override fun setVIew(view: DetailContract.View) {
