@@ -203,11 +203,13 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    }
 
    override fun networkUnavailable() {
-      Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+      //Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+      content.visibility = View.INVISIBLE
    }
 
    override fun networkAvailable() {
-      Toast.makeText(activity, "test2", Toast.LENGTH_SHORT).show()
+      //Toast.makeText(activity, "test2", Toast.LENGTH_SHORT).show()
+      content.visibility = View.VISIBLE
    }
 
    private fun configureTransition(view: View?) {

@@ -1,4 +1,8 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.distribution.christian.cleantest.core.domain.model
+
+import com.distribution.christian.cleantest.core.domain.base.BaseObserver
 
 
 sealed class Result<out T : Any> {
@@ -21,6 +25,12 @@ inline fun <T : Any> Result<T>.onComplete(action: () -> Unit): Result<T> {
 
 inline fun <T : Any> Result<T>.onError(action: (Throwable) -> Unit) {
    if (this is Result.Error && exception != null) action(exception)
+}
+
+fun <T> Result<Any>.emit(observer: BaseObserver<T>?){
+   this.onSuccess { observer?.onSuccess(it as T) }
+   this.onComplete { observer?.onComplete() }
+   this.onError { observer?.onError(it) }
 }
 
 inline fun <T : Any, R : Any> Result<T>.mapOnSuccess(map: (T) -> R) = when (this) {
