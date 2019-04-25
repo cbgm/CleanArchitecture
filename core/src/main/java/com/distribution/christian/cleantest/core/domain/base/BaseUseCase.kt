@@ -1,17 +1,16 @@
 package com.distribution.christian.cleantest.core.domain.base
 
 import com.distribution.christian.cleantest.core.domain.model.Result
-import com.distribution.christian.cleantest.core.domain.model.onComplete
-import com.distribution.christian.cleantest.core.domain.model.onError
-import com.distribution.christian.cleantest.core.domain.model.onSuccess
+import com.distribution.christian.cleantest.core.domain.model.emit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 
 
-@Suppress("UNCHECKED_CAST")
 abstract class BaseUseCase<T, in Params> {
 
    var job: Job? = null
@@ -23,9 +22,22 @@ abstract class BaseUseCase<T, in Params> {
       job = CoroutineScope(Dispatchers.Main).launch {
          delay(500)
          val result = buildUseCaseObservable(param)
-         result.onSuccess { observer?.onSuccess(it as T) }
-         result.onComplete{ observer?.onComplete()}
-         result.onError { observer?.onError(it) }
+         result.emit(observer)
+      }
+   }
+
+   fun executeWithTimeout(observer: BaseObserver<T>? = null, param: Params, timeout: Long) {
+      dispose()
+      job = CoroutineScope(Dispatchers.Main).launch {
+         delay(500)
+         val task = async(Dispatchers.IO) { buildUseCaseObservable(param) }
+         //background thread
+         try {
+            val result = withTimeout(timeout) { task.await() }
+            result.emit(observer)
+         } catch (e: Exception) {
+            observer?.onError(e)
+         }
       }
    }
 
@@ -33,9 +45,7 @@ abstract class BaseUseCase<T, in Params> {
       dispose()
       job = CoroutineScope(Dispatchers.IO).launch {
          val result = buildUseCaseObservable(param)
-         result.onSuccess { observer?.onSuccess(it as T) }
-         result.onComplete{ observer?.onComplete()}
-         result.onError { observer?.onError(it) }
+         result.emit(observer)
       }
    }
 

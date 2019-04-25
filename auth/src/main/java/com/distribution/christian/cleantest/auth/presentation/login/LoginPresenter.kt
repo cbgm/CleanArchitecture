@@ -61,6 +61,6 @@ class LoginPresenter(
 
    override fun login(email: String, password: String) {
       loginView.showLoginLoading(true)
-      loginUser.execute(LoginUserObserver(), Pair(email, password))
+      loginUser.executeWithTimeout(LoginUserObserver(), Pair(email, password), 10000)
    }
 }
