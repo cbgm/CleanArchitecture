@@ -56,6 +56,7 @@ class LoginPresenter(
    }
 
    override fun onUnbind() {
+      getAuthenticatedUser.dispose()
       loginUser.dispose()
    }
 

@@ -16,6 +16,10 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.PowerManager
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule
@@ -31,7 +35,7 @@ import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
 
 
-class UserApplication : SplitCompatApplication() {
+class UserApplication : SplitCompatApplication(), LifecycleObserver {
 
    private val lowPowerReceiver: PowerSaveModeReceiver by lazy {
       PowerSaveModeReceiver {
@@ -50,14 +54,23 @@ class UserApplication : SplitCompatApplication() {
 
    override fun onCreate() {
       super.onCreate()
+      ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
       initKoin()
 
       setDayNight()
 
-      registerReceiversAndServices()
-
       Timber.plant(TimberTree())
+   }
+
+   @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+   private fun onAppBackgrounded() {
+      unregisterReceiversAndServices()
+   }
+
+   @OnLifecycleEvent(Lifecycle.Event.ON_START)
+   private fun onAppForegrounded() {
+      registerReceiversAndServices()
    }
 
    private fun setDayNight() {
@@ -84,6 +97,11 @@ class UserApplication : SplitCompatApplication() {
    private fun registerReceiversAndServices() {
       registerPowerSaveModeReceiver()
       registerNetworkChangeReceiver()
+   }
+
+   private fun unregisterReceiversAndServices() {
+      unregisterReceiver(networkReceiver)
+      unregisterReceiver(lowPowerReceiver)
    }
 
    private fun registerPowerSaveModeReceiver() {
