@@ -11,9 +11,11 @@ android {
    }
    buildTypes {
       release {
+         proguardFiles 'proguard-rules.pro'
       }
       debug {
          testCoverageEnabled false
+         proguardFiles 'proguard-rules.pro'
       }
    }
    compileOptions {
