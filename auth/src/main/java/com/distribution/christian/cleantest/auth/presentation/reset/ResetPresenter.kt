@@ -2,15 +2,26 @@ package com.distribution.christian.cleantest.auth.presentation.reset
 
 
 class ResetPresenter: ResetContract.Presenter {
+
+   private lateinit var resetView: ResetContract.View
+
    override fun setVIew(view: ResetContract.View) {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      this.resetView = view
    }
 
    override fun onBind() {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      //not used
    }
 
    override fun onUnbind() {
-      TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      //not used
+   }
+
+   override fun validateResetData(email: String) {
+      if (email.isNotEmpty()) {
+         resetView.showEnabledResetButton(true)
+      } else {
+         resetView.showEnabledResetButton(false)
+      }
    }
 }

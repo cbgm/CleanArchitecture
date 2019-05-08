@@ -65,7 +65,7 @@ class OverviewAdapter(
 
    override fun getFilter(): Filter {
       return object : Filter() {
-         override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
+         override fun performFiltering(charSequence: CharSequence): FilterResults {
             val charString = charSequence.toString()
             filteredData = if (charString.isEmpty()) {
                data
@@ -73,14 +73,14 @@ class OverviewAdapter(
                data.filter { it.city.toLowerCase().contains(charString.toLowerCase()) } as ArrayList<EventEntity>
             }
 
-            val filterResults = Filter.FilterResults()
+            val filterResults = FilterResults()
             filterResults.values = filteredData
             return filterResults
          }
 
          override fun publishResults(
                charSequence: CharSequence,
-               filterResults: Filter.FilterResults
+               filterResults: FilterResults
          ) {
             data = filterResults.values as ArrayList<EventEntity>
             notifyDataSetChanged()

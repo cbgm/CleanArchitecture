@@ -31,27 +31,34 @@ fun Context.navigateToEvents(oldActivity: FragmentActivity) {
 
 fun Context.navigateToStars() {
    val intentToStart = Intent(ACTION_STARS)
-   startActivity(intentToStart)
+   val bundle = ActivityOptionsCompat.makeCustomAnimation(
+         this,
+         android.R.anim.fade_in, android.R.anim.fade_out
+   )
+         .toBundle()
+   startActivity(intentToStart, bundle)
 }
 
 fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View? = null) {
    val intentToStart = Intent(ACTION_AUTH)
 
-   if (view != null) {
+   /*if (view != null) {
       val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
             oldActivity,
             view, // Starting view
             "test"    // The String
       )
-      startAction(intentToStart, this, oldActivity, options.toBundle())
-   } else {
+
+
+      startAction(intentToStart, this, oldActivity, bundle)
+   } else {*/
       startAction(intentToStart, this, oldActivity)
-   }
+   //}
 
 }
 
 fun Context.navigateGoogleMaps(location: String) {
-   val gmmIntentUri = Uri.parse("google.navigation:q="+location);
+   val gmmIntentUri = Uri.parse("google.navigation:q=" + location);
    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri);
    mapIntent.setPackage("com.google.android.apps.maps")
    startActivity(mapIntent)
