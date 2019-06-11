@@ -1,16 +1,13 @@
 package com.distribution.christian.cleantest.event.presentation.stars
 
 import android.view.LayoutInflater
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.distribution.christian.cleantest.event.R
-import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
-import com.google.android.gms.maps.MapView
 
 
 class SwipeAdapter(private val data: EventOverviewEntity, private val onClickListener: OnClickListener) : RecyclerView.Adapter<SwipeAdapter.EventViewHolder>() {
@@ -30,7 +27,6 @@ class SwipeAdapter(private val data: EventOverviewEntity, private val onClickLis
          holder.navigateImg.setOnClickListener {
             onClickListener.navigate("" + holder.cityText.text + "," + holder.locationText.text)
          }
-         ViewCompat.setTransitionName(holder.typeImg, "image$position")
    }
 
    override fun getItemCount(): Int = data.events.size

@@ -25,6 +25,7 @@ import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
+import com.distribution.christian.cleantest.auth.core.di.authResetModule
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import com.distribution.christian.cleantest.core.device.LocalPersistenceManager
 import com.distribution.christian.cleantest.core.device.network.NetworkReceiver
@@ -90,7 +91,7 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
             appModule, networkModule, appCoreModule,
             eventCoreModule, eventOverviewModule, eventDetailModule, eventStarsModule,
             profileCoreModule, profileOverviewModule,
-            authCoreModule, authRegisterModule, authLoginModule,
+            authCoreModule, authRegisterModule, authLoginModule, authResetModule,
             socialCoreModule
       )
       )
