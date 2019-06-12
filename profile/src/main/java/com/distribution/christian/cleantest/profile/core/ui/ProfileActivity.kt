@@ -1,13 +1,13 @@
 package com.distribution.christian.cleantest.profile.core.ui
 
 import android.os.Bundle
-import com.distribution.christian.cleantest.core.core.ui.BaseActivity
+import com.distribution.christian.cleantest.core.core.ui.NavigationActivity
 import com.distribution.christian.cleantest.profile.R
 import com.distribution.christian.cleantest.profile.core.navigation.ProfileFlowCoordinatorImpl
 import org.koin.android.ext.android.inject
 
 
-class ProfileActivity : BaseActivity() {
+class ProfileActivity : NavigationActivity() {
 
    override val coordinator: ProfileFlowCoordinatorImpl by inject()
 

@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.core.core.ui
 
 import androidx.fragment.app.Fragment
 import android.view.View
+import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
 import java.io.Serializable
 
 

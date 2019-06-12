@@ -5,7 +5,7 @@ import com.google.android.gms.common.wrappers.InstantApps
 import com.google.android.play.core.splitcompat.SplitCompat
 
 
-abstract class BaseSplitActivity: BaseActivity() {
+abstract class BaseSplitActivity: NavigationActivity() {
 
    override fun attachBaseContext(newBase: Context?) {
       super.attachBaseContext(newBase)

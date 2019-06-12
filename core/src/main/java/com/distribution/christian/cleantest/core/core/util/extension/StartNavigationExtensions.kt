@@ -1,16 +1,16 @@
 package com.distribution.christian.cleantest.core.core.util.extension
 
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SHOP
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
 import androidx.core.app.ActivityOptionsCompat
 import android.view.View
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_EVENTS
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SHOP
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_STARS
 
 
@@ -41,20 +41,7 @@ fun Context.navigateToStars() {
 
 fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View? = null) {
    val intentToStart = Intent(ACTION_AUTH)
-
-   /*if (view != null) {
-      val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-            oldActivity,
-            view, // Starting view
-            "test"    // The String
-      )
-
-
-      startAction(intentToStart, this, oldActivity, bundle)
-   } else {*/
-      startAction(intentToStart, this, oldActivity)
-   //}
-
+   startAction(intentToStart, this, oldActivity)
 }
 
 fun Context.navigateGoogleMaps(location: String) {
