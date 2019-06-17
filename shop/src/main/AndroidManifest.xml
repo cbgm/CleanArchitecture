@@ -6,13 +6,6 @@
 
    <application
       android:hasCode="false">
-
-      <activity android:name="com.distribution.christian.cleantest.shop.core.ui.ShopActivity">
-         <intent-filter>
-            <action android:name="${ACTION_SHOP}" />
-            <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-      </activity>
    </application>
 
    <dist:module

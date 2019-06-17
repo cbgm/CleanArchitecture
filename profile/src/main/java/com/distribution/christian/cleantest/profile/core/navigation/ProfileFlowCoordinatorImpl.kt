@@ -8,8 +8,9 @@ import com.distribution.christian.cleantest.profile.presentation.overview.Overvi
 class ProfileFlowCoordinatorImpl : BaseCoordinatorImpl(), ProfileFlowCoordinator {
 
    override fun showOverview() {
-      activity.replaceFragment(
-            OverviewFragment.newInstance(),
+      this.currentChildFragment = OverviewFragment.newInstance()
+      currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment!!,
             replaceableFragmentId,
             OverviewFragment.TAG
       )

@@ -3,25 +3,27 @@ package com.distribution.christian.cleantest.core.core.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.distribution.christian.cleantest.core.R
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
 
 
-abstract class BaseActivity(val layout: Int? = null) : AppCompatActivity() {
-   open val coordinator: BaseCoordinator? = null
+abstract class BaseActivity<T>(
+      val layout: Int,
+      private val withToolbar: Boolean = true
+) : AppCompatActivity() {
+   open lateinit var activeFeatureFragment: BaseFeatureFragment<T>
+   open var coordinator: BaseCoordinator? = null
    private val splitInstallRequester: SplitInstallRequester by inject()
 
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      if (layout == null) {
-         setContentView(R.layout.activity_main)
+      setContentView(layout)
+
+      if (withToolbar) {
          setSupportActionBar(toolbar)
-      } else {
-         setContentView(layout)
       }
    }
 

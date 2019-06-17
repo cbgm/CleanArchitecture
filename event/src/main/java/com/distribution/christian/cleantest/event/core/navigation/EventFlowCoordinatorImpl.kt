@@ -14,9 +14,9 @@ import com.distribution.christian.cleantest.event.presentation.overview.Overview
 class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
 
    override fun onDeepLinkBack() {
-      when (currentFragment) {
+      when (this.currentChildFragment) {
          is DetailFragment -> showOverview()
-         else -> activity.finish()
+         else -> currentFeatureFragment?.activity!!.finish()
       }
    }
 
@@ -25,19 +25,19 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
          transitionInformation: BaseFragment.TransitionInformation?,
          event: EventEntity?
    ) {
-      currentFragment = DetailFragment.newInstance(userId, transitionInformation, event)
+      this.currentChildFragment = DetailFragment.newInstance(userId, transitionInformation, event)
 
       if (transitionInformation != null) {
-         activity.replaceFragmentwithSharedElement(
-               currentFragment,
+         currentFeatureFragment?.replaceFragmentwithSharedElement(
+               this.currentChildFragment!!,
                replaceableFragmentId,
                DetailFragment.TAG,
                transitionInformation.sharedElement,
                transitionInformation.transitionName
          )
       } else {
-         activity.replaceFragment(
-               currentFragment,
+         currentFeatureFragment?.replaceFragment(
+               this.currentChildFragment!!,
                replaceableFragmentId,
                DetailFragment.TAG
          )
@@ -45,16 +45,16 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
    }
 
    override fun showOverview() {
-      currentFragment = OverviewFragment.newInstance()
-      activity.replaceFragment(
-            currentFragment,
+      this.currentChildFragment = OverviewFragment.newInstance()
+      currentFeatureFragment?.replaceFragment(
+            this.currentChildFragment!!,
             replaceableFragmentId,
             OverviewFragment.TAG
       )
    }
 
    override fun showStars() {
-      activity.navigateToStars()
+      currentFeatureFragment?.activity!!.navigateToStars()
    }
 
    override fun navigateDeepLink() {

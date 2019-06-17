@@ -29,7 +29,7 @@ class DeepLinkHandler {
       val splitData = path.split("/")
             .filter { it.isNotEmpty() and it.isNotBlank() }
 
-      for (i in 0 until splitData.size - 1) {
+      for (i in 0 until splitData.size) {
 
          if (i + 1 == splitData.size - 1) {
             deepLinks.add(DeepLink(mapAction(splitData[i]), splitData[i + 1]))

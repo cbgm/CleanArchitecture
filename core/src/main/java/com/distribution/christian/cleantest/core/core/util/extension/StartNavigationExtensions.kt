@@ -7,25 +7,12 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
 import androidx.core.app.ActivityOptionsCompat
-import android.view.View
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_EVENTS
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_PROFILE
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SHOP
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_MAIN
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_STARS
 
 
-fun Context.navigateToShop(oldActivity: FragmentActivity) {
-   val intentToStart = Intent(ACTION_SHOP)
-   startAction(intentToStart, this, oldActivity)
-}
-
-fun Context.navigateToProfile(oldActivity: FragmentActivity) {
-   val intentToStart = Intent(ACTION_PROFILE)
-   startAction(intentToStart, this, oldActivity)
-}
-
-fun Context.navigateToEvents(oldActivity: FragmentActivity) {
-   val intentToStart = Intent(ACTION_EVENTS)
+fun Context.navigateToMain(oldActivity: FragmentActivity) {
+   val intentToStart = Intent(ACTION_MAIN)
    startAction(intentToStart, this, oldActivity)
 }
 
@@ -39,14 +26,14 @@ fun Context.navigateToStars() {
    startActivity(intentToStart, bundle)
 }
 
-fun Context.navigateToAuth(oldActivity: FragmentActivity, view: View? = null) {
+fun Context.navigateToAuth(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_AUTH)
    startAction(intentToStart, this, oldActivity)
 }
 
 fun Context.navigateGoogleMaps(location: String) {
-   val gmmIntentUri = Uri.parse("google.navigation:q=" + location);
-   val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri);
+   val gmmIntentUri = Uri.parse("google.navigation:q=$location")
+   val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
    mapIntent.setPackage("com.google.android.apps.maps")
    startActivity(mapIntent)
 }

@@ -8,7 +8,7 @@ import com.distribution.christian.cleantest.core.R
 import kotlinx.android.synthetic.main.toolbar.toolbar
 
 
-abstract class WindowActivity : AppCompatActivity() {
+abstract class BaseWindowActivity : AppCompatActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)

@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.distribution.christian.cleantest.core.R
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
+import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.core.core.ui.FragmentConsistency
-import com.distribution.christian.cleantest.event.core.navigation.EventFlowCoordinatorImpl
-import org.koin.android.ext.android.inject
 
 
-abstract class EventBaseFragment<C : FragmentConsistency> : BaseFragment<EventActivity, C>() {
+abstract class EventBaseFragment<C : FragmentConsistency> : BaseFragment<BaseNavigationActivity, C>() {
 
    override fun onCreateView(
          inflater: LayoutInflater,

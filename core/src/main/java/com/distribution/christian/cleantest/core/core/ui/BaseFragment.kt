@@ -9,9 +9,11 @@ import java.io.Serializable
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment<T, C: Any> : Fragment() {
 
+   open val coordinator: BaseCoordinator? = null
+
    val activity: T by lazy { getActivity() as T }
 
    protected lateinit var consistency: C
 
-   data class TransitionInformation(val sharedElement: View, val transitionName: String) : Serializable
+   data class TransitionInformation(val sharedElement: View, val transitionName: String): Serializable
 }

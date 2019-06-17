@@ -1,13 +1,12 @@
 package com.distribution.christian.cleantest.event.presentation.stars
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import com.distribution.christian.cleantest.core.core.ui.WindowActivity
+import com.distribution.christian.cleantest.core.core.ui.BaseWindowActivity
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.event.R
 
 
-class StarsActivity : WindowActivity() {
+class StarsActivity : BaseWindowActivity() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)

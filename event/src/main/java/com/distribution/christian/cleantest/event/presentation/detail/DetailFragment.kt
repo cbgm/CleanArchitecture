@@ -35,7 +35,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
             event: EventEntity? = null
       ) =
             DetailFragment().args {
-               putString(EventDetailFragmentConsistency.USER_KEY, paramId)
+               putString(EventDetailFragmentConsistency.Event_ID_KEY, paramId)
                putSerializable(
                      FragmentConsistency.TRANSITION_KEY,
                      transitionInformation
@@ -45,7 +45,6 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
    }
 
    private val detailPresenter: DetailPresenter by inject()
-   private lateinit var eventId: String
    private lateinit var loading: ShimmerFrameLayout
    private lateinit var content: LinearLayout
    private lateinit var timeText: TextView
@@ -73,7 +72,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
       super.onResume()
       if (consistency.event == null) {
          detailPresenter.onBind()
-         detailPresenter.loadEvent(eventId)
+         detailPresenter.loadEvent(consistency.eventId!!)
       } else {
          showEvent(consistency.event!!)
       }
@@ -160,6 +159,9 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
 
    override fun onSaveInstanceState(outState: Bundle) {
       super.onSaveInstanceState(outState)
-      argsUpdate { putSerializable(EventDetailFragmentConsistency.EVENT_KEY, consistency.event) }
+      argsUpdate {
+         putSerializable(EventDetailFragmentConsistency.EVENT_KEY, consistency.event)
+         putSerializable(FragmentConsistency.TRANSITION_KEY, consistency.transitionInformation?.transitionName)
+      }
    }
 }

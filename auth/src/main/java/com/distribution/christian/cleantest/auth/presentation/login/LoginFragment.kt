@@ -16,7 +16,6 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.Toast
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
@@ -109,7 +108,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    }
 
    override fun showAlreadyAuthenticated() {
-      activity.coordinator.initialNavigation()
+      coordinator.initialNavigation()
    }
 
    override fun showContent(isVisible: Boolean) {
@@ -141,7 +140,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       resetBtn.setOnClickListener {
-         activity.coordinator.showReset()
+         coordinator.showReset()
       }
 
       bookmarkBtn.setOnClickListener{
@@ -149,7 +148,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       registerBtn.setOnClickListener {
-         activity.coordinator.showRegister()
+         coordinator.showRegister()
       }
 
       loginBtn.setOnClickListener {
@@ -182,7 +181,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     activity.coordinator.initialNavigation()
+                     coordinator.initialNavigation()
                   }
                })
       }

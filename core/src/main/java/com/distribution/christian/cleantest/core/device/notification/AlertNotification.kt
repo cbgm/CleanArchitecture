@@ -26,7 +26,7 @@ class AlertNotification(
    }
 
    init {
-      val intent = Intent(BuildConfig.ACTION_EVENTS)
+      val intent = Intent(BuildConfig.ACTION_MAIN)
       val pendingIntent: PendingIntent
       val builder = NotificationCompat.Builder(context, channelId)
 

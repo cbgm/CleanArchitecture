@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.distribution.christian.cleantest.profile"
-   xmlns:android="http://schemas.android.com/apk/res/android">
-
-   <application>
-
-      <activity android:name="com.distribution.christian.cleantest.profile.core.ui.ProfileActivity">
-         <intent-filter>
-            <action android:name="${ACTION_PROFILE}" />
-            <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-      </activity>
-   </application>
+<manifest package="com.distribution.christian.cleantest.profile">
 
 </manifest>

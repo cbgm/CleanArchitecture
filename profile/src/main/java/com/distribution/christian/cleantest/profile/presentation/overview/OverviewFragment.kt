@@ -72,7 +72,6 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
    override fun onResume() {
       super.onResume()
       presenter.onBind()
-      activity
    }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

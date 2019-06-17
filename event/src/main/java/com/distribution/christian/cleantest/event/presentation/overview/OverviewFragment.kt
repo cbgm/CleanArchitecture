@@ -34,11 +34,11 @@ import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
 import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
+import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
 
 
 @Suppress("UNCHECKED_CAST")
@@ -102,6 +102,12 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
          presenter.loadUpdatedEventById(consistency.data!![consistency.posToReload].id.toString())
          consistency.posToReload = -1
       }
+
+      ToolbarLoader(
+            activity as AppCompatActivity?,
+            R.string.title_overview,
+            false
+      )
    }
 
    @SuppressLint("ResourceType")
@@ -129,7 +135,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
       when (item!!.itemId) {
          R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
-         R.id.stars -> activity.coordinator.showStars()
+         R.id.stars -> (parentFragment as EventFeatureFragment).coordinator.showStars()
       }
       return super.onOptionsItemSelected(item)
    }
@@ -205,7 +211,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
       consistency.data = overviewAdapter.data
       consistency.posToReload = position
-      activity.coordinator.showDetail(
+      (parentFragment as EventFeatureFragment).coordinator.showDetail(
             transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
             event = event
       )

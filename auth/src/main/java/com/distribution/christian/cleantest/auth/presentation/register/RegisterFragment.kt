@@ -2,7 +2,6 @@ package com.distribution.christian.cleantest.auth.presentation.register
 
 import android.animation.Animator
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.view.View
 import android.widget.EditText
@@ -93,7 +92,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
       }
 
       backBtn.setOnClickListener {
-         activity.coordinator.back()
+         coordinator.back()
       }
    }
 
@@ -115,7 +114,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     activity.coordinator.showLogin()
+                     coordinator.showLogin()
                   }
                })
       }

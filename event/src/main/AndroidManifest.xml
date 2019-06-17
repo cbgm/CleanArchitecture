@@ -4,12 +4,6 @@
 
    <application>
 
-      <activity android:name="com.distribution.christian.cleantest.event.core.ui.EventActivity">
-         <intent-filter>
-            <action android:name="${ACTION_EVENTS}" />
-            <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-      </activity>
       <activity android:name="com.distribution.christian.cleantest.event.presentation.stars.StarsActivity">
          <intent-filter>
             <action android:name="${ACTION_STARS}" />

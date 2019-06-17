@@ -21,37 +21,13 @@ class SplashActivity : AppCompatActivity() {
 
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
 
-   //private val title: TextView by lazy { findViewById<TextView>(R.id.title_text) }
    private val title: TextView by lazy { findViewById<TextView>(R.id.title) }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       setContentView(R.layout.activity_splash)
-      startAnimation()
       animate()
       Timber.v("release - debug switch test")
-   }
-
-   private fun startAnimation() {
-      /*val startSize = 12f // Size in pixels
-      val endSize = 38f
-      val animationDuration: Long = 600
-      val animator = ValueAnimator.ofFloat(startSize, endSize)
-      title.transitionName = "test"
-      animator.duration = animationDuration
-
-      animator.addUpdateListener { valueAnimator ->
-         val animatedValue = valueAnimator.animatedValue as Float
-         title.textSize = animatedValue
-      }
-      animator.addListener(object : AnimatorListenerAdapter() {
-
-         override fun onAnimationEnd(p0: Animator?) {
-            startRouting()
-         }
-      })
-      animator.start()*/
-
    }
 
    private fun animate() {
@@ -94,6 +70,6 @@ class SplashActivity : AppCompatActivity() {
    private fun startRouting() {
       val data: Uri? = intent?.data
       rootFlowCoordinatorImpl.start(this, data)
-      rootFlowCoordinatorImpl.showAuthentication(title)
+      rootFlowCoordinatorImpl.showAuthentication()
    }
 }
