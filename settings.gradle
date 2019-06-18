@@ -1,1 +1,6 @@
-include ':event', ':app', ':core', ':shop', ':profile', ':auth'
+include ":app"
+include ":libraries:core"
+include "features:event"
+include "features:shop"
+include "features:profile"
+include ":features:auth"

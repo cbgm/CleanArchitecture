@@ -1,4 +1,4 @@
-apply from: "../default-lib.gradle"
+apply from: "../../default-lib.gradle"
 
 dependencies {
    def presDep = rootProject.ext.presentationDependencies
@@ -6,8 +6,14 @@ dependencies {
    implementation presDep.recyclerView
    implementation presDep.shimmer
    implementation presDep.supportDesign
+   implementation presDep.googleMaps
 
-   implementation project(":core")
+   def dataDep = rootProject.ext.dataDependencies
+   implementation dataDep.roomCore
+   implementation dataDep.roomCoroutines
+   kapt dataDep.roomCompiler
+
+   implementation project(":libraries:core")
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

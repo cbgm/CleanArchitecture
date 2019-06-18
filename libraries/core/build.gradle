@@ -1,4 +1,4 @@
-apply from: "../default-lib.gradle"
+apply from: "../../default-lib.gradle"
 
 
 dependencies {
@@ -18,8 +18,6 @@ dependencies {
    api presDep.googleCore
    api presDep.glide
    api presDep.material
-   api presDep.test1
-   api presDep.test2
 
    def dataDep = rootProject.ext.dataDependencies
    api dataDep.retrofit

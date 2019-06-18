@@ -1,4 +1,4 @@
-apply from: "../default-lib.gradle"
+apply from: "../../default-lib.gradle"
 
 dependencies {
    def presDep = rootProject.ext.presentationDependencies
@@ -7,7 +7,7 @@ dependencies {
    implementation presDep.shimmer
    implementation presDep.supportDesign
 
-   implementation project(":core")
+   implementation project(":libraries:core")
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit
@@ -15,4 +15,3 @@ dependencies {
    testImplementation testDep.espresso
    testImplementation testDep.koinTest
 }
-
