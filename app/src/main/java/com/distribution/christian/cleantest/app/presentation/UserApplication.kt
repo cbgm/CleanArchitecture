@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.app
+package com.distribution.christian.cleantest.app.presentation
 
 import android.app.AlarmManager
 import android.app.PendingIntent

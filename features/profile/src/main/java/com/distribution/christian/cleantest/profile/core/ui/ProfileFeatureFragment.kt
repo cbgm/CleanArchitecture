@@ -37,11 +37,4 @@ class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
       super.onViewCreated(view, savedInstanceState)
       coordinator.start(this)
    }
-
-   override fun onHiddenChanged(hidden: Boolean) {
-      super.onHiddenChanged(hidden)
-      if (!hidden) {
-         activity.activeFeatureFragment = this
-      }
-   }
 }

@@ -34,10 +34,8 @@ fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStack
    supportFragmentManager.inTransaction {
       addToBackStack(backStackTag)
       replace(frameId, fragment, backStackTag)
-
    }
 }
-
 
 fun FragmentActivity.replaceFragmentNoBackStack(
       fragment: Fragment,

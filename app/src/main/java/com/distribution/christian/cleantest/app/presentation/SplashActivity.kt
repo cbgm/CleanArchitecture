@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.app
+package com.distribution.christian.cleantest.app.presentation
 
 import android.net.Uri
 import android.os.Bundle

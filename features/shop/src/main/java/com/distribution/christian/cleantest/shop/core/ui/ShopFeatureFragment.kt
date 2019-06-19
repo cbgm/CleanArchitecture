@@ -55,12 +55,4 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
       super.onAttach(context)
       injectFeature()
    }
-
-
-   override fun onHiddenChanged(hidden: Boolean) {
-      super.onHiddenChanged(hidden)
-      if (!hidden) {
-         activity.activeFeatureFragment = this
-      }
-   }
 }

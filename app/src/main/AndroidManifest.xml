@@ -10,7 +10,7 @@
    <dist:module dist:instant="true" />
 
    <application
-      android:name="com.distribution.christian.cleantest.app.UserApplication"
+      android:name="com.distribution.christian.cleantest.app.presentation.UserApplication"
       android:allowBackup="true"
       android:fullBackupContent="@xml/backup_rules"
       android:hasCode="true"
@@ -20,7 +20,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
-      <activity android:name=".app.MainActivity" android:launchMode="singleTop">
+      <activity android:name="com.distribution.christian.cleantest.app.presentation.main.MainActivity" android:launchMode="singleTop">
          <intent-filter>
             <action android:name="${ACTION_MAIN}" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -28,7 +28,7 @@
       </activity>
 
       <activity
-         android:name="com.distribution.christian.cleantest.app.SplashActivity"
+         android:name="com.distribution.christian.cleantest.app.presentation.SplashActivity"
          android:noHistory="true"
          android:theme="@style/SplashTheme">
          <intent-filter>
