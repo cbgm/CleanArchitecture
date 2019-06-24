@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
@@ -20,8 +19,6 @@ import timber.log.Timber
 class SplashActivity : AppCompatActivity() {
 
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
-
-   private val title: TextView by lazy { findViewById<TextView>(R.id.title) }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
