@@ -33,6 +33,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
+import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
@@ -211,10 +212,14 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
       consistency.data = overviewAdapter.data
       consistency.posToReload = position
-      (parentFragment as EventFeatureFragment).coordinator.showDetail(
+      var bundle = Bundle()
+      bundle.putSerializable("transitionInforamtion", TransitionInformation(sharedView, sharedView.transitionName))
+      bundle.putSerializable("event", event)
+      findNavController().navigate(R.id.action_overviewFragment2_to_detailFragment, bundle)
+      /*(parentFragment as EventFeatureFragment).coordinator.showDetail(
             transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
             event = event
-      )
+      )*/
    }
 
    override fun onBookmarkClick(event: EventEntity) {

@@ -36,6 +36,6 @@ class EventFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
       super.onViewCreated(view, savedInstanceState)
-      coordinator.start(this)
+      //coordinator.start(this)
    }
 }

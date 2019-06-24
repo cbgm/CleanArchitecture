@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation android:id="@+id/event_nav_graph"
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+   <fragment android:id="@+id/overviewFragment2"
+      android:name="com.distribution.christian.cleantest.event.presentation.overview.OverviewFragment"
+      android:label="OverviewFragment"
+      >
+      <action android:id="@+id/action_overviewFragment2_to_detailFragment"
+         app:destination="@id/detailFragment"
+         />
+   </fragment>
+   <fragment android:id="@+id/detailFragment"
+      android:name="com.distribution.christian.cleantest.event.presentation.detail.DetailFragment"
+      android:label="DetailFragment">
+
+      <argument android:name="paramId"
+         android:defaultValue="@null"
+         app:argType="String"
+         />
+      <argument android:name="transitionInformation"
+         android:defaultValue="@null"
+         app:argType="TransitionInformation"
+         />
+      <argument android:name="event"
+         android:defaultValue="@null"
+         app:argType="EventEntity"
+         />
+   </fragment>
+
+</navigation>
