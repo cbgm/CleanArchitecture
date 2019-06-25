@@ -99,3 +99,13 @@ jacocoAndroidUnitTestReport {
    html.enabled false
    xml.enabled true
 }
+
+task copyChildNavigationGraphs(type: Copy) {
+   from '../features/profile/src/main/res/navigation'
+   into 'src/main/res/navigation'
+   from '../features/event/src/main/res/navigation'
+   into 'src/main/res/navigation'
+   from '../features/auth/src/main/res/navigation'
+   into 'src/main/res/navigation'
+}
+preBuild.dependsOn copyChildNavigationGraphs

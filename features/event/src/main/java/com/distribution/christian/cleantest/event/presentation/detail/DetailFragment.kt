@@ -6,14 +6,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.FragmentConsistency
-import com.distribution.christian.cleantest.core.core.util.extension.args
 import com.distribution.christian.cleantest.core.core.util.extension.argsUpdate
 
 import com.distribution.christian.cleantest.event.R
@@ -29,21 +26,7 @@ import org.koin.android.ext.android.inject
 class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), DetailContract.View {
 
    companion object {
-
       const val TAG = "Detail"
-      fun newInstance(
-            paramId: String? = null,
-            transitionInformation: TransitionInformation? = null,
-            event: EventEntity? = null
-      ) =
-            DetailFragment().args {
-               putString(EventDetailFragmentConsistency.Event_ID_KEY, paramId)
-               putSerializable(
-                     FragmentConsistency.TRANSITION_KEY,
-                     transitionInformation
-               )
-               putSerializable(EventDetailFragmentConsistency.EVENT_KEY, event)
-            }
    }
 
    private val detailPresenter: DetailPresenter by inject()
@@ -65,9 +48,8 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
       detailPresenter.setVIew(this)
    }
 
-   override fun onAttach(context: Context?) {
+   override fun onAttach(context: Context) {
       super.onAttach(context)
-      var test = arguments?.get(EventDetailFragmentConsistency.Event_ID_KEY)
       consistency = EventDetailFragmentConsistency.deserializeFrom(this)
    }
 
@@ -166,9 +148,5 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
          putSerializable(EventDetailFragmentConsistency.EVENT_KEY, consistency.event)
          putSerializable(FragmentConsistency.TRANSITION_KEY, consistency.transitionInformation?.transitionName)
       }
-   }
-
-   override fun onBackPressed() {
-      findNavController().navigate(R.id.overviewFragment2)
    }
 }

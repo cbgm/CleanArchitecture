@@ -34,7 +34,6 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
    companion object {
 
       const val TAG = "Overview"
-      fun newInstance() = OverviewFragment()
    }
 
    private val presenter: OverviewPresenter by inject()
@@ -157,9 +156,9 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
       }
    }
 
-   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+   override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-      when (item!!.itemId) {
+      when (item.itemId) {
          //R.id.edit -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
       }
       return super.onOptionsItemSelected(item)

@@ -76,7 +76,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    @SuppressLint("CheckResult")
-   override fun onAttach(context: Context?) {
+   override fun onAttach(context: Context) {
       super.onAttach(context)
       consistency = EventOverviewFragmentConsistency.deserializeFrom(this)
       consistency.searchTerm.observable.subscribe {
@@ -121,14 +121,14 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    @SuppressLint("ResourceType")
-   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-      inflater!!.inflate(R.menu.event_toolbar_menu, menu)
+   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+      inflater.inflate(R.menu.event_toolbar_menu, menu)
       super.onCreateOptionsMenu(menu, inflater)
    }
 
-   override fun onPrepareOptionsMenu(menu: Menu?) {
+   override fun onPrepareOptionsMenu(menu: Menu) {
       super.onPrepareOptionsMenu(menu)
-      searchItem = menu!!.findItem(R.id.search)
+      searchItem = menu.findItem(R.id.search)
       searchItem.setOnActionExpandListener(object : OnMenuItemCollapsedListener() {
 
          override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
@@ -141,9 +141,9 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       initSearch()
    }
 
-   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+   override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-      when (item!!.itemId) {
+      when (item.itemId) {
          R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
          //R.id.stars -> (parentFragment as EventFeatureFragment).coordinator.showStars()
       }

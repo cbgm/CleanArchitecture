@@ -3,10 +3,7 @@ package com.distribution.christian.cleantest.auth.presentation.login
 import android.animation.Animator
 import android.os.Bundle
 import android.text.Editable
-import android.transition.TransitionInflater
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.core.ui.AuthBaseFragment
@@ -16,7 +13,9 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.navigation.fragment.findNavController
 import com.distribution.christian.cleantest.core.core.di.DiScope
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
@@ -56,21 +55,9 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      postponeEnterTransition()
       activity.updateScope(DiScope.AUTH_LOGIN)
       presenter.setVIew(this)
       loginWasChecked = arguments?.getBoolean("isUserLoggedIn", false)!!
-   }
-
-   override fun onCreateView(
-         inflater: LayoutInflater,
-         container: ViewGroup?,
-         savedInstanceState: Bundle?
-   ): View? {
-
-      val view = super.onCreateView(inflater, container, savedInstanceState)
-      configureTransition(view)
-      return view
    }
 
    override fun onResume() {
@@ -108,7 +95,8 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    }
 
    override fun showAlreadyAuthenticated() {
-      coordinator.initialNavigation()
+      //coordinator.initialNavigation()
+      activity.navigateToMain(activity)
    }
 
    override fun showContent(isVisible: Boolean) {
@@ -140,7 +128,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       resetBtn.setOnClickListener {
-         coordinator.showReset()
+         findNavController().navigate(R.id.resetFragment)
       }
 
       bookmarkBtn.setOnClickListener{
@@ -148,7 +136,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       registerBtn.setOnClickListener {
-         coordinator.showRegister()
+         findNavController().navigate(R.id.registerFragment)
       }
 
       loginBtn.setOnClickListener {
@@ -181,7 +169,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinator.initialNavigation()
+                     activity.navigateToMain(activity)
                   }
                })
       }
@@ -209,15 +197,6 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    override fun networkAvailable() {
       //Toast.makeText(activity, "test2", Toast.LENGTH_SHORT).show()
       content.visibility = View.VISIBLE
-   }
-
-   private fun configureTransition(view: View?) {
-      view!!.findViewById<TextView>(R.id.header_text)
-            .transitionName = "test"
-      sharedElementEnterTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.default_transition)
-      enterTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.no_transition)
    }
 
    private fun validateCredentials() {

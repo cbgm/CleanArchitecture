@@ -4,18 +4,30 @@
    app:startDestination="@id/eventFeatureFragment"
    >
 
+   <include app:graph="@navigation/profile_nav_graph" />
+   <include app:graph="@navigation/event_nav_graph" />
+
+
    <fragment android:id="@+id/eventFeatureFragment"
       android:name="com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment"
-      android:label="EventFeatureFragment">
+      android:label="EventFeatureFragment"
+      >
+      <action android:id="@+id/action_eventFeatureFragment_to_event_nav_graph2"
+         app:destination="@id/event_nav_graph"
+         />
    </fragment>
    <fragment android:id="@+id/profileFeatureFragment"
       android:name="com.distribution.christian.cleantest.profile.core.ui.ProfileFeatureFragment"
-      android:label="ProfileFeatureFragment">
+      android:label="ProfileFeatureFragment"
+      >
+      <action android:id="@+id/action_profileFeatureFragment_to_profile_nav_graph"
+         app:destination="@id/profile_nav_graph"
+         />
    </fragment>
 
    <fragment android:id="@+id/shopFeatureFragment"
       android:name="com.distribution.christian.cleantest.shop.core.ui.ShopFeatureFragment"
-      android:label="ShopFeatureFragment">
-   </fragment>
+      android:label="ShopFeatureFragment"
+    />
 
 </navigation>

@@ -92,7 +92,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
       }
 
       backBtn.setOnClickListener {
-         coordinator.back()
+         activity.onBackPressed()
       }
    }
 
@@ -114,7 +114,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinator.showLogin()
+                     activity.onBackPressed()
                   }
                })
       }

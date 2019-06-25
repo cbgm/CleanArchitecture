@@ -17,7 +17,7 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
    }
 
    fun showAuthentication() {
-      activity?.navigateToMain(activity!!)
+      activity?.navigateToAuth(activity!!)
       //activity?.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
    }

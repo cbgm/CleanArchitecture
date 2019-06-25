@@ -33,7 +33,7 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
       return inflater.inflate(R.layout.fragment_shop_main, container, false)
    }
 
-   override fun onAttach(context: Context?) {
+   override fun onAttach(context: Context) {
       super.onAttach(context)
       injectFeature()
    }

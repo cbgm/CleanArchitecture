@@ -15,9 +15,7 @@ import com.example.christian.cleantest.shop.R
 class OverviewFragment : ShopBaseFragment() {
 
    companion object {
-
       const val TAG = "Overview"
-      fun newInstance() = OverviewFragment()
    }
 
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +35,14 @@ class OverviewFragment : ShopBaseFragment() {
       )
    }
 
-   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-      inflater!!.inflate(R.menu.toolbar_menu, menu)
+   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+      inflater.inflate(R.menu.toolbar_menu, menu)
       super.onCreateOptionsMenu(menu, inflater)
    }
 
-   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+   override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-      when(item!!.itemId) {
+      when(item.itemId) {
          R.id.edit -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
       }
       return super.onOptionsItemSelected(item)

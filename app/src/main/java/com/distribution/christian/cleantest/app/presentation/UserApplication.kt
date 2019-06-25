@@ -34,6 +34,7 @@ import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
+import kotlin.system.exitProcess
 
 
 class UserApplication : SplitCompatApplication(), LifecycleObserver {
@@ -136,6 +137,6 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       )
       val alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
       alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendingIntent)
-      System.exit(0)
+      exitProcess(0)
    }
 }

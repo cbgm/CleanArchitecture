@@ -9,6 +9,6 @@
       android:label="OverviewFragment"
       />
    <deepLink android:id="@+id/deepLink"
-      app:uri="cleantest.de/shop"
+      app:uri="cleantest.de://shop"
       />
 </navigation>

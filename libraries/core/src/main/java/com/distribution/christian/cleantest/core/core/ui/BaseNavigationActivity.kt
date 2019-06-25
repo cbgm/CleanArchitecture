@@ -18,13 +18,4 @@ abstract class BaseNavigationActivity(mainLayout: Int) : BaseActivity<BaseNaviga
    override fun onNavigationItemSelected(item: MenuItem): Boolean {return true}
 
    open fun initBottomNavigation() {}
-
-   override fun onBackPressed() {
-
-      if (activeFeatureFragment.coordinator != null) {
-         activeFeatureFragment.coordinator!!.back()
-      } else {
-         finish()
-      }
-   }
 }

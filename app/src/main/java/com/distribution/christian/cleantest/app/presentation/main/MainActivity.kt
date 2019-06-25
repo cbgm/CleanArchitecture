@@ -16,11 +16,16 @@ class MainActivity : BaseNavigationActivity(R.layout.activity_main) {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      val appLinkIntent = intent
-      val appLinkData = appLinkIntent.data
+
       navHostFragment = supportFragmentManager.findFragmentById(R.id.feature_container) as NavHostFragment
       navController = navHostFragment.navController
       NavigationUI.setupActionBarWithNavController(this, navHostFragment.navController)
+   }
+
+   override fun onResume() {
+      super.onResume()
+      val appLinkIntent = intent
+      val appLinkData = appLinkIntent.data
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {

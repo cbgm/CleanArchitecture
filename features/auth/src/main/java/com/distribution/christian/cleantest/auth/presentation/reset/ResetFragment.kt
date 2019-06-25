@@ -52,7 +52,7 @@ class ResetFragment : AuthBaseFragment(), ResetContract.View {
       emailText = view.findViewById(R.id.email_text)
       backBtn = view.findViewById(R.id.back_btn)
       backBtn.setOnClickListener {
-         coordinator.back()
+         activity.onBackPressed()
       }
       emailText.addTextChangedListener(object : OnTextChangedListener() {
          override fun afterTextChanged(p0: Editable?) {
@@ -77,7 +77,7 @@ class ResetFragment : AuthBaseFragment(), ResetContract.View {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinator.initialNavigation()
+                     activity.onBackPressed()
                   }
                })
       }
@@ -105,4 +105,8 @@ class ResetFragment : AuthBaseFragment(), ResetContract.View {
             emailText.text.toString()
       )
    }
+
+   /*override fun onBackPressed() {
+      findNavController().navigate(R.id.loginFragment)
+   }*/
 }
