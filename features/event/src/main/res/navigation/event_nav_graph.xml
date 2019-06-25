@@ -2,32 +2,64 @@
 <navigation android:id="@+id/event_nav_graph"
    xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:app="http://schemas.android.com/apk/res-auto"
+   app:startDestination="@id/overviewFragment2"
    >
 
    <fragment android:id="@+id/overviewFragment2"
       android:name="com.distribution.christian.cleantest.event.presentation.overview.OverviewFragment"
-      android:label="OverviewFragment"
-      >
+      android:label="OverviewFragment">
+
+      <argument android:name="data_key"
+         app:argType="com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity[]"
+         app:nullable="true"
+         />
+      <argument android:name="pos_key"
+         app:argType="integer"
+         android:defaultValue="-1"
+         />
       <action android:id="@+id/action_overviewFragment2_to_detailFragment"
          app:destination="@id/detailFragment"
          />
    </fragment>
    <fragment android:id="@+id/detailFragment"
       android:name="com.distribution.christian.cleantest.event.presentation.detail.DetailFragment"
-      android:label="DetailFragment">
-
-      <argument android:name="paramId"
-         android:defaultValue="@null"
-         app:argType="String"
+      android:label="DetailFragment"
+      >
+      <argument android:name="event_id_key"
+         app:argType="string"
+         app:nullable="true"
          />
-      <argument android:name="transitionInformation"
+      <argument android:name="event_key"
+         app:argType="com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity"
+         app:nullable="true"
          android:defaultValue="@null"
-         app:argType="TransitionInformation"
          />
-      <argument android:name="event"
+      <argument android:name="transition_key"
+         app:argType="com.distribution.christian.cleantest.core.core.ui.BaseFragment$TransitionInformation"
+         app:nullable="true"
          android:defaultValue="@null"
-         app:argType="EventEntity"
+         />
+      <deepLink android:id="@+id/deepLink"
+         app:uri="cleantest.de/events/detail/{event_id_key}"
          />
    </fragment>
+
+   <!-- <fragment android:id="@+id/detailFragment"
+       android:name="com.distribution.christian.cleantest.event.presentation.detail.DetailFragment"
+       android:label="DetailFragment">
+
+       <argument android:name="paramId"
+          android:defaultValue="@null"
+          app:argType="String"
+          />
+       <argument android:name="transitionInformation"
+          android:defaultValue="@null"
+          app:argType="com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment$TransitionInformation"
+          />
+       <argument android:name="event"
+          android:defaultValue="@null"
+          app:argType="com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity"
+          />
+    </fragment>-->
 
 </navigation>

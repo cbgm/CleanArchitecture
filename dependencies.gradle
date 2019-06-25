@@ -31,6 +31,7 @@ ext {
    roomVersion = "2.1.0-alpha04"
    googleMapsVersion = "11.8.0"
    firebaseJobVersion = "0.5.0"
+   navigationComponentVersion = "2.0.0"
 
 
    presentationDependencies = [
@@ -52,8 +53,8 @@ ext {
          glide: "com.github.bumptech.glide:glide:$glideVersion",
          material: "com.google.android.material:material:$materialVersion",
          googleMaps: "com.google.android.gms:play-services-maps:$googleMapsVersion",
-         test1: 'android.arch.navigation:navigation-fragment:1.0.0-alpha02',
-         test2: 'android.arch.navigation:navigation-ui:1.0.0-alpha02'
+         navFragment: "androidx.navigation:navigation-fragment-ktx:$navigationComponentVersion",
+         navUi: "androidx.navigation:navigation-ui-ktx:$navigationComponentVersion"
    ]
 
    dataDependencies = [

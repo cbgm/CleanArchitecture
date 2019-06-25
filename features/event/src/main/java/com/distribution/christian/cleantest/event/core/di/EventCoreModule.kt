@@ -2,7 +2,6 @@ package com.distribution.christian.cleantest.event.core.di
 
 import androidx.room.Room
 import com.distribution.christian.cleantest.core.core.di.createWebService
-import com.distribution.christian.cleantest.event.core.navigation.EventFlowCoordinatorImpl
 import com.distribution.christian.cleantest.event.data.cache.EventCache
 import com.distribution.christian.cleantest.event.data.cache.EventDatabase
 import com.distribution.christian.cleantest.event.data.repository.EventRepositoryImpl
@@ -17,7 +16,6 @@ import org.koin.dsl.module.module
 
 
 val eventCoreModule = module {
-   single { EventFlowCoordinatorImpl() }
    single { createWebService<EventApi>(get("retrofit1")) }
    single { EventFromNetwork(get()) }
    single { EventCache() }

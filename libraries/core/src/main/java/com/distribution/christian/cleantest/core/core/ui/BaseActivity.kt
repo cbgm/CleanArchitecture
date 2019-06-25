@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
 
 
-abstract class BaseActivity<T>(
+abstract class BaseActivity<T: AppCompatActivity>(
       val layout: Int,
       private val withToolbar: Boolean = true
 ) : AppCompatActivity() {

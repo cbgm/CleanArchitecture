@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.recycler.EndlessScrollListener
-import com.distribution.christian.cleantest.core.core.util.extension.args
 import com.distribution.christian.cleantest.core.core.util.extension.argsUpdate
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
@@ -33,25 +32,23 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
+import android.view.ViewTreeObserver
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.distribution.christian.cleantest.core.core.ui.FragmentConsistency
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
 import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
-import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 
 
 @Suppress("UNCHECKED_CAST")
 class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
 
    companion object {
-
       const val TAG = "Overview"
-      fun newInstance() = OverviewFragment().args {
-         putSerializable(EventOverviewFragmentConsistency.DATA_KEY, null)
-         putInt(EventOverviewFragmentConsistency.POS_KEY, -1)
-      }
    }
 
    private val presenter: OverviewPresenter by inject()
@@ -89,6 +86,18 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
             searchEntity = null
          }
       }
+   }
+
+   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+      super.onViewCreated(view, savedInstanceState)
+      postponeEnterTransition()
+      view.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+         override fun onPreDraw(): Boolean {
+            view.viewTreeObserver.removeOnPreDrawListener(this)
+            startPostponedEnterTransition()
+            return true
+         }
+      })
    }
 
    override fun onResume() {
@@ -136,7 +145,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
       when (item!!.itemId) {
          R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
-         R.id.stars -> (parentFragment as EventFeatureFragment).coordinator.showStars()
+         //R.id.stars -> (parentFragment as EventFeatureFragment).coordinator.showStars()
       }
       return super.onOptionsItemSelected(item)
    }
@@ -212,14 +221,21 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
       consistency.data = overviewAdapter.data
       consistency.posToReload = position
-      var bundle = Bundle()
-      bundle.putSerializable("transitionInforamtion", TransitionInformation(sharedView, sharedView.transitionName))
-      bundle.putSerializable("event", event)
-      findNavController().navigate(R.id.action_overviewFragment2_to_detailFragment, bundle)
-      /*(parentFragment as EventFeatureFragment).coordinator.showDetail(
-            transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
-            event = event
-      )*/
+      val bundle = Bundle()
+      bundle.putSerializable(
+            FragmentConsistency.TRANSITION_KEY,
+            TransitionInformation(sharedView, sharedView.transitionName)
+      )
+      bundle.putSerializable(EventDetailFragmentConsistency.EVENT_KEY, event)
+      val extras = FragmentNavigatorExtras(
+            sharedView to sharedView.transitionName
+      )
+      findNavController().navigate(
+            R.id.action_overviewFragment2_to_detailFragment,
+            bundle,
+            null,
+            extras
+      )
    }
 
    override fun onBookmarkClick(event: EventEntity) {

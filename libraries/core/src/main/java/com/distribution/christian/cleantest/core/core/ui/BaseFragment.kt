@@ -7,7 +7,7 @@ import java.io.Serializable
 
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseFragment<T, C: Any> : Fragment() {
+abstract class BaseFragment<T, C: Any> : Fragment(), OnBackPressedListener {
 
    open val coordinator: BaseCoordinator? = null
 
@@ -16,4 +16,10 @@ abstract class BaseFragment<T, C: Any> : Fragment() {
    protected lateinit var consistency: C
 
    data class TransitionInformation(val sharedElement: View, val transitionName: String): Serializable
+
+   override fun onBackPressed() {}
+}
+
+interface OnBackPressedListener {
+   fun onBackPressed()
 }

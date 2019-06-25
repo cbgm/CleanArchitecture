@@ -26,14 +26,14 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
 
    init {
       firebaseAuth.addAuthStateListener {
-         if (it.currentUser == null) {
+         /*if (it.currentUser == null) {
             this.currentFeatureFragment?.run {
                activity?.navigateToAuth(this.activity!!)
             }
             this.activity?.run {
                navigateToAuth(this)
             }
-         }
+         }*/
       }
    }
 

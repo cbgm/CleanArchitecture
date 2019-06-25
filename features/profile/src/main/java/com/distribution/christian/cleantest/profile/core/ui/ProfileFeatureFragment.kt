@@ -7,17 +7,12 @@ import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.profile.R
-import com.distribution.christian.cleantest.profile.core.navigation.ProfileFlowCoordinatorImpl
-import org.koin.android.ext.android.inject
 
 class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
-   override val coordinator: ProfileFlowCoordinatorImpl by inject()
 
    companion object {
-
       const val TAG = "ProfileFeature"
-      fun newInstance() = ProfileFeatureFragment()
    }
 
    override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +26,5 @@ class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
          savedInstanceState: Bundle?
    ): View? {
       return inflater.inflate(R.layout.fragment_profile_main, container, false)
-   }
-
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-      super.onViewCreated(view, savedInstanceState)
-      coordinator.start(this)
    }
 }
