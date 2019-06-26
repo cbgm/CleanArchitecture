@@ -231,7 +231,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
             sharedView to sharedView.transitionName
       )
       findNavController().navigate(
-            R.id.action_overviewFragment2_to_detailFragment,
+            R.id.action_overviewFragment_to_detailFragment,
             bundle,
             null,
             extras

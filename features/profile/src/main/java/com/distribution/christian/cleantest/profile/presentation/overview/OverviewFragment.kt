@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
 import com.distribution.christian.cleantest.core.core.util.extension.loadResource
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarChangedListener
@@ -175,7 +176,7 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
                      //auth listener in BaseCoordinator is doing this job
-                     //activity.navigateToAuth(activity)
+                     activity.navigateToAuth(activity)
                   }
                })
       }

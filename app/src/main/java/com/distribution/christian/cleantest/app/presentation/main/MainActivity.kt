@@ -1,8 +1,10 @@
 package com.distribution.christian.cleantest.app.presentation.main
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.distribution.christian.cleantest.R
@@ -26,6 +28,8 @@ class MainActivity : BaseNavigationActivity(R.layout.activity_main) {
       super.onResume()
       val appLinkIntent = intent
       val appLinkData = appLinkIntent.data
+      appLinkData?.let { navController.navigate(it) }
+
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {
