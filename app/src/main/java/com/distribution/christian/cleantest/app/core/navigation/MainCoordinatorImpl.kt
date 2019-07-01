@@ -2,6 +2,8 @@ package com.distribution.christian.cleantest.app.core.navigation
 
 import com.distribution.christian.cleantest.R
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
@@ -11,6 +13,7 @@ import com.distribution.christian.cleantest.profile.core.ui.ProfileFeatureFragme
 
 
 class MainCoordinatorImpl : BaseCoordinatorImpl() {
+
    override var replaceableFragmentId: Int = R.id.feature_container
 
    override fun navigateDeepLink() {
@@ -24,7 +27,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
             }
    }
 
-   fun showEvents() {
+   private fun showEvents() {
       activity?.replaceFragment(
             EventFeatureFragment.newInstance(),
             replaceableFragmentId,
@@ -32,7 +35,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
       )
    }
 
-   fun showProfile(){
+   private fun showProfile(){
       activity?.replaceFragment(
             ProfileFeatureFragment.newInstance(),
             replaceableFragmentId,
@@ -40,7 +43,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
       )
    }
 
-   fun showShop(){
+   private fun showShop(){
       activity?.replaceFragment(
             Class.forName("com.distribution.christian.cleantest.shop.core.ui.ShopFeatureFragment").newInstance() as BaseFeatureFragment<BaseNavigationActivity>,
             replaceableFragmentId,
@@ -54,5 +57,13 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
 
    override fun onDeepLinkBack() {
       //not needed
+   }
+
+   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
+      when(routeKey) {
+         FrankenCoordinatorManager.States.EVENTS -> showEvents()
+         FrankenCoordinatorManager.States.SHOP -> showShop()
+         FrankenCoordinatorManager.States.PROFILE -> showProfile()
+      }
    }
 }

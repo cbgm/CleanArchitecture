@@ -43,7 +43,8 @@
             android:inputType="textPersonName"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
-            tools:text="E-Mail" />
+            tools:text="E-Mail"
+            tools:ignore="Autofill,HardcodedText,TextFields" />
 
          <LinearLayout
             android:id="@+id/reset_btn"
@@ -57,7 +58,8 @@
                android:clickable="false"
                android:text="RESET"
                android:textColor="@android:color/black"
-               android:visibility="visible" />
+               android:visibility="visible"
+               tools:ignore="HardcodedText" />
 
             <ImageView
                android:id="@+id/valid_img"
@@ -65,7 +67,8 @@
                android:layout_height="wrap_content"
                android:layout_weight="1"
                android:visibility="gone"
-               app:srcCompat="@drawable/ic_valid" />
+               app:srcCompat="@drawable/ic_valid"
+               tools:ignore="ContentDescription,InefficientWeight" />
 
             <ProgressBar
                android:id="@+id/reset_loading"
@@ -81,7 +84,8 @@
             style="@style/AppTheme.ButtonAlternate"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="BACK" />
+            android:text="BACK"
+            tools:ignore="HardcodedText" />
 
       </LinearLayout>
 
@@ -94,6 +98,7 @@
       android:layout_centerHorizontal="true"
       android:layout_centerInParent="false"
       android:elevation="2dp"
-      android:src="@drawable/shape_reset" />
+      android:src="@drawable/shape_reset"
+      tools:ignore="ContentDescription" />
 
 </RelativeLayout>

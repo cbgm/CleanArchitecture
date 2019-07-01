@@ -3,7 +3,7 @@ package com.distribution.christian.cleantest.core.core.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
@@ -14,7 +14,7 @@ abstract class BaseActivity<T>(
       private val withToolbar: Boolean = true
 ) : AppCompatActivity() {
    open lateinit var activeFeatureFragment: BaseFeatureFragment<T>
-   open var coordinator: BaseCoordinator? = null
+   val coordinatorManager: FrankenCoordinatorManager by inject()
    private val splitInstallRequester: SplitInstallRequester by inject()
 
 
@@ -38,11 +38,6 @@ abstract class BaseActivity<T>(
    }
 
    override fun onBackPressed() {
-
-      if (coordinator != null) {
-         coordinator!!.back()
-      } else {
-         finish()
-      }
+      coordinatorManager.backStackFeature()
    }
 }

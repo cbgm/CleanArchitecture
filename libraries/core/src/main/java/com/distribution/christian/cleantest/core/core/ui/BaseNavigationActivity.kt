@@ -20,11 +20,6 @@ abstract class BaseNavigationActivity(mainLayout: Int) : BaseActivity<BaseNaviga
    open fun initBottomNavigation() {}
 
    override fun onBackPressed() {
-
-      if (activeFeatureFragment.coordinator != null) {
-         activeFeatureFragment.coordinator!!.back()
-      } else {
-         finish()
-      }
+      coordinatorManager.backStackFeature()
    }
 }

@@ -2,7 +2,7 @@
 <manifest package="com.distribution.christian.cleantest.auth"
    xmlns:android="http://schemas.android.com/apk/res/android">
 
-   <application>
+   <application android:supportsRtl="true">
 
       <activity android:name="com.distribution.christian.cleantest.auth.core.ui.AuthActivity">
          <intent-filter>

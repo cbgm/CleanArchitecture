@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.profile.R
@@ -12,7 +13,7 @@ import org.koin.android.ext.android.inject
 
 class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
-   override val coordinator: ProfileFlowCoordinatorImpl by inject()
+   override val coordinatorManager: FrankenCoordinatorManager by inject()
 
    companion object {
 
@@ -35,6 +36,6 @@ class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
       super.onViewCreated(view, savedInstanceState)
-      coordinator.start(this)
+      coordinatorManager.switchfeatureCoordinator(FrankenCoordinatorManager.States.PROFILE, this)
    }
 }

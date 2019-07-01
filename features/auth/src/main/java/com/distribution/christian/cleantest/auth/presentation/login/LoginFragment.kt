@@ -16,6 +16,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
@@ -24,6 +25,7 @@ import com.distribution.christian.cleantest.core.core.util.listener.NetworkListe
 import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import org.koin.android.ext.android.inject
+import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl.States.*
 
 
 class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
@@ -108,7 +110,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    }
 
    override fun showAlreadyAuthenticated() {
-      coordinator.initialNavigation()
+      coordinatorManager.currentFeatureCoordinator.initialNavigation()
    }
 
    override fun showContent(isVisible: Boolean) {
@@ -140,7 +142,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       resetBtn.setOnClickListener {
-         coordinator.showReset()
+         coordinatorManager.navigateInFeature(RESET)
       }
 
       bookmarkBtn.setOnClickListener{
@@ -148,7 +150,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       registerBtn.setOnClickListener {
-         coordinator.showRegister()
+         coordinatorManager.navigateInFeature(REGISTER)
       }
 
       loginBtn.setOnClickListener {
@@ -181,7 +183,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinator.initialNavigation()
+                     coordinatorManager.currentFeatureCoordinator.initialNavigation()
                   }
                })
       }

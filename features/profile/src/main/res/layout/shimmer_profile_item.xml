@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:app="http://schemas.android.com/apk/res-auto"
+   xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
    android:layout_height="match_parent">
 
@@ -8,14 +9,15 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      android:paddingBottom="32dp">
+      android:paddingBottom="32dp"
+      tools:ignore="UselessParent">
 
       <RelativeLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
 
          <LinearLayout
-            android:id="@+id/profile_header"
+            android:id="@+id/profile_header_sh"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:background="@color/shimmerLight"
@@ -27,14 +29,15 @@
                android:layout_height="wrap_content"
                android:layout_marginBottom="10dp"
                android:gravity="center"
-               android:orientation="vertical">
+               android:orientation="vertical"
+               tools:ignore="UselessParent">
 
                <RelativeLayout
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
 
                   <ImageView
-                     android:id="@+id/profile_image"
+                     android:id="@+id/profile_image_sh"
                      android:layout_width="match_parent"
                      android:layout_height="120dp"
                      android:layout_gravity="center"
@@ -45,30 +48,33 @@
                      app:layout_constraintBottom_toBottomOf="parent"
                      app:layout_constraintEnd_toEndOf="parent"
                      app:layout_constraintStart_toStartOf="parent"
-                     app:layout_constraintTop_toTopOf="parent" />
+                     app:layout_constraintTop_toTopOf="parent"
+                     tools:ignore="ContentDescription" />
 
                   <ImageView
-                     android:id="@+id/edit_btn"
+                     android:id="@+id/edit_btn_sh"
                      android:layout_width="30dp"
                      android:layout_height="30dp"
-                     android:layout_alignEnd="@+id/profile_image"
+                     android:layout_alignEnd="@+id/profile_image_sh"
                      android:layout_marginTop="10dp"
                      android:background="@drawable/round_edit"
                      android:contentDescription="edit image"
                      android:foreground="@color/shimmerDark"
-                     app:srcCompat="@drawable/ic_edit_round" />
+                     app:srcCompat="@drawable/ic_edit_round"
+                     tools:ignore="HardcodedText" />
 
                </RelativeLayout>
 
                <TextView
-                  android:id="@+id/name_text"
+                  android:id="@+id/name_text_sh"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_gravity="center"
                   android:text="Christian Bergmann"
                   android:textColor="@android:color/white"
                   android:textSize="18sp"
-                  android:textStyle="bold" />
+                  android:textStyle="bold"
+                  tools:ignore="HardcodedText" />
             </LinearLayout>
          </LinearLayout>
 
@@ -92,7 +98,8 @@
                   android:layout_height="wrap_content"
                   android:layout_margin="10dp"
                   android:text="User criteria"
-                  android:textStyle="bold" />
+                  android:textStyle="bold"
+                  tools:ignore="HardcodedText" />
 
                <LinearLayout
                   android:layout_width="match_parent"
@@ -116,17 +123,19 @@
                            android:layout_height="20dp"
                            android:layout_weight="1"
                            android:foreground="@color/shimmerDark"
-                           app:srcCompat="@drawable/ic_alias" />
+                           app:srcCompat="@drawable/ic_alias"
+                           tools:ignore="ContentDescription,InefficientWeight" />
                      </LinearLayout>
 
                      <TextView
-                        android:id="@+id/alias_text"
+                        android:id="@+id/alias_text_sh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:foreground="@color/shimmerDark"
                         android:text="cb2019"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
                   </LinearLayout>
 
                   <LinearLayout
@@ -146,11 +155,12 @@
                            android:layout_height="20dp"
                            android:layout_weight="1"
                            android:foreground="@color/shimmerDark"
-                           app:srcCompat="@drawable/ic_email" />
+                           app:srcCompat="@drawable/ic_email"
+                           tools:ignore="ContentDescription,InefficientWeight" />
                      </LinearLayout>
 
                      <TextView
-                        android:id="@+id/email_text"
+                        android:id="@+id/email_text_sh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -159,7 +169,8 @@
                         android:foreground="@color/shimmerDark"
                         android:inputType="textEmailAddress"
                         android:text="test@test.de"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText,TextViewEdits" />
                   </LinearLayout>
 
                   <LinearLayout
@@ -179,11 +190,12 @@
                            android:layout_height="20dp"
                            android:layout_weight="1"
                            android:foreground="@color/shimmerDark"
-                           app:srcCompat="@drawable/ic_password" />
+                           app:srcCompat="@drawable/ic_password"
+                           tools:ignore="ContentDescription,InefficientWeight" />
                      </LinearLayout>
 
                      <TextView
-                        android:id="@+id/password_text"
+                        android:id="@+id/password_text_sh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -192,7 +204,8 @@
                         android:foreground="@color/shimmerDark"
                         android:inputType="textPassword"
                         android:text="******"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText,TextViewEdits" />
 
                   </LinearLayout>
                </LinearLayout>
@@ -222,7 +235,8 @@
                android:layout_height="wrap_content"
                android:layout_margin="10dp"
                android:text="Search criteria"
-               android:textStyle="bold" />
+               android:textStyle="bold"
+               tools:ignore="HardcodedText" />
 
             <LinearLayout
                android:layout_width="match_parent"
@@ -246,11 +260,12 @@
                         android:layout_height="20dp"
                         android:layout_weight="1"
                         android:foreground="@color/shimmerDark"
-                        app:srcCompat="@drawable/ic_city" />
+                        app:srcCompat="@drawable/ic_city"
+                        tools:ignore="ContentDescription,InefficientWeight" />
                   </LinearLayout>
 
                   <AutoCompleteTextView
-                     android:id="@+id/city_text"
+                     android:id="@+id/city_text_sh"
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:layout_marginStart="20dp"
@@ -260,7 +275,8 @@
                      android:foreground="@color/shimmerDark"
                      android:inputType="text"
                      android:text="Burgkunstadt"
-                     android:textSize="12sp" />
+                     android:textSize="12sp"
+                     tools:ignore="HardcodedText,LabelFor" />
                </LinearLayout>
 
                <LinearLayout
@@ -280,7 +296,8 @@
                         android:layout_height="20dp"
                         android:layout_weight="1"
                         android:foreground="@color/shimmerDark"
-                        app:srcCompat="@drawable/ic_distance" />
+                        app:srcCompat="@drawable/ic_distance"
+                        tools:ignore="ContentDescription,InefficientWeight" />
 
                   </LinearLayout>
 
@@ -292,7 +309,7 @@
                      android:weightSum="2">
 
                      <SeekBar
-                        android:id="@+id/distance_seekbar"
+                        android:id="@+id/distance_seekbar_sh"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -301,14 +318,15 @@
                         android:thumbTint="@color/shimmerDark" />
 
                      <TextView
-                        android:id="@+id/distance_text"
+                        android:id="@+id/distance_text_sh"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:foreground="@color/shimmerDark"
                         android:text="10Km"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
                   </LinearLayout>
 
                </LinearLayout>
@@ -330,11 +348,12 @@
                         android:layout_height="20dp"
                         android:layout_weight="1"
                         android:foreground="@color/shimmerDark"
-                        app:srcCompat="@drawable/ic_price" />
+                        app:srcCompat="@drawable/ic_price"
+                        tools:ignore="ContentDescription,InefficientWeight" />
                   </LinearLayout>
 
                   <TextView
-                     android:id="@+id/price_text"
+                     android:id="@+id/price_text_sh"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:layout_marginStart="20dp"
@@ -342,7 +361,8 @@
                      android:enabled="false"
                      android:foreground="@color/shimmerDark"
                      android:text="13 Euro"
-                     android:textSize="12sp" />
+                     android:textSize="12sp"
+                     tools:ignore="HardcodedText" />
                </LinearLayout>
 
             </LinearLayout>

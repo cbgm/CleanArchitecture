@@ -25,4 +25,6 @@ interface BaseCoordinator : KoinComponent {
    fun navigateLink()
 
    fun navigateDeepLink()
+
+   fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?)
 }

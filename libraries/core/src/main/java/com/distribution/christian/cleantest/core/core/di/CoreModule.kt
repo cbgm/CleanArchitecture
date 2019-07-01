@@ -1,6 +1,8 @@
 package com.distribution.christian.cleantest.core.core.di
 
 import android.content.Context
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.distribution.christian.cleantest.core.core.util.SharedPreference
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
@@ -36,6 +38,7 @@ val appModule = module {
    single { SwitchNetworkModeUseCase(get()) }
    single { NetworkChangeModeServiceImpl(get()) }
    single { NetworkReceiverManager() }
+   single {FrankenCoordinatorManager()}
    single { PowerSaveModeServiceImpl(get(), get()) }
    single { androidApplication().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE) }
    single { createWebService<UserApi>(get("retrofit1")) }

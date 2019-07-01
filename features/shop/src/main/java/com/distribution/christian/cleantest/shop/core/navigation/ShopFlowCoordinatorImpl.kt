@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.shop.core.navigation
 
 import com.distribution.christian.cleantest.shop.presentation.overview.OverviewFragment
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.example.christian.cleantest.shop.R
 
@@ -12,7 +13,7 @@ class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
    override fun showOverview() {
       this.currentChildFragment = OverviewFragment.newInstance()
       currentFeatureFragment?.replaceFragment(
-            this.currentChildFragment!!,
+            this.currentChildFragment,
             replaceableFragmentId,
             OverviewFragment.TAG
       )
@@ -28,5 +29,9 @@ class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
 
    override fun onDeepLinkBack() {
       //not needed
+   }
+
+   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
+
    }
 }

@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.distribution.christian.cleantest.auth.R
+import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl.States.LOGIN
 import com.distribution.christian.cleantest.auth.core.ui.AuthBaseFragment
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
@@ -92,7 +93,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
       }
 
       backBtn.setOnClickListener {
-         coordinator.back()
+         coordinatorManager.backStackFeature()
       }
    }
 
@@ -114,7 +115,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinator.showLogin()
+                     coordinatorManager.navigateInFeature(LOGIN)
                   }
                })
       }

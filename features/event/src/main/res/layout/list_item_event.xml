@@ -22,7 +22,8 @@
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent"
-         tools:text="Thursday 13.05.2017" />
+         tools:text="Thursday 13.05.2017"
+         tools:ignore="SmallSp" />
 
       <TextView
          android:id="@+id/name_text"
@@ -55,7 +56,8 @@
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintStart_toStartOf="@+id/city_text"
          app:layout_constraintTop_toBottomOf="@+id/city_text"
-         tools:text="Cityhall, Straße 21" />
+         tools:text="Cityhall, Straße 21"
+         tools:ignore="SmallSp" />
 
       <ImageView
          android:id="@+id/type_img"
@@ -70,7 +72,8 @@
          app:layout_constraintTop_toTopOf="parent"
          android:contentDescription="type image"
          tools:src="@tools:sample/avatars[0]"
-         tools:srcCompat="@tools:sample/avatars[0]" />
+         tools:srcCompat="@tools:sample/avatars[0]"
+         tools:ignore="HardcodedText" />
 
       <ImageView
          android:id="@+id/star_img"
@@ -83,7 +86,8 @@
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintTop_toTopOf="parent"
-         app:srcCompat="@drawable/ic_empty_star" />
+         app:srcCompat="@drawable/ic_empty_star"
+         tools:ignore="HardcodedText" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

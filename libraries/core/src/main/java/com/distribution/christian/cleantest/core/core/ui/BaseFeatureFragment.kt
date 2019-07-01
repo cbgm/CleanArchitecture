@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.core.core.ui
 import androidx.fragment.app.Fragment
 import android.view.View
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import java.io.Serializable
 
 
@@ -13,7 +14,7 @@ abstract class BaseFeatureFragment<T> : Fragment() {
       const val TAG = ""
    }
 
-   open val coordinator: BaseCoordinator? = null
+   open val coordinatorManager: CoordinatorManager? = null
 
    val activity: T by lazy { getActivity() as T }
 

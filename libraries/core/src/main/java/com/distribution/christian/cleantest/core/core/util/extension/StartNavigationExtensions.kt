@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
 import androidx.core.app.ActivityOptionsCompat
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_MAIN
+import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SPLASH
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_STARS
 
 
@@ -28,6 +29,11 @@ fun Context.navigateToStars() {
 
 fun Context.navigateToAuth(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_AUTH)
+   startAction(intentToStart, this, oldActivity)
+}
+
+fun Context.navigateToSplash(oldActivity: FragmentActivity) {
+   val intentToStart = Intent(ACTION_SPLASH)
    startAction(intentToStart, this, oldActivity)
 }
 

@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
    package="com.example.christian.cleantest.shop"
-   xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:dist="http://schemas.android.com/apk/distribution">
-
-   <application
-      android:hasCode="false">
-   </application>
 
    <dist:module
       dist:onDemand="true"

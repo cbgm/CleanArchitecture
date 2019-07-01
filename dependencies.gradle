@@ -85,6 +85,7 @@ ext {
          [
                'ACTION_STARS',
                'ACTION_AUTH',
-               'ACTION_MAIN'
+               'ACTION_MAIN',
+               'ACTION_SPLASH'
          ]
 }

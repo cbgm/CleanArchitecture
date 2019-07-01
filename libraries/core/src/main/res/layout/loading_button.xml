@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
    style="@style/AppTheme.ButtonNormalLoading"
    xmlns:android="http://schemas.android.com/apk/res/android"
    android:layout_width="match_parent"
@@ -12,7 +12,8 @@
       android:layout_height="wrap_content"
       android:clickable="false"
       android:text="empty"
-      android:textColor="@android:color/black" />
+      android:textColor="@android:color/black"
+     tools:ignore="HardcodedText" />
 
    <ProgressBar
       android:id="@+id/button_loading"

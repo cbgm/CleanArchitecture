@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.shop.core.di.shopCoreModule
-import com.distribution.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl
 import com.distribution.christian.cleantest.shop.presentation.overview.OverviewFragment
 import com.example.christian.cleantest.shop.R
 import org.koin.android.ext.android.inject
@@ -20,7 +20,7 @@ private fun injectFeature() = loadFeature
 
 class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
-   override val coordinator: ShopFlowCoordinatorImpl by inject()
+   override val coordinatorManager: FrankenCoordinatorManager by inject()
 
    companion object {
 
@@ -43,7 +43,6 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
       super.onViewCreated(view, savedInstanceState)
-      coordinator.start(this, false)
       replaceFragment(
             OverviewFragment.newInstance(),
             R.id.fragment_container,
@@ -51,7 +50,7 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
       )
    }
 
-   override fun onAttach(context: Context?) {
+   override fun onAttach(context: Context) {
       super.onAttach(context)
       injectFeature()
    }

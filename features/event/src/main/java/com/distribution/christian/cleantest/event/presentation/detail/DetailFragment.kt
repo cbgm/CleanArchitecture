@@ -63,7 +63,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
       detailPresenter.setVIew(this)
    }
 
-   override fun onAttach(context: Context?) {
+   override fun onAttach(context: Context) {
       super.onAttach(context)
       consistency = EventDetailFragmentConsistency.deserializeFrom(this)
    }

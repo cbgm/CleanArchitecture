@@ -20,18 +20,25 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.distribution.christian.cleantest.app.core.navigation.MainCoordinatorImpl
+import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
 import com.distribution.christian.cleantest.event.core.di.eventCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authCoreModule
 import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
 import com.distribution.christian.cleantest.auth.core.di.authResetModule
+import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import com.distribution.christian.cleantest.core.device.LocalPersistenceManager
 import com.distribution.christian.cleantest.core.device.network.NetworkReceiver
 import com.distribution.christian.cleantest.event.core.di.eventStarsModule
+import com.distribution.christian.cleantest.event.core.navigation.EventFlowCoordinatorImpl
 import com.distribution.christian.cleantest.profile.core.di.profileCoreModule
 import com.distribution.christian.cleantest.profile.core.di.profileOverviewModule
+import com.distribution.christian.cleantest.profile.core.navigation.ProfileFlowCoordinatorImpl
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
 
@@ -53,6 +60,16 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
 
    private val localPersistenceManager: LocalPersistenceManager by inject()
 
+   private val coordinatorManager: FrankenCoordinatorManager by inject()
+   private val mainCoordinatorImpl: MainCoordinatorImpl by inject()
+   private val eventCoordinator: EventFlowCoordinatorImpl by inject()
+   private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
+   private val shopCoordinator: BaseCoordinator by lazy {
+      Class.forName("com.distribution.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl").newInstance() as BaseCoordinator
+   }
+   private val profileCoordinator: ProfileFlowCoordinatorImpl by inject()
+   private val authCoordinator: AuthFlowCoordinatorImpl by inject()
+
    override fun onCreate() {
       super.onCreate()
       ProcessLifecycleOwner.get().lifecycle.addObserver(this)
@@ -62,6 +79,13 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       setDayNight()
 
       Timber.plant(TimberTree())
+
+      coordinatorManager.mainCoordinator = mainCoordinatorImpl
+      coordinatorManager.applicationPartCoordinator = rootFlowCoordinatorImpl
+      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.EVENTS, eventCoordinator)
+      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.SHOP, shopCoordinator)
+      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.PROFILE, profileCoordinator)
+      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.AUTH, authCoordinator)
    }
 
    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)

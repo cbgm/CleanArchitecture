@@ -20,7 +20,7 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
    protected var isDeepLinkActive: Boolean = false
 
    protected var activity: FragmentActivity? = null
-   protected var currentChildFragment: Fragment? = null
+   protected lateinit var currentChildFragment: Fragment
    protected var currentFeatureFragment: Fragment? = null
    open var replaceableFragmentId = R.id.fragment_container
 
@@ -28,7 +28,9 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
       firebaseAuth.addAuthStateListener {
          if (it.currentUser == null) {
             this.currentFeatureFragment?.run {
-               activity?.navigateToAuth(this.activity!!)
+               activity?.run {
+                  navigateToAuth(this)
+               }
             }
             this.activity?.run {
                navigateToAuth(this)
@@ -55,7 +57,6 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
 
    override fun start(fragmentActivity: FragmentActivity, uri: Uri?) {
       this.activity = fragmentActivity
-      uri?.let { this.deepLinkHandler.setDeepLinks(it) }
       initialNavigation()
    }
 
@@ -83,4 +84,9 @@ abstract class BaseCoordinatorImpl : BaseCoordinator, KoinComponent {
    abstract override fun navigateLink()
 
    abstract override fun navigateDeepLink()
+
+   abstract override fun route(
+         routeKey: CoordinatorManager.State,
+         navigationData: CoordinatorManager.NavigationData?
+   )
 }

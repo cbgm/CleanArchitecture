@@ -34,11 +34,13 @@ import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
 import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
-import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
+import com.distribution.christian.cleantest.event.core.navigation.EventFlowCoordinatorImpl.States.*
 
 
 @Suppress("UNCHECKED_CAST")
@@ -78,7 +80,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    @SuppressLint("CheckResult")
-   override fun onAttach(context: Context?) {
+   override fun onAttach(context: Context) {
       super.onAttach(context)
       consistency = EventOverviewFragmentConsistency.deserializeFrom(this)
       consistency.searchTerm.observable.subscribe {
@@ -111,14 +113,14 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    @SuppressLint("ResourceType")
-   override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-      inflater!!.inflate(R.menu.event_toolbar_menu, menu)
+   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+      inflater.inflate(R.menu.event_toolbar_menu, menu)
       super.onCreateOptionsMenu(menu, inflater)
    }
 
-   override fun onPrepareOptionsMenu(menu: Menu?) {
+   override fun onPrepareOptionsMenu(menu: Menu) {
       super.onPrepareOptionsMenu(menu)
-      searchItem = menu!!.findItem(R.id.search)
+      searchItem = menu.findItem(R.id.search)
       searchItem.setOnActionExpandListener(object : OnMenuItemCollapsedListener() {
 
          override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
@@ -131,11 +133,11 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       initSearch()
    }
 
-   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+   override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-      when (item!!.itemId) {
+      when (item.itemId) {
          R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
-         R.id.stars -> (parentFragment as EventFeatureFragment).coordinator.showStars()
+         R.id.stars -> coordinatorManager.navigateInFeature(STARS)
       }
       return super.onOptionsItemSelected(item)
    }
@@ -211,9 +213,16 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun onItemClick(event: EventEntity, position: Int, sharedView: View) {
       consistency.data = overviewAdapter.data
       consistency.posToReload = position
-      (parentFragment as EventFeatureFragment).coordinator.showDetail(
-            transitionInformation = TransitionInformation(sharedView, sharedView.transitionName),
-            event = event
+
+      coordinatorManager.navigateInFeature(
+            DETAIL,
+            CoordinatorManager.NavigationData(
+                  params = setupDetailParams(event)
+                  , transitionInformation = TransitionInformation(
+                  sharedView,
+                  sharedView.transitionName
+            )
+            )
       )
    }
 
@@ -286,6 +295,12 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
             to,
             CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
       )
+   }
+
+   private fun setupDetailParams(event: EventEntity): HashMap<String, Any> {
+      val params =  HashMap<String, Any>()
+      params[EventDetailFragmentConsistency.EVENT_KEY] = event
+      return params
    }
 }
 

@@ -44,7 +44,8 @@
             android:text="christian.bergmann@kunstadt.de"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
-            tools:text="User" />
+            tools:text="User"
+            tools:ignore="Autofill,HardcodedText,TextFields" />
 
          <EditText
             android:id="@+id/password_text"
@@ -57,7 +58,8 @@
             android:text="1234"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
-            tools:text="Password" />
+            tools:text="Password"
+            tools:ignore="Autofill,HardcodedText" />
 
          <EditText
             android:id="@+id/retype_password_text"
@@ -70,7 +72,8 @@
             android:text="1234"
             android:textCursorDrawable="@android:color/holo_green_light"
             android:textSize="12sp"
-            tools:text="Retype Password" />
+            tools:text="Retype Password"
+            tools:ignore="Autofill,HardcodedText" />
 
          <TextView
             android:id="@+id/error_text"
@@ -81,7 +84,8 @@
             android:text="TextView"
             android:visibility="gone"
             android:textColor="@android:color/holo_red_light"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
 
          <LinearLayout
             android:id="@+id/register_btn"
@@ -96,7 +100,8 @@
                android:clickable="false"
                android:text="REGISTER"
                android:textColor="@android:color/black"
-               android:visibility="visible" />
+               android:visibility="visible"
+               tools:ignore="HardcodedText" />
 
             <ImageView
                android:id="@+id/valid_img"
@@ -104,7 +109,8 @@
                android:layout_height="wrap_content"
                android:layout_weight="1"
                android:visibility="gone"
-               app:srcCompat="@drawable/ic_valid" />
+               app:srcCompat="@drawable/ic_valid"
+               tools:ignore="ContentDescription,InefficientWeight" />
 
             <ProgressBar
                android:id="@+id/register_loading"
@@ -120,7 +126,8 @@
             style="@style/AppTheme.ButtonAlternate"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="BACK" />
+            android:text="BACK"
+            tools:ignore="HardcodedText" />
 
       </LinearLayout>
 
@@ -133,6 +140,7 @@
       android:layout_centerHorizontal="true"
       android:layout_centerInParent="false"
       android:elevation="2dp"
-      android:src="@drawable/shape_register" />
+      android:src="@drawable/shape_register"
+      tools:ignore="ContentDescription" />
 
 </RelativeLayout>

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.ui.BaseActivity
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
@@ -15,8 +17,7 @@ import org.koin.android.ext.android.inject
 
 
 class AuthFeatureFragment : BaseFeatureFragment<BaseStandaloneActivity>() {
-
-   override val coordinator: AuthFlowCoordinatorImpl by inject()
+   override val coordinatorManager: FrankenCoordinatorManager by inject()
 
    companion object {
 
@@ -39,7 +40,6 @@ class AuthFeatureFragment : BaseFeatureFragment<BaseStandaloneActivity>() {
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
       super.onViewCreated(view, savedInstanceState)
-      coordinator.start(this, false)
-      coordinator.showLogin()
+      coordinatorManager.switchfeatureCoordinator(FrankenCoordinatorManager.States.AUTH, this)
    }
 }

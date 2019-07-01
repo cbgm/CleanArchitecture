@@ -10,7 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationPropertyEndListener
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -18,7 +19,8 @@ import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
 
-   private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
+   private val coordinatorManager: FrankenCoordinatorManager by inject()
+   private val deepLinkHandler: DeepLinkHandler by inject()
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
@@ -66,7 +68,7 @@ class SplashActivity : AppCompatActivity() {
 
    private fun startRouting() {
       val data: Uri? = intent?.data
-      rootFlowCoordinatorImpl.start(this, data)
-      rootFlowCoordinatorImpl.showAuthentication()
+      data?.let { this.deepLinkHandler.setUri(it) }
+      coordinatorManager.applicationPartCoordinator.start(this)
    }
 }

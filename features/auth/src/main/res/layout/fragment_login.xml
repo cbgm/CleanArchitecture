@@ -34,7 +34,8 @@
                android:layout_width="50dp"
                android:layout_height="50dp"
                android:layout_gravity="end"
-               app:srcCompat="@drawable/ic_bookmark_gray" />
+               app:srcCompat="@drawable/ic_bookmark_gray"
+               tools:ignore="ContentDescription" />
 
             <TextView
                android:id="@+id/header_text"
@@ -56,7 +57,8 @@
                android:text="christian.bergmann@kunstadt.de"
                android:textCursorDrawable="@android:color/holo_green_light"
                android:textSize="12sp"
-               tools:text="User" />
+               tools:text="User"
+               tools:ignore="Autofill,HardcodedText" />
 
             <EditText
                android:id="@+id/password_text"
@@ -67,14 +69,16 @@
                android:inputType="textPassword"
                android:textCursorDrawable="@android:color/holo_green_light"
                android:textSize="12sp"
-               tools:text="Password" />
+               tools:text="Password"
+               tools:ignore="Autofill,HardcodedText" />
 
             <CheckBox
                android:id="@+id/show_password_check"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="left"
-               android:text="Show Password" />
+               android:text="Show Password"
+               tools:ignore="HardcodedText,RtlHardcoded" />
 
             <LinearLayout
                android:id="@+id/login_btn"
@@ -88,7 +92,8 @@
                   android:clickable="false"
                   android:text="SIGN IN"
                   android:textColor="@android:color/black"
-                  android:visibility="visible" />
+                  android:visibility="visible"
+                  tools:ignore="HardcodedText" />
 
                <ImageView
                   android:id="@+id/valid_img"
@@ -96,7 +101,8 @@
                   android:layout_height="wrap_content"
                   android:layout_weight="1"
                   android:visibility="gone"
-                  app:srcCompat="@drawable/ic_valid" />
+                  app:srcCompat="@drawable/ic_valid"
+                  tools:ignore="ContentDescription,InefficientWeight" />
 
                <ProgressBar
                   android:id="@+id/login_loading"
@@ -112,7 +118,8 @@
                style="@style/AppTheme.ButtonAlternate"
                android:layout_marginTop="5dp"
                android:gravity="center"
-               android:text="SIGN UP" />
+               android:text="SIGN UP"
+               tools:ignore="HardcodedText" />
 
             <TextView
                android:id="@+id/reset_btn"
@@ -121,7 +128,8 @@
                android:layout_gravity="right"
                android:layout_marginTop="10dp"
                android:text="Forgot Password?"
-               android:textSize="12sp" />
+               android:textSize="12sp"
+               tools:ignore="HardcodedText,RtlHardcoded" />
 
          </LinearLayout>
 
@@ -134,7 +142,8 @@
          android:layout_centerHorizontal="true"
          android:layout_centerInParent="false"
          android:elevation="2dp"
-         android:src="@drawable/shape_login" />
+         android:src="@drawable/shape_login"
+         tools:ignore="ContentDescription" />
 
    </RelativeLayout>
    <include layout="@layout/loading"/>
