@@ -12,6 +12,7 @@ import androidx.core.view.ViewPropertyAnimatorCompat
 import com.distribution.christian.cleantest.R
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
+import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationPropertyEndListener
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -68,7 +69,11 @@ class SplashActivity : AppCompatActivity() {
 
    private fun startRouting() {
       val data: Uri? = intent?.data
-      data?.let { this.deepLinkHandler.setUri(it) }
+      data?.let {
+         this.deepLinkHandler.registerDeepLink("shop", DeepLinkIdentifier.SHOP)
+         this.deepLinkHandler.registerDeepLink("events", DeepLinkIdentifier.EVENTS)
+         this.deepLinkHandler.registerDeepLink("detail", DeepLinkIdentifier.EVENT_DETAIL)
+         this.deepLinkHandler.setUri(it) }
       coordinatorManager.applicationPartCoordinator.start(this)
    }
 }

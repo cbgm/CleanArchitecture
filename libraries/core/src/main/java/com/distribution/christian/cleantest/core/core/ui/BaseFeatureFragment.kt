@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.core.core.ui
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator

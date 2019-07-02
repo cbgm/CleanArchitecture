@@ -2,6 +2,7 @@ package com.distribution.christian.cleantest.core.core.ui
 
 import android.os.Bundle
 import android.view.MenuItem
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.ext.android.inject
@@ -16,6 +17,8 @@ abstract class BaseNavigationActivity(mainLayout: Int) : BaseActivity<BaseNaviga
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {return true}
+
+   abstract fun setBottomNavigationItem(state: CoordinatorManager.State)
 
    open fun initBottomNavigation() {}
 

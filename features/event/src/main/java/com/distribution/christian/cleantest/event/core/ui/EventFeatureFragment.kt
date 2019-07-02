@@ -24,6 +24,7 @@ class EventFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       activity.activeFeatureFragment = this
+      activity.setBottomNavigationItem(FrankenCoordinatorManager.States.EVENTS)
    }
 
    override fun onCreateView(

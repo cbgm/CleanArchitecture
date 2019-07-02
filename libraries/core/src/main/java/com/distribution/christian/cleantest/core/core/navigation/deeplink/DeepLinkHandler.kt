@@ -10,12 +10,17 @@ class DeepLinkHandler {
    private lateinit var path: String
    private lateinit var host: String
    private var deepLinks: Queue<DeepLink> = LinkedList()
+   private val registeredDeepLinks = HashMap<String, DeepLinkIdentifier>()
 
    fun getDeepLink(): DeepLink? = deepLinks.remove()
 
    fun hasDeepLinks() = deepLinks.isNotEmpty()
 
-   fun setDeepLinks(data: Uri) {
+   fun registerDeepLink(uriPart: String, identifier: DeepLinkIdentifier) {
+      this.registeredDeepLinks[uriPart] = identifier
+   }
+
+   fun setUri(data: Uri) {
       resolveDataParts(data)
       prepareDeeplinking()
    }
@@ -30,30 +35,21 @@ class DeepLinkHandler {
             .filter { it.isNotEmpty() and it.isNotBlank() }
 
       for (i in 0 until splitData.size) {
-
-         if (i + 1 == splitData.size - 1) {
-            deepLinks.add(DeepLink(mapAction(splitData[i]), splitData[i + 1]))
-            return deepLinks
-         } else {
-            deepLinks.add(DeepLink(mapAction(splitData[i])))
+         val deepLink = mapAction(splitData[i])
+         if (deepLink.action.hasParameter()) {
+            deepLink.parameter = splitData[i + 1]
          }
+         deepLinks.add(deepLink)
       }
       return deepLinks
    }
 
-   private fun mapAction(action: String): DeepLinkIdentifier {
+   private fun mapAction(action: String): DeepLink {
 
-      return if (deepLinks.isEmpty()) {
-         when (action) {
-            "events" -> DeepLinkIdentifier.EVENTS
-            "shop" -> DeepLinkIdentifier.SHOP
-            else -> DeepLinkIdentifier.NONE
-         }
-      } else {
-         when (deepLinks.first().action) {
-            DeepLinkIdentifier.EVENTS -> DeepLinkIdentifier.EVENTS.mapAction(action)
-            else -> DeepLinkIdentifier.NONE
-         }
+      registeredDeepLinks[action]?.let {
+         return DeepLink(it)
+      } ?: run {
+         return DeepLink(DeepLinkIdentifier.NONE)
       }
    }
 }

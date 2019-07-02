@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.app.presentation.main
 import android.os.Bundle
 import android.view.MenuItem
 import com.distribution.christian.cleantest.R
+import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager.States.*
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 
@@ -36,5 +37,20 @@ class MainActivity : BaseNavigationActivity(R.layout.activity_main) {
    override fun initBottomNavigation() {
       bottomNavigationView = findViewById(R.id.bottom_navigation)
       bottomNavigationView.setOnNavigationItemSelectedListener(this)
+   }
+
+   override fun setBottomNavigationItem(state: CoordinatorManager.State) {
+      val item = when(state) {
+         EVENTS -> R.id.action_events
+         SHOP -> R.id.action_shop
+         PROFILE -> R.id.action_profile
+         else -> R.id.action_events
+      }
+      bottomNavigationView.menu.findItem(item).run {
+
+         if(!isChecked){
+            isChecked = true
+         }
+      }
    }
 }

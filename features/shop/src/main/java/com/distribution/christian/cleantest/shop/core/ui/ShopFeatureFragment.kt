@@ -31,6 +31,7 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       activity.activeFeatureFragment = this
+      activity.setBottomNavigationItem(FrankenCoordinatorManager.States.SHOP)
    }
 
    override fun onCreateView(
