@@ -23,8 +23,6 @@ import org.koin.android.ext.android.inject
 class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsContract.View, SwipeAdapter.OnClickListener {
 
    companion object {
-
-      const val TAG = "Stars"
       fun newInstance() = StarsFragment()
    }
 
@@ -82,12 +80,6 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
       loading = view.findViewById(R.id.loading)
       error = view.findViewById(R.id.error)
       starsList = view.findViewById(R.id.star_list)
-
-      ToolbarLoader(
-            activity as AppCompatActivity?,
-            R.string.title_stars,
-            false
-      )
    }
 
    override fun showContent(isVisible: Boolean) {

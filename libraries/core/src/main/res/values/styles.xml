@@ -62,4 +62,21 @@
       <item name="android:background">@drawable/selector_button_alternate</item>
    </style>
 
+   <style name="AppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog">
+      <item name="android:windowFrame">@null</item>
+      <item name="android:padding">0dp</item>
+   </style>
+
+   <style name="AppTheme.FullScreenDialog" parent="Theme.AppCompat.DayNight.Dialog">
+      <item name="android:windowNoTitle">true</item>
+      <item name="android:statusBarColor">@color/backgroundToolbar</item>
+      <item name="android:windowFullscreen">false</item>
+      <item name="android:windowIsFloating">false</item>
+      <item name="android:windowBackground">@android:color/white</item>
+   </style>
+
+   <style name="AppTheme.DialogAnimation">
+      <item name="android:windowEnterAnimation">@anim/slide_in_top</item>
+      <item name="android:windowExitAnimation">@anim/slide_out_top</item>
+   </style>
 </resources>

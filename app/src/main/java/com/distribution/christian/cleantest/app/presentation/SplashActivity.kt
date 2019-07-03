@@ -73,7 +73,8 @@ class SplashActivity : AppCompatActivity() {
          this.deepLinkHandler.registerDeepLink("shop", DeepLinkIdentifier.SHOP)
          this.deepLinkHandler.registerDeepLink("events", DeepLinkIdentifier.EVENTS)
          this.deepLinkHandler.registerDeepLink("detail", DeepLinkIdentifier.EVENT_DETAIL)
-         this.deepLinkHandler.setUri(it) }
+         this.deepLinkHandler.setUri(it)
+      }
       coordinatorManager.applicationPartCoordinator.start(this)
    }
 }

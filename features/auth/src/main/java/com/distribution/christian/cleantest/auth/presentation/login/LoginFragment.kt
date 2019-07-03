@@ -16,9 +16,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.di.DiScope
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.NetworkListener
@@ -26,6 +24,7 @@ import com.distribution.christian.cleantest.core.core.util.listener.OnTextChange
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import org.koin.android.ext.android.inject
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl.States.*
+import com.distribution.christian.cleantest.core.core.util.extension.showStarsDialog
 
 
 class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
@@ -146,7 +145,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       bookmarkBtn.setOnClickListener{
-         activity.navigateToStars()
+         activity.showStarsDialog()
       }
 
       registerBtn.setOnClickListener {

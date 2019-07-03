@@ -6,25 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_AUTH
-import androidx.core.app.ActivityOptionsCompat
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_MAIN
 import com.distribution.christian.cleantest.core.BuildConfig.ACTION_SPLASH
-import com.distribution.christian.cleantest.core.BuildConfig.ACTION_STARS
-
 
 fun Context.navigateToMain(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_MAIN)
    startAction(intentToStart, this, oldActivity)
-}
-
-fun Context.navigateToStars() {
-   val intentToStart = Intent(ACTION_STARS)
-   val bundle = ActivityOptionsCompat.makeCustomAnimation(
-         this,
-         android.R.anim.fade_in, android.R.anim.fade_out
-   )
-         .toBundle()
-   startActivity(intentToStart, bundle)
 }
 
 fun Context.navigateToAuth(oldActivity: FragmentActivity) {

@@ -4,9 +4,9 @@ import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
 import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToStars
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragmentwithSharedElement
+import com.distribution.christian.cleantest.core.core.util.extension.showStarsDialog
 import com.distribution.christian.cleantest.event.presentation.detail.DetailFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
@@ -62,7 +62,7 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
    }
 
    override fun showStars() {
-      currentFeatureFragment?.activity?.navigateToStars()
+      currentFeatureFragment?.activity?.showStarsDialog()
    }
 
    override fun navigateDeepLink() {

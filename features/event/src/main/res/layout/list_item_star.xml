@@ -22,12 +22,12 @@
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent"
-         tools:text="in 2 days"
-         tools:ignore="SmallSp" />
+         tools:ignore="SmallSp"
+         tools:text="in 2 days" />
 
       <TextView
          android:id="@+id/name_text"
-         android:layout_width="298dp"
+         android:layout_width="0dp"
          android:layout_height="23dp"
          android:layout_marginEnd="16dp"
          android:layout_marginStart="16dp"
@@ -43,13 +43,14 @@
          android:layout_width="0dp"
          android:layout_height="wrap_content"
          android:layout_marginEnd="16dp"
+         android:layout_marginStart="16dp"
          android:layout_marginTop="8dp"
+         android:baselineAligned="false"
          android:orientation="horizontal"
          android:weightSum="2"
          app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="@+id/name_text"
-         app:layout_constraintTop_toBottomOf="@+id/name_text"
-         android:baselineAligned="false">
+         app:layout_constraintStart_toEndOf="@+id/type_img"
+         app:layout_constraintTop_toBottomOf="@+id/name_text">
 
          <LinearLayout
             android:layout_width="match_parent"
@@ -78,8 +79,8 @@
                android:textSize="10sp"
                app:layout_constraintStart_toStartOf="@+id/city_text"
                app:layout_constraintTop_toBottomOf="@+id/city_text"
-               tools:text="Cityhall, Straße 21"
-               tools:ignore="SmallSp" />
+               tools:ignore="SmallSp"
+               tools:text="Cityhall, Straße 21" />
          </LinearLayout>
 
          <LinearLayout
@@ -106,11 +107,12 @@
          android:layout_height="wrap_content"
          android:layout_marginBottom="8dp"
          android:layout_marginEnd="16dp"
+         android:layout_marginStart="16dp"
          android:layout_marginTop="8dp"
          android:text="TextView"
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="@+id/location_container"
+         app:layout_constraintStart_toEndOf="@+id/type_img"
          app:layout_constraintTop_toBottomOf="@+id/location_container"
          tools:ignore="HardcodedText" />
 
@@ -124,11 +126,12 @@
          android:contentDescription="type image"
          android:src="@android:drawable/sym_def_app_icon"
          app:layout_constraintBottom_toBottomOf="@+id/location_container"
+         app:layout_constraintEnd_toStartOf="@+id/name_text"
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintTop_toTopOf="parent"
+         tools:ignore="HardcodedText"
          tools:src="@tools:sample/avatars[0]"
-         tools:srcCompat="@tools:sample/avatars[0]"
-         tools:ignore="HardcodedText" />
+         tools:srcCompat="@tools:sample/avatars[0]" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

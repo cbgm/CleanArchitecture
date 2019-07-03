@@ -81,11 +81,9 @@ ext {
          roomTest: "android.arch.persistence.room:testing:$roomVersion"
    ]
 
-   NavigationItems =
-         [
-               'ACTION_STARS',
-               'ACTION_AUTH',
-               'ACTION_MAIN',
-               'ACTION_SPLASH'
-         ]
+   NavigationItems = [
+         'ACTION_AUTH',
+         'ACTION_MAIN',
+         'ACTION_SPLASH'
+   ]
 }
