@@ -41,8 +41,10 @@ import com.distribution.christian.cleantest.profile.core.di.profileOverviewModul
 import com.distribution.christian.cleantest.profile.core.navigation.ProfileFlowCoordinatorImpl
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
+import kotlin.system.exitProcess
 
 
+@Suppress("unused")
 class UserApplication : SplitCompatApplication(), LifecycleObserver {
 
    private val lowPowerReceiver: PowerSaveModeReceiver by lazy {
@@ -72,7 +74,8 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
 
    override fun onCreate() {
       super.onCreate()
-      ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+      ProcessLifecycleOwner.get()
+            .lifecycle.addObserver(this)
 
       initKoin()
 
@@ -80,12 +83,7 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
 
       Timber.plant(TimberTree())
 
-      coordinatorManager.mainCoordinator = mainCoordinatorImpl
-      coordinatorManager.applicationPartCoordinator = rootFlowCoordinatorImpl
-      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.EVENTS, eventCoordinator)
-      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.SHOP, shopCoordinator)
-      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.PROFILE, profileCoordinator)
-      coordinatorManager.registerFeatureCoordinator(FrankenCoordinatorManager.States.AUTH, authCoordinator)
+      initCoordinator()
    }
 
    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -93,6 +91,7 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       unregisterReceiversAndServices()
    }
 
+   @Suppress("unused")
    @OnLifecycleEvent(Lifecycle.Event.ON_START)
    private fun onAppForegrounded() {
       registerReceiversAndServices()
@@ -141,6 +140,27 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       registerReceiver(networkReceiver, filter)
    }
 
+   private fun initCoordinator(){
+      coordinatorManager.mainCoordinator = mainCoordinatorImpl
+      coordinatorManager.applicationPartCoordinator = rootFlowCoordinatorImpl
+      coordinatorManager.registerFeatureCoordinator(
+            FrankenCoordinatorManager.States.EVENTS,
+            eventCoordinator
+      )
+      coordinatorManager.registerFeatureCoordinator(
+            FrankenCoordinatorManager.States.SHOP,
+            shopCoordinator
+      )
+      coordinatorManager.registerFeatureCoordinator(
+            FrankenCoordinatorManager.States.PROFILE,
+            profileCoordinator
+      )
+      coordinatorManager.registerFeatureCoordinator(
+            FrankenCoordinatorManager.States.AUTH,
+            authCoordinator
+      )
+   }
+
    private fun networkAvailable() {
       networkReceiverManager.notifyReceiversAvailable()
    }
@@ -160,6 +180,6 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       )
       val alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
       alarmManager.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pendingIntent)
-      System.exit(0)
+      exitProcess(0)
    }
 }
