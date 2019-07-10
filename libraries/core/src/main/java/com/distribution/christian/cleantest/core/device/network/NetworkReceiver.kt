@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import com.distribution.christian.cleantest.core.domain.single.DefaultSingleObserver
 import com.distribution.christian.cleantest.core.domain.usecase.SwitchNetworkModeUseCase
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import timber.log.Timber
 
 class NetworkReceiver(

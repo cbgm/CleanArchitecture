@@ -37,7 +37,10 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
       fun newInstance() = OverviewFragment()
    }
 
-   private val presenter: OverviewPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.PROFILE_OVERVIEW)
+      session.get<OverviewPresenter>()
+   }
    private lateinit var content: View
    private lateinit var loading: ShimmerFrameLayout
    private lateinit var error: View
@@ -63,7 +66,6 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope(DiScope.PROFILE_OVERVIEW)
       activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
       setHasOptionsMenu(true)
       presenter.setVIew(this)

@@ -13,12 +13,13 @@ import com.distribution.christian.cleantest.event.data.repository.remote.event.E
 import com.distribution.christian.cleantest.event.domain.repository.EventRepository
 import com.distribution.christian.cleantest.event.domain.usecase.GetEventById
 import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 
 val eventCoreModule = module {
    single { EventFlowCoordinatorImpl() }
-   single { createWebService<EventApi>(get("retrofit1")) }
+   single { createWebService<EventApi>(get(named("retrofit1"))) }
    single { EventFromNetwork(get()) }
    single { EventCache() }
    single {

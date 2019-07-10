@@ -5,20 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.shop.core.di.shopCoreModule
 import com.example.christian.cleantest.shop.R
-import org.koin.android.ext.android.inject
-import org.koin.standalone.StandAloneContext
+import org.koin.core.context.loadKoinModules
 
-private val loadFeature by lazy { StandAloneContext.loadKoinModules(shopCoreModule) }
+private val loadFeature by lazy { loadKoinModules(shopCoreModule) }
 private fun injectFeature() = loadFeature
 
-class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
-
-   override val coordinatorManager: FrankenCoordinatorManager by inject()
+class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(FeatureStates.SHOP) {
 
    companion object {
 
@@ -29,7 +26,7 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       activity.activeFeatureFragment = this
-      activity.setBottomNavigationItem(FrankenCoordinatorManager.States.SHOP)
+      activity.setBottomNavigationItem(FeatureStates.SHOP)
    }
 
    override fun onCreateView(
@@ -38,11 +35,6 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
          savedInstanceState: Bundle?
    ): View? {
       return inflater.inflate(R.layout.fragment_shop_main, container, false)
-   }
-
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-      super.onViewCreated(view, savedInstanceState)
-      coordinatorManager.switchFeatureCoordinator(FrankenCoordinatorManager.States.SHOP, this)
    }
 
    override fun onAttach(context: Context) {

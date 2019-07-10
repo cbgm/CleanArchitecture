@@ -1,16 +1,19 @@
 package com.distribution.christian.cleantest.auth.core.navigation
 
 import androidx.fragment.app.Fragment
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
+import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import com.christian.multinavlib.navigation.deeplink.DeepLink
+import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.presentation.login.LoginFragment
 import com.distribution.christian.cleantest.auth.presentation.register.RegisterFragment
 import com.distribution.christian.cleantest.auth.presentation.reset.ResetFragment
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 
 
 class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
+   override var replaceableFragmentId = R.id.fragment_container
 
    enum class States: CoordinatorManager.State {
       LOGIN,
@@ -18,7 +21,7 @@ class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
       RESET
    }
 
-   override fun navigateDeepLink() {
+   override fun navigateDeepLink(deepLink: DeepLink) {
       currentFeatureFragment?.activity?.run {
          navigateToMain(this)
       }
@@ -66,11 +69,12 @@ class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
       //not needed
    }
 
-   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
+   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment? {
       when (routeKey) {
          States.LOGIN -> showLogin()
          States.REGISTER -> showRegister()
          States.RESET -> showReset()
       }
+      return null
    }
 }

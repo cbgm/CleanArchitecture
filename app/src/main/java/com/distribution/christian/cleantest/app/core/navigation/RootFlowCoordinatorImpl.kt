@@ -1,9 +1,11 @@
 package com.distribution.christian.cleantest.app.core.navigation
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToSplash
@@ -17,7 +19,7 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
       MAIN
    }
 
-   override fun navigateDeepLink() {
+   override fun navigateDeepLink(deepLink: DeepLink) {
       showAuthentication()
    }
 
@@ -53,11 +55,12 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
       //not needed
    }
 
-   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
+   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment? {
       when(routeKey) {
          States.SPLASH -> showSplash()
          States.AUTH -> showAuthentication()
          States.MAIN -> showMain()
       }
+      return null
    }
 }

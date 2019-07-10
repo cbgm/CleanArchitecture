@@ -1,6 +1,6 @@
 package com.distribution.christian.cleantest.core.core.navigation
 
-import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
+import com.christian.multinavlib.navigation.deeplink.DeepLinkIdentifier
 
 
 enum class FrankenDeepLinkIdentifier: DeepLinkIdentifier {

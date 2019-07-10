@@ -26,7 +26,10 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
       fun newInstance() = StarsFragment()
    }
 
-   private val presenter: StarsPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.EVENT_STARS)
+      session.get<StarsPresenter>()
+   }
    private lateinit var simpleAdapter: SwipeAdapter
 
    private lateinit var starsList: RecyclerView
@@ -36,7 +39,6 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope(DiScope.EVENT_STARS)
       presenter.setVIew(this)
    }
 

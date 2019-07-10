@@ -26,7 +26,10 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
       fun newInstance() = RegisterFragment()
    }
 
-   private val presenter: RegisterPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.AUTH_REGISTER)
+      session.get<RegisterPresenter>()
+   }
 
    private lateinit var registerBtn: LinearLayout
    private lateinit var registerBtnProgress: ProgressBar
@@ -40,7 +43,6 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope(DiScope.AUTH_REGISTER)
       presenter.setVIew(this)
    }
 

@@ -18,6 +18,7 @@ dependencies {
    api presDep.googleCore
    api presDep.glide
    api presDep.material
+   api presDep.multiNavMod
 
    def dataDep = rootProject.ext.dataDependencies
    api dataDep.retrofit

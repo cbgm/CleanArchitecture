@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.core.core.util.network
 
 import com.distribution.christian.cleantest.core.core.util.listener.NetworkListener
-import org.koin.standalone.KoinComponent
+
 
 class NetworkReceiverManager {
    private val receivers = HashMap<String, NetworkListener>()

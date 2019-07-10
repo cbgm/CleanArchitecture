@@ -4,8 +4,8 @@ import com.distribution.christian.cleantest.core.device.notification.Notificatio
 import com.distribution.christian.cleantest.core.domain.completable.CompletableUseCase
 import com.distribution.christian.cleantest.core.domain.model.Result
 import com.google.firebase.messaging.RemoteMessage
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
 class ShowNotificationUseCase : CompletableUseCase<RemoteMessage>(), KoinComponent {

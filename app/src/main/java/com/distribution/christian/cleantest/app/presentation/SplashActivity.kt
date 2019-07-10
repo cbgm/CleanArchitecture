@@ -9,8 +9,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorCompat
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.FrankenDeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationPropertyEndListener
 import org.koin.android.ext.android.inject
@@ -19,7 +19,7 @@ import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
 
-   private val coordinatorManager: FrankenCoordinatorManager by inject()
+   private val coordinatorManager: CoordinatorManager by inject()
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)

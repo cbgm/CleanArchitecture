@@ -8,7 +8,8 @@ import com.distribution.christian.cleantest.core.device.NetManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val networkModule = module {
    single { NetManager(get()) }
 
-   single<Retrofit>(name = "retrofit1") {
+   single<Retrofit>(named("retrofit1")) {
 
       Retrofit.Builder()
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
@@ -26,7 +27,7 @@ val networkModule = module {
             .build()
    }
 
-   single<Retrofit>(name = "retrofit2") {
+   single<Retrofit>(named("retrofit2")) {
       Retrofit.Builder()
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())

@@ -21,7 +21,6 @@ import com.distribution.christian.cleantest.core.core.util.extension.updateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
-import org.koin.android.ext.android.inject
 
 
 class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), DetailContract.View {
@@ -44,7 +43,10 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
             }
    }
 
-   private val detailPresenter: DetailPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.EVENT_DETAIL)
+      session.get<presenter>()
+   }
    private lateinit var loading: ShimmerFrameLayout
    private lateinit var content: LinearLayout
    private lateinit var timeText: TextView
@@ -59,8 +61,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       configureTransition()
-      activity.updateScope(DiScope.EVENT_DETAIL)
-      detailPresenter.setVIew(this)
+      presenter.setVIew(this)
    }
 
    override fun onAttach(context: Context) {
@@ -71,8 +72,8 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
    override fun onResume() {
       super.onResume()
       if (consistency.event == null) {
-         detailPresenter.onBind()
-         detailPresenter.loadEvent(consistency.eventId!!)
+         presenter.onBind()
+         presenter.loadEvent(consistency.eventId!!)
       } else {
          showEvent(consistency.event!!)
       }
@@ -81,7 +82,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
 
    override fun onPause() {
       super.onPause()
-      detailPresenter.onUnbind()
+      presenter.onUnbind()
    }
 
    override fun getLayoutResId(): Int {
@@ -105,7 +106,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
                }
          )
          starBtn.setOnClickListener {
-            detailPresenter.updateEvent(eventEntity)
+            presenter.updateEvent(eventEntity)
          }
       }
    }

@@ -8,8 +8,9 @@ import android.view.View
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
-import org.koin.android.scope.ext.android.bindScope
-import org.koin.android.scope.ext.android.getOrCreateScope
+import org.koin.android.ext.android.getKoin
+import org.koin.android.scope.bindScope
+import org.koin.core.qualifier.named
 import org.koin.core.scope.Scope
 
 
@@ -94,8 +95,8 @@ fun FragmentActivity.backStackClean()
    }
 }
 
-fun FragmentActivity.updateScope(scope: DiScope): Scope? {
-   val session = getOrCreateScope(scope.identifier)
-   bindScope(session)
-   return session
+fun FragmentActivity.updateScope(scope: DiScope): Scope {
+   return getKoin().getOrCreateScope(scope.identifier, named(scope.identifier)).apply {
+      bindScope(this)
+   }
 }

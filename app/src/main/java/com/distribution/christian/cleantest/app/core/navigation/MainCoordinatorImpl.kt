@@ -1,10 +1,12 @@
 package com.distribution.christian.cleantest.app.core.navigation
 
+import androidx.fragment.app.Fragment
+import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
-import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.navigation.FrankenDeepLinkIdentifier
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
@@ -12,7 +14,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.replaceFrag
 import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
 import com.distribution.christian.cleantest.profile.core.ui.ProfileFeatureFragment
 import com.google.firebase.auth.FirebaseAuth
-import org.koin.standalone.inject
+import org.koin.core.inject
 
 
 class MainCoordinatorImpl : BaseCoordinatorImpl() {
@@ -36,15 +38,13 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
       }
    }
 
-   override fun navigateDeepLink() {
-      deepLinkHandler.getDeepLink()
-            ?.let {
-               when (it.action) {
-                  FrankenDeepLinkIdentifier.EVENTS-> showEvents()
-                  FrankenDeepLinkIdentifier.SHOP -> showShop()
-                  else -> showEvents()
-               }
-            }
+   override fun navigateDeepLink(deepLink: DeepLink) {
+      when (deepLink.action) {
+         FrankenDeepLinkIdentifier.EVENTS -> showEvents()
+         FrankenDeepLinkIdentifier.SHOP -> showShop()
+         else -> showEvents()
+      }
+
    }
 
    private fun showEvents() {
@@ -55,7 +55,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
       )
    }
 
-   private fun showProfile(){
+   private fun showProfile() {
       activity?.replaceFragment(
             ProfileFeatureFragment.newInstance(),
             replaceableFragmentId,
@@ -63,7 +63,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
       )
    }
 
-   private fun showShop(){
+   private fun showShop() {
       activity?.replaceFragment(
             Class.forName("com.distribution.christian.cleantest.shop.core.ui.ShopFeatureFragment").newInstance() as BaseFeatureFragment<BaseNavigationActivity>,
             replaceableFragmentId,
@@ -79,11 +79,15 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
       //not needed
    }
 
-   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
-      when(routeKey) {
-         FrankenCoordinatorManager.States.EVENTS -> showEvents()
-         FrankenCoordinatorManager.States.SHOP -> showShop()
-         FrankenCoordinatorManager.States.PROFILE -> showProfile()
+   override fun route(
+         routeKey: CoordinatorManager.State,
+         navigationData: CoordinatorManager.NavigationData?
+   ): Fragment? {
+      when (routeKey) {
+         FeatureStates.EVENTS -> showEvents()
+         FeatureStates.SHOP -> showShop()
+         FeatureStates.PROFILE -> showProfile()
       }
+      return null
    }
 }

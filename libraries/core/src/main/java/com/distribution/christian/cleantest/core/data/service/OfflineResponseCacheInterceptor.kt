@@ -2,8 +2,8 @@ package com.distribution.christian.cleantest.core.data.service
 
 import com.distribution.christian.cleantest.core.device.NetManager
 import okhttp3.Interceptor
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.io.IOException
 
 

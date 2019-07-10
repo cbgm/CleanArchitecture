@@ -31,11 +31,13 @@ class ResetFragment : AuthBaseFragment(), ResetContract.View {
    private lateinit var validImage: ImageView
    private lateinit var backBtn: TextView
 
-   private val presenter: ResetPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.AUTH_RESET)
+      session.get<ResetPresenter>()
+   }
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope(DiScope.AUTH_RESET)
       presenter.setVIew(this)
    }
 

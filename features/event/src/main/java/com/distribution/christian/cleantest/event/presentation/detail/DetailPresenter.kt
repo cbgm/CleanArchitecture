@@ -9,7 +9,7 @@ import com.distribution.christian.cleantest.event.domain.usecase.UpdateEvent
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
 
-class DetailPresenter constructor(
+class presenter constructor(
       private val getEventById: GetEventById,
       private val updateEvent: UpdateEvent
 ) : DetailContract.Presenter {

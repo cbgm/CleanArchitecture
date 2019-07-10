@@ -8,11 +8,20 @@ import com.distribution.christian.cleantest.profile.domain.usecase.GetProfileOfA
 import com.distribution.christian.cleantest.profile.domain.usecase.LogoutUser
 import com.distribution.christian.cleantest.profile.domain.usecase.UpdateProfileOfAuthenticatedUser
 import com.distribution.christian.cleantest.profile.presentation.overview.OverviewPresenter
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 
 val profileOverviewModule = module {
-   scope(DiScope.PROFILE_OVERVIEW.identifier) { OverviewPresenter(get(), get(), get()) }
+   scope(named(DiScope.PROFILE_OVERVIEW.identifier)) {
+      scoped {
+         OverviewPresenter(
+               get(),
+               get(),
+               get()
+         )
+      }
+   }
    single { UpdateProfileOfAuthenticatedUser(get()) }
    single { GetProfileOfAuthenticatedUser(get()) }
    single { LogoutUser(get()) }

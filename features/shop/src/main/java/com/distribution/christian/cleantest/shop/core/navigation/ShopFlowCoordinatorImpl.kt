@@ -1,9 +1,11 @@
 package com.distribution.christian.cleantest.shop.core.navigation
 
-import com.distribution.christian.cleantest.shop.presentation.overview.OverviewFragment
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
+import androidx.fragment.app.Fragment
+import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
+import com.distribution.christian.cleantest.shop.presentation.overview.OverviewFragment
 import com.example.christian.cleantest.shop.R
 
 class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
@@ -19,7 +21,7 @@ class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
       )
    }
 
-   override fun navigateDeepLink() {
+   override fun navigateDeepLink(deepLink: DeepLink) {
       //not needed
    }
 
@@ -31,7 +33,7 @@ class ShopFlowCoordinatorImpl : BaseCoordinatorImpl(), ShopFlowCoordinator {
       //not needed
    }
 
-   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
-
+   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment? {
+      return null
    }
 }

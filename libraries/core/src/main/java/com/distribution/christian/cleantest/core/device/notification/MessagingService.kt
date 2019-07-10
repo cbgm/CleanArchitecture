@@ -4,8 +4,8 @@ import com.distribution.christian.cleantest.core.domain.completable.DefaultCompl
 import com.distribution.christian.cleantest.core.domain.usecase.ShowNotificationUseCase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
 class MessagingService : FirebaseMessagingService(), KoinComponent {

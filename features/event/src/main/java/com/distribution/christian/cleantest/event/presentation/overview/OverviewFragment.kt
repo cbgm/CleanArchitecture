@@ -34,7 +34,7 @@ import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.NavigationData
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
@@ -55,7 +55,10 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
       }
    }
 
-   private val presenter: OverviewPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.EVENT_OVERVIEW)
+      session.get<OverviewPresenter>()
+   }
 
    private var overviewAdapter: OverviewAdapter = OverviewAdapter(
          arrayListOf(),
@@ -73,7 +76,6 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.updateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
       setHasOptionsMenu(true)
       initCitySuggestionAdapter()
@@ -216,7 +218,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
       coordinatorManager.navigateInFeature(
             DETAIL,
-            CoordinatorManager.NavigationData(
+            NavigationData(
                   params = setupDetailParams(event)
                   , transitionInformation = TransitionInformation(
                   sharedView,

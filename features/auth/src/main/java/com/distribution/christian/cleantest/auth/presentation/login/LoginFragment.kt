@@ -25,6 +25,7 @@ import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiv
 import org.koin.android.ext.android.inject
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl.States.*
 import com.distribution.christian.cleantest.core.core.util.extension.showStarsDialog
+import org.koin.android.scope.currentScope
 
 
 class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
@@ -36,7 +37,10 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
    }
 
-   private val presenter: LoginPresenter by inject()
+   private val presenter by lazy {
+      val session = activity.updateScope(DiScope.AUTH_LOGIN)
+      session.get<LoginPresenter>()
+   }
    private val networkReceiverManager: NetworkReceiverManager by inject()
 
 
@@ -58,7 +62,6 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
       postponeEnterTransition()
-      activity.updateScope(DiScope.AUTH_LOGIN)
       presenter.setVIew(this)
       loginWasChecked = arguments?.getBoolean("isUserLoggedIn", false)!!
    }
@@ -144,7 +147,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
          coordinatorManager.navigateInFeature(RESET)
       }
 
-      bookmarkBtn.setOnClickListener{
+      bookmarkBtn.setOnClickListener {
          activity.showStarsDialog()
       }
 

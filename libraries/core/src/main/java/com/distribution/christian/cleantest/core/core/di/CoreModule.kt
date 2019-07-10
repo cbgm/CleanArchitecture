@@ -1,8 +1,6 @@
 package com.distribution.christian.cleantest.core.core.di
 
 import android.content.Context
-import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
-import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.distribution.christian.cleantest.core.core.util.SharedPreference
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
@@ -20,7 +18,8 @@ import com.distribution.christian.cleantest.core.domain.usecase.SwitchNetworkMod
 import com.distribution.christian.cleantest.core.domain.usecase.SwitchPowerSaveModeUseCase
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 private const val PREF_NAME = "xyzTest"
 
@@ -31,17 +30,15 @@ val appModule = module {
    single { SplitInstallRequester(get()) }
    single { ShowNotificationUseCase() }
    factory { NotificationFactory(get()) }
-   single { DeepLinkHandler() }
    single { LocalPersistenceManager(SharedPreference()) }
    single { SwitchPowerSaveModeUseCase(get()) }
    single { SwitchNetworkModeUseCase(get()) }
    single { NetworkChangeModeServiceImpl(get()) }
    single { NetworkReceiverManager() }
-   single {FrankenCoordinatorManager()}
    single { PowerSaveModeServiceImpl(get(), get()) }
    single { androidApplication().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE) }
-   single { createWebService<UserApi>(get("retrofit1")) }
-   single { createWebService<SearchApi>(get("retrofit1")) }
+   single { createWebService<UserApi>(get(named("retrofit1"))) }
+   single { createWebService<SearchApi>(get(named("retrofit1"))) }
    single { FirebaseAuth.getInstance() }
    single {
       AuthenticationFromNetwork(

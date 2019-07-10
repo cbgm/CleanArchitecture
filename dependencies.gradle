@@ -16,7 +16,7 @@ ext {
    coroutinesCoreVersion = "1.1.0-alpha"
    junitVersion = "4.12"
    testRunnerVersion = '1.1.0-alpha4'
-   koinVersion = "1.0.2"
+   koinVersion = "2.0.1"
    espressoVersion = '3.1.0-alpha4'
    shimmerVersion = "0.3.0"
    timberVersion = "4.7.1"
@@ -31,6 +31,7 @@ ext {
    roomVersion = "2.1.0-alpha04"
    googleMapsVersion = "11.8.0"
    firebaseJobVersion = "0.5.0"
+   multiNavVersion = "1.0.3"
 
 
    presentationDependencies = [
@@ -53,7 +54,8 @@ ext {
          material: "com.google.android.material:material:$materialVersion",
          googleMaps: "com.google.android.gms:play-services-maps:$googleMapsVersion",
          test1: 'android.arch.navigation:navigation-fragment:1.0.0-alpha02',
-         test2: 'android.arch.navigation:navigation-ui:1.0.0-alpha02'
+         test2: 'android.arch.navigation:navigation-ui:1.0.0-alpha02',
+         multiNavMod: "com.github.cbgm:MultiModuleNav:$multiNavVersion"
    ]
 
    dataDependencies = [

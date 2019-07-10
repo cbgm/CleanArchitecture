@@ -7,11 +7,21 @@ import com.distribution.christian.cleantest.core.domain.repository.CityRepositor
 import com.distribution.christian.cleantest.event.domain.usecase.GetCitysByQuery
 import com.distribution.christian.cleantest.event.domain.usecase.GetEventsByCriteria
 import com.distribution.christian.cleantest.event.presentation.overview.OverviewPresenter
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 
 val eventOverviewModule = module {
-   scope(DiScope.EVENT_OVERVIEW.identifier) { OverviewPresenter(get(), get(), get(), get()) }
+   scope(named(DiScope.EVENT_OVERVIEW.identifier)) {
+      scoped {
+         OverviewPresenter(
+               get(),
+               get(),
+               get(),
+               get()
+         )
+      }
+   }
    single { GetCitysByQuery(get()) }
    single { GetEventsByCriteria(get()) }
    single<CityRepository> { CityRepositoryImpl(get()) }

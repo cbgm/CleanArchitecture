@@ -1,12 +1,16 @@
 package com.distribution.christian.cleantest.event.core.navigation
 
+import androidx.fragment.app.Fragment
+import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.core.core.navigation.FrankenDeepLinkIdentifier
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.NavigationData
 import com.distribution.christian.cleantest.core.core.ui.BaseFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragmentwithSharedElement
 import com.distribution.christian.cleantest.core.core.util.extension.showStarsDialog
+import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.presentation.detail.DetailFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
@@ -14,8 +18,9 @@ import com.distribution.christian.cleantest.event.presentation.overview.Overview
 
 
 class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
+   override var replaceableFragmentId = R.id.fragment_container
 
-   enum class States: CoordinatorManager.State {
+   enum class States : CoordinatorManager.State {
       OVERVIEW,
       DETAIL,
       STARS
@@ -65,27 +70,28 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
       currentFeatureFragment?.activity?.showStarsDialog()
    }
 
-   override fun navigateDeepLink() {
-      deepLinkHandler.getDeepLink()
-            ?.let {
-               when (it.action) {
-                  FrankenDeepLinkIdentifier.EVENT_DETAIL -> showDetail(it.parameter!!)
-                  else -> {
-                     //not needed
-                  }
-               }
-               isDeepLinkActive = true
-            }
+   override fun navigateDeepLink(deepLink: DeepLink) {
+      when (deepLink.action) {
+         FrankenDeepLinkIdentifier.EVENT_DETAIL -> showDetail(deepLink.parameter!!)
+         else -> {
+            //not needed
+         }
+      }
+      isDeepLinkActive = true
+
    }
 
    override fun navigateLink() {
       showOverview()
    }
 
-   override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?) {
+   override fun route(
+         routeKey: CoordinatorManager.State,
+         navigationData: CoordinatorManager.NavigationData?
+   ): Fragment? {
       when (routeKey) {
          States.OVERVIEW -> showOverview()
-         States.DETAIL -> navigationData?.let {
+         States.DETAIL -> (navigationData as NavigationData).let {
             showDetail(
                   it.params!![EventDetailFragmentConsistency.Event_ID_KEY].toString(),
                   it.transitionInformation,
@@ -94,5 +100,6 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
          }
          States.STARS -> showStars()
       }
+      return null
    }
 }

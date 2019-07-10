@@ -10,7 +10,6 @@ import com.distribution.christian.cleantest.core.core.di.appModule
 import com.distribution.christian.cleantest.event.core.di.eventOverviewModule
 import com.distribution.christian.cleantest.core.core.logging.TimberTree
 import com.distribution.christian.cleantest.core.core.di.networkModule
-import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 import android.content.IntentFilter
 import android.net.ConnectivityManager
@@ -20,6 +19,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.christian.multinavlib.di.navModule
+import com.christian.multinavlib.navigation.coordinator.BaseCoordinator
+import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.app.core.navigation.MainCoordinatorImpl
 import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
 import com.distribution.christian.cleantest.core.device.power.PowerSaveModeReceiver
@@ -29,8 +31,7 @@ import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
 import com.distribution.christian.cleantest.auth.core.di.authResetModule
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinator
-import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import com.distribution.christian.cleantest.core.device.LocalPersistenceManager
 import com.distribution.christian.cleantest.core.device.network.NetworkReceiver
@@ -41,6 +42,8 @@ import com.distribution.christian.cleantest.profile.core.di.profileOverviewModul
 import com.distribution.christian.cleantest.profile.core.navigation.ProfileFlowCoordinatorImpl
 import com.google.android.play.core.splitcompat.SplitCompatApplication
 import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import kotlin.system.exitProcess
 
 
@@ -62,7 +65,7 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
 
    private val localPersistenceManager: LocalPersistenceManager by inject()
 
-   private val coordinatorManager: FrankenCoordinatorManager by inject()
+   private val coordinatorManager: CoordinatorManager by inject()
    private val mainCoordinatorImpl: MainCoordinatorImpl by inject()
    private val eventCoordinator: EventFlowCoordinatorImpl by inject()
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
@@ -109,14 +112,13 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
    }
 
    private fun initKoin() {
-      startKoin(
-            this, listOf(
-            appModule, networkModule, appCoreModule,
-            eventCoreModule, eventOverviewModule, eventDetailModule, eventStarsModule,
-            profileCoreModule, profileOverviewModule,
-            authCoreModule, authRegisterModule, authLoginModule, authResetModule
-      )
-      )
+      startKoin{
+         androidContext(this@UserApplication)
+         modules(listOf(appModule, navModule, networkModule, appCoreModule,
+                        eventCoreModule, eventOverviewModule, eventDetailModule, eventStarsModule,
+                        profileCoreModule, profileOverviewModule,
+                        authCoreModule, authRegisterModule, authLoginModule, authResetModule))
+      }
    }
 
    private fun registerReceiversAndServices() {
@@ -147,19 +149,19 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
          registerApplicationPartCoordinator(rootFlowCoordinatorImpl)
          registerMainCoordinator(mainCoordinatorImpl)
          registerFeatureCoordinator(
-               FrankenCoordinatorManager.States.EVENTS,
+               FeatureStates.EVENTS,
                eventCoordinator
          )
          registerFeatureCoordinator(
-               FrankenCoordinatorManager.States.SHOP,
+               FeatureStates.SHOP,
                shopCoordinator
          )
          registerFeatureCoordinator(
-               FrankenCoordinatorManager.States.PROFILE,
+               FeatureStates.PROFILE,
                profileCoordinator
          )
          registerFeatureCoordinator(
-               FrankenCoordinatorManager.States.AUTH,
+               FeatureStates.AUTH,
                authCoordinator
          )
       }
