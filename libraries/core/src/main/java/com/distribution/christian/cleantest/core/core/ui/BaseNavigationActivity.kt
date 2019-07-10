@@ -2,7 +2,7 @@ package com.distribution.christian.cleantest.core.core.ui
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.ext.android.inject

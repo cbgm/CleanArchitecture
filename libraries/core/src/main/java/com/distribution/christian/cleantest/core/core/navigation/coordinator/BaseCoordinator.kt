@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.core.core.navigation
+package com.distribution.christian.cleantest.core.core.navigation.coordinator
 
 import android.net.Uri
 import androidx.fragment.app.Fragment

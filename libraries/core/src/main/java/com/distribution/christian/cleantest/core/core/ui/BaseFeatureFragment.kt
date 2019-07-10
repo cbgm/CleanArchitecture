@@ -1,10 +1,8 @@
 package com.distribution.christian.cleantest.core.core.ui
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import java.io.Serializable
 
 

@@ -3,7 +3,7 @@ package com.distribution.christian.cleantest.app.presentation.main
 import android.os.Bundle
 import android.view.MenuItem
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager.States.*
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 

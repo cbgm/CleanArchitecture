@@ -2,8 +2,6 @@ package com.distribution.christian.cleantest.core.core.ui
 
 import androidx.fragment.app.Fragment
 import android.view.View
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import org.koin.android.ext.android.inject
 import java.io.Serializable

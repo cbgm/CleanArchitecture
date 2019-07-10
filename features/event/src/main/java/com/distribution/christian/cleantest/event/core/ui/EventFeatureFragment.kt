@@ -37,6 +37,6 @@ class EventFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
       super.onViewCreated(view, savedInstanceState)
-      coordinatorManager.switchfeatureCoordinator(FrankenCoordinatorManager.States.EVENTS, this)
+      coordinatorManager.switchFeatureCoordinator(FrankenCoordinatorManager.States.EVENTS, this)
    }
 }

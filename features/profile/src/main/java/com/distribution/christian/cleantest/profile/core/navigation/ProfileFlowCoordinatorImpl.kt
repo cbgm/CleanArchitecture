@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.profile.core.navigation
 
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.OverviewFragment
 

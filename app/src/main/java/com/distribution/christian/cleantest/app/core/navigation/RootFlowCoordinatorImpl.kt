@@ -2,8 +2,8 @@ package com.distribution.christian.cleantest.app.core.navigation
 
 import androidx.fragment.app.FragmentActivity
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToSplash
@@ -18,11 +18,11 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
    }
 
    override fun navigateDeepLink() {
-      //not needed
+      showAuthentication()
    }
 
    override fun navigateLink() {
-      //not needed()
+      showAuthentication()
    }
 
    private fun showMain(){

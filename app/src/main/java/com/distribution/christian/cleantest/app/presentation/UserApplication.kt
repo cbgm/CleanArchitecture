@@ -29,7 +29,7 @@ import com.distribution.christian.cleantest.auth.core.di.authLoginModule
 import com.distribution.christian.cleantest.auth.core.di.authRegisterModule
 import com.distribution.christian.cleantest.auth.core.di.authResetModule
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinator
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinator
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiverManager
 import com.distribution.christian.cleantest.core.device.LocalPersistenceManager
@@ -86,6 +86,7 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       initCoordinator()
    }
 
+   @Suppress("unused")
    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
    private fun onAppBackgrounded() {
       unregisterReceiversAndServices()
@@ -134,6 +135,7 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
       registerReceiver(lowPowerReceiver, filter)
    }
 
+   @Suppress("DEPRECATION")
    private fun registerNetworkChangeReceiver() {
       val filter = IntentFilter()
       filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
@@ -141,24 +143,26 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
    }
 
    private fun initCoordinator(){
-      coordinatorManager.mainCoordinator = mainCoordinatorImpl
-      coordinatorManager.applicationPartCoordinator = rootFlowCoordinatorImpl
-      coordinatorManager.registerFeatureCoordinator(
-            FrankenCoordinatorManager.States.EVENTS,
-            eventCoordinator
-      )
-      coordinatorManager.registerFeatureCoordinator(
-            FrankenCoordinatorManager.States.SHOP,
-            shopCoordinator
-      )
-      coordinatorManager.registerFeatureCoordinator(
-            FrankenCoordinatorManager.States.PROFILE,
-            profileCoordinator
-      )
-      coordinatorManager.registerFeatureCoordinator(
-            FrankenCoordinatorManager.States.AUTH,
-            authCoordinator
-      )
+      coordinatorManager.run {
+         registerApplicationPartCoordinator(rootFlowCoordinatorImpl)
+         registerMainCoordinator(mainCoordinatorImpl)
+         registerFeatureCoordinator(
+               FrankenCoordinatorManager.States.EVENTS,
+               eventCoordinator
+         )
+         registerFeatureCoordinator(
+               FrankenCoordinatorManager.States.SHOP,
+               shopCoordinator
+         )
+         registerFeatureCoordinator(
+               FrankenCoordinatorManager.States.PROFILE,
+               profileCoordinator
+         )
+         registerFeatureCoordinator(
+               FrankenCoordinatorManager.States.AUTH,
+               authCoordinator
+         )
+      }
    }
 
    private fun networkAvailable() {

@@ -30,11 +30,12 @@ private fun FragmentManager.inBackStack(): Boolean {
    }
 }
 
-fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStackTag: String) {
+fun FragmentActivity.replaceFragment(fragment: Fragment, frameId: Int, backStackTag: String): Fragment {
    supportFragmentManager.inTransaction {
       addToBackStack(backStackTag)
       replace(frameId, fragment, backStackTag)
    }
+   return fragment
 }
 
 fun FragmentActivity.replaceFragmentNoBackStack(

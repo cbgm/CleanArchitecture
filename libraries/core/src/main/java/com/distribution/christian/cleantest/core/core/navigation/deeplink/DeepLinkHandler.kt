@@ -22,7 +22,7 @@ class DeepLinkHandler {
 
    fun setUri(data: Uri) {
       resolveDataParts(data)
-      prepareDeeplinking()
+      prepareDeepLinking()
    }
 
    private fun resolveDataParts(data: Uri) {
@@ -30,26 +30,24 @@ class DeepLinkHandler {
       host = data.host!!
    }
 
-   private fun prepareDeeplinking(): Queue<DeepLink> {
+   private fun prepareDeepLinking(): Queue<DeepLink> {
       val splitData = path.split("/")
             .filter { it.isNotEmpty() and it.isNotBlank() }
 
-      for (i in 0 until splitData.size) {
+      var i = 0
+      while (i < splitData.size) {
          val deepLink = mapAction(splitData[i])
          if (deepLink.action.hasParameter()) {
             deepLink.parameter = splitData[i + 1]
+            ++i
          }
          deepLinks.add(deepLink)
+         ++i
       }
       return deepLinks
    }
 
    private fun mapAction(action: String): DeepLink {
-
-      registeredDeepLinks[action]?.let {
-         return DeepLink(it)
-      } ?: run {
-         return DeepLink(DeepLinkIdentifier.NONE)
-      }
+      return DeepLink(registeredDeepLinks[action]!!)
    }
 }

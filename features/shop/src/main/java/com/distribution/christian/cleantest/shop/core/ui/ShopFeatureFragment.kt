@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
-import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.shop.core.di.shopCoreModule
-import com.distribution.christian.cleantest.shop.presentation.overview.OverviewFragment
 import com.example.christian.cleantest.shop.R
 import org.koin.android.ext.android.inject
 import org.koin.standalone.StandAloneContext
@@ -44,11 +42,7 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>() {
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
       super.onViewCreated(view, savedInstanceState)
-      replaceFragment(
-            OverviewFragment.newInstance(),
-            R.id.fragment_container,
-            OverviewFragment.TAG
-      )
+      coordinatorManager.switchFeatureCoordinator(FrankenCoordinatorManager.States.SHOP, this)
    }
 
    override fun onAttach(context: Context) {

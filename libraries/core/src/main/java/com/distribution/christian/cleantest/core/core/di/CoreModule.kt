@@ -1,7 +1,6 @@
 package com.distribution.christian.cleantest.core.core.di
 
 import android.content.Context
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkHandler
 import com.distribution.christian.cleantest.core.core.util.SharedPreference

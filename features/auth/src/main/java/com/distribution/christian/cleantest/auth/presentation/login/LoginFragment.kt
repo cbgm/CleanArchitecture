@@ -109,7 +109,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    }
 
    override fun showAlreadyAuthenticated() {
-      coordinatorManager.currentFeatureCoordinator.initialNavigation()
+      coordinatorManager.initialNavigateFeature()
    }
 
    override fun showContent(isVisible: Boolean) {
@@ -182,7 +182,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinatorManager.currentFeatureCoordinator.initialNavigation()
+                     coordinatorManager.initialNavigateFeature()
                   }
                })
       }

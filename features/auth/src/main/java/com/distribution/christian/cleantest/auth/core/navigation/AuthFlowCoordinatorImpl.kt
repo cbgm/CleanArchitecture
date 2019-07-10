@@ -1,11 +1,11 @@
 package com.distribution.christian.cleantest.auth.core.navigation
 
 import androidx.fragment.app.Fragment
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
 import com.distribution.christian.cleantest.auth.presentation.login.LoginFragment
 import com.distribution.christian.cleantest.auth.presentation.register.RegisterFragment
 import com.distribution.christian.cleantest.auth.presentation.reset.ResetFragment
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 

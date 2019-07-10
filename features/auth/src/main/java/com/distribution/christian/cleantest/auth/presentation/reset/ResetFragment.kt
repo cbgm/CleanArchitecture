@@ -77,7 +77,7 @@ class ResetFragment : AuthBaseFragment(), ResetContract.View {
                .setDuration(500)
                .setListener(object : AnimationEndListener() {
                   override fun onAnimationEnd(p0: Animator?) {
-                     coordinatorManager.currentFeatureCoordinator.initialNavigation()
+                     coordinatorManager.initialNavigateFeature()
                   }
                })
       }

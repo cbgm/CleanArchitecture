@@ -1,27 +1,47 @@
 package com.distribution.christian.cleantest.app.core.navigation
 
 import com.distribution.christian.cleantest.R
-import com.distribution.christian.cleantest.core.core.navigation.BaseCoordinatorImpl
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.navigation.FrankenCoordinatorManager
-import com.distribution.christian.cleantest.core.core.navigation.deeplink.DeepLinkIdentifier
+import com.distribution.christian.cleantest.core.core.navigation.FrankenDeepLinkIdentifier
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.BaseCoordinatorImpl
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
+import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
 import com.distribution.christian.cleantest.profile.core.ui.ProfileFeatureFragment
+import com.google.firebase.auth.FirebaseAuth
+import org.koin.standalone.inject
 
 
 class MainCoordinatorImpl : BaseCoordinatorImpl() {
 
    override var replaceableFragmentId: Int = R.id.feature_container
 
+   private val firebaseAuth: FirebaseAuth by inject()
+
+   init {
+      firebaseAuth.addAuthStateListener {
+         if (it.currentUser == null) {
+            this.currentFeatureFragment?.run {
+               activity?.run {
+                  navigateToAuth(this)
+               }
+            }
+            this.activity?.run {
+               navigateToAuth(this)
+            }
+         }
+      }
+   }
+
    override fun navigateDeepLink() {
       deepLinkHandler.getDeepLink()
             ?.let {
                when (it.action) {
-                  DeepLinkIdentifier.EVENTS-> showEvents()
-                  DeepLinkIdentifier.SHOP -> showShop()
+                  FrankenDeepLinkIdentifier.EVENTS-> showEvents()
+                  FrankenDeepLinkIdentifier.SHOP -> showShop()
                   else -> showEvents()
                }
             }

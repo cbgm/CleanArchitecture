@@ -34,7 +34,7 @@ import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.distribution.christian.cleantest.core.core.navigation.CoordinatorManager
+import com.distribution.christian.cleantest.core.core.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.listener.OnMenuItemCollapsedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnQueryChangedListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestionClickedListener
