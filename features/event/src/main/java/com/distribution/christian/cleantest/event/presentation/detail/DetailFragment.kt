@@ -17,7 +17,7 @@ import com.distribution.christian.cleantest.core.core.util.extension.argsUpdate
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
-import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -44,7 +44,7 @@ class DetailFragment : EventBaseFragment<EventDetailFragmentConsistency>(), Deta
    }
 
    private val presenter by lazy {
-      val session = activity.updateScope(DiScope.EVENT_DETAIL)
+      val session = activity.getAndCreateScope(DiScope.EVENT_DETAIL)
       session.get<presenter>()
    }
    private lateinit var loading: ShimmerFrameLayout

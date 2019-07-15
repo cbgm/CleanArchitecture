@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
 import com.distribution.christian.cleantest.core.core.util.extension.loadResource
-import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarChangedListener
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
@@ -26,7 +26,6 @@ import com.distribution.christian.cleantest.profile.core.ui.ProfileBaseFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
-import org.koin.android.ext.android.inject
 
 
 class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>(), OverviewContract.View {
@@ -38,7 +37,7 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
    }
 
    private val presenter by lazy {
-      val session = activity.updateScope(DiScope.PROFILE_OVERVIEW)
+      val session = activity.getAndCreateScope(DiScope.PROFILE_OVERVIEW)
       session.get<OverviewPresenter>()
    }
    private lateinit var content: View

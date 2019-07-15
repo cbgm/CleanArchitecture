@@ -11,10 +11,9 @@ import android.widget.TextView
 import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.core.ui.AuthBaseFragment
 import com.distribution.christian.cleantest.core.core.di.DiScope
-import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
-import org.koin.android.ext.android.inject
 
 
 class ResetFragment : AuthBaseFragment(), ResetContract.View {
@@ -32,7 +31,7 @@ class ResetFragment : AuthBaseFragment(), ResetContract.View {
    private lateinit var backBtn: TextView
 
    private val presenter by lazy {
-      val session = activity.updateScope(DiScope.AUTH_RESET)
+      val session = activity.getAndCreateScope(DiScope.AUTH_RESET)
       session.get<ResetPresenter>()
    }
 

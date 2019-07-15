@@ -95,7 +95,7 @@ fun FragmentActivity.backStackClean()
    }
 }
 
-fun FragmentActivity.updateScope(scope: DiScope): Scope {
+fun FragmentActivity.getAndCreateScope(scope: DiScope): Scope {
    return getKoin().getOrCreateScope(scope.identifier, named(scope.identifier)).apply {
       bindScope(this)
    }

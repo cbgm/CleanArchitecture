@@ -17,7 +17,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.distribution.christian.cleantest.core.core.di.DiScope
-import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.NetworkListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
@@ -25,7 +25,6 @@ import com.distribution.christian.cleantest.core.core.util.network.NetworkReceiv
 import org.koin.android.ext.android.inject
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl.States.*
 import com.distribution.christian.cleantest.core.core.util.extension.showStarsDialog
-import org.koin.android.scope.currentScope
 
 
 class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
@@ -38,7 +37,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
    }
 
    private val presenter by lazy {
-      val session = activity.updateScope(DiScope.AUTH_LOGIN)
+      val session = activity.getAndCreateScope(DiScope.AUTH_LOGIN)
       session.get<LoginPresenter>()
    }
    private val networkReceiverManager: NetworkReceiverManager by inject()

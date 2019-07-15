@@ -6,18 +6,13 @@ import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.R
+import com.distribution.christian.cleantest.core.core.navigation.AppStates
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToSplash
 
 
 class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
-
-   enum class States: CoordinatorManager.State {
-      SPLASH,
-      AUTH,
-      MAIN
-   }
 
    override fun navigateDeepLink(deepLink: DeepLink) {
       showAuthentication()
@@ -57,9 +52,9 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment? {
       when(routeKey) {
-         States.SPLASH -> showSplash()
-         States.AUTH -> showAuthentication()
-         States.MAIN -> showMain()
+         AppStates.SPLASH -> showSplash()
+         AppStates.AUTH -> showAuthentication()
+         AppStates.MAIN -> showMain()
       }
       return null
    }

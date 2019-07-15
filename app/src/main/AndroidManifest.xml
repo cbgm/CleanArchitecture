@@ -20,7 +20,9 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
-      <activity android:name="com.distribution.christian.cleantest.app.presentation.main.MainActivity" android:launchMode="singleTop">
+      <activity
+         android:name="com.distribution.christian.cleantest.app.presentation.main.MainActivity"
+         android:launchMode="singleTop">
          <intent-filter>
             <action android:name="${ACTION_MAIN}" />
             <category android:name="android.intent.category.DEFAULT" />
@@ -35,7 +37,10 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
          </intent-filter>
-         <intent-filter android:autoVerify="true">
+         <intent-filter>
+            <action android:name="${ACTION_SPLASH}" />
+            <category android:name="android.intent.category.DEFAULT" />
+         </intent-filter>         <intent-filter android:autoVerify="true">
             <action android:name="android.intent.action.VIEW" />
 
             <category android:name="android.intent.category.DEFAULT" />

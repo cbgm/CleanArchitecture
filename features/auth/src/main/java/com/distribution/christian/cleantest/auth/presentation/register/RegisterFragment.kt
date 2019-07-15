@@ -13,10 +13,9 @@ import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.core.navigation.AuthFlowCoordinatorImpl.States.LOGIN
 import com.distribution.christian.cleantest.auth.core.ui.AuthBaseFragment
 import com.distribution.christian.cleantest.core.core.di.DiScope
-import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnTextChangedListener
-import org.koin.android.ext.android.inject
 
 
 class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
@@ -27,7 +26,7 @@ class RegisterFragment : AuthBaseFragment(), RegisterContract.View {
    }
 
    private val presenter by lazy {
-      val session = activity.updateScope(DiScope.AUTH_REGISTER)
+      val session = activity.getAndCreateScope(DiScope.AUTH_REGISTER)
       session.get<RegisterPresenter>()
    }
 

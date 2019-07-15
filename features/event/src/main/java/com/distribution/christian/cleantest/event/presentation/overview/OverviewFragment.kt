@@ -22,7 +22,7 @@ import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.recycler.EndlessScrollListener
 import com.distribution.christian.cleantest.core.core.util.extension.args
 import com.distribution.christian.cleantest.core.core.util.extension.argsUpdate
-import com.distribution.christian.cleantest.core.core.util.extension.updateScope
+import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
@@ -30,7 +30,6 @@ import com.distribution.christian.cleantest.event.presentation.detail.model.Even
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
-import org.koin.android.ext.android.inject
 import android.widget.EditText
 import android.database.Cursor
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -56,7 +55,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    private val presenter by lazy {
-      val session = activity.updateScope(DiScope.EVENT_OVERVIEW)
+      val session = activity.getAndCreateScope(DiScope.EVENT_OVERVIEW)
       session.get<OverviewPresenter>()
    }
 
@@ -76,6 +75,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
+      activity.getAndCreateScope(DiScope.EVENT_OVERVIEW)
       presenter.setVIew(this)
       setHasOptionsMenu(true)
       initCitySuggestionAdapter()

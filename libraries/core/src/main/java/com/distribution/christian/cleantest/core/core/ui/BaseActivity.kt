@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
+import com.christian.multinavlib.ui.CoordinatedCompatActivity
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
@@ -12,11 +13,9 @@ import org.koin.android.ext.android.inject
 abstract class BaseActivity<T>(
       val layout: Int,
       private val withToolbar: Boolean = true
-) : AppCompatActivity() {
+) : CoordinatedCompatActivity() {
    open lateinit var activeFeatureFragment: BaseFeatureFragment<T>
-   val coordinatorManager: CoordinatorManager by inject()
    private val splitInstallRequester: SplitInstallRequester by inject()
-
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
