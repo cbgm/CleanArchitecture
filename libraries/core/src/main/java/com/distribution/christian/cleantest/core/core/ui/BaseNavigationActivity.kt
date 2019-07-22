@@ -6,8 +6,9 @@ import android.view.View
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.toolbar.appBarLayout
+import kotlinx.android.synthetic.main.toolbar.toolbar
 import org.koin.android.ext.android.inject
+
 
 abstract class BaseNavigationActivity(mainLayout: Int) : BaseActivity<BaseNavigationActivity>(mainLayout), BottomNavigationView.OnNavigationItemSelectedListener {
    lateinit var bottomNavigationView: BottomNavigationView
@@ -27,12 +28,12 @@ abstract class BaseNavigationActivity(mainLayout: Int) : BaseActivity<BaseNaviga
    open fun initBottomNavigation() {}
 
    fun hideNavigationElements() {
-      appBarLayout.visibility = View.GONE
+      toolbar.visibility = View.GONE
       bottomNavigationView.visibility = View.GONE
    }
 
    private fun showNavigationElements() {
-      appBarLayout.visibility = View.VISIBLE
+      toolbar.visibility = View.VISIBLE
       bottomNavigationView.visibility = View.VISIBLE
    }
 
