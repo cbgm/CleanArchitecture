@@ -9,7 +9,7 @@
 - Multi modules
 - Split gradle files
 - SourceSets for release and debug
-- Deep links ( adb shell am start -W -a android.intent.action.VIEW -d "http://cleantest.de://*" com.distribution.christian.cleantest.debug)
+- Deep links ( adb shell am start -W -a android.intent.action.VIEW -d "http://cleantest.de://*" com.distribution.christian.cleantest.debug), navigation module from https://github.com/cbgm/MultiModuleNav
 - Firebase
     - Cloud Messaging
     - InAppMessaging
