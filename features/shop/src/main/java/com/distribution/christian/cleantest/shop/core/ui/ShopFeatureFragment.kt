@@ -25,7 +25,6 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(FeatureS
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.activeFeatureFragment = this
       activity.setBottomNavigationItem(FeatureStates.SHOP)
    }
 

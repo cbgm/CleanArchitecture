@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
-import com.distribution.christian.cleantest.core.core.ui.BaseStandaloneActivity
-import org.koin.android.ext.android.inject
+import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 
 
-class AuthFeatureFragment : BaseFeatureFragment<BaseStandaloneActivity>(FeatureStates.AUTH) {
+class AuthFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(FeatureStates.AUTH) {
 
    companion object {
 
@@ -21,7 +20,7 @@ class AuthFeatureFragment : BaseFeatureFragment<BaseStandaloneActivity>(FeatureS
 
    override fun onResume() {
       super.onResume()
-      activity.activeFeatureFragment = this
+      activity.hideNavigationElements()
    }
 
    override fun onCreateView(

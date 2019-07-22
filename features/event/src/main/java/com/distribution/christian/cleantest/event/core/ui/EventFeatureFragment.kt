@@ -8,7 +8,6 @@ import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.event.R
-import org.koin.android.ext.android.inject
 
 
 class EventFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(FeatureStates.EVENTS) {
@@ -21,7 +20,6 @@ class EventFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(Feature
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.activeFeatureFragment = this
       activity.setBottomNavigationItem(FeatureStates.EVENTS)
    }
 

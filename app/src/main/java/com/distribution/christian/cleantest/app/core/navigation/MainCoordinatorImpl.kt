@@ -5,11 +5,11 @@ import com.christian.multinavlib.navigation.coordinator.BaseCoordinatorImpl
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.R
+import com.distribution.christian.cleantest.auth.core.ui.AuthFeatureFragment
 import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.navigation.FrankenDeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
 import com.distribution.christian.cleantest.profile.core.ui.ProfileFeatureFragment
@@ -28,11 +28,11 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
          if (it.currentUser == null) {
             this.currentFeatureFragment?.run {
                activity?.run {
-                  navigateToAuth(this)
+                  showAuth()
                }
             }
             this.activity?.run {
-               navigateToAuth(this)
+               showAuth()
             }
          }
       }
@@ -45,6 +45,14 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
          else -> showEvents()
       }
 
+   }
+
+   private fun showAuth() {
+      activity?.replaceFragment(
+            AuthFeatureFragment.newInstance(),
+            replaceableFragmentId,
+            AuthFeatureFragment.TAG
+      )
    }
 
    private fun showEvents() {
@@ -87,6 +95,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
          FeatureStates.EVENTS -> showEvents()
          FeatureStates.SHOP -> showShop()
          FeatureStates.PROFILE -> showProfile()
+         FeatureStates.AUTH -> showAuth()
       }
       return null
    }

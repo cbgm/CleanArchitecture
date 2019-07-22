@@ -1,9 +1,7 @@
 package com.distribution.christian.cleantest.core.core.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
-import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.ui.CoordinatedCompatActivity
 import com.distribution.christian.cleantest.core.core.util.ondemand.SplitInstallRequester
 import kotlinx.android.synthetic.main.toolbar.toolbar
@@ -14,7 +12,6 @@ abstract class BaseActivity<T>(
       val layout: Int,
       private val withToolbar: Boolean = true
 ) : CoordinatedCompatActivity() {
-   open lateinit var activeFeatureFragment: BaseFeatureFragment<T>
    private val splitInstallRequester: SplitInstallRequester by inject()
 
    override fun onCreate(savedInstanceState: Bundle?) {

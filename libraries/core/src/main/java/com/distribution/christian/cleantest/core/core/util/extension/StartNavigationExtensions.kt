@@ -14,11 +14,6 @@ fun Context.navigateToMain(oldActivity: FragmentActivity) {
    startAction(intentToStart, this, oldActivity)
 }
 
-fun Context.navigateToAuth(oldActivity: FragmentActivity) {
-   val intentToStart = Intent(ACTION_AUTH)
-   startAction(intentToStart, this, oldActivity)
-}
-
 fun Context.navigateToSplash(oldActivity: FragmentActivity) {
    val intentToStart = Intent(ACTION_SPLASH)
    startAction(intentToStart, this, oldActivity)

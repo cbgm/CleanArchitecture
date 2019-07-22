@@ -31,7 +31,7 @@ ext {
    roomVersion = "2.1.0-alpha04"
    googleMapsVersion = "11.8.0"
    firebaseJobVersion = "0.5.0"
-   multiNavVersion = "1.0.6"
+   multiNavVersion = "1.0.8"
 
 
    presentationDependencies = [

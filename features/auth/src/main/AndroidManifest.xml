@@ -4,12 +4,6 @@
 
    <application android:supportsRtl="true">
 
-      <activity android:name="com.distribution.christian.cleantest.auth.core.ui.AuthActivity">
-         <intent-filter>
-            <action android:name="${ACTION_AUTH}" />
-            <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-      </activity>
    </application>
 
 </manifest>

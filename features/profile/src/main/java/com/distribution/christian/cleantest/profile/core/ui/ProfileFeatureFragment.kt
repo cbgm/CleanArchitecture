@@ -8,7 +8,7 @@ import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.profile.R
-import org.koin.android.ext.android.inject
+
 
 class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(FeatureStates.PROFILE) {
 
@@ -20,7 +20,7 @@ class ProfileFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(Featu
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      activity.activeFeatureFragment = this
+      activity.setBottomNavigationItem(FeatureStates.PROFILE)
    }
 
    override fun onCreateView(

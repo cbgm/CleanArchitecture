@@ -7,7 +7,6 @@ import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.R
 import com.distribution.christian.cleantest.core.core.navigation.AppStates
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToAuth
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.navigateToSplash
 
@@ -15,29 +14,23 @@ import com.distribution.christian.cleantest.core.core.util.extension.navigateToS
 class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
 
    override fun navigateDeepLink(deepLink: DeepLink) {
-      showAuthentication()
+      showMain()
    }
 
    override fun navigateLink() {
-      showAuthentication()
+      showMain()
    }
 
    private fun showMain(){
       activity?.run {
          navigateToMain(this)
-      }
-   }
-
-   private fun showAuthentication() {
-      activity?.run {
-         navigateToAuth(this)
          overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
       }
    }
 
    override fun start(fragmentActivity: FragmentActivity, withInitialNavigation: Boolean) {
       super.start(fragmentActivity, false)
-      showAuthentication()
+      showMain()
    }
 
    private fun showSplash() {
@@ -53,7 +46,6 @@ class RootFlowCoordinatorImpl : BaseCoordinatorImpl() {
    override fun route(routeKey: CoordinatorManager.State, navigationData: CoordinatorManager.NavigationData?): Fragment? {
       when(routeKey) {
          AppStates.SPLASH -> showSplash()
-         AppStates.AUTH -> showAuthentication()
          AppStates.MAIN -> showMain()
       }
       return null

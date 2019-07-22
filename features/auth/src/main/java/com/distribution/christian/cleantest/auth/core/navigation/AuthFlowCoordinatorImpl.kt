@@ -8,7 +8,6 @@ import com.distribution.christian.cleantest.auth.R
 import com.distribution.christian.cleantest.auth.presentation.login.LoginFragment
 import com.distribution.christian.cleantest.auth.presentation.register.RegisterFragment
 import com.distribution.christian.cleantest.auth.presentation.reset.ResetFragment
-import com.distribution.christian.cleantest.core.core.util.extension.navigateToMain
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 
 
@@ -21,11 +20,7 @@ class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
       RESET
    }
 
-   override fun navigateDeepLink(deepLink: DeepLink) {
-      currentFeatureFragment?.activity?.run {
-         navigateToMain(this)
-      }
-   }
+   override fun navigateDeepLink(deepLink: DeepLink) {}
 
    override fun showLogin() {
       this.currentChildFragment = LoginFragment.newInstance()
@@ -59,11 +54,7 @@ class AuthFlowCoordinatorImpl : BaseCoordinatorImpl(), AuthFlowCoordinator {
       showLogin()
    }
 
-   override fun navigateLink() {
-      currentFeatureFragment?.activity?.run {
-         navigateToMain(this)
-      }
-   }
+   override fun navigateLink() {}
 
    override fun onDeepLinkBack() {
       //not needed

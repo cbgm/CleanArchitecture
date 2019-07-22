@@ -12,7 +12,8 @@ class MainActivity : BaseNavigationActivity(R.layout.activity_main) {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      coordinatorManager.startNavigation(this)
+      coordinatorManager.startNavigation(this, null, false)
+      coordinatorManager.navigateToFeature(FeatureStates.AUTH)
    }
 
    override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -40,6 +41,7 @@ class MainActivity : BaseNavigationActivity(R.layout.activity_main) {
    }
 
    override fun setBottomNavigationItem(state: CoordinatorManager.State) {
+      super.setBottomNavigationItem(state)
       val item = when(state) {
          FeatureStates.EVENTS -> R.id.action_events
          FeatureStates.SHOP -> R.id.action_shop
