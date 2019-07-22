@@ -1,6 +1,6 @@
 # CleanArchitecture concept
 
-## Currently configured with:
+## Currently (in dev) configured with:
 - Koin dependency injection
 - Sonarqube using detekt
     - easy use with homebrew (install sonar)
