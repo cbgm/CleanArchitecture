@@ -9,7 +9,6 @@ import com.distribution.christian.cleantest.auth.core.ui.AuthFeatureFragment
 import com.distribution.christian.cleantest.core.core.navigation.FeatureStates
 import com.distribution.christian.cleantest.core.core.navigation.FrankenDeepLinkIdentifier
 import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
-import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.event.core.ui.EventFeatureFragment
 import com.distribution.christian.cleantest.profile.core.ui.ProfileFeatureFragment
@@ -73,7 +72,7 @@ class MainCoordinatorImpl : BaseCoordinatorImpl() {
 
    private fun showShop() {
       activity?.replaceFragment(
-            Class.forName("com.distribution.christian.cleantest.shop.core.ui.ShopFeatureFragment").newInstance() as BaseFeatureFragment<BaseNavigationActivity>,
+            Class.forName("com.distribution.christian.cleantest.shop.core.ui.ShopFeatureFragment").newInstance() as BaseFeatureFragment<*>,
             replaceableFragmentId,
             "dyn"
       )
