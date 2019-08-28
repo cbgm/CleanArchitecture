@@ -6,7 +6,7 @@
 - Sonarqube using detekt
     - easy use with homebrew (install sonar)
     - command: "sonar console" to start
-- Coordinator pattern for navigation
+- Coordinator pattern for navigation https://github.com/cbgm/MultiModuleNav
 - Multi modules
 - App bundle dynamic feature
 - Split gradle files
