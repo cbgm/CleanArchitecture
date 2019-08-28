@@ -10,6 +10,7 @@ import com.distribution.christian.cleantest.core.core.ui.BaseFeatureFragment
 import com.distribution.christian.cleantest.core.core.ui.BaseNavigationActivity
 import com.distribution.christian.cleantest.shop.core.di.shopCoreModule
 import com.example.christian.cleantest.shop.R
+import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.core.context.loadKoinModules
 
 private val loadFeature by lazy { loadKoinModules(shopCoreModule) }
@@ -39,5 +40,6 @@ class ShopFeatureFragment : BaseFeatureFragment<BaseNavigationActivity>(FeatureS
    override fun onAttach(context: Context) {
       super.onAttach(context)
       injectFeature()
+      SplitCompat.install(context)
    }
 }

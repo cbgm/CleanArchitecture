@@ -3,8 +3,8 @@ ext {
    applicationId = "com.distribution.christian.cleantest"
    minSdkVersion = 23
    targetSdkVersion = 28
-   versionCode = 1
-   versionName = "1.0"
+   versionCode = 17
+   versionName = "1.11"
 
 
    supportLibVersion = '1.0.0-beta01'
@@ -32,7 +32,16 @@ ext {
    googleMapsVersion = "11.8.0"
    firebaseJobVersion = "0.5.0"
    multiNavVersion = "1.0.8"
+   leakVersion = "2.0-beta-3"
 
+   moduleDependencies = [
+         app: ":app",
+         core: ":libraries:core",
+         event: ":features:event",
+         shop: ":features:shop",
+         profile: ":features:profile",
+         auth: ":features:auth"
+   ]
 
    presentationDependencies = [
          kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
@@ -80,7 +89,8 @@ ext {
          testRunner: "androidx.test:runner:$testRunnerVersion",
          espresso: "androidx.test.espresso:espresso-core:$espressoVersion",
          koinTest: "org.koin:koin-test:$koinVersion",
-         roomTest: "android.arch.persistence.room:testing:$roomVersion"
+         roomTest: "android.arch.persistence.room:testing:$roomVersion",
+         leakCan: "com.squareup.leakcanary:leakcanary-android:$leakVersion"
    ]
 
    NavigationItems = [

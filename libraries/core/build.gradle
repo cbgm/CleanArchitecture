@@ -38,4 +38,6 @@ dependencies {
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
    testImplementation testDep.koinTest
+
+   //debugImplementation testDep.leakCan
 }

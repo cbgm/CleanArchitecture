@@ -3,6 +3,7 @@ package com.distribution.christian.cleantest.core.core.util.ondemand
 import android.content.Context
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.google.android.play.core.splitinstall.SplitInstallSessionState
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 
@@ -10,49 +11,31 @@ import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 @Suppress("UNUSED_EXPRESSION", "UNUSED_ANONYMOUS_PARAMETER", "UNUSED_VARIABLE")
 class SplitInstallRequester(context: Context) {
 
+   private lateinit var statusListener: SplitInstallStatusListener
    private var splitInstallManager = SplitInstallManagerFactory.create(context)
-
-   private var featureLoading: Unit? = null
-   private var featureInstalled: Unit? = null
-   private var featureInstalling: Unit? = null
-   private var featureRequiresConfirmation: Unit? = null
-   private var featureLoadingFailed: Unit? = null
+   lateinit var featureName: String
 
    fun requestFeature(
          featureName: String,
-         featureLoading: Unit? = null,
-         featureInstalled: Unit? = null,
-         featureInstalling: Unit? = null,
-         featureRequiresConfirmation: Unit? = null,
-         featureLoadingFailed: Unit? = null
+         statusListener: SplitInstallStatusListener
    ) {
 
-      if (isFeatureAvailable(featureName)) {
-         featureInstalled
-         return
-      }
-
-      this.featureInstalled = featureInstalled
-      this.featureInstalling = featureInstalling
-      this.featureLoading = featureLoading
-      this.featureRequiresConfirmation = featureRequiresConfirmation
-      this.featureLoadingFailed = featureLoadingFailed
+      this.featureName = featureName
+      this.statusListener = statusListener
 
       val request = SplitInstallRequest.newBuilder()
-            .addModule(featureName)
+            .addModule(this.featureName)
             .build()
-
       splitInstallManager.registerListener(listener)
       splitInstallManager.startInstall(request)
 
    }
 
+   fun removeFeature(featureName: String) {
+      splitInstallManager.deferredUninstall(listOf(featureName))
+   }
+
    private fun cleanUp() {
-      featureLoading = null
-      featureInstalled = null
-      featureInstalling = null
-      featureRequiresConfirmation = null
-      featureLoadingFailed = null
       splitInstallManager.unregisterListener(listener)
    }
 
@@ -62,33 +45,35 @@ class SplitInstallRequester(context: Context) {
                (featureName)
          )
 
-
    private val listener = SplitInstallStateUpdatedListener { state ->
       val multiInstall = state.moduleNames().size > 1
       state.moduleNames()
             .forEach { name ->
-               // Handle changes in state.
                when (state.status()) {
                   SplitInstallSessionStatus.DOWNLOADING -> {
-                     featureLoading
+                     statusListener.updateInstallState(state, "downloading feature $featureName...")
                   }
                   SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> {
-                     featureRequiresConfirmation
+                     statusListener.updateInstallState(state, "confirmation feature $featureName...")
                   }
                   SplitInstallSessionStatus.INSTALLED -> {
+                     statusListener.updateInstallState(state, "installed feature $featureName")
                      cleanUp()
-                     featureInstalled
                   }
 
                   SplitInstallSessionStatus.INSTALLING -> {
-                     featureLoading
+                     statusListener.updateInstallState(state, "installing feature $featureName...")
                   }
 
                   SplitInstallSessionStatus.FAILED -> {
+                     statusListener.updateInstallState(state, "failed feature $featureName")
                      cleanUp()
-                     featureLoadingFailed
                   }
                }
             }
+   }
+
+   interface SplitInstallStatusListener {
+      fun updateInstallState(state: SplitInstallSessionState, message: String)
    }
 }

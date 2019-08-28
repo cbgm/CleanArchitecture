@@ -2,11 +2,15 @@ apply from: "../../default-feature.gradle"
 
 dependencies {
 
-   implementation project(":libraries:core")
-   implementation project(":app")
+   def moduleDep = rootProject.ext.moduleDependencies
+   implementation project(moduleDep.core)
+   implementation project(moduleDep.app)
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
+
+   //debugImplementation testDep.leakCan
+
 }

@@ -20,7 +20,6 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.christian.multinavlib.di.navModule
-import com.christian.multinavlib.navigation.coordinator.BaseCoordinator
 import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.distribution.christian.cleantest.app.core.navigation.MainCoordinatorImpl
 import com.distribution.christian.cleantest.app.core.navigation.RootFlowCoordinatorImpl
@@ -69,9 +68,10 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
    private val mainCoordinatorImpl: MainCoordinatorImpl by inject()
    private val eventCoordinator: EventFlowCoordinatorImpl by inject()
    private val rootFlowCoordinatorImpl: RootFlowCoordinatorImpl by inject()
-   private val shopCoordinator: BaseCoordinator by lazy {
+   //not working with dynamic feature, has to be installed first
+   /*private val shopCoordinator: BaseCoordinator by lazy {
       Class.forName("com.distribution.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl").newInstance() as BaseCoordinator
-   }
+   }*/
    private val profileCoordinator: ProfileFlowCoordinatorImpl by inject()
    private val authCoordinator: AuthFlowCoordinatorImpl by inject()
 
@@ -152,10 +152,10 @@ class UserApplication : SplitCompatApplication(), LifecycleObserver {
                FeatureStates.EVENTS,
                eventCoordinator
          )
-         registerFeatureCoordinator(
+         /*registerFeatureCoordinator(
                FeatureStates.SHOP,
-               shopCoordinator
-         )
+               Class.forName("com.distribution.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl").newInstance() as BaseCoordinator//shopCoordinator
+         )*/
          registerFeatureCoordinator(
                FeatureStates.PROFILE,
                profileCoordinator

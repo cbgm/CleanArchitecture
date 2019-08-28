@@ -10,13 +10,13 @@
       app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
       app:layout_constraintTop_toTopOf="parent">
 
-      <include layout="@layout/toolbar" />
-
       <FrameLayout
          android:id="@+id/fragment_container"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+      <include layout="@layout/toolbar" />
 
    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

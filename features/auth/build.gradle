@@ -7,7 +7,8 @@ dependencies {
    implementation presDep.shimmer
    implementation presDep.supportDesign
 
-   implementation project(":libraries:core")
+   def moduleDep = rootProject.ext.moduleDependencies
+   implementation project(moduleDep.core)
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit

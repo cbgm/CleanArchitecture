@@ -13,11 +13,14 @@ dependencies {
    implementation dataDep.roomCoroutines
    kapt dataDep.roomCompiler
 
-   implementation project(":libraries:core")
+   def moduleDep = rootProject.ext.moduleDependencies
+   implementation project(moduleDep.core)
 
    def testDep = rootProject.ext.testDependencies
    testImplementation testDep.junit
    testImplementation testDep.testRunner
    testImplementation testDep.espresso
    testImplementation testDep.koinTest
+
+   //debugImplementation testDep.leakCan
 }
