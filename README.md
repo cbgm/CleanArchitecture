@@ -1,6 +1,7 @@
 # CleanArchitecture concept
 
 ## Currently (in dev) configured with:
+- Pattern MVP
 - Koin dependency injection
 - Sonarqube using detekt
     - easy use with homebrew (install sonar)
