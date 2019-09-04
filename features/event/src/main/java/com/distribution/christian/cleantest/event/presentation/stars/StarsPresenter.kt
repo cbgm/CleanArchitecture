@@ -1,7 +1,7 @@
 package com.distribution.christian.cleantest.event.presentation.stars
 
-import com.distribution.christian.cleantest.core.domain.completable.CompletableLCEObserver
 import com.distribution.christian.cleantest.core.domain.single.SingleLCEObserver
+import com.distribution.christian.cleantest.event.domain.model.Event
 import com.distribution.christian.cleantest.event.domain.model.EventOverview
 import com.distribution.christian.cleantest.event.domain.usecase.DeleteEventFromCache
 import com.distribution.christian.cleantest.event.domain.usecase.GetEventsFromCache
@@ -28,9 +28,9 @@ class StarsPresenter @Inject constructor(
       }
    }
 
-   inner class DeleteStarredEventObserver: CompletableLCEObserver(starsView) {
-      override fun onComplete() {
-         starsView.showDeletedStars()
+   inner class DeleteStarredEventObserver: SingleLCEObserver<Event>(starsView) {
+      override fun onSuccess(value: Event) {
+         starsView.showDeletedStars(EventDomainMapper.transform(value))
       }
    }
 

@@ -40,10 +40,11 @@ import com.distribution.christian.cleantest.core.core.util.listener.OnSuggestion
 import com.distribution.christian.cleantest.core.presentation.model.SearchEntity
 import com.distribution.christian.cleantest.event.presentation.detail.model.EventDetailFragmentConsistency
 import com.distribution.christian.cleantest.event.core.navigation.EventFlowCoordinatorImpl.States.*
+import com.distribution.christian.cleantest.event.presentation.stars.StarsFragment
 
 
 @Suppress("UNCHECKED_CAST")
-class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), OverviewContract.View, OverviewAdapter.OnItemClickListener {
+class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), OverviewContract.View, OverviewAdapter.OnItemClickListener, StarsFragment.StarsListener {
 
    companion object {
 
@@ -300,9 +301,13 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    }
 
    private fun setupDetailParams(event: EventEntity): HashMap<String, Any> {
-      val params =  HashMap<String, Any>()
+      val params = HashMap<String, Any>()
       params[EventDetailFragmentConsistency.EVENT_KEY] = event
       return params
+   }
+
+   override fun onStarsChanged(starsList: List<EventEntity>) {
+      overviewAdapter.updateItems(starsList)
    }
 }
 

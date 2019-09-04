@@ -31,7 +31,7 @@ class EventRepositoryImpl constructor(
    override suspend fun updateEvent(event: Event): Result<Event> {
       if (!event.isStarred) {
          eventCache.getEventDao()
-               .saveEvent(EventDtoMapper.transform(event))
+               .saveEvent(EventDtoMapper.transform(event.copy(isStarred = true)))
       } else {
          eventCache.getEventDao().deleteEvent(EventDtoMapper.transform(event))
       }

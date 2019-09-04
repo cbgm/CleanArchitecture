@@ -1,5 +1,6 @@
 package com.distribution.christian.cleantest.event.presentation.overview
 
+import android.annotation.SuppressLint
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -65,6 +66,7 @@ class OverviewAdapter(
 
    override fun getFilter(): Filter {
       return object : Filter() {
+         @SuppressLint("DefaultLocale")
          override fun performFiltering(charSequence: CharSequence): FilterResults {
             val charString = charSequence.toString()
             filteredData = if (charString.isEmpty()) {
@@ -92,6 +94,12 @@ class OverviewAdapter(
       val position: Int = data.indexOf(data.first { it.id == event.id })
       data[position] = event
       notifyItemChanged(position)
+   }
+
+   fun updateItems(eventList: List<EventEntity>) {
+      eventList.forEach{
+        updateItem(it)
+      }
    }
 
    interface OnItemClickListener {

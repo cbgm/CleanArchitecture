@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import com.distribution.christian.cleantest.core.core.ui.BaseWindowFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.event.R
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 
 
-class StarsDialog: BaseWindowFragment() {
+class StarsDialog: BaseWindowFragment(), StarsFragment.StarsListener {
+
+   private lateinit var callbackDialog: StarsFragment.StarsListener
 
    override fun onCreateView(
          inflater: LayoutInflater,
@@ -23,7 +26,7 @@ class StarsDialog: BaseWindowFragment() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      replaceFragment(StarsFragment.newInstance(), R.id.fragment_container, "")
+      replaceFragment(StarsFragment.newInstance().apply { setStarsListener(this@StarsDialog) }, R.id.fragment_container, "")
 
    }
 
@@ -31,4 +34,10 @@ class StarsDialog: BaseWindowFragment() {
       super.onActivityCreated(savedInstanceState)
       dialog.window?.attributes?.windowAnimations = R.style.AppTheme_DialogAnimation
    }
+
+   override fun onStarsChanged(starsList: List<EventEntity>) {
+      callbackDialog = targetFragment!!.childFragmentManager.fragments[0] as StarsFragment.StarsListener
+      callbackDialog.onStarsChanged(starsList)
+   }
+
 }

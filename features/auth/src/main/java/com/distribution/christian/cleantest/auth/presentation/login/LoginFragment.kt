@@ -147,7 +147,7 @@ class LoginFragment : AuthBaseFragment(), LoginContract.View, NetworkListener {
       }
 
       bookmarkBtn.setOnClickListener {
-         activity.showStarsDialog()
+         activity.showStarsDialog(this)
       }
 
       registerBtn.setOnClickListener {

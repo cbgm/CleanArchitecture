@@ -12,7 +12,7 @@ interface StarsContract {
 
       fun showStars(eventOverviewEntity: EventOverviewEntity)
 
-      fun showDeletedStars()
+      fun showDeletedStars(eventEntity: EventEntity)
    }
 
    interface Presenter : BasePresenter<View> {

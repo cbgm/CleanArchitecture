@@ -12,9 +12,12 @@ import com.distribution.christian.cleantest.core.core.util.extension.navigateGoo
 import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
 import com.distribution.christian.cleantest.event.R
 import com.distribution.christian.cleantest.event.core.ui.EventBaseFragment
+import com.distribution.christian.cleantest.event.presentation.detail.model.EventEntity
 import com.distribution.christian.cleantest.event.presentation.overview.model.EventOverviewEntity
 import com.distribution.christian.cleantest.event.presentation.stars.model.EventStarsFragmentConsistency
 import com.facebook.shimmer.ShimmerFrameLayout
+import timber.log.Timber
+import java.lang.Exception
 
 
 class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsContract.View, SwipeAdapter.OnClickListener {
@@ -27,8 +30,9 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
       val session = activity.getAndCreateScope(DiScope.EVENT_STARS)
       session.get<StarsPresenter>()
    }
+   private val starsChangedList = ArrayList<EventEntity>()
    private lateinit var simpleAdapter: SwipeAdapter
-
+   private lateinit var callback: StarsListener
    private lateinit var starsList: RecyclerView
    private lateinit var content: LinearLayout
    private lateinit var error: LinearLayout
@@ -93,7 +97,25 @@ class StarsFragment : EventBaseFragment<EventStarsFragmentConsistency>(), StarsC
       loading.visibility = if (isVisible) View.VISIBLE else View.GONE
    }
 
-   override fun showDeletedStars() {
+   override fun showDeletedStars(eventEntity: EventEntity) {
+      starsChangedList.add(eventEntity)
       presenter.triggerEmptyEvents(starsList.adapter!!.itemCount)
+   }
+
+   fun setStarsListener(listener: StarsListener){
+      callback = listener
+   }
+
+   override fun onDestroy() {
+      try {
+         callback.onStarsChanged(starsChangedList)
+      } catch (e: Exception) {
+         Timber.e("Calling Fragment must implement StarsListener")
+      }
+      super.onDestroy()
+   }
+
+   interface StarsListener {
+      fun onStarsChanged(starsList: List<EventEntity>)
    }
 }

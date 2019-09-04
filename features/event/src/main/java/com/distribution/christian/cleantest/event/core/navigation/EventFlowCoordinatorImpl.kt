@@ -67,7 +67,7 @@ class EventFlowCoordinatorImpl : BaseCoordinatorImpl(), EventFlowCoordinator {
    }
 
    override fun showStars() {
-      currentFeatureFragment?.activity?.showStarsDialog()
+      currentFeatureFragment?.activity?.showStarsDialog(currentFeatureFragment!!)
    }
 
    override fun navigateDeepLink(deepLink: DeepLink) {

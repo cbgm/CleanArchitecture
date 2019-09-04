@@ -79,7 +79,7 @@ class MainActivity : BaseNavigationActivity(R.layout.activity_main), SplitInstal
    private fun showShop() {
       coordinatorManager.registerFeatureCoordinator(
             FeatureStates.SHOP,
-            Class.forName("com.distribution.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl").newInstance() as BaseCoordinator//shopCoordinator
+            Class.forName("com.distribution.christian.cleantest.shop.core.navigation.ShopFlowCoordinatorImpl").newInstance() as BaseCoordinator
       )
       coordinatorManager.navigateToFeature(FeatureStates.SHOP)
    }
