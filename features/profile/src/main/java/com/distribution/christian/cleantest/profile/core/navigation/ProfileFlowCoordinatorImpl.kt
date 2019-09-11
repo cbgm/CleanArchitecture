@@ -6,7 +6,9 @@ import com.christian.multinavlib.navigation.coordinator.CoordinatorManager
 import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.showFeedbackDialog
+import com.distribution.christian.cleantest.core.core.util.extension.showHelpDialog
 import com.distribution.christian.cleantest.profile.R
+import com.distribution.christian.cleantest.profile.presentation.help.HelpFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.OverviewFragment
 import com.distribution.christian.cleantest.profile.presentation.settings.SettingsFragment
 
@@ -17,7 +19,8 @@ class ProfileFlowCoordinatorImpl : BaseCoordinatorImpl(), ProfileFlowCoordinator
    enum class States : CoordinatorManager.State {
       OVERVIEW,
       SETTINGS,
-      FEEDBACK
+      FEEDBACK,
+      HELP
    }
 
    override fun showOverview() {
@@ -36,6 +39,10 @@ class ProfileFlowCoordinatorImpl : BaseCoordinatorImpl(), ProfileFlowCoordinator
             replaceableFragmentId,
             SettingsFragment.TAG
       )
+   }
+
+   override fun showHelp() {
+      currentFeatureFragment?.activity?.showHelpDialog(currentFeatureFragment!!)
    }
 
    override fun showFeedback() {
@@ -62,6 +69,7 @@ class ProfileFlowCoordinatorImpl : BaseCoordinatorImpl(), ProfileFlowCoordinator
          States.OVERVIEW -> showOverview()
          States.SETTINGS -> showSettings()
          States.FEEDBACK -> showFeedback()
+         States.HELP -> showHelp()
       }
       return null
    }

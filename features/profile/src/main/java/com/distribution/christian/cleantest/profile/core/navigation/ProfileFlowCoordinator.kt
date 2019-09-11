@@ -8,4 +8,6 @@ interface ProfileFlowCoordinator {
    fun showSettings()
 
    fun showFeedback()
+
+   fun showHelp()
 }

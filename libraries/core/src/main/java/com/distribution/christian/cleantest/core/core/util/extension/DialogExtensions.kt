@@ -16,3 +16,9 @@ fun FragmentActivity.showFeedbackDialog(currentFeatureFragment: Fragment) {
    newFragment.setTargetFragment(currentFeatureFragment, 0)
    newFragment.show(this.supportFragmentManager, "Feedback")
 }
+
+fun FragmentActivity.showHelpDialog(currentFeatureFragment: Fragment) {
+   val newFragment = Class.forName("com.distribution.christian.cleantest.profile.presentation.help.HelpDialog").newInstance() as BaseWindowFragment
+   newFragment.setTargetFragment(currentFeatureFragment, 0)
+   newFragment.show(this.supportFragmentManager, "Help")
+}

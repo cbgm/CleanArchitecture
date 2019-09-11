@@ -1,6 +1,7 @@
 package com.distribution.christian.cleantest.core.core.ui
 
 import android.app.Dialog
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,15 +26,10 @@ open class BaseWindowFragment : DialogFragment() {
    ): View? {
       val view = inflater.inflate(R.layout.fragment_window, container, false)
       toolbar = view.findViewById(R.id.toolbar)
-      toolbar.inflateMenu(R.menu.window_menu)
-      toolbar.setOnMenuItemClickListener {
-         when(it.itemId) {
-            R.id.close -> {
-               dismiss()
-            }
-         }
-         true
+      toolbar.setNavigationOnClickListener{
+         dismiss()
       }
+      toolbar.setNavigationIcon(R.drawable.ic_clear)
       return view
    }
 
@@ -57,5 +53,10 @@ open class BaseWindowFragment : DialogFragment() {
                ViewGroup.LayoutParams.MATCH_PARENT
          )
       }
+   }
+
+   override fun onActivityCreated(savedInstanceState: Bundle?) {
+      super.onActivityCreated(savedInstanceState)
+      dialog?.window?.attributes?.windowAnimations = R.style.AppTheme_DialogAnimation
    }
 }

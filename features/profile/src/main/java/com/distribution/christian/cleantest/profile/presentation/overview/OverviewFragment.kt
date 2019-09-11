@@ -173,6 +173,7 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
       when (item.itemId) {
          R.id.settings -> coordinatorManager.navigateInFeature(ProfileFlowCoordinatorImpl.States.SETTINGS)
          R.id.feedback -> coordinatorManager.navigateInFeature(ProfileFlowCoordinatorImpl.States.FEEDBACK)
+         R.id.help -> coordinatorManager.navigateInFeature(ProfileFlowCoordinatorImpl.States.HELP)
       }
       return super.onOptionsItemSelected(item)
    }

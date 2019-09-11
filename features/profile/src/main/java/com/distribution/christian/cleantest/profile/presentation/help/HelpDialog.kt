@@ -1,4 +1,4 @@
-package com.distribution.christian.cleantest.profile.presentation.feedback
+package com.distribution.christian.cleantest.profile.presentation.help
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,21 +9,19 @@ import com.distribution.christian.cleantest.core.core.ui.BaseWindowFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.profile.R
 
-class FeedbackDialog : BaseWindowFragment() {
+class HelpDialog : BaseWindowFragment() {
    override fun onCreateView(
          inflater: LayoutInflater,
          container: ViewGroup?,
          savedInstanceState: Bundle?
    ): View? {
       val view = super.onCreateView(inflater, container, savedInstanceState)
-      toolbar.title = getString(R.string.title_feedback)
-      toolbar.inflateMenu(R.menu.feedback_toolbar_menu)
+      toolbar.title = getString(R.string.title_help)
+      toolbar.inflateMenu(R.menu.help_toolbar_menu)
       toolbar.setOnMenuItemClickListener {
-         when (it.itemId) {
-            R.id.send -> {
-               Toast.makeText(context, "Sent", Toast.LENGTH_SHORT).show()
-               dismiss()
-            }
+         when(it.itemId) {
+            R.id.privacy -> {}
+            R.id.terms -> {}
          }
          true
       }
@@ -32,6 +30,6 @@ class FeedbackDialog : BaseWindowFragment() {
 
    override fun onCreate(savedInstanceState: Bundle?) {
       super.onCreate(savedInstanceState)
-      replaceFragment(FeedbackFragment.newInstance(), R.id.fragment_container, "")
+      replaceFragment(HelpFragment.newInstance(), R.id.fragment_container, "")
    }
 }
