@@ -6,6 +6,7 @@ dependencies {
    api presDep.kotlinStdLib
    api presDep.appcompat
    api presDep.constraint
+   api presDep.preference
    api presDep.supportLib
    api presDep.lifecycleRuntime
    api presDep.lifecycleExtensions

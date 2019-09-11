@@ -39,6 +39,7 @@ class SplitInstallRequester(context: Context) {
       splitInstallManager.unregisterListener(listener)
    }
 
+   fun installedModules() = splitInstallManager.installedModules
 
    fun isFeatureAvailable(featureName: String) =
          splitInstallManager.installedModules.contains(

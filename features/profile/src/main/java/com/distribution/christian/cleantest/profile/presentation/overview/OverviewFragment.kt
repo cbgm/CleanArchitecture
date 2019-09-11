@@ -1,7 +1,10 @@
 package com.distribution.christian.cleantest.profile.presentation.overview
 
 import android.animation.Animator
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
@@ -16,12 +19,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.distribution.christian.cleantest.core.core.di.DiScope
 import com.distribution.christian.cleantest.core.core.ui.AutoCompleteAdapter
-import com.distribution.christian.cleantest.core.core.util.extension.loadResource
 import com.distribution.christian.cleantest.core.core.util.extension.getAndCreateScope
+import com.distribution.christian.cleantest.core.core.util.extension.loadResource
 import com.distribution.christian.cleantest.core.core.util.listener.AnimationEndListener
 import com.distribution.christian.cleantest.core.core.util.listener.OnSeekbarChangedListener
 import com.distribution.christian.cleantest.core.device.ToolbarLoader
 import com.distribution.christian.cleantest.profile.R
+import com.distribution.christian.cleantest.profile.core.navigation.ProfileFlowCoordinatorImpl
 import com.distribution.christian.cleantest.profile.core.ui.ProfileBaseFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewEntity
 import com.distribution.christian.cleantest.profile.presentation.overview.model.ProfileOverviewFragmentConsistency
@@ -158,10 +162,17 @@ class OverviewFragment : ProfileBaseFragment<ProfileOverviewFragmentConsistency>
       }
    }
 
+   @SuppressLint("ResourceType")
+   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+      inflater.inflate(R.menu.profile_toolbar_menu, menu)
+      super.onCreateOptionsMenu(menu, inflater)
+   }
+
    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
       when (item.itemId) {
-         //R.id.edit -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+         R.id.settings -> coordinatorManager.navigateInFeature(ProfileFlowCoordinatorImpl.States.SETTINGS)
+         R.id.feedback -> coordinatorManager.navigateInFeature(ProfileFlowCoordinatorImpl.States.FEEDBACK)
       }
       return super.onOptionsItemSelected(item)
    }

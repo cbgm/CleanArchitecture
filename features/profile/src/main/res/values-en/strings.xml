@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    <string name="title_profile">Profile</string>
-   <string name="edit">Edit</string>
+   <string name="settings">Settings</string>
    <string name="save">Save</string>
+   <string name="modules">Modules</string>
+   <string name="title_settings">Settings</string>
+   <string name="title_feedback">Feedback</string>
 </resources>

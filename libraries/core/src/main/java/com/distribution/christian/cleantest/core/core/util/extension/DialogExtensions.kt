@@ -10,3 +10,9 @@ fun FragmentActivity.showStarsDialog(currentFeatureFragment: Fragment) {
    newFragment.setTargetFragment(currentFeatureFragment, 0)
    newFragment.show(this.supportFragmentManager, "Stars")
 }
+
+fun FragmentActivity.showFeedbackDialog(currentFeatureFragment: Fragment) {
+   val newFragment = Class.forName("com.distribution.christian.cleantest.profile.presentation.feedback.FeedbackDialog").newInstance() as BaseWindowFragment
+   newFragment.setTargetFragment(currentFeatureFragment, 0)
+   newFragment.show(this.supportFragmentManager, "Feedback")
+}

@@ -89,5 +89,8 @@
       <item name="actionMenuTextColor">@color/colorAccent</item>
    </style>
 
+   <style name="AppTheme.PopUpOverlay" parent="AppTheme">
+      <item name="android:textColor">@color/backgroundTheme</item>
+   </style>
 
 </resources>

@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.cursoradapter.widget.CursorAdapter
@@ -139,7 +138,7 @@ class OverviewFragment : EventBaseFragment<EventOverviewFragmentConsistency>(), 
    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
       when (item.itemId) {
-         R.id.search -> Toast.makeText(activity, "test", Toast.LENGTH_SHORT).show()
+         R.id.search -> {}
          R.id.stars -> coordinatorManager.navigateInFeature(STARS)
       }
       return super.onOptionsItemSelected(item)

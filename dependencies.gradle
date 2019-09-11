@@ -3,12 +3,13 @@ ext {
    applicationId = "com.distribution.christian.cleantest"
    minSdkVersion = 23
    targetSdkVersion = 28
-   versionCode = 17
-   versionName = "1.11"
+   versionCode = 18
+   versionName = "1.12"
 
 
    supportLibVersion = '1.0.0-beta01'
    constraintLayoutVersion = '1.1.2'
+   preferenceVersion = '1.1.0-alpha02'
    lifecycleVersion = '2.0.0-beta01'
    retrofitVersion = "2.4.0"
    coroutinesAdapterVersion = "0.9.2"
@@ -47,9 +48,10 @@ ext {
          kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
          appcompat: "androidx.appcompat:appcompat:$supportLibVersion",
          constraint: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+         preference: "androidx.preference:preference:$preferenceVersion",
          supportLib: "androidx.legacy:legacy-support-v4:$supportLibVersion",
          lifecycleRuntime: "androidx.lifecycle:lifecycle-runtime:$lifecycleVersion",
-         googleCore: "com.google.android.play:core:${googleCoreVersion}",
+         googleCore: "com.google.android.play:core:$googleCoreVersion",
          lifecycleExtensions: "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
          cardView: "androidx.cardview:cardview:$supportLibVersion",
          recyclerView: "androidx.recyclerview:recyclerview:$supportLibVersion",

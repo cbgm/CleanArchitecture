@@ -16,4 +16,5 @@
    <color name="textHighlightedBottomNavigation">#ffffff</color>
    <color name="shimmerDark">#cecece</color>
    <color name="shimmerLight">#E0E0E0</color>
+   <color name="rating">#ebd534</color>
 </resources>
