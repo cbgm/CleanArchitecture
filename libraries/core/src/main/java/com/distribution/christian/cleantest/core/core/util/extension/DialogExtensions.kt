@@ -22,3 +22,15 @@ fun FragmentActivity.showHelpDialog(currentFeatureFragment: Fragment) {
    newFragment.setTargetFragment(currentFeatureFragment, 0)
    newFragment.show(this.supportFragmentManager, "Help")
 }
+
+fun FragmentActivity.showPrivacyDialog(currentFeatureFragment: Fragment) {
+   val newFragment = Class.forName("com.distribution.christian.cleantest.profile.presentation.help.privacy.PrivacyDialog").newInstance() as BaseWindowFragment
+   newFragment.setTargetFragment(currentFeatureFragment, 0)
+   newFragment.show(this.supportFragmentManager, "Privacy")
+}
+
+fun FragmentActivity.showTermsDialog(currentFeatureFragment: Fragment) {
+   val newFragment = Class.forName("com.distribution.christian.cleantest.profile.presentation.help.terms.TermsDialog").newInstance() as BaseWindowFragment
+   newFragment.setTargetFragment(currentFeatureFragment, 0)
+   newFragment.show(this.supportFragmentManager, "Privacy")
+}

@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.distribution.christian.cleantest.core.core.ui.BaseWindowFragment
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
+import com.distribution.christian.cleantest.core.core.util.extension.showPrivacyDialog
+import com.distribution.christian.cleantest.core.core.util.extension.showTermsDialog
 import com.distribution.christian.cleantest.profile.R
 
 class HelpDialog : BaseWindowFragment() {
@@ -20,8 +21,8 @@ class HelpDialog : BaseWindowFragment() {
       toolbar.inflateMenu(R.menu.help_toolbar_menu)
       toolbar.setOnMenuItemClickListener {
          when(it.itemId) {
-            R.id.privacy -> {}
-            R.id.terms -> {}
+            R.id.privacy -> activity?.showPrivacyDialog(this)
+            R.id.terms -> activity?.showTermsDialog(this)
          }
          true
       }

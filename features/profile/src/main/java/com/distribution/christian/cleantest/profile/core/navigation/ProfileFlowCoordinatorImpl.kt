@@ -7,6 +7,7 @@ import com.christian.multinavlib.navigation.deeplink.DeepLink
 import com.distribution.christian.cleantest.core.core.util.extension.replaceFragment
 import com.distribution.christian.cleantest.core.core.util.extension.showFeedbackDialog
 import com.distribution.christian.cleantest.core.core.util.extension.showHelpDialog
+import com.distribution.christian.cleantest.core.core.util.extension.showPrivacyDialog
 import com.distribution.christian.cleantest.profile.R
 import com.distribution.christian.cleantest.profile.presentation.help.HelpFragment
 import com.distribution.christian.cleantest.profile.presentation.overview.OverviewFragment
