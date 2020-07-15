@@ -33,6 +33,7 @@ fun <T> Result<Any>.emit(observer: BaseObserver<T>?){
    this.onError { observer?.onError(it) }
 }
 
+
 inline fun <T : Any, R : Any> Result<T>.mapOnSuccess(map: (T) -> R) = when (this) {
    is Result.Success -> Result.Success(map(data))
    is Result.Complete -> this
